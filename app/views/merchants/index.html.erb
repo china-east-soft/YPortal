@@ -1,0 +1,43 @@
+<h1>Listing merchants</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Industry</th>
+      <th>Province</th>
+      <th>City</th>
+      <th>Area</th>
+      <th>Circle</th>
+      <th>Address</th>
+      <th>Contact</th>
+      <th>Mobile</th>
+      <th>Secondary</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @merchants.each do |merchant| %>
+      <tr>
+        <td><%= merchant.name %></td>
+        <td><%= merchant.industry %></td>
+        <td><%= merchant.province %></td>
+        <td><%= merchant.city %></td>
+        <td><%= merchant.area %></td>
+        <td><%= merchant.circle %></td>
+        <td><%= merchant.address %></td>
+        <td><%= merchant.contact %></td>
+        <td><%= merchant.mobile %></td>
+        <td><%= merchant.secondary %></td>
+        <td><%= link_to 'Show', merchant %></td>
+        <td><%= link_to 'Edit', edit_merchant_path(merchant) %></td>
+        <td><%= link_to 'Destroy', merchant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Merchant', new_merchant_path %>

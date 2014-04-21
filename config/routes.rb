@@ -1,7 +1,31 @@
 Rails.application.routes.draw do
 
-  devise_for :admins, :controllers => {:registrations => "admin/registrations",
-   :sessions => "admin/sessions" }
+  devise_for :admins, :controllers => {:registrations => "registrations",
+   :sessions => "sessions" }
+
+  devise_for :agents, :controllers => {:registrations => "agent/registrations",
+   :sessions => "agent/sessions" }
+
+  devise_for :merchants, :controllers => {:registrations => "merchant/registrations",
+   :sessions => "merchant/sessions" }
+
+  root 'welcome#index'
+  
+  get 'admin' => "welcome#index", as: :admin_root
+  get 'agent' => "welcome#index", as: :agent_root
+  get 'merchant' => "welcome#index", as: :merchant_root
+
+  namespace :admin do
+    resources :agents
+    resources :merchants
+  end
+
+  namespace :agent do
+  end
+
+  namespace :merchant do
+  end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

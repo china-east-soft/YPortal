@@ -1,0 +1,43 @@
+<h1>Listing agents</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Category</th>
+      <th>Name</th>
+      <th>Industry</th>
+      <th>City</th>
+      <th>Contact</th>
+      <th>Telephone</th>
+      <th>Known from</th>
+      <th>Remark</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @agents.each do |agent| %>
+      <tr>
+        <td><%= agent.email %></td>
+        <td><%= agent.category %></td>
+        <td><%= agent.name %></td>
+        <td><%= agent.industry %></td>
+        <td><%= agent.city %></td>
+        <td><%= agent.contact %></td>
+        <td><%= agent.telephone %></td>
+        <td><%= agent.known_from %></td>
+        <td><%= agent.remark %></td>
+        <td><%= agent.status %></td>
+        <td><%= link_to 'Show', agent %></td>
+        <td><%= link_to 'Edit', edit_agent_path(agent) %></td>
+        <td><%= link_to 'Destroy', agent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Agent', new_agent_path %>
