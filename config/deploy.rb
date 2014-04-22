@@ -24,10 +24,10 @@ set :ssh_options, '-A'
 
 set :shared_paths, ['log', 'tmp/restart.txt', 'public/uploads', 'public/robots.txt', 'config/database.yml']
 
-set :user, 'andersen'
+set :user, 'root'
 set :term_mode, :nil
 
-set :rvm_path, '/usr/local/rvm'
+set :rvm_path, '/usr/local/rvm/scripts/rvm'
 
 task :environment do
   invoke :'rvm:use[ruby-2.1.1@default]'
