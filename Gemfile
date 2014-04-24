@@ -44,7 +44,12 @@ group :assets do
   gem "truncate_html"
 end
 
+gem 'grape'
 gem 'mina'
+gem 'ruby-hmac'
+
+gem "omniauth"
+gem 'omniauth-weibo-oauth2'
 
 gem 'carrierwave'
 # gem 'rmagick'

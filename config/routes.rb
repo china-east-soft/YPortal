@@ -14,6 +14,11 @@ Rails.application.routes.draw do
   get 'admin' => "welcome#index", as: :admin_root
   get 'agent' => "welcome#index", as: :agent_root
   get 'merchant' => "welcome#index", as: :merchant_root
+  get 'wifi' => "welcome#index", as: :wifi_root
+
+  namespace :wifi do
+    get 'merchant' => "merchants#home"
+  end
 
   namespace :admin do
     resources :agents
@@ -26,6 +31,9 @@ Rails.application.routes.draw do
   namespace :merchant do
   end
 
+  mount API::Entrance => '/api'
+
+  match "/auth/:provider/callback" => "sessions#create", via: [:get, :post]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

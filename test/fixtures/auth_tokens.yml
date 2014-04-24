@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  auth_token: MyString
+  expired_timestamp: 1
+  mac: MyString
+  client_identifier: MyString
+  status: 1
+  mid: MyString
+
+two:
+  auth_token: MyString
+  expired_timestamp: 1
+  mac: MyString
+  client_identifier: MyString
+  status: 1
+  mid: MyString
