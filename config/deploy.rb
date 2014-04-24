@@ -22,7 +22,7 @@ set :repository, 'git@github.com:china-east-soft/YPortal.git'
 set :branch, branch
 set :ssh_options, '-A'
 
-set :shared_paths, ['log', 'tmp/restart.txt', 'public/uploads', 'public/robots.txt', 'config/database.yml']
+set :shared_paths, ['db/production.sqlite3', 'log', 'tmp/restart.txt', 'public/uploads', 'public/robots.txt', 'config/database.yml']
 
 set :user, 'root'
 set :term_mode, :nil
@@ -36,6 +36,9 @@ end
 task :setup => :environment do
   queue! %[mkdir -p "#{deploy_to}/shared/log"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/log"]
+
+  queue! %[touch -p "#{deploy_to}/shared/db/production.sqlite3"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/db/production.sqlite3"]
 
   queue! %[mkdir -p "#{deploy_to}/shared/tmp"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/tmp"]
