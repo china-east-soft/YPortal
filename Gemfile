@@ -38,7 +38,7 @@ end
 group :assets do
   gem 'html5shiv-rails'
   gem 'jquery-ui-rails'
-  gem 'jquery_datepicker', :git => "git://github.com/foodforarabbit/jquery_datepicker.git"
+  gem 'jquery_datepicker', :git => "git@github.com:foodforarabbit/jquery_datepicker.git"
   gem 'ui_datepicker-rails3'
   gem "simple_form" 
   gem "truncate_html"
