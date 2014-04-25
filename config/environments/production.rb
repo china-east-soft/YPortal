@@ -48,7 +48,6 @@ Rails.application.configure do
   # config.log_level = :info
 
   config.log_level = :warn # In any environment initializer, or
-  Rails.logger.level = 0 # at any time
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
