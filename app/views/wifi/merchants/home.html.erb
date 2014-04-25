@@ -3,8 +3,19 @@
     <%= value %>
   </div>
 <% end %>
+
+<% if @auth_token && @auth_token.init? %>
+	<%= link_to wifi_login_url(vtoken: params[:vtoken]) do %>
+	  <div class="alert alert-success">
+	    我要免费上网
+	  </div>
+  <% end %>
+<% end %>
+
+<!--
 <script type="text/javascript">
   $(document).ready(function() {
     window.history.pushState({},0,'http://'+window.location.host+'/'+'<%=@url%>');  
   });
 </script> 
+-->

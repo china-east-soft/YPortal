@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mobile: MyString
+  verify_code: MyString
+  activated_at: 2014-04-25 15:44:45
+
+two:
+  mobile: MyString
+  verify_code: MyString
+  activated_at: 2014-04-25 15:44:45
