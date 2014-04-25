@@ -6,27 +6,27 @@ module API
     # ToDo: Is there any way to load all the helpers once?
     include API::Helpers::OAuth
 
-    def current_user
-      @current_user ||= User.find_by_authentication_token(params[:private_token] || env["HTTP_PRIVATE_TOKEN"])
-    end
+    # def current_user
+    #   @current_user ||= User.find_by_authentication_token(params[:private_token] || env["HTTP_PRIVATE_TOKEN"])
+    # end
 
     def paginate(object)
       object.page(params[:page]).per(params[:per_page].to_i)
     end
 
-    def authenticate!
-      unauthorized! unless current_user
-    end
+    # def authenticate!
+    #   unauthorized! unless current_user
+    # end
 
-    def authenticated_as_admin!
-      forbidden! unless current_user.is_admin?
-    end
+    # def authenticated_as_admin!
+    #   forbidden! unless current_user.is_admin?
+    # end
 
-    def authorize! action, subject
-      unless abilities.allowed?(current_user, action, subject)
-        forbidden!
-      end
-    end
+    # def authorize! action, subject
+    #   unless abilities.allowed?(current_user, action, subject)
+    #     forbidden!
+    #   end
+    # end
 
     # error helpers
 

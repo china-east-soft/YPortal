@@ -5,6 +5,11 @@ class Wifi::MerchantsController < WifiController
     if params[:vtoken]
       @url = "wifi/merchant?vtoken=#{params[:vtoken]}"
       if params[:client_identifier] && params[:mac]
+
+        # http_basic do |username, password|
+        #   { 'yunlian_portal' => 'china-east' }[username] == password
+        # end
+
         auth_token = AuthToken.where(auth_token: params[:vtoken]).first
         if auth_token
           if auth_token.init?

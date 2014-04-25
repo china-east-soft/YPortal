@@ -39,16 +39,12 @@ module API
 
     unless Rails.env.test?
       http_basic do |username, password|
-        { 'yunmao' => 'china-east' }[username] == password
+        { 'yunlian_portal' => 'china-east' }[username] == password
       end
     end
 
     before do
       @start = Time.now.to_f
-    end
-
-    after do
-      log_api_visit
     end
 
     mount API::V1::Root
