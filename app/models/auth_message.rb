@@ -26,8 +26,8 @@ class AuthMessage < ActiveRecord::Base
     def generate_verify_code
       repeat_verify_code = false
       account = Account.where(mobile: self.mobile).first
-      if account
-        if account.last_seen < last_auth_message.updated_at
+      if account && last_signin = account.account_signins.last
+        if last_signin.created_at < last_auth_message.updated_at
           repeat_verify_code = last_auth_message.verify_code
         end
       else
