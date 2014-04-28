@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   namespace :wifi do
     get 'merchant' => "merchants#home"
     get 'login' => "users#login"
+    get 'welcome' => "merchants#welcome"
     resources :users do
       collection do
         post :sign_in
