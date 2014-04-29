@@ -23,7 +23,10 @@ class Wifi::UsersController < WifiController
           auth_token = AuthToken.where(auth_token: params[:account][:vtoken]).first
           if auth_token
             account = Account.where(mobile: params[:mobile]).first_or_create
-            auth_token.update_columns(expired_timestamp: 4*3600, status: 1, account_id: account.id)
+            if auth_token.update(expired_timestamp: 4*3600, status: 1, account_id: account.id)
+            else
+              @message = auth_token.errors
+            end
             render :sign_in
           else
             @message = "token is valid"
