@@ -13,6 +13,7 @@ module API::V1
         pp request.url.to_s.gsub "http://#{request.host_with_port}", ''
         # pp request.port
         set_terminal_ip(params[:gw_id], request.env["REMOTE_ADDR"], request.port)
+        present :pong
       end
     end
 
