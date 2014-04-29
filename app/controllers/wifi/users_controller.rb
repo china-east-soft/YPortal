@@ -9,9 +9,9 @@ class Wifi::UsersController < WifiController
       if params[:mobile]
         auth_message = AuthMessage.where(mobile: params[:mobile]).first_or_initialize
         if auth_message.save && auth_message.send_result > 0
-          render :sign_in, flash: auth_message.send_result
+          render :login, flash: auth_message.send_result
         else
-          render :sign_in, flash: auth_message.send_result
+          render :login, flash: auth_message.send_result
         end
       end
     end
@@ -24,21 +24,22 @@ class Wifi::UsersController < WifiController
           if auth_token
             account = Account.where(mobile: params[:mobile]).first_or_create
             if auth_token.update(expired_timestamp: 4*3600, status: 1, account_id: account.id)
+              redirect_to wifi_welcome_url
             else
               @message = auth_token.errors
+              render :login
             end
-            render :sign_in
           else
             @message = "token is valid"
-            render :sign_in
+            render :login
           end
         else
           @message = "auth_message is missing"
-          render :sign_in
+          render :login
         end
       else
         @message = "手机号或者验证码不正确"
-        render :sign_in
+        render :login
       end
     end
 

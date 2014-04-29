@@ -1,5 +1,0 @@
-<% if @message.present? %>
-  alert("<%= @message %>")
-<% elsif params[:sign_in].present? %>
-  window.location = '/wifi/welcome'
-<% end %>
