@@ -28,7 +28,7 @@ class Wifi::UsersController < WifiController
             account = Account.where(mobile: params[:mobile]).first_or_create
             if auth_token.update(expired_timestamp: 4*3600, status: 1, account_id: account.id)
               if API::V1::MACS[auth_token.mac.to_sym]
-                uri = URI.parse("http://#{API::V1::MACS[mac.to_sym][:ip]}:#{API::V1::MACS[auth_token.mac.to_sym][:port]}?vtoken=#{auth_token.auth_token}&mac=#{auth_token.mac}&client_identifier=#{auth_token.client_identifier}")
+                uri = URI.parse("http://10.10.10.254:2060/wifidog/auth?token=#{auth_token.auth_token}&mac=#{auth_token.mac}&client_identifier=#{auth_token.client_identifier}")
 
                 Net::HTTP.start(API::V1::MACS[auth_token.mac.to_sym][:ip], API::V1::MACS[auth_token.mac.to_sym][:port]) do |http|
                   request = Net::HTTP::Post.new uri.request_uri
