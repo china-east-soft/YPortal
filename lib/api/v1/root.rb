@@ -2,6 +2,9 @@
 require 'pp'
 
 module API::V1
+
+  MACS = {}
+
   class Root < Grape::API
     version 'v1', using: :path
     

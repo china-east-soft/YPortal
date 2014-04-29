@@ -15,11 +15,11 @@ module API
     end
 
     def get_terminal_ip(mac)
-      MACS[mac.to_sym]
+      API::V1::MACS[mac.to_sym]
     end
 
     def set_terminal_ip(mac, ip, port)
-      MACS[mac.to_sym] = {ip: ip, port: port}
+      API::V1::MACS[mac.to_sym] = {ip: ip, port: port}
     end
 
     # def authenticate!
@@ -67,6 +67,10 @@ module API
       message = {'message' => message} unless plain
       log_api_visit message, status
       error!(message, status)
+    end
+
+    def short_url
+      request.url.to_s.gsub "http://#{request.host_with_port}", ''
     end
 
   end

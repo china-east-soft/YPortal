@@ -38,9 +38,11 @@ module API
     helpers API::Helpers
 
     unless Rails.env.test?
-      http_basic do |username, password|
-        { 'yunlian_portal' => 'china-east' }[username] == password
-      end
+      #unless ["/api/v1/ping.json"].include? short_url
+        # http_basic do |username, password|
+        #   { 'yunlian_portal' => 'china-east' }[username] == password
+        # end
+      #end
     end
 
     before do
