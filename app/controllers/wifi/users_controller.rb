@@ -1,3 +1,6 @@
+#coding:utf-8
+require 'net/http'
+
 class Wifi::UsersController < WifiController
 
   def login
@@ -24,7 +27,21 @@ class Wifi::UsersController < WifiController
           if auth_token
             account = Account.where(mobile: params[:mobile]).first_or_create
             if auth_token.update(expired_timestamp: 4*3600, status: 1, account_id: account.id)
-              redirect_to wifi_welcome_url
+              if MACS[mac.to_sym]
+                uri = URI.parse("http://#{MACS[mac.to_sym][:ip]}:MACS[mac.to_sym][:port]?vtoken=#{auth_token.auth_token}&mac=#{auth_token.mac}&client_identifier=#{auth_token.client_identifier}")
+
+                Net::HTTP.start(MACS[mac.to_sym][:ip], MACS[mac.to_sym][:port]) do |http|
+                  request = Net::HTTP::Post.new uri.request_uri
+
+                  response = http.request request # Net::HTTPResponse object
+                end
+
+                redirect_to wifi_welcome_url
+              else
+                render :login
+                
+              end
+
             else
               @message = auth_token.errors
               render :login

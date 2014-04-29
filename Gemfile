@@ -44,6 +44,11 @@ group :assets do
   gem "truncate_html"
 end
 
+# group :redis do
+#   gem 'redis'
+#   gem 'redis-namespace'
+# end
+
 gem 'grape'
 gem 'mina'
 gem 'ruby-hmac'

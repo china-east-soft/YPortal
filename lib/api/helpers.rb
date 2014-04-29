@@ -14,6 +14,14 @@ module API
       object.page(params[:page]).per(params[:per_page].to_i)
     end
 
+    def get_terminal_ip(mac)
+      MACS[mac.to_sym]
+    end
+
+    def set_terminal_ip(mac, ip, port)
+      MACS[mac.to_sym] = {ip: ip, port: port}
+    end
+
     # def authenticate!
     #   unauthorized! unless current_user
     # end
