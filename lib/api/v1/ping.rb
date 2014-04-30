@@ -10,7 +10,10 @@ module API::V1
 
     resource :ping do
       get do
-        pp request.url.to_s.gsub "http://#{request.host_with_port}", ''
+        API::Entrance.logger.add Logger::DEBUG, (request.url.to_s.gsub "http://#{request.host_with_port}", '')
+        API::Entrance.logger.add Logger::DEBUG, params[:gw_id]
+        API::Entrance.logger.add Logger::DEBUG, request.env["REMOTE_ADDR"]
+        API::Entrance.logger.add Logger::DEBUG, request.port
         # pp request.port
         set_terminal_ip(params[:gw_id], request.env["REMOTE_ADDR"], request.port)
         present :pong
