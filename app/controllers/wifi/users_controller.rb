@@ -29,6 +29,7 @@ class Wifi::UsersController < WifiController
             account = Account.where(mobile: params[:mobile]).first_or_create
             if auth_token.update(expired_timestamp: 4*3600, status: 1, account_id: account.id)
               logger.info API::V1::MACS.inspect
+              logger.info auth_token.mac
               if API::V1::MACS[auth_token.mac.to_sym]
                 uri = URI.parse("http://10.10.10.254:2060/wifidog/auth?token=#{auth_token.auth_token}&mac=#{auth_token.mac}&client_identifier=#{auth_token.client_identifier}")
 
