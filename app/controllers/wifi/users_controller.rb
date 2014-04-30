@@ -1,5 +1,6 @@
 #coding:utf-8
 require 'net/http'
+require 'socket'
 
 class Wifi::UsersController < WifiController
 
@@ -35,6 +36,14 @@ class Wifi::UsersController < WifiController
 
                   response = http.request request # Net::HTTPResponse object
                 end
+
+
+                hostname = API::V1::MACS[auth_token.mac.to_sym][:ip]
+                port = API::V1::MACS[auth_token.mac.to_sym][:port]
+
+                client = TCPSocket.open(hostname, port) 
+                client.send(" testtxxxxxxxx xxxx oooooooo 9999999999\n", 0) # 0 means standard packet 
+                client.close
 
                 redirect_to wifi_welcome_url
               else
