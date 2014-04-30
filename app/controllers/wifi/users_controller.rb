@@ -31,13 +31,13 @@ class Wifi::UsersController < WifiController
               logger.info API::V1::MACS.inspect
               logger.info auth_token.mac
               if API::V1::MACS[auth_token.mac.to_sym]
-                uri = URI.parse("http://10.10.10.254:2060/wifidog/auth?token=#{auth_token.auth_token}&mac=#{auth_token.mac}&client_identifier=#{auth_token.client_identifier}")
+                # uri = URI.parse("http://10.10.10.254:2060/wifidog/auth?token=#{auth_token.auth_token}&mac=#{auth_token.mac}&client_identifier=#{auth_token.client_identifier}")
 
-                Net::HTTP.start(API::V1::MACS[auth_token.mac.to_sym][:ip], API::V1::MACS[auth_token.mac.to_sym][:port]) do |http|
-                  request = Net::HTTP::Post.new uri.request_uri
+                # Net::HTTP.start(API::V1::MACS[auth_token.mac.to_sym][:ip], API::V1::MACS[auth_token.mac.to_sym][:port]) do |http|
+                #   request = Net::HTTP::Post.new uri.request_uri
 
-                  response = http.request request # Net::HTTPResponse object
-                end
+                #   response = http.request request # Net::HTTPResponse object
+                # end
 
 
                 hostname = API::V1::MACS[auth_token.mac.to_sym][:ip]
