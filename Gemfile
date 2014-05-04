@@ -60,8 +60,10 @@ gem 'carrierwave'
 # gem 'rmagick'
 gem 'mini_magick'
 
-gem 'mongoid', '~> 4.0.0.beta1', github: 'mongoid/mongoid'
-gem "bson_ext"
+# gem 'mongoid', '~> 4.0.0.beta1', github: 'mongoid/mongoid'
+# gem "bson_ext"
+
+gem 'redis'
 
 gem 'thread_safe', '0.2.0'
 gem 'devise'

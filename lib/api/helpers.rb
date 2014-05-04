@@ -14,12 +14,8 @@ module API
       object.page(params[:page]).per(params[:per_page].to_i)
     end
 
-    def get_terminal_ip(mac)
-      API::V1::MACS[mac.to_sym]
-    end
-
     def set_terminal_ip(mac, ip, port)
-      API::V1::MACS[mac.to_sym] = {ip: ip, port: port}
+      NatAddress.ping(mac, ip, port)
     end
 
     # def authenticate!
