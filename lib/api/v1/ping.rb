@@ -14,6 +14,10 @@ module API::V1
         API::Entrance.logger.add Logger::DEBUG, params[:gw_id]
         API::Entrance.logger.add Logger::DEBUG, request.env["REMOTE_ADDR"]
         API::Entrance.logger.add Logger::DEBUG, request.port
+        API::Entrance.logger.add Logger::DEBUG, request.optional_port
+        API::Entrance.logger.add Logger::DEBUG, request.server_port
+        API::Entrance.logger.add Logger::DEBUG, request.standard_port
+        API::Entrance.logger.add Logger::DEBUG, request.port
         # pp request.port
         set_terminal_ip(params[:gw_id], request.env["REMOTE_ADDR"], request.port)
         present :pong

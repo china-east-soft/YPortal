@@ -44,10 +44,7 @@ group :assets do
   gem "truncate_html"
 end
 
-# group :redis do
-#   gem 'redis'
-#   gem 'redis-namespace'
-# end
+gem 'rails-i18n', '~> 4.0.0'
 
 gem 'grape'
 gem 'mina'

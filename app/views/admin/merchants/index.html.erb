@@ -1,6 +1,6 @@
 <h1>Listing merchants</h1>
 
-<table>
+<table class="table table-striped table-bordered table-hover">
   <thead>
     <tr>
       <th>Name</th>
@@ -30,9 +30,9 @@
         <td><%= merchant.contact %></td>
         <td><%= merchant.mobile %></td>
         <td><%= merchant.secondary %></td>
-        <td><%= link_to 'Show', merchant %></td>
-        <td><%= link_to 'Edit', edit_merchant_path(merchant) %></td>
-        <td><%= link_to 'Destroy', merchant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [:admin, merchant] %></td>
+        <td><%= link_to 'Edit', edit_admin_merchant_path(merchant) %></td>
+        <td><%= link_to 'Destroy', [:admin, merchant], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -40,4 +40,4 @@
 
 <br>
 
-<%= link_to 'New Merchant', new_merchant_path %>
+<%= link_to 'New Merchant', new_admin_merchant_path %>

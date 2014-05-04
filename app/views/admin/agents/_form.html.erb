@@ -1,0 +1,19 @@
+<%= simple_form_for [:admin, @agent], :defaults => { :input_html => { :class => "form-control" } }, html: { multipart: true, class: 'form-horizontal' } do |f| %> 
+
+  <div class="form-inputs">
+    <%= f.input :email %>
+    <%= f.input :category %>
+    <%= f.input :name %>
+    <%= f.input :industry %>
+    <%= f.input :city %>
+    <%= f.input :contact %>
+    <%= f.input :telephone %>
+    <%= f.input :known_from %>
+    <%= f.input :remark %>
+    <%= f.input :status %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

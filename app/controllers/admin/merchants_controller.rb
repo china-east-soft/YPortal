@@ -1,5 +1,7 @@
-class Admin::MerchantsController < ApplicationController
+class Admin::MerchantsController < AdminController
   before_action :set_merchant, only: [:show, :edit, :update, :destroy]
+
+  set_tab :merchants
 
   # GET /merchants
   # GET /merchants.json

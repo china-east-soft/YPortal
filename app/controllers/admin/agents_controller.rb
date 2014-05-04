@@ -1,5 +1,7 @@
-class Admin::AgentsController < ApplicationController
+class Admin::AgentsController < AdminController
   before_action :set_agent, only: [:show, :edit, :update, :destroy]
+
+  set_tab :agents
 
   # GET /agents
   # GET /agents.json

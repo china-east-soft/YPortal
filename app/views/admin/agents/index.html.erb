@@ -30,9 +30,9 @@
         <td><%= agent.known_from %></td>
         <td><%= agent.remark %></td>
         <td><%= agent.status %></td>
-        <td><%= link_to 'Show', agent %></td>
-        <td><%= link_to 'Edit', edit_agent_path(agent) %></td>
-        <td><%= link_to 'Destroy', agent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [:admin, agent] %></td>
+        <td><%= link_to 'Edit', edit_admin_agent_path(agent) %></td>
+        <td><%= link_to 'Destroy', [:admin, agent], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -40,4 +40,4 @@
 
 <br>
 
-<%= link_to 'New Agent', new_agent_path %>
+<%= link_to 'New Agent', new_admin_agent_path %>
