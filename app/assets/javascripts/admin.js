@@ -1,11 +1,18 @@
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui-1.10.3.min.js
-//= require bootstrap.js
-//= require turbolinks
-//= require plugins/metisMenu/jquery.metisMenu.js
-//= require sb-admin.js
+//= require jquery-1.8.3.js
+//= require bootstrap.min.js
+//= require jquery.dcjqaccordion.2.7.js
+//= require jquery.scrollTo.min.js
+//= require jquery.nicescroll.js
+//= require jquery.sparkline.js
+//= require jquery.easy-pie-chart.js
+//= require owl.carousel.js
+//= require jquery.customSelect.min.js
+//= require respond.min.js
+//= require jquery.dcjqaccordion.2.7.js
 
-//= require share.js
-//= require select2
-//= require select2_locale_zh-CN
+//= require common-scripts.js
+//= require sparkline-chart.js
+//= require easy-pie-chart.js
+//= require count.js

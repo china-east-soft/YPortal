@@ -1,14 +1,7 @@
 /*
- *= require_self
  *= require bootstrap.css
- *= require font-awesome/scss/font-awesome.scss
- *= require stylish-portfolio.css
- *= require plugins/morris/morris-0.4.3.min.css
- *= require plugins/timeline/timeline.css
- *= require sb-admin.css
-
- *= require jquery-ui-1.8.17.custom.css
-
- *= require select2
- *= require select2-bootstrap
+ *= require bootstrap-reset.css
+ *= require font-awesome.css
+ *= require style.css
+ *= require style-responsive.css
 */

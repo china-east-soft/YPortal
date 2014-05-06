@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
   
-  get 'admin' => "admin/agents#index", as: :admin_root
+  get 'admin' => "admin/dashboard#home", as: :admin_root
   get 'agent' => "welcome#index", as: :agent_root
   get 'merchant' => "welcome#index", as: :merchant_root
   get 'wifi' => "welcome#index", as: :wifi_root

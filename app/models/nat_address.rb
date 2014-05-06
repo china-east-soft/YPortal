@@ -3,7 +3,7 @@ class NatAddress
   class << self
 
     def store(mac, ip, port)
-      $redis.set(redis_key(mac), "#{ip}:#{port}")
+      $redis.set(redis_key(mac), "#{ip}:#{port}:")
     end
 
     def ping(mac, ip, port)

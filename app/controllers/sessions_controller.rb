@@ -1,5 +1,7 @@
 class SessionsController < Devise::SessionsController
 
+  layout 'devise'
+
   def auth
   end
 
