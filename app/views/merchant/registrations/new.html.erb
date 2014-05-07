@@ -1,0 +1,30 @@
+<div class="container">
+	<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), :role => 'form', html: { class: "form-signin" }) do |f| %>
+  	<h2 class="form-signin-heading">registration now</h2>
+  	<div class="login-wrap">
+		  <%= f.input_field :mobile, :autofocus => true, class: "form-control", placeholder: "手机" %>
+		  <div class="form-group">
+		  	<div class="row">
+		  		<div class="col-sm-7 col-lg-7">
+					  <%= f.input_field :verify_code, class: "form-control", placeholder: "验证码" %>	
+		  		</div>
+		  		<div class="col-sm-5 col-lg-5">
+		  			<button class="btn btn-info" id="send_message">获取验证码</button>
+		  		</div>		  		
+		  	</div>
+		  </div>
+		  <%= f.password_field :password, class: "form-control", placeholder: "密码", required: true %>
+		  <%= f.password_field :password_confirmation, class: "form-control", placeholder: "确认密码", required: true %>
+		  <%= f.input_field :mid, class: "form-control", required: true, placeholder: "MID" %>
+
+		  <%= f.submit "Submit", class: "btn btn-lg btn-login btn-block" %>
+
+      <div class="registration">
+          Already Registered.
+          <a class="" href="login.html">
+              Login
+          </a>
+      </div>
+  	</div>
+	<% end %>
+</div>

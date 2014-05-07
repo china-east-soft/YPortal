@@ -10,7 +10,6 @@ class CreateMerchantInfos < ActiveRecord::Migration
       t.string :circle
       t.string :address
       t.string :contact
-      t.string :mobile
       t.string :secondary
       t.timestamps
     end

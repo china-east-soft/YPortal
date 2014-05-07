@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   end
 
   namespace :merchant do
+    
   end
 
   mount API::Entrance => '/api'

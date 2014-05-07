@@ -13,7 +13,7 @@ class AdminController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource_or_scope)
-    return admin_agents_path
+    return admin_root_path
   end
 
 end

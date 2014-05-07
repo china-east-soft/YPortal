@@ -1,5 +1,7 @@
 class Merchant::SessionsController < Devise::SessionsController
 
+  layout 'devise'
+
   def auth
   end
 

@@ -7,6 +7,8 @@ class Merchant < ActiveRecord::Base
   has_one :merchant_info, dependent: :destroy
   accepts_nested_attributes_for :merchant_info
 
+  attr_accessor :verify_code, :mid
+
   has_many :terminals, dependent: :nullify
 
 end

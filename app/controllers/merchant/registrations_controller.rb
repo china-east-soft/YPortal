@@ -1,4 +1,7 @@
 class Merchant::RegistrationsController < Devise::RegistrationsController
+
+  layout 'devise'
+
   before_filter :update_sanitized_params, if: :devise_controller?
 
   def update_sanitized_params
