@@ -49,7 +49,7 @@ task :setup => :environment do
   queue! %[mkdir -p "#{deploy_to}/shared/config"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/config"]
 
-  queue! %[touch "#{deploy_to}/shared/public/uploads"]
+  queue! %[mkdir "#{deploy_to}/shared/public/uploads"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/public/uploads"]
 
   queue! %[touch "#{deploy_to}/shared/public/robots.txt"]
