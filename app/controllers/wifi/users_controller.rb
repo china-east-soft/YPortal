@@ -29,21 +29,10 @@ class Wifi::UsersController < WifiController
             account = Account.where(mobile: params[:mobile]).first_or_create
             if auth_token.update(expired_timestamp: 4*3600, status: 1, account_id: account.id)
               if address = NatAddress.address(mac)
-                # uri = URI.parse("http://10.10.10.254:2060/wifidog/auth?token=#{auth_token.auth_token}&mac=#{auth_token.mac}&client_identifier=#{auth_token.client_identifier}")
-
-                # Net::HTTP.start(API::V1::MACS[auth_token.mac.to_sym][:ip], API::V1::MACS[auth_token.mac.to_sym][:port]) do |http|
-                #   request = Net::HTTP::Post.new uri.request_uri
-
-                #   response = http.request request # Net::HTTPResponse object
-                # end
-
-
-                # hostname = API::V1::MACS[auth_token.mac.to_sym][:ip]
-                # port = API::V1::MACS[auth_token.mac.to_sym][:port]
-
-                # client = TCPSocket.open(hostname, port) 
-                # client.send(" testtxxxxxxxx xxxx oooooooo 9999999999\n", 0) # 0 means standard packet 
-                # client.close
+                
+                remote_ip, port, time = address.split("#")
+                u2.connect(remote_ip, port)
+                u2.send "uuuu", 0
 
                 redirect_to wifi_welcome_url
               else
