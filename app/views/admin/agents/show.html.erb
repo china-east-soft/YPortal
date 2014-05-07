@@ -7,47 +7,47 @@
 
 <p>
   <strong>Category:</strong>
-  <%= @agent.category %>
+  <%= @agent.agent_info.try(:category) %>
 </p>
 
 <p>
   <strong>Name:</strong>
-  <%= @agent.name %>
+  <%= @agent.agent_info.try(:name) %>
 </p>
 
 <p>
   <strong>Industry:</strong>
-  <%= @agent.industry %>
+  <%= @agent.agent_info.try(:industry) %>
 </p>
 
 <p>
   <strong>City:</strong>
-  <%= @agent.city %>
+  <%= @agent.agent_info.try(:city) %>
 </p>
 
 <p>
   <strong>Contact:</strong>
-  <%= @agent.contact %>
+  <%= @agent.agent_info.try(:contact) %>
 </p>
 
 <p>
   <strong>Telephone:</strong>
-  <%= @agent.telephone %>
+  <%= @agent.agent_info.try(:telephone) %>
 </p>
 
 <p>
   <strong>Known from:</strong>
-  <%= @agent.known_from %>
+  <%= @agent.agent_info.try(:known_from) %>
 </p>
 
 <p>
   <strong>Remark:</strong>
-  <%= @agent.remark %>
+  <%= @agent.agent_info.try(:remark) %>
 </p>
 
 <p>
   <strong>Status:</strong>
-  <%= @agent.status %>
+  <%= @agent.agent_info.try(:status) %>
 </p>
 
 <%= link_to 'Edit', edit_admin_agent_path(@agent) %> |

@@ -33,17 +33,17 @@
                     <% @agents.each do |agent| %>
                       <tr>
                         <td><%= agent.category %></td>
-                        <td><%= agent.name %></td>
-                        <td><%= agent.industry %></td>
-                        <td><%= agent.city %></td>
-                        <td><%= agent.contact %></td>
-                        <td><%= agent.telephone %></td>
+                        <td><%= agent.agent_info.try(:name) %></td>
+                        <td><%= agent.agent_info.try(:industry) %></td>
+                        <td><%= agent.agent_info.try(:city) %></td>
+                        <td><%= agent.agent_info.try(:contact) %></td>
+                        <td><%= agent.agent_info.try(:telephone) %></td>
                         <td><%= agent.email %></td>
-                        <td><%= agent.status %></td>
+                        <td><%= agent.agent_info.try(:status) %></td>
                         <td>
-                          <button class="btn btn-success btn-xs"><%= link_to fa_icon("ok"), [:admin, agent] %><i class="icon-ok"></i></button>
+                          <button class="btn btn-success btn-xs"><%= link_to fa_icon("check"), [:admin, agent] %></button>
                           <button class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_admin_agent_path(agent) %><i class="icon-pencil"></i></button>
-                          <button class="btn btn-danger btn-xs"><%= link_to fa_icon("trash"), [:admin, agent], method: :delete, data: { confirm: 'Are you sure?' } %></button>
+                          <button class="btn btn-danger btn-xs"><%= link_to fa_icon("trash-o"), [:admin, agent], method: :delete, data: { confirm: 'Are you sure?' } %></button>
                         </td>
                       </tr>
                     <% end %>

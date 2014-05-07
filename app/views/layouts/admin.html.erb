@@ -278,8 +278,8 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <%= tabs_tag :builder => MenuTabBuilder, :open_tabs => { :id => "nav-accordion", :class => "sidebar-menu" } do |tab| %>
-                <%= tab.dashboard   '主页', admin_root_path %>
-                <%= tab.agents      '运营商', admin_agents_path %>
+                <%= tab.dashboard   fa_icon("dashboard")+content_tag(:span, '主页'), admin_root_path %>
+                <%= tab.agents      '代理商', admin_agents_path %>
                 <%= tab.merchants   '商家', admin_merchants_path %>
                 <%= tab.terminals   '终端', admin_terminals_path %>
               <% end %>

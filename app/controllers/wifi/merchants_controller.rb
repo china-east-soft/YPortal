@@ -1,5 +1,7 @@
 class Wifi::MerchantsController < WifiController
 
+  include PrivateKey
+
   def home
 
     if params[:vtoken]
@@ -59,20 +61,6 @@ class Wifi::MerchantsController < WifiController
       # hmac-sha1
       result = Base64.urlsafe_encode64(HMAC::SHA1.digest(private_key, sort_mac)).strip
       result
-    end
-
-    # generate private key
-    def private_key
-      key_file = Rails.root.join('.private_key')
-      if File.exist?(key_file)
-        # Use the existing token.
-        File.read(key_file).chomp
-      else
-        # Generate a new token and store it in key_file.
-        token = SecureRandom.hex(64)
-        File.write(key_file, token)
-        token
-      end
     end
 
 end

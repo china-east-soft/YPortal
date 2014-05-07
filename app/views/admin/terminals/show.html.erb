@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Mac:</strong>
+  <%= @terminal.mac %>
+</p>
+
+<p>
+  <strong>Imei:</strong>
+  <%= @terminal.imei %>
+</p>
+
+<p>
+  <strong>Sim iccid:</strong>
+  <%= @terminal.sim_iccid %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @terminal.status %>
+</p>
+
+<%= link_to 'Edit', edit_admin_terminal_path(@terminal) %> |
+<%= link_to 'Back', admin_terminals_path %>

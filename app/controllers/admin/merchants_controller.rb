@@ -30,7 +30,7 @@ class Admin::MerchantsController < AdminController
 
     respond_to do |format|
       if @merchant.save
-        format.html { redirect_to @merchant, notice: 'Merchant was successfully created.' }
+        format.html { redirect_to [:admin, @merchant], notice: 'Merchant was successfully created.' }
         format.json { render action: 'show', status: :created, location: @merchant }
       else
         format.html { render action: 'new' }
@@ -44,7 +44,7 @@ class Admin::MerchantsController < AdminController
   def update
     respond_to do |format|
       if @merchant.update(merchant_params)
-        format.html { redirect_to @merchant, notice: 'Merchant was successfully updated.' }
+        format.html { redirect_to [:admin, @merchant], notice: 'Merchant was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -58,7 +58,7 @@ class Admin::MerchantsController < AdminController
   def destroy
     @merchant.destroy
     respond_to do |format|
-      format.html { redirect_to merchants_url }
+      format.html { redirect_to admin_merchants_url }
       format.json { head :no_content }
     end
   end
@@ -71,6 +71,8 @@ class Admin::MerchantsController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def merchant_params
-      params.require(:merchant).permit(:name, :industry, :province, :city, :area, :circle, :address, :contact, :mobile, :secondary)
+      params.require(:merchant).permit(:email, :password, :password_confirmation, {
+          merchant_info_attributes: [:name, :industry, :province, :city, :area, :circle, :address, :contact, :mobile, :secondary]
+        })
     end
 end

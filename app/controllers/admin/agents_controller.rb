@@ -30,7 +30,7 @@ class Admin::AgentsController < AdminController
 
     respond_to do |format|
       if @agent.save
-        format.html { redirect_to @agent, notice: 'Agent was successfully created.' }
+        format.html { redirect_to [:admin, @agent], notice: 'Agent was successfully created.' }
         format.json { render action: 'show', status: :created, location: @agent }
       else
         format.html { render action: 'new' }
@@ -44,7 +44,7 @@ class Admin::AgentsController < AdminController
   def update
     respond_to do |format|
       if @agent.update(agent_params)
-        format.html { redirect_to @agent, notice: 'Agent was successfully updated.' }
+        format.html { redirect_to [:admin, @agent], notice: 'Agent was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -71,6 +71,8 @@ class Admin::AgentsController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def agent_params
-      params.require(:agent).permit(:email, :category, :name, :industry, :city, :contact, :telephone, :known_from, :remark, :status)
+      params.require(:agent).permit(:email, :password, :password_confirmation, {
+          agent_info_attributes: [:category, :name, :industry, :city, :contact, :telephone, :known_from, :remark, :status ]
+        })
     end
 end
