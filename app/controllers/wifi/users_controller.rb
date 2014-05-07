@@ -33,8 +33,8 @@ class Wifi::UsersController < WifiController
               if address = NatAddress.address(auth_token.mac.downcase)
                 logger.info "send uuuu"
                 remote_ip, port, time = address.split("#")
-                u2.connect(remote_ip, port)
-                u2.send "uuuu", 0
+                $udp_client.connect(remote_ip, port)
+                $udp_client.send "uuuu", 0
 
                 redirect_to wifi_welcome_url
               else
