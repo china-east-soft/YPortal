@@ -33,7 +33,20 @@ class Wifi::UsersController < WifiController
               if address = NatAddress.address(auth_token.mac.downcase)
                 logger.info "send uuuu"
                 remote_ip, port, time = address.split("#")
-                send_data = "\x00\x05\xaa\xbb\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0c\x43\x76\x12\x34\x00\x0c\x43\x76\x12\x34\x00\x00\x00"
+                #send_data = "\x00\x05\xaa\xbb\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0c\x43\x76\x12\x34\x00\x0c\x43\x76\x12\x34\x00\x00\x00"
+                version = "0x0"
+                type = "Ox1"
+                flag1 = "0xaa"
+                flag2 = "0xbb"
+                vtoken = auth_token.auth_token.scan(/../).map(&:hex).map(&:chr).join
+                mac = auth_token.mac.scan(/../).map(&:hex).map(&:chr).join
+                client_identifier = auth_token.client_identifier.scan(/../).map(&:hex).map(&:chr).join
+                duration = auth_token.duration.scan(/../).map(&:hex).map(&:chr).join
+                errcode = "0x0"
+                attrnum = "0x1"
+
+                send_data = [version,type,flag1,flag2,vtoken,mac,client_identifier,duration,errcode,attrnum].join
+
                 max_delay= 1000
 
                 i = 0; 
