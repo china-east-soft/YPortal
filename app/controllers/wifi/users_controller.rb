@@ -56,7 +56,7 @@ class Wifi::UsersController < WifiController
 
                 t = UDPSocket.new
                 t.send(send_data, 0, remote_ip, port)
-                recv_data = t.recv_nonblock(100);
+                recv_data = t.recvfrom(100);
                 if recv_data
                   recv_data.strip!;
                   puts recv_data;
