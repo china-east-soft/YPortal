@@ -38,10 +38,10 @@ class Wifi::UsersController < WifiController
                 flag1 = "\xaa".force_encoding('UTF-8')
                 flag2 = "\xbb".force_encoding('UTF-8')
 
-                vtoken = auth_token.auth_token
+                vtoken = auth_token.auth_token.force_encoding('UTF-8')
 
                 mac = [auth_token.mac.gsub(/:/,'')].pack('H*').force_encoding('UTF-8')
-                client_identifier = [auth_token.client_identifier.gsub(/:/,'')].pack('H*')
+                client_identifier = [auth_token.client_identifier.gsub(/:/,'')].pack('H*').force_encoding('UTF-8')
                 #expired_timestamp = auth_token.expired_timestamp.to_s.scan(/../).map(&:hex).map(&:chr).join
                 #expired_timestamp = auth_token.expired_timestamp.to_s(16)
                 expired_timestamp = "\x00\x00\x38\x40".force_encoding('UTF-8')
