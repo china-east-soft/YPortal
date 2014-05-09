@@ -34,16 +34,16 @@ class Wifi::UsersController < WifiController
                 logger.info "send uuuu"
                 remote_ip, port, time = address.split("#")
                 #send_data = "\x00\x05\xaa\xbb\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0c\x43\x76\x12\x34\x00\x0c\x43\x76\x12\x34\x00\x00\x00"
-                version = "0x00"
-                type = "Ox01"
-                flag1 = "0xaa"
-                flag2 = "0xbb"
+                version = "\x00"
+                type = "\x01"
+                flag1 = "\xaa"
+                flag2 = "\xbb"
                 vtoken = auth_token.auth_token.scan(/../).map(&:hex).map(&:chr).join
                 mac = auth_token.mac.gsub(/:/,'').scan(/../).map(&:hex).map(&:chr).join
                 client_identifier = auth_token.client_identifier.gsub(/:/,'').scan(/../).map(&:hex).map(&:chr).join
                 expired_timestamp = auth_token.expired_timestamp.to_s.scan(/../).map(&:hex).map(&:chr).join
-                errcode = "0x00"
-                attrnum = "0x01"
+                errcode = "\x00"
+                attrnum = "\x01"
 
                 send_data = [version,type,flag1,flag2,vtoken,mac,client_identifier,expired_timestamp,errcode,attrnum].join
 
