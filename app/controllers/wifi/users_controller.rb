@@ -47,6 +47,8 @@ class Wifi::UsersController < WifiController
 
                 send_data = [version,type,flag1,flag2,vtoken,mac,client_identifier,expired_timestamp,errcode,attrnum].join
 
+                logger.info send_data
+
                 max_delay= 1000
 
                 i = 0; 
