@@ -37,7 +37,9 @@ class Wifi::UsersController < WifiController
                 type = "\x01".force_encoding('UTF-8')
                 flag1 = "\xaa".force_encoding('UTF-8')
                 flag2 = "\xbb".force_encoding('UTF-8')
-                vtoken = [auth_token.auth_token].pack('H*').force_encoding('UTF-8')
+
+                vtoken = auth_token.auth_token
+
                 mac = [auth_token.mac.gsub(/:/,'')].pack('H*').force_encoding('UTF-8')
                 client_identifier = [auth_token.client_identifier.gsub(/:/,'')].pack('H*')
                 #expired_timestamp = auth_token.expired_timestamp.to_s.scan(/../).map(&:hex).map(&:chr).join
@@ -46,7 +48,6 @@ class Wifi::UsersController < WifiController
                 errcode = "\x00".force_encoding('UTF-8')
                 attrnum = "\x01".force_encoding('UTF-8')
 
-                #send_data = [version,type,flag1,flag2,expired_timestamp,attrnum,errcode,vtoken,mac,client_identifier].join
                 send_data = "#{version}#{type}#{flag1}#{flag2}#{expired_timestamp}#{attrnum}#{errcode}#{vtoken}#{mac}#{client_identifier}"
 
                 logger.info send_data
