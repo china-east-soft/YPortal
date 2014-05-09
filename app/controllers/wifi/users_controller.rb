@@ -41,7 +41,8 @@ class Wifi::UsersController < WifiController
                 vtoken = auth_token.auth_token.scan(/../).map(&:hex).map(&:chr).join
                 mac = auth_token.mac.gsub(/:/,'').scan(/../).map(&:hex).map(&:chr).join
                 client_identifier = auth_token.client_identifier.gsub(/:/,'').scan(/../).map(&:hex).map(&:chr).join
-                expired_timestamp = auth_token.expired_timestamp.to_s.scan(/../).map(&:hex).map(&:chr).join
+                #expired_timestamp = auth_token.expired_timestamp.to_s.scan(/../).map(&:hex).map(&:chr).join
+                expired_timestamp = auth_token.expired_timestamp.to_s(16)
                 errcode = "\x00"
                 attrnum = "\x01"
 
@@ -61,7 +62,7 @@ class Wifi::UsersController < WifiController
                  rescue IO::WaitReadable
                    i = i + 300;
                    if i<max_delay #最大等待时间
-                      sleep(1/1000); # 等待1秒
+                      sleep(i/1000); # 等待1秒
                       puts i
                       #IO.select([t]); # 此行会导致recv_nonblock阻塞
                       retry;
