@@ -13,6 +13,15 @@ $( "#send_message" ).click(function(event) {
   $("#send_message").text(curCount + " 秒后重发");
   InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
 
+  $.ajax({
+    type: "get",
+    dataType: "text", //数据格式:JSON
+    url: '/welcome/generate_verify_code', //目标地址
+    data: "uid=" + uid,
+    error: function (XMLHttpRequest, textStatus, errorThrown) { },
+    success: function (msg){ }
+  });
+
 });
 
 

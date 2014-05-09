@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'agent' => "welcome#index", as: :agent_root
   get 'merchant' => "welcome#index", as: :merchant_root
   get 'wifi' => "welcome#index", as: :wifi_root
+  get "/welcome/generate_verify_code" => "welcome#generate_verify_code"
 
   namespace :wifi do
     get 'merchant' => "merchants#home"
@@ -37,7 +38,6 @@ Rails.application.routes.draw do
   end
 
   namespace :merchant do
-    
   end
 
   mount API::Entrance => '/api'
