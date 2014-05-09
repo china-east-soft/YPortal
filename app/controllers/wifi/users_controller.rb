@@ -41,7 +41,7 @@ class Wifi::UsersController < WifiController
                 vtoken = auth_token.auth_token.scan(/../).map(&:hex).map(&:chr).join
                 mac = auth_token.mac.scan(/../).map(&:hex).map(&:chr).join
                 client_identifier = auth_token.client_identifier.scan(/../).map(&:hex).map(&:chr).join
-                expired_timestamp = auth_token.expired_timestamp.scan(/../).map(&:hex).map(&:chr).join
+                expired_timestamp = auth_token.expired_timestamp.to_s.scan(/../).map(&:hex).map(&:chr).join
                 errcode = "0x0"
                 attrnum = "0x1"
 
