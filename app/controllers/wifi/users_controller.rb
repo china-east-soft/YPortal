@@ -32,21 +32,19 @@ class Wifi::UsersController < WifiController
               logger.info(auth_token.auth_token)
               logger.info(NatAddress.address(auth_token.mac.downcase))
               if address = NatAddress.address(auth_token.mac.downcase)
-                logger.info "send uuuu"
                 remote_ip, port, time = address.split("#")
-                #send_data = "\x00\x05\xaa\xbb\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0c\x43\x76\x12\x34\x00\x0c\x43\x76\x12\x34\x00\x00\x00"
-                version = "\x00"
-                type = "\x01"
-                flag1 = "\xaa"
-                flag2 = "\xbb"
-                vtoken = [auth_token.auth_token].pack('H*')
-                mac = [auth_token.mac.gsub(/:/,'')].pack('H*')
+                version = "\x00".force_encoding('UTF-8')
+                type = "\x01".force_encoding('UTF-8')
+                flag1 = "\xaa".force_encoding('UTF-8')
+                flag2 = "\xbb".force_encoding('UTF-8')
+                vtoken = [auth_token.auth_token].pack('H*').force_encoding('UTF-8')
+                mac = [auth_token.mac.gsub(/:/,'')].pack('H*').force_encoding('UTF-8')
                 client_identifier = [auth_token.client_identifier.gsub(/:/,'')].pack('H*')
                 #expired_timestamp = auth_token.expired_timestamp.to_s.scan(/../).map(&:hex).map(&:chr).join
                 #expired_timestamp = auth_token.expired_timestamp.to_s(16)
-                expired_timestamp = "\x00\x00\x38\x40"
-                errcode = "\x00"
-                attrnum = "\x01"
+                expired_timestamp = "\x00\x00\x38\x40".force_encoding('UTF-8')
+                errcode = "\x00".force_encoding('UTF-8')
+                attrnum = "\x01".force_encoding('UTF-8')
 
                 #send_data = [version,type,flag1,flag2,expired_timestamp,attrnum,errcode,vtoken,mac,client_identifier].join
                 send_data = "#{version}#{type}#{flag1}#{flag2}#{expired_timestamp}#{attrnum}#{errcode}#{vtoken}#{mac}#{client_identifier}"
