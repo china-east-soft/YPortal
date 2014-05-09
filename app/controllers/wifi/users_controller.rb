@@ -39,9 +39,6 @@ class Wifi::UsersController < WifiController
                 type = "\x01"
                 flag1 = "\xaa"
                 flag2 = "\xbb"
-                #vtoken = auth_token.auth_token.scan(/../).map(&:hex).map(&:chr).join
-                #mac = auth_token.mac.gsub(/:/,'').scan(/../).map(&:hex).map(&:chr).join
-                #client_identifier = auth_token.client_identifier.gsub(/:/,'').scan(/../).map(&:hex).map(&:chr).join
                 vtoken = [auth_token.auth_token].pack('H*')
                 mac = [auth_token.mac.gsub(/:/,'')].pack('H*')
                 client_identifier = [auth_token.client_identifier.gsub(/:/,'')].pack('H*')
@@ -51,7 +48,8 @@ class Wifi::UsersController < WifiController
                 errcode = "\x00"
                 attrnum = "\x01"
 
-                send_data = [version,type,flag1,flag2,expired_timestamp,attrnum,errcode,vtoken,mac,client_identifier].join
+                #send_data = [version,type,flag1,flag2,expired_timestamp,attrnum,errcode,vtoken,mac,client_identifier].join
+                send_data = "#{version}#{type}#{flag1}#{flag2}#{expired_timestamp}#{attrnum}#{errcode}#{vtoken}#{mac}#{client_identifier}"
 
                 logger.info send_data
 
