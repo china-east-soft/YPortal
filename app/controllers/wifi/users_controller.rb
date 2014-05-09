@@ -45,7 +45,7 @@ class Wifi::UsersController < WifiController
                 errcode = "\x00"
                 attrnum = "\x01"
 
-                send_data = [version,type,flag1,flag2,vtoken,mac,client_identifier,expired_timestamp,errcode,attrnum].join
+                send_data = [version,type,flag1,flag2,expired_timestamp,attrnum,errcode,vtoken,mac,client_identifier].join
 
                 logger.info send_data
 
