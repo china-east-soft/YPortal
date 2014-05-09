@@ -29,7 +29,7 @@ class Wifi::UsersController < WifiController
             account = Account.where(mobile: params[:mobile]).first_or_create
             if auth_token.update(expired_timestamp: 4*3600, status: 1, account_id: account.id)
               logger.info(auth_token.mac)
-              logger.info(auth_token.token)
+              logger.info(auth_token.auth_token)
               logger.info(NatAddress.address(auth_token.mac.downcase))
               if address = NatAddress.address(auth_token.mac.downcase)
                 logger.info "send uuuu"
