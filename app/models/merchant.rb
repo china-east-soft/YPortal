@@ -13,6 +13,14 @@ class Merchant < ActiveRecord::Base
 
   validates_presence_of :mobile, :verify_code, :mid, on: :create
 
+  validate :mid_must_be_in_terminals
+
+  def mid_must_be_in_terminals
+    errors.add(:mid, "无效的mid") unless Terminal.exists?(mid: mid, status: 0)
+  end
+
+  after_create :get_terminal
+
   attr_accessor :verify_code, :mid
 
   has_many :terminals, dependent: :nullify
@@ -26,6 +34,10 @@ class Merchant < ActiveRecord::Base
       !persisted? || !password.nil? || !password_confirmation.nil?
     end
 
+
+    def get_terminal
+      Terminal.where(mid: self.mid, status: 0, merchant_id: nil).update_all(merchant_id: self.id)
+    end
 
 
 end

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   
   get 'admin' => "admin/dashboard#home", as: :admin_root
   get 'agent' => "welcome#index", as: :agent_root
-  get 'merchant' => "welcome#index", as: :merchant_root
+  get 'merchant' => "merchant/dashboard#home", as: :merchant_root
   get 'wifi' => "welcome#index", as: :wifi_root
   get "/welcome/generate_verify_code" => "welcome#generate_verify_code"
 
