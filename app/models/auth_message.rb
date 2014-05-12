@@ -6,9 +6,8 @@ class AuthMessage < ActiveRecord::Base
   include MobileMsg
   attr_accessor :send_result
 
-  validates :mobile, presence: true
-  validates :mobile, format: /\A\d{11}\z/
-  validates :mobile, uniqueness: true
+  validates :mobile, presence: true, format: /\A\d{11}\z/
+  validates_uniqueness_of :mobile, scope: [ :category ]
 
   before_save do
     self.verify_code = generate_verify_code
