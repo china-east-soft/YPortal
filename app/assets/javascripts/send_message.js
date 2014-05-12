@@ -8,10 +8,10 @@ $( "#send_message" ).click(function(event) {
   curCount = count;
   var uid = ""
   var account_mobile = ""
-  if($("#merchant_mobile")){
+  if($("#merchant_mobile").length > 0){
     uid=$("#merchant_mobile").val();//用户uid
   }
-  if($("#account_mobile")){
+  if($("#account_mobile".length > 0)){
     account_mobile = $("#account_mobile").val();
   }
 

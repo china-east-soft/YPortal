@@ -4,7 +4,7 @@
 
 # I18n.locale = ""
 
-Rails.application.config.i18n.available_locales = :"zh-CN"
+Rails.application.config.i18n.available_locales = [:en, :"zh-CN"]
 
 I18n.config.enforce_available_locales = false
 
