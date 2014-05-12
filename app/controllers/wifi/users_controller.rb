@@ -5,7 +5,7 @@ require 'socket'
 class Wifi::UsersController < WifiController
 
   def login
-
+    params[:account] ||= {}
   end
 
   def sign_in
