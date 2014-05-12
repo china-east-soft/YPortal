@@ -49,7 +49,7 @@ class Wifi::UsersController < WifiController
                 errcode = "\x00".force_encoding('UTF-8')
                 attrnum = "\x01".force_encoding('UTF-8')
 
-                send_data = "#{version}#{type}#{flag1}#{flag2}#{expired_timestamp}#{attrnum}#{errcode}#{vtoken}#{mac}#{client_identifier}\x00"
+                send_data = "#{version}#{type}#{flag1}#{flag2}#{expired_timestamp}#{attrnum}#{errcode}#{vtoken}#{mac}#{client_identifier}\x00\x00"
 
                 logger.info send_data
 
