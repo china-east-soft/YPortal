@@ -11,7 +11,7 @@
         <h2 class="form-signin-heading">registration now</h2>
 
         <div class="login-wrap">
-        <%= f.input_field :mobile, :autofocus => true, class: "form-control", placeholder: "手机" %>
+        <%= f.input_field :mobile, :autofocus => true, class: "form-control", placeholder: "手机", value: params[:account][:mobile] %>
         <div class="form-group">
           <div class="row">
             <div class="col-sm-7 col-lg-7">

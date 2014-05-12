@@ -10,8 +10,8 @@ class Wifi::UsersController < WifiController
 
   def sign_in
     # if params[:verify].present?
-    #   if params[:mobile]
-    #     auth_message = AuthMessage.where(mobile: params[:mobile]).first_or_initialize
+    #   if params[:account][:mobile]
+    #     auth_message = AuthMessage.where(mobile: params[:account][:mobile]).first_or_initialize
     #     if auth_message.save && auth_message.send_result > 0
     #       render action: :login
     #     else
@@ -22,12 +22,12 @@ class Wifi::UsersController < WifiController
 
     #if params[:sign_in].present?
       params[:vtoken] = params[:account][:vtoken]
-      if params[:mobile] && params[:verify_code] && params[:account] && params[:account][:vtoken]
-        auth_message = AuthMessage.where(mobile: params[:mobile], verify_code: params[:verify_code]).first
+      if params[:account][:mobile] && params[:account][:verify_code] && params[:account] && params[:account][:vtoken]
+        auth_message = AuthMessage.where(mobile: params[:account][:mobile], verify_code: params[:account][:verify_code]).first
         if auth_message
           auth_token = AuthToken.where(auth_token: params[:account][:vtoken]).first
           if auth_token
-            account = Account.where(mobile: params[:mobile]).first_or_create
+            account = Account.where(mobile: params[:account][:mobile]).first_or_create
             if auth_token.update(expired_timestamp: 4*3600, status: 1, account_id: account.id)
               logger.info(auth_token.mac)
               logger.info(auth_token.auth_token)
