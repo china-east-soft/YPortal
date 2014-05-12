@@ -97,7 +97,7 @@ class Wifi::UsersController < WifiController
                   redirect_to wifi_welcome_url
                 else
                   auth_token.update(status: 0)
-                  redirect_to action: :login
+                  render action: :login
                 end
 
               else
