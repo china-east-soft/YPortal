@@ -27,6 +27,15 @@ class Wifi::UsersController < WifiController
         if auth_message
           auth_token = AuthToken.where(auth_token: params[:account][:vtoken]).first
           if auth_token
+            case auth_token.status
+              
+            when "init"
+
+            when "active"
+
+            when "expired"
+
+            end
             account = Account.where(mobile: params[:account][:mobile]).first_or_create
             if auth_token.update(expired_timestamp: Time.now.to_i + 4*3600, status: 1, account_id: account.id)
               logger.info(auth_token.mac)
