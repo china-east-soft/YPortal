@@ -9,18 +9,19 @@ class Wifi::UsersController < WifiController
   end
 
   def sign_in
-    if params[:verify].present?
-      if params[:mobile]
-        auth_message = AuthMessage.where(mobile: params[:mobile]).first_or_initialize
-        if auth_message.save && auth_message.send_result > 0
-          render action: :login
-        else
-          render action: :login
-        end
-      end
-    end
+    # if params[:verify].present?
+    #   if params[:mobile]
+    #     auth_message = AuthMessage.where(mobile: params[:mobile]).first_or_initialize
+    #     if auth_message.save && auth_message.send_result > 0
+    #       render action: :login
+    #     else
+    #       render action: :login
+    #     end
+    #   end
+    # end
 
-    if params[:sign_in].present?
+    #if params[:sign_in].present?
+      params[:vtoken] = params[:account][:vtoken]
       if params[:mobile] && params[:verify_code] && params[:account] && params[:account][:vtoken]
         auth_message = AuthMessage.where(mobile: params[:mobile], verify_code: params[:verify_code]).first
         if auth_message
@@ -122,6 +123,6 @@ class Wifi::UsersController < WifiController
       end
     end
 
-  end
+  #end
 
 end

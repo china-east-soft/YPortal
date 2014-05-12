@@ -6,7 +6,14 @@ var curCount;//当前剩余秒数
 $( "#send_message" ).click(function(event) {
   event.preventDefault();
   curCount = count;
-  var uid=$("#merchant_mobile").val();//用户uid
+  var uid = ""
+  var account_mobile = ""
+  if($("#merchant_mobile")){
+    uid=$("#merchant_mobile").val();//用户uid
+  }
+  if($("#account_mobile")){
+    account_mobile = $("#account_mobile").val();
+  }
 
   //设置button效果，开始计时
   $("#send_message").attr("disabled", "true");
@@ -17,7 +24,7 @@ $( "#send_message" ).click(function(event) {
     type: "get",
     dataType: "text", //数据格式:JSON
     url: '/welcome/generate_verify_code', //目标地址
-    data: "uid=" + uid,
+    data: "uid=" + uid + "&account_mobile=" + account_mobile,
     error: function (XMLHttpRequest, textStatus, errorThrown) { },
     success: function (msg){ }
   });
