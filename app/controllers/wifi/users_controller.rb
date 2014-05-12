@@ -28,7 +28,7 @@ class Wifi::UsersController < WifiController
           auth_token = AuthToken.where(auth_token: params[:account][:vtoken]).first
           if auth_token
             account = Account.where(mobile: params[:account][:mobile]).first_or_create
-            if auth_token.update(expired_timestamp: 4*3600, status: 1, account_id: account.id)
+            if auth_token.update(expired_timestamp: Time.now.to_i + 4*3600, status: 1, account_id: account.id)
               logger.info(auth_token.mac)
               logger.info(auth_token.auth_token)
               logger.info(NatAddress.address(auth_token.mac.downcase))
