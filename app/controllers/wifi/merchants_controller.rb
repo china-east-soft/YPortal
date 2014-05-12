@@ -71,8 +71,8 @@ class Wifi::MerchantsController < WifiController
                 if recv_data.present?
                   redirect_to wifi_welcome_url
                 else
-                redirect_to url = params[:url]
-              else
+                  redirect_to url = params[:url]
+                end
               end
             else
               redirect_to wifi_merchant_url(vtoken: auth_token.auth_token)
