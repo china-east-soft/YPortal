@@ -16,7 +16,7 @@ class Merchant < ActiveRecord::Base
   validate :mid_must_be_in_terminals
 
   def mid_must_be_in_terminals
-    errors.add(:mid, "无效的mid") unless Terminal.exists?(mid: mid, status: 0)
+    errors.add(:mid, "无效的mid") unless Terminal.exists?(mid: mid, status: AuthToken.statuses[:init])
   end
 
   after_create :get_terminal
@@ -36,7 +36,7 @@ class Merchant < ActiveRecord::Base
 
 
     def get_terminal
-      Terminal.where(mid: self.mid, status: 0, merchant_id: nil).update_all(merchant_id: self.id)
+      Terminal.where(mid: self.mid, status: AuthToken.statuses[:init], merchant_id: nil).update_all(merchant_id: self.id)
     end
 
 
