@@ -6,7 +6,7 @@ class AuthToken < ActiveRecord::Base
 
   def update_status
     if self.expired_timestamp.to_i < Time.now.to_i
-      self.update_column(:status, AuthToken.statuses[:expired])
+      self.update_columns(status: AuthToken.statuses[:expired])
     end
   end
 
