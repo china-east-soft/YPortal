@@ -4,7 +4,7 @@ class Wifi::MerchantsController < WifiController
 
   def home
 
-    if params[:vtoken]
+    if params[:vtoken].present?
       # only params[:vtoken], from client
       @auth_token = AuthToken.where(auth_token: params[:vtoken]).first
       if @auth_token.present?
@@ -25,7 +25,7 @@ class Wifi::MerchantsController < WifiController
       # from teminal
       if params[:client_identifier] && params[:mac]
         @url = "wifi/merchant?vtoken=#{params[:vtoken]}"
-        auth_token = AuthToken.where(client_identifier: params[:client_identifier], mac: params[:mac], status: [:init, :active]).first
+        auth_token = AuthToken.where(client_identifier: params[:client_identifier], mac: params[:mac], status: [0,1]).first
         if auth_token
           auth_token.update_status
           case auth_token.status
