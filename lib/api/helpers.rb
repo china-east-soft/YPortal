@@ -14,10 +14,6 @@ module API
       object.page(params[:page]).per(params[:per_page].to_i)
     end
 
-    def set_terminal_ip(mac, ip, port)
-      NatAddress.ping(mac, ip, port)
-    end
-
     # def authenticate!
     #   unauthorized! unless current_user
     # end
