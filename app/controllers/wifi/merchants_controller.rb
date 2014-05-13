@@ -50,7 +50,7 @@ class Wifi::MerchantsController < WifiController
                 #expired_timestamp = auth_token.expired_timestamp.to_s.scan(/../).map(&:hex).map(&:chr).join
                 #expired_timestamp = auth_token.expired_timestamp.to_s(16)
                 #expired_timestamp = "\x00\x00\x38\x40".force_encoding('UTF-8')
-                expired_timestamp=sprintf("%6x", 14400)
+                expired_timestamp = sprintf("%6x", 14400)
                 errcode = "\x00".force_encoding('UTF-8')
                 attrnum = "\x01".force_encoding('UTF-8')
 
@@ -92,7 +92,7 @@ class Wifi::MerchantsController < WifiController
         flash[:danger] = "请连接wifi!"
         render :error
       end
-      
+
     end
 
 
