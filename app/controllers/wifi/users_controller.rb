@@ -56,7 +56,7 @@ class Wifi::UsersController < WifiController
                 #expired_timestamp = auth_token.expired_timestamp.to_s(16)
                 #expired_timestamp = "\x00\x00\x38\x40".force_encoding('UTF-8')
                 #expired_timestamp = ('00000'+14400.to_s)[-5,5]
-                expired_timestamp = [0].pack("S*")+[14400].pack("S*").reverse
+                expired_timestamp = [0].pack("S*")+[14400].pack("S*").reverse.force_encoding('UTF-8')
                 errcode = "\x00".force_encoding('UTF-8')
                 attrnum = "\x01".force_encoding('UTF-8')
 
