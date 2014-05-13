@@ -1,7 +1,7 @@
 class AuthToken < ActiveRecord::Base
   enum status: [ :init, :active, :expired ] 
 
-  validates_uniqueness_of :client_identifier, scope: :mac, conditions: -> { where(status: [:init, :active]) }
+  validates_uniqueness_of :client_identifier, scope: :mac, conditions: -> { where(status: [0, 1]) }
   
 
   def update_status
