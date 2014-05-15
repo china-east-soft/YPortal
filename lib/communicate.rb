@@ -24,7 +24,7 @@ module Communicate
 
     logger.info send_data
 
-    max_delay, step = 1000, 300
+    max_delay, step = 2000, 400
 
     no_block_recvfrom send_data, remote_ip, port, max_delay, step
 

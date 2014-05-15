@@ -22,8 +22,6 @@ describe "no block udp" do
 
   it "should be no block" do
 
-    s1.send "aaa", 0
-
     max_delay= 1000
     i = 0; 
 
@@ -31,13 +29,15 @@ describe "no block udp" do
         recv_data = s2.recv_nonblock(100); #也可用read_nonblock代替
         recv_data.strip!;
       rescue IO::WaitReadable
-       i = i + 300;
-       if i<max_delay #最大等待时间
+        i = i + 300;
+        if i<max_delay #最大等待时间
           sleep(i/1000); # 等待1秒
           puts i
           #IO.select([t]); # 此行会导致recv_nonblock阻塞
+          s1.send "aaa", 0 if i == 900
           retry;
-       end
+        end
+
       end
 
       #s2.close;
