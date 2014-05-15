@@ -35,6 +35,12 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :test do
+  gem "rspec"
+  gem 'rspec-rails'
+  gem "minitest"
+end
+
 group :assets do
   gem 'html5shiv-rails'
   gem 'jquery-ui-rails'
