@@ -26,7 +26,16 @@ module Communicate
 
     max_delay, step = 2000, 400
 
-    no_block_recvfrom send_data, remote_ip, port, max_delay, step
+    max_retry = 3
+
+    recv_data = nil
+
+    max_retry.times do 
+      recv_data = no_block_recvfrom send_data, remote_ip, port, max_delay, step
+      break if recv_data    
+    end
+
+    recv_data
 
   end
 

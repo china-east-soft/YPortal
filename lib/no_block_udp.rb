@@ -14,7 +14,7 @@ module NoBlockUDP
       rescue IO::WaitReadable
        i = i + step;
        if i<max_delay #最大等待时间
-          sleep(i/1000); # 等待1秒
+          sleep(i/1000); # sleep more long ...
           puts i
           #IO.select([t]); # 此行会导致recv_nonblock阻塞
           retry;
