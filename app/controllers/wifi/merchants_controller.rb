@@ -33,41 +33,14 @@ class Wifi::MerchantsController < WifiController
             redirect_to wifi_merchant_url(vtoken: auth_token.auth_token)
           when "active"
             if params[:url].present?
-              logger.info(auth_token.mac)
-              logger.info(auth_token.auth_token)
-              logger.info(NatAddress.address(params[:mac].downcase))
+              # logger.info(auth_token.mac)
+              # logger.info(auth_token.auth_token)
+              # logger.info(NatAddress.address(params[:mac].downcase))
               if address = NatAddress.address(params[:mac].downcase)
+                
                 remote_ip, port, time = address.split("#")
-                version = "\x00".force_encoding('UTF-8')
-                type = "\x01".force_encoding('UTF-8')
-                flag1 = "\xaa".force_encoding('UTF-8')
-                flag2 = "\xbb".force_encoding('UTF-8')
-
-                vtoken = auth_token.auth_token.force_encoding('UTF-8')
-
-                mac = [auth_token.mac.gsub(/:/,'')].pack('H*').force_encoding('UTF-8')
-                client_identifier = [auth_token.client_identifier.gsub(/:/,'')].pack('H*').force_encoding('UTF-8')
-                #expired_timestamp = auth_token.expired_timestamp.to_s.scan(/../).map(&:hex).map(&:chr).join
-                #expired_timestamp = auth_token.expired_timestamp.to_s(16)
-                #expired_timestamp = "\x00\x00\x38\x40".force_encoding('UTF-8')
-                #expired_timestamp = ('00000'+(auth_token.expired_timestamp - Time.now.to_i).to_s)[-5,5]
-                expired_timestamp = [0].pack("S*")+[auth_token.expired_timestamp - Time.now.to_i].pack("S*").reverse.force_encoding('UTF-8')
-                errcode = "\x00".force_encoding('UTF-8')
-                attrnum = "\x01".force_encoding('UTF-8')
-
-                send_data = "#{version}#{type}#{flag1}#{flag2}#{expired_timestamp}#{attrnum}#{errcode}#{vtoken}#{mac}#{client_identifier}\x00\x00"
-
-                logger.info send_data
-
-                max_delay= 1000
-
-                t = UDPSocket.new
-                t.send(send_data, 0, remote_ip, port)
-                recv_data, addr = t.recvfrom(100);
-                if recv_data
-                  recv_data.strip!;
-                  puts recv_data;
-                end
+                
+                recv_data = send_to_terminal remote_ip, port, auth_token, 1
 
                 if recv_data.present?
                   redirect_to wifi_welcome_url
