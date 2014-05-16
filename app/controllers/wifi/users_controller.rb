@@ -46,6 +46,7 @@ class Wifi::UsersController < WifiController
               end
 
             else
+              logger.info("no nat address")
               render action: :login
               
             end

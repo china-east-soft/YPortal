@@ -1,6 +1,7 @@
 class Wifi::MerchantsController < WifiController
 
   include PrivateKey
+  include Communicate
 
   def home
 
