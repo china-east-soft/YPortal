@@ -38,6 +38,8 @@ Rails.application.routes.draw do
   end
 
   namespace :merchant do
+    resources :portal_styles
+    resources :banners
   end
 
   mount API::Entrance => '/api'

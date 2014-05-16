@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-lg-4">
+      <section class="panel">
+        <header class="panel-heading">
+           Form Elements
+        </header>
+        <div class="panel-body">
+          <%= simple_form_for [:merchant, @portal_style], :defaults => { :input_html => { :class => "form-control" } }, html: { multipart: true, remote: true, class: 'form-horizontal tasi-form' } do |f| %> 
+
+              <%= f.input :name %>
+              <%= f.input :btn_style %>
+              <div class="form-group">
+                <%= f.label "Ads" %>
+                <div class="col-sm-8">
+                  <%= link_to "edit", merchant_banners_path(portal_style_id: @portal_style.id), class: "btn btn-primary" %>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <%= f.button :submit %>
+              </div>
+          <% end %>
+        </div>
+      </section>
+    </div>
+    <div class="col-lg-8">
+        <!--work progress start-->
+        <section class="panel">
+           
+        </section>
+        <!--work progress end-->
+    </div>
+</div>

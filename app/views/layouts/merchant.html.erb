@@ -11,7 +11,7 @@
     <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'admin', media: 'all' %>
-    
+    <%= javascript_include_tag 'admin' %>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
@@ -278,7 +278,8 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <%= tabs_tag :builder => MenuTabBuilder, :open_tabs => { :id => "nav-accordion", :class => "sidebar-menu" } do |tab| %>
-                <%= tab.dashboard  fa_icon("dashboard")+content_tag(:span, '主页'), merchant_root_path %>
+                <%= tab.dashboard  fa_icon("dashboard")+content_tag(:span, '首页'), merchant_root_path %>
+                <%= tab.portal_style  fa_icon("dashboard")+content_tag(:span, '设置'), merchant_portal_styles_path %>
               <% end %>
               <!-- sidebar menu end-->
           </div>
@@ -303,7 +304,7 @@
       <!--footer end-->
   </section>
 
-  <%= javascript_include_tag 'admin' %>
+
 
   <script>
 

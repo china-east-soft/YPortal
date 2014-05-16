@@ -16,3 +16,4 @@
 //= require sparkline-chart.js
 //= require easy-pie-chart.js
 //= require count.js
+//= require jcrop.js

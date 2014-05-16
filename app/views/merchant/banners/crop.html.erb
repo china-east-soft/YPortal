@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-lg-12">
+    <section class="panel">
+
+      <script type="text/javascript" charset="utf-8">
+      $(function() {
+        $('#cropbox').Jcrop({
+          onChange: update_crop,
+          onSelect: update_crop,
+          setSelect: [0, 0, 458, 257],
+          aspectRatio: 458/257
+        });
+      });
+
+      function update_crop(coords) {
+        var rx = 458/coords.w;
+        var ry = 257/coords.h;
+        $('#preview').css({
+          width: Math.round(rx * <%= @banner.cover_geometry(:large).width %>) + 'px',
+          height: Math.round(ry * <%= @banner.cover_geometry(:large).height %>) + 'px',
+          marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+          marginTop: '-' + Math.round(ry * coords.y) + 'px'
+        });
+        var ratio = <%= @banner.cover_geometry(:original).width %> / <%= @banner.cover_geometry(:large).width %>;
+        $("#crop_x").val(Math.round(coords.x * ratio));
+        $("#crop_y").val(Math.round(coords.y * ratio));
+        $("#crop_w").val(Math.round(coords.w * ratio));
+        $("#crop_h").val(Math.round(coords.h * ratio));
+      }
+      </script>
+
+      <%= image_tag @banner.cover.url(:large), :id => "cropbox" %>
+
+      <h4>预览:</h4>
+      <div style="width:458px; height:257px; overflow:hidden">
+        <%= image_tag @banner.cover.url(:large), :id => "preview" %>
+      </div>
+
+      <br/>
+
+      <%= form_for [:merchant, @banner] do |f| %>
+        <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
+          <%= f.hidden_field attribute, :id => attribute %>
+        <% end %>
+        <p><%= f.submit "裁剪" %></p>
+      <% end %>
+
+      </section>
+  </div>
+</div>
