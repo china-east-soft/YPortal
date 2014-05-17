@@ -17,3 +17,6 @@
 //= require easy-pie-chart.js
 //= require count.js
 //= require jcrop.js
+
+//= require jquery.common.js
+//= require jquery.dragsort.min

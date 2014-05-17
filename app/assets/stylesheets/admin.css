@@ -5,4 +5,11 @@
  *= require style.css
  *= require style-responsive.css
  *= require jcrop
+ *= require wifi_style
+ *= require reset
+ *= require style1
+ *= require common
+ *= require base
+
+
 */

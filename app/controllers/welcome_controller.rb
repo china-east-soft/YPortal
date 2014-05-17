@@ -1,5 +1,7 @@
 class WelcomeController < ActionController::Base
 
+  layout "wifi"
+
   def index
   end
 

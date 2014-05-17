@@ -1,0 +1,126 @@
+.container {
+/*  padding-right: 0px;
+  padding-left: 0px;*/
+}
+
+.portal_wraped {
+  background: url("<%= image_path('portal_wraped.png') %>") repeat;
+}
+
+.portal_images {
+  background: url("<%= image_path('img_bg.png') %>") repeat;
+
+  [class*="col-xs"] {
+    box-sizing: border-box;
+    border: 1px solid #696;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  img {
+    max-height: 50px;
+  }
+}
+
+.shop_title {
+  background-color: #409ce4;
+  letter-spacing: 0.3em;
+  font-style: boder;
+  color: #fff;
+  h1,h2,h3,h4,h5 {
+    margin: 10px 0;
+  }
+}
+
+.free-wifi {
+  background-color: #ec7b4c;
+  letter-spacing: 0.3em;
+  color: #fff;
+  h1,h2,h3,h4 {
+    margin: 15px 0;
+    img {
+      margin-right: 10px;
+    }
+  }
+}
+
+.mf-box {
+    background: #f4f4f4;
+    padding: 0px;
+    padding-bottom: 10px;
+    text-align: center;
+    min-height: 80px;
+    margin-bottom: 0px;
+    transition-duration: 500ms;
+    transition-property: width, background;
+    transition-timing-function: ease;
+    -webkit-transition-duration: 500ms;
+    -webkit-transition-property: width, background;
+    -webkit-transition-timing-function: ease;
+}
+
+.mf-box i{
+    font-size: 50px;
+    line-height: normal;
+    margin-top: 0px;
+    padding-top: 10px;
+    display: block;
+    color: #f77b6f;
+}
+
+.mf-box img {
+  padding-top: 10px;
+}
+
+.mf-box:hover, .mf-box.active {
+    background: #f77b6f;
+    padding: 0px;
+    padding-bottom: 10px;
+    text-align: center;
+    min-height: 80px;
+    margin-bottom: 0px;
+    transition-duration: 500ms;
+    transition-property: width, background;
+    transition-timing-function: ease;
+    -webkit-transition-duration: 500ms;
+    -webkit-transition-property: width, background;
+    -webkit-transition-timing-function: ease;
+}
+
+.mf-box:hover i, .mf-box.active i{
+    font-size: 50px;
+    line-height: normal;
+    margin-top: 0px;
+    padding-top: 10px;
+    display: block;
+    color: #fff;
+
+}
+
+.mf-box:hover img, .mf-box.active img{
+  padding-top: 10px;
+}
+
+.mf-box:hover h5, .mf-box.active h5{
+    color: #fff;
+}
+
+.mf-box h5{
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-family: 'Fjalla One', sans-serif;
+}
+
+.reset_footer {
+  background: url("<%= image_path('portal_wraped.png') %>") repeat;
+  margin: 0px;
+  padding: 0px 0px;
+  font-size: 13px;
+  font-size: 1.8vmin;
+
+  .row.span5 {
+    background-color: #475268;
+  }
+}
+

@@ -46,6 +46,7 @@ class Merchant::PortalStylesController < MerchantController
       if @portal_style.update(portal_style_params)
         format.html { redirect_to [:merchant, @portal_style], notice: 'Portal style was successfully updated.' }
         format.json { head :no_content }
+        format.js {  }
       else
         format.html { render action: 'edit' }
         format.json { render json: @portal_style.errors, status: :unprocessable_entity }

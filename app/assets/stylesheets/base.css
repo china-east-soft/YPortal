@@ -1,0 +1,21 @@
+.c_btn_style,.c_btn_style:hover{ 
+    background: #5dbf0d;
+    color:#fff;
+}
+
+
+.c_style_default{
+    color: #FFFFFF;
+}
+
+.c_style_purple{
+    color: #cd61b0;
+}
+
+.c_style_blue{
+    color: #2597c7;
+}
+
+.c_style_red{
+    color: #ee5656;
+}

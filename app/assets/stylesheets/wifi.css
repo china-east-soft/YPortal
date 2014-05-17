@@ -1,10 +1,12 @@
 /*
- *= require bootstrap.css
- *= require bootstrap-reset.css
- *= require jquery.easy-pie-chart.css
+ *= require bootstrap-v3.0.0.css
+ *= require theme.css
+ *= require bootstrap-reset-m.css
  *= require font-awesome.css
- *= require owl.carousel.css
- *= require style.css
- *= require style-responsive.css
+ *= require flexslider.css
+ *= require jquery.bxslider.css
+ *= require style-m.css
+ *= require style-responsive-m.css
  *= require share.css
+ *= require mshare.css
 */

@@ -1,4 +1,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap.min.js
+//= require hover-dropdown.js
+//= require jquery.flexslider.js
+//= require jquery.bxslider.js
+//= require jquery.easing.min.js
+//= require link-hover.js
+//= require common-scripts2
 //= require send_message.js

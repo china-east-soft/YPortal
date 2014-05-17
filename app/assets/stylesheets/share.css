@@ -1,3 +1,8 @@
 .form-signin a.btn {
   color: #fff;
 }
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}

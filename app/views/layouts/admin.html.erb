@@ -11,7 +11,6 @@
     <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'admin', media: 'all' %>
-    
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
@@ -305,9 +304,10 @@
       </footer>
       <!--footer end-->
   </section>
-
+    
   <%= javascript_include_tag 'admin' %>
-
+  <%= yield :script %>
+  
   <script>
 
       //owl carousel
