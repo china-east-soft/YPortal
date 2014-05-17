@@ -116,8 +116,20 @@
   background: url("<%= image_path('portal_wraped.png') %>") repeat;
   margin: 0px;
   padding: 0px 0px;
+
   font-size: 13px;
-  font-size: 1.8vmin;
+
+  @media all and (max-device-width: 720px){
+    font-size: 11px;
+  }
+
+  @media all and (max-device-width: 640px){
+    font-size: 10px;
+  }
+
+  @media all and (max-device-width: 320px){
+    font-size: 8px;
+  }
 
   .row.span5 {
     background-color: #475268;
