@@ -7,8 +7,8 @@
   <div class="row mbot30">
     <div class="col-lg-5 col-xs-12 col-centered">
     <%= render partial: "partial/adv", locals: { title: "登录界面" } %>
-    <div class="row span5 col-centered" style="color:#fa3906;margin-top:10px;padding:5px 10px;background-color: #f8eed2;">
-      <%= image_tag 'tu_03_03.png',height: '15' %> <span style="margin-left:5px;">热门活动</span>
+    <div class="row span5 col-centered broadcast">
+      <%= image_tag 'tu_03_03.png' %> <span>热门活动</span>
     </div>
     <div class="row span5 col-centered" style="margin-top:5px;">
     <%= simple_form_for :account, as: :post, url:  sign_in_wifi_users_path,:role => "form", html: { class: "form-signin" } do |f| %>
@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="row span5 col-centered" style="font-weight:100;color:#797979;font-size:13px;letter-spacing: 0.2em;">
-        <div class="col-lg-offset-3 col-xs-offset-3">
+        <div class="col-lg-offset-2 col-xs-offset-2">
           <div class="checkboxes">
             <label class="label_check" for="checkbox-03">
             <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox"> 我已阅读免责声明并同意。</label>

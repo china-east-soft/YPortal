@@ -6,9 +6,6 @@
 <div class="container" >
   <div class="row mbot30">
     <div class="col-lg-5 col-xs-12 col-centered">
-      <div class="row span5 col-centered shop_title">
-        <h5 class="text-center"><strong>店铺名称</strong></h5>
-      </div>
       <%= render partial: "partial/adv", locals: { title: "店铺名称" } %>
       <% if @auth_token && @auth_token.init? %>
       <div class="row span5 col-centered free-wifi">

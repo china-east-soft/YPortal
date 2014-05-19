@@ -70,8 +70,10 @@ class Wifi::MerchantsController < WifiController
 
     end
 
+  end
 
-
+  def show
+    
   end
 
   private
