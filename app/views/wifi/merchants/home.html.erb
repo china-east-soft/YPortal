@@ -9,38 +9,7 @@
       <div class="row span5 col-centered shop_title">
         <h5 class="text-center"><strong>店铺名称</strong></h5>
       </div>
-      <div class="span5 about-carousel">
-        <div id="myCarousel" class="carousel slide">
-            <!-- Carousel items -->
-            <div class="carousel-inner">
-                <div class="active item">
-                    <%= image_tag "about_1.jpg" %>
-                    <div class="carousel-caption">
-                        <p>Donec luctus ullamcorper nulla</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <%= image_tag "about_2.jpg" %>
-                    <div class="carousel-caption">
-                        <p>Blanditiis praesentium voluptatum</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <%= image_tag "about_1.jpg" %>
-                    <div class="carousel-caption">
-                        <p>Honest and amazing things that bring positive results</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Carousel nav -->
-            <a class="carousel-control left" href="#myCarousel" data-slide="prev">
-              <%= fa_icon "angle-left" %>
-            </a>
-            <a class="carousel-control right" href="#myCarousel" data-slide="next">
-              <%= fa_icon "angle-right" %>
-            </a>
-        </div>
-      </div>
+      <%= render partial: "partial/adv", locals: { title: "店铺名称" } %>
       <% if @auth_token && @auth_token.init? %>
       <div class="row span5 col-centered free-wifi">
         <%= link_to wifi_login_url(vtoken: params[:vtoken]) do %>

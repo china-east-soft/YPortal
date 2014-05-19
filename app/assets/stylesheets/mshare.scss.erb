@@ -3,6 +3,11 @@
   padding-left: 0px;*/
 }
 
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
+
 .portal_wraped {
   background: url("<%= image_path('portal_wraped.png') %>") repeat;
 }
@@ -134,5 +139,44 @@
   .row.span5 {
     background-color: #475268;
   }
+}
+
+.vf-box {
+  padding: 5px;
+  img {
+    height: 70px;
+  }
+}
+
+.checkboxes label, .radios label {
+    display: block;
+    cursor: pointer;
+    line-height: 20px;
+    padding-bottom: 7px;
+    font-weight: 300;
+}
+
+.label_check input,
+.label_radio input {
+    margin-right: 5px;
+}
+
+.has-js .label_check,
+.has-js .label_radio {
+    padding-left: 34px;
+}
+
+.has-js .label_check {
+    background: url("<%= asset_path('checkbox/check-off.png') %>") no-repeat;
+}
+
+.has-js .label_check input,
+.has-js .label_radio input {
+    position: absolute;
+    left: -9999px;
+}
+
+.has-js label.c_on {
+    background: url("<%= asset_path('checkbox/check-on.png') %>") no-repeat;
 }
 
