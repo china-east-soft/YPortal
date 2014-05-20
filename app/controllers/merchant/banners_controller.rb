@@ -93,6 +93,6 @@ class Merchant::BannersController < MerchantController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def banner_params
-      params.require(:banner).permit(:cover, :portal_style_id, :crop_x, :crop_y, :crop_w, :crop_h)
+      params.require(:banner).permit(:cover, :description, :url, :portal_style_id, :crop_x, :crop_y, :crop_w, :crop_h)
     end
 end

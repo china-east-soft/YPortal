@@ -44,6 +44,7 @@ class Wifi::MerchantsController < WifiController
                 recv_data = send_to_terminal remote_ip, port, auth_token, 1
 
                 if recv_data.present?
+                  
                   redirect_to wifi_welcome_url
                 else
                   redirect_to url = params[:url]

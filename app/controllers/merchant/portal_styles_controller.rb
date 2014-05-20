@@ -7,6 +7,7 @@ class Merchant::PortalStylesController < MerchantController
   # GET /portal_styles.json
   def index
     @portal_style = PortalStyle.where(merchant_id: current_merchant.id).first_or_create
+    @banners = @portal_style.banners
   end
 
   # GET /portal_styles/1

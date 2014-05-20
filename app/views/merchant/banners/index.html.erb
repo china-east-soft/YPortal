@@ -19,13 +19,17 @@
               <thead>
               <tr>
                   <th>Cover</th>
+                  <th>description</th>
+                  <th>url</th>
                   <th colspan="3"></th>
               </tr>
               </thead>
                 <tbody>
                 <% @banners.each do |banner| %>
                   <tr>
-                    <td><%= banner.cover %></td>
+                    <td><%= image_tag banner.cover, size: "64x36" %></td>
+                    <td><%= banner.description %></td>
+                    <td><%= banner.url %></td>
                     <td><%= link_to 'Show', [:merchant, banner] %></td>
                     <td><%= link_to 'Edit', edit_merchant_banner_path(banner) %></td>
                     <td><%= link_to 'Destroy', [:merchant, banner], method: :delete, data: { confirm: 'Are you sure?' } %></td>

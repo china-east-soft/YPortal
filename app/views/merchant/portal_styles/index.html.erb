@@ -26,18 +26,32 @@
         </div>
       </section>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-6">
+      <section class="panel">
+      <header class="panel-heading">
+         Preview
+      </header>
       <div class="panel-body">
           <!-- config start -->
           <div class="row">
-            <div class="col-lg-8 col-xs-12 col-centered">
+            <div class="col-lg-12 col-xs-12 col-centered">
               <div class="row span5 col-centered shop_title">
-                <h5 class="text-center"><strong><%= '店铺名称' %></strong></h5>
+                <h5 class="text-center"><strong><%= @portal_style.name %></strong></h5>
               </div>
               <div class="span5 about-carousel" style="margin-bottom:-15px;">
                 <div id="myCarousel" class="carousel slide">
                     <!-- Carousel items -->
                     <div class="carousel-inner">
+                    <% if @banners.present? %>
+                      <% @banners.each_with_index do |banner,bindex| %>
+                          <div class="<%= 'active' if bindex == 0 %> item">
+                            <%= image_tag banner.cover %>
+                            <div class="carousel-caption">
+                                <p><%= banner.description %></p>
+                            </div>
+                        </div>
+                      <% end %>
+                    <% else %>
                         <div class="active item">
                             <%= image_tag "about_1.jpg" %>
                             <div class="carousel-caption">
@@ -56,6 +70,7 @@
                                 <p>Honest and amazing things that bring positive results</p>
                             </div>
                         </div>
+                    <% end %>
                     </div>
                     <!-- Carousel nav -->
                     <a class="carousel-control left" href="#myCarousel" data-slide="prev">
@@ -120,6 +135,7 @@
         </div>
         <!-- config end -->
       </div>
+      </section>
     </div>
 </div>
 <% end %>
