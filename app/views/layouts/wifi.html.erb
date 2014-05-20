@@ -26,14 +26,29 @@
 
 	<%= yield %>
 	<%= javascript_include_tag 'wifi' %>
+    <script>
 
+      $(window).load(function() {
+          $('.flexslider').flexslider({
+              // animation: "slide",
+              // start: function(slider) {
+              //     $('body').removeClass('loading');
+              // }
+              // nextSelector: '#slider-next',
+              // prevSelector: '#slider-prev',
+              // nextText: 'Onward →',
+              // prevText: '← Go back'
+          });
+      });
+
+  </script>
   <footer class="footer reset_footer">
     <div class="container" >
       <div class="row mbot30">
         <div class="col-lg-5 col-xs-12 col-centered">
           <div class="row span5 col-centered">
-            <div class="col-lg-7 col-xs-7">技术支持：杭州云连网络技术有限公司</div>
-            <div class="col-lg-5 col-xs-5"><span class="pull-right">电话：0571-85360738<span></div>
+            技术支持：杭州云连网络技术有限公司
+            <span class="pull-right">电话：0571-85360738<span>
           </div>
         </div>
       </div>

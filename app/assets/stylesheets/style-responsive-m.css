@@ -50,7 +50,7 @@
     }
 
     .search, .bx-controls-direction {
-        display: none;
+        /*display: none;*/
     }
 
     .tweet-box {
@@ -62,7 +62,7 @@
     }
 
     .bx-wrapper {
-        margin-bottom: 60px;
+        margin-bottom: 30px;
     }
 
     .purchase-btn, .about-testimonial {

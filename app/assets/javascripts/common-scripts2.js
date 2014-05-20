@@ -13,8 +13,8 @@ var Script = function () {
 
     $('.bxslider').show();
     $('.bxslider').bxSlider({
-        minSlides: 4,
-        maxSlides: 4,
+        minSlides: 2,
+        maxSlides: 2,
         slideWidth: 276,
         slideMargin: 20
     });

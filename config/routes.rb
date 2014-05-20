@@ -27,12 +27,14 @@ Rails.application.routes.draw do
         post :sign_in
       end
     end
+    resources :products, only: [:index,:show]
   end
 
   namespace :admin do
     resources :agents
     resources :merchants
     resources :terminals
+    resources :products
   end
 
   namespace :agent do
