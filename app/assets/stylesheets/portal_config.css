@@ -1,0 +1,29 @@
+.carousel-control.left, .carousel-control.right {
+    background: none;
+}
+
+.carousel-control {
+    background: #000000 !important;
+    bottom: 40%;
+    color: #FFFFFF;
+    font-size: 20px;
+    left: 0;
+    line-height: 48px;
+    opacity: 0.5;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+    top: 40%;
+    width: 10%;
+}
+
+.carousel-control:hover {
+    background: rgba(212,108,94,.8) !important;
+    color: #FFFFFF;
+    /*opacity: 0.6;*/
+    text-decoration: none;
+}
+
+.carousel-control:hover, .carousel-control:focus {
+    opacity: 0.6;
+}
