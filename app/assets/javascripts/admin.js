@@ -10,7 +10,6 @@
 //= require owl.carousel.js
 //= require jquery.customSelect.min.js
 //= require respond.min.js
-//= require jquery.dcjqaccordion.2.7.js
 
 //= require common-scripts.js
 //= require sparkline-chart.js
@@ -18,5 +17,4 @@
 //= require count.js
 //= require jcrop.js
 
-//= require jquery.common.js
 //= require jquery.dragsort.min

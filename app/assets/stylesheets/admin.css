@@ -2,12 +2,12 @@
  *= require bootstrap.css
  *= require bootstrap-reset.css
  *= require font-awesome.css
+ *= require flexslider.css
+ *= require jquery.bxslider
  *= require style.css
  *= require style-responsive.css
  *= require jcrop
- *= require reset
- *= require common
- *= require base
-
+ *= require mshare.css
+ *= require portal_config.css
 
 */

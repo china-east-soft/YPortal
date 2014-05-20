@@ -1,3 +1,4 @@
+<% content_for :main_content do %>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -7,3 +8,4 @@
 
 <%= link_to 'Edit', edit_merchant_banner_path(id: @banner.id, portal_style_id: @portal_style.id) %> |
 <%= link_to 'Back', merchant_banners_path(portal_style_id: @portal_style.id)	 %>
+<% end %>

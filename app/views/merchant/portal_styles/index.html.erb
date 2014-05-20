@@ -3,17 +3,19 @@
     <div class="col-lg-4">
       <section class="panel">
         <header class="panel-heading">
-           Form Elements
+           主页设置
         </header>
         <div class="panel-body">
           <%= simple_form_for [:merchant, @portal_style], :defaults => { :input_html => { :class => "form-control" } }, html: { multipart: true, remote: true, class: 'form-horizontal tasi-form' } do |f| %> 
 
               <%= f.input :name %>
+              <!--
               <%= f.input :btn_style %>
+              -->
               <div class="form-group">
-                <%= f.label "Ads" %>
+                <%= f.label "广告" %>
                 <div class="col-sm-8">
-                  <%= link_to "edit", merchant_banners_path(portal_style_id: @portal_style.id), class: "btn btn-primary" %>
+                  <%= link_to "设置", merchant_banners_path(portal_style_id: @portal_style.id), class: "btn btn-primary" %>
                 </div>
               </div>
 
@@ -25,103 +27,99 @@
       </section>
     </div>
     <div class="col-lg-8">
-        <!--work progress start-->
-        <section class="panel">
-        <div class="content fl">
-<div class="rightBox fr">
-      <div class="re_box clearfix">
-        <div class="title center">
-          <input class="center c_gray1" id="input_title2" name="input_title2" type="text" value="天下第二" maxlength="10" onkeyup="copyob2toob1()" onblur="saveobvalue()" style="border: 0px;">
+      <div class="panel-body">
+          <!-- config start -->
+          <div class="row">
+            <div class="col-lg-8 col-xs-12 col-centered">
+              <div class="row span5 col-centered shop_title">
+                <h5 class="text-center"><strong><%= '店铺名称' %></strong></h5>
+              </div>
+              <div class="span5 about-carousel" style="margin-bottom:-15px;">
+                <div id="myCarousel" class="carousel slide">
+                    <!-- Carousel items -->
+                    <div class="carousel-inner">
+                        <div class="active item">
+                            <%= image_tag "about_1.jpg" %>
+                            <div class="carousel-caption">
+                                <p>Donec luctus ullamcorper nulla</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <%= image_tag "about_2.jpg" %>
+                            <div class="carousel-caption">
+                                <p>Blanditiis praesentium voluptatum</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <%= image_tag "about_1.jpg" %>
+                            <div class="carousel-caption">
+                                <p>Honest and amazing things that bring positive results</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Carousel nav -->
+                    <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                      <%= fa_icon "angle-left" %>
+                    </a>
+                    <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                      <%= fa_icon "angle-right" %>
+                    </a>
+                </div>
+              </div>
+              <div class="row span5 col-centered free-wifi">
+                <h4 class="text-center"><%= image_tag 'tu_01_03.png',height: '23' %>点击免费上网</h4>
+              </div>
+              <div class="row span5 col-centered portal_images ">
+                <div class="col-lg-6 col-xs-6" style="border-top:0px;">
+                  <section>
+                    <div class="mf-box">
+                      <%= image_tag "tu_01_07.png"%>
+                      <h5>关注我们</h5>
+                    </div>
+                  </section>
+                </div>
+                <div class="col-lg-6 col-xs-6" style="border-left:0px;border-top:0px;">
+                  <section>
+                    <div class="mf-box">
+                      <%= image_tag "tu_01_10.png"%>
+                      <h5>商品展示</h5>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="row col-centered portal_images ">
+                <div class="col-lg-6 col-xs-6" style="border-top:0px;">
+                  <section>
+                    <div class="mf-box">
+                      <%= image_tag "tu_01_17.png" %>
+                      <h5>店铺介绍</h5>
+                    </div>
+                  </section>
+                </div>
+                <div class="col-lg-6 col-xs-6" style="border-top:0px;border-left:0px;">
+                  <section>
+                    <div class="mf-box">
+                      <%= image_tag "tu_01_15.png" %>
+                      <h5>店铺活动</h5>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="row col-centered portal_images ">
+                <div class="col-lg-12 col-xs-12" style="border-top:0px;">
+                  <section>
+                    <div class="mf-box">
+                      <%= image_tag "tu_01_22.png" %>
+                      <h5>搜周边</h5>
+                    </div>
+                  </section>
+                </div>
+              </div>
+
+          </div>
         </div>
-        <a href="/biz/merchant/banner_edit.htm">
-            <div class="focusImg" id="rz_focus" style="border: 1px solid rgb(255, 255, 255);">
-        <img src="http://s4.witown.cn/upload/images/dlogo/shop_no_banner.png">    
-                    </div>
-        </a>
-                <div class="barImg c_white">推荐活动</div>
-                <div class="m_box clearfix">
-          <ul class="dragsortBox" id="list1" data-listidx="0">
-          <!--  -->
-              <li appid="2" data-itemidx="0">
-                  <div class="bg_style capslide_img_cont" id="box2" style="background-color: rgb(18, 137, 171); cursor: pointer; border: 1px solid rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial;">
-                    <img class="iconStyle" src="http://s4.witown.cn/images/icon/default/15.png" width="70" height="70">                                       <span class="center fl c_style_default">天下第二</span>
-                    <div class="ic_caption" style="cursor: pointer; color: white; background-color: black; bottom: 0px; display: none;">
-                          <a href="javascript:enable('2',false);" class="closeIcon m_boxDelete fr"></a>
-                        
-                         <a class="font16 setBtn" href="                                      appModule_shopCampaign.htm
-                                      ">设 置</a>
-                                  <div class="infoT" style="cursor: pointer;">可鼠标拖动模块进行排序，也可删除此模块</div>
-                    </div>
-                  </div>
-                </li>
-                    <li appid="3" data-itemidx="1">
-                  <div class="bg_style capslide_img_cont" id="box3" style="background-color: rgb(173, 42, 185); cursor: pointer; border: 1px solid rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial;">
-                    <img class="iconStyle" src="http://s4.witown.cn/images/icon/default/7.png" width="70" height="70">                                        <span class="center fl c_style_default">相册</span>
-                    <div class="ic_caption" style="cursor: pointer; color: white; background-color: black; bottom: 0px; display: none;">
-                          <a href="javascript:enable('3',false);" class="closeIcon m_boxDelete fr"></a>
-                        
-                         <a class="font16 setBtn" href="                                      appModule_album.htm
-                                      ">设 置</a>
-                                  <div class="infoT" style="cursor: pointer;">可鼠标拖动模块进行排序，也可删除此模块</div>
-                    </div>
-                  </div>
-                </li>
-                    <li appid="4" data-itemidx="2">
-                  <div class="bg_style capslide_img_cont" id="box4" style="background-color: rgb(19, 171, 122); cursor: pointer; border: 1px solid rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial;">
-                    <img class="iconStyle" src="http://s4.witown.cn/images/icon/default/11.png" width="70" height="70">                                       <span class="center fl c_style_default">关注我们</span>
-                    <div class="ic_caption" style="cursor: pointer; color: white; background-color: black; bottom: 0px; display: none;">
-                          <a href="javascript:enable('4',false);" class="closeIcon m_boxDelete fr"></a>
-                        
-                         <a class="font16 setBtn" href="                                      merchant_followUs.htm
-                                      ">设 置</a>
-                                  <div class="infoT" style="cursor: pointer;">可鼠标拖动模块进行排序，也可删除此模块</div>
-                    </div>
-                  </div>
-                </li>
-                    <li appid="1" data-itemidx="3">
-                  <div class="bg_style capslide_img_cont" id="box1" style="background-color: rgb(220, 60, 84); cursor: pointer; border: 1px solid rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial;">
-                    <img class="iconStyle" src="http://s4.witown.cn/images/icon/default/25.png" width="70" height="70">                                       <span class="center fl c_style_default">店铺介绍</span>
-                    <div class="ic_caption" style="cursor: pointer; color: white; background-color: black; bottom: 0px; display: none;">
-                          <a href="javascript:enable('1',false);" class="closeIcon m_boxDelete fr"></a>
-                        
-                         <a class="font16 setBtn" href="                                      merchant_shopIntroduce.htm
-                                      ">设 置</a>
-                                  <div class="infoT" style="cursor: pointer;">可鼠标拖动模块进行排序，也可删除此模块</div>
-                    </div>
-                  </div>
-                </li>
-                    <li appid="21289" data-itemidx="4">
-                  <div class="bg_style capslide_img_cont" id="box21289" style="background-color: rgb(135, 78, 78); cursor: pointer; border: 1px solid rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial;">
-                    <img class="iconStyle" src="http://s4.witown.cn/images/icon/default/23.png" width="70" height="70">                                       <span class="center fl c_style_default">乐哈哈歌唱团</span>
-                    <div class="ic_caption" style="cursor: pointer; color: white; background-color: black; bottom: 0px; display: none;">
-                          <a href="javascript:deleteCustom('21289');" class="closeIcon m_boxDelete fr"></a>
-                        
-                         <a class="font16 setBtn" href="                                      appModule_getCustom.htm?appId=21289
-                                    ">设 置</a>
-                                  <div class="infoT" style="cursor: pointer;">可鼠标拖动模块进行排序，也可删除此模块</div>
-                    </div>
-                  </div>
-                </li>
-                    <li appid="5" data-itemidx="5">
-                  <div class="bg_style capslide_img_cont" id="box5" style="background-color: rgb(225, 57, 136); cursor: pointer; border: 1px solid rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial;">
-                    <img class="iconStyle" src="http://s4.witown.cn/images/icon/default/9.png" width="70" height="70">                                        <span class="center fl c_style_default">周边</span>
-                    <div class="ic_caption" style="cursor: pointer; display: none; color: white; background-color: black; bottom: 0px;">
-                          <a href="javascript:enable('5',false);" class="closeIcon m_boxDelete fr"></a>
-                        
-                         <a class="font16 setBtn" href="                                      surround.htm
-                                      ">设 置</a>
-                                  <div class="infoT" style="cursor: pointer;">可鼠标拖动模块进行排序，也可删除此模块</div>
-                    </div>
-                  </div>
-                </li>
-                      </ul>
-        </div>
-        <div class="bottmoB"></div>
+        <!-- config end -->
       </div>
-    </div>   
-    </div>     
-        </section>
-        <!--work progress end-->
     </div>
 </div>
 <% end %>
