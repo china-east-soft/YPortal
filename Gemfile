@@ -51,7 +51,7 @@ group :assets do
   gem "font-awesome-rails", '3.2.1.3'
 end
 
-#gem 'i18n', github: 'svenfuchs/i18n'
+gem 'i18n', github: 'svenfuchs/i18n'
 gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'master'
 
 # gem 'kgio'
