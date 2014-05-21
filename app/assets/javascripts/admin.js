@@ -17,4 +17,4 @@
 //= require count.js
 //= require jcrop.js
 
-//= require jquery.dragsort.min
+//= require jquery.dragsort-0.5.1.js
