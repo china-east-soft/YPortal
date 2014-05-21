@@ -33,7 +33,12 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :agents
     resources :merchants
-    resources :terminals
+    resources :terminals do
+      collection do
+        get :export
+        post :import
+      end
+    end
     resources :products
   end
 
