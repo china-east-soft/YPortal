@@ -63,6 +63,25 @@ class Admin::TerminalsController < AdminController
     end
   end
 
+  def export
+    respond_to do |format|
+      format.csv {   
+        send_data Terminal.to_csv,:type => "text/csv;charset=utf-8; header=present",  
+          :filename => "模板_#{Time.now.strftime("%Y%m%d")}.csv"
+      }
+    end
+  end
+
+  def import
+    begin
+      Terminal.import(params[:file])
+      @success = "导入成功."
+    rescue => e
+      @error = e
+    end
+    redirect_to admin_terminals_url, :flash => { error: @error.to_s, success: @success }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_terminal
