@@ -280,6 +280,7 @@
               <%= tabs_tag :builder => MenuTabBuilder, :open_tabs => { :id => "nav-accordion", :class => "sidebar-menu" } do |tab| %>
                 <%= tab.dashboard  fa_icon("dashboard")+content_tag(:span, '首页'), merchant_root_path %>
                 <%= tab.portal_style  fa_icon("cog")+content_tag(:span, '主页设置'), merchant_portal_styles_path %>
+                <%= tab.terminal  fa_icon("cog")+content_tag(:span, '终端管理'), merchant_terminals_path %>
               <% end %>
               <!-- sidebar menu end-->
           </div>

@@ -4,8 +4,9 @@ class Wifi::MerchantsController < WifiController
   include Communicate
 
   def home
-
-    if params[:vtoken].present?
+    if params[:mid].present?
+      
+    elsif params[:vtoken].present?
       # only params[:vtoken], from client
       @auth_token = AuthToken.where(auth_token: params[:vtoken]).first
       if @auth_token.present?
