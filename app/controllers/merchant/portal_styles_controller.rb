@@ -1,5 +1,5 @@
 class Merchant::PortalStylesController < MerchantController
-  before_action :set_portal_style, only: [:show, :edit, :update, :destroy]
+  before_action :set_portal_style, only: [:show, :edit, :update, :destroy, :save_order]
 
   set_tab :portal_style
 
@@ -8,6 +8,12 @@ class Merchant::PortalStylesController < MerchantController
   def index
     @portal_style = PortalStyle.where(merchant_id: current_merchant.id).first_or_create
     @banners = @portal_style.banners
+    @mboxes = @portal_style.mboxes
+    # only for before existing data
+    if @mboxes.blank?
+      @portal_style.init_mboxes
+      @mboxes = @portal_style.mboxes
+    end
   end
 
   # GET /portal_styles/1
@@ -63,6 +69,12 @@ class Merchant::PortalStylesController < MerchantController
       format.html { redirect_to merchant_portal_styles_url }
       format.json { head :no_content }
     end
+  end
+
+  def save_order
+    mboxes = @portal_style.mboxes
+    pids = params[:pids]
+    mboxes.map{|mbox| mbox.update_column(:appid, pids.index(mbox.id.to_s)) }
   end
 
   private

@@ -1,0 +1,31 @@
+<h1>Listing mboxes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Integer</th>
+      <th>Portal style</th>
+      <th>Category</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @mboxes.each do |mbox| %>
+      <tr>
+        <td><%= mbox.name %></td>
+        <td><%= mbox.integer %></td>
+        <td><%= mbox.portal_style_id %></td>
+        <td><%= mbox.category %></td>
+        <td><%= link_to 'Show', mbox %></td>
+        <td><%= link_to 'Edit', edit_mbox_path(mbox) %></td>
+        <td><%= link_to 'Destroy', mbox, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Mbox', new_mbox_path %>

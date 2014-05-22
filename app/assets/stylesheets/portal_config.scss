@@ -28,10 +28,11 @@
     opacity: 0.6;
 }
 
+/***** dragable */
 .portal_images {
   ul { }
   #list1 { width:100%; list-style-type:none; }
-  #list1 li { float:left; width:50%; min-height:100px; }
+  #list1 li { float:left; width:49.9%; min-height:100px; }
   #list1 div { width:100%; min-height:100px; }
   .placeHolder div { background-color:white !important; border:dashed 1px gray !important; }
 }
