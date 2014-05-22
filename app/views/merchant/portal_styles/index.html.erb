@@ -90,7 +90,14 @@
                 <ul class="dragsortBox" id="list1">
                   <% @mboxes.each do |mbox| %>
                     <li appid="<%=mbox.id%>">
-                      <div class="col-lg-6 col-xs-6">
+                      <div class="col-lg-6 col-xs-6 thumbnail">
+                        <div class="caption">
+                          <a class="icon-remove" href="javascript:;"><%= fa_icon("times 2x") %></a>
+                          </button>
+                          <%= link_to "设置", "", class: "btn btn-primary" %>
+                          <p>可鼠标拖动模块进行排序</p>
+                          <p>也可以删除此模块</p>
+                        </div>
                         <section>
                           <div class="mf-box">
                             <%= image_tag mbox.default_cover %>
@@ -183,6 +190,18 @@
     //     });
     // }
 
+    $( document ).ready(function() {
+        $("[rel='tooltip']").tooltip();    
+     
+        $('.thumbnail').hover(
+            function(){
+                $(this).find('.caption').slideDown(200); //.fadeIn(250)
+            },
+            function(){
+                $(this).find('.caption').slideUp(200); //.fadeOut(205)
+            }
+        ); 
+    });
 
 
     // drag sort
