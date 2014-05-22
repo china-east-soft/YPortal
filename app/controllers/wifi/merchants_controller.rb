@@ -27,6 +27,7 @@ class Wifi::MerchantsController < WifiController
       # from teminal
       if params[:client_identifier] && params[:mac]
         @url = "wifi/merchant?vtoken=#{params[:vtoken]}"
+        AuthToken.update_expired_status(params[:mac])
         auth_token = AuthToken.where(client_identifier: params[:client_identifier], mac: params[:mac], status: [AuthToken.statuses[:init], AuthToken.statuses[:active]]).first
         if auth_token
           auth_token.update_status
@@ -34,25 +35,21 @@ class Wifi::MerchantsController < WifiController
           when "init" 
             redirect_to wifi_merchant_url(vtoken: auth_token.auth_token)
           when "active"
-            if params[:url].present?
-              # logger.info(auth_token.mac)
-              # logger.info(auth_token.auth_token)
-              # logger.info(NatAddress.address(params[:mac].downcase))
-              if address = NatAddress.address(params[:mac].downcase)
-                
-                remote_ip, port, time = address.split("#")
-                
-                recv_data = send_to_terminal remote_ip, port, auth_token, 1
+            # logger.info(auth_token.mac)
+            # logger.info(auth_token.auth_token)
+            # logger.info(NatAddress.address(params[:mac].downcase))
+            if address = NatAddress.address(params[:mac].downcase)
+              
+              remote_ip, port, time = address.split("#")
+              
+              recv_data = send_to_terminal remote_ip, port, auth_token, 1
 
-                if recv_data.present?
-                  
-                  redirect_to wifi_welcome_url
-                else
-                  redirect_to url = params[:url]
-                end
+              if recv_data.present?
+                flash[:success] = "已经认证成功可以直接上网!"
+                redirect_to wifi_welcome_url
+              else
+                
               end
-            else
-              redirect_to wifi_merchant_url(vtoken: auth_token.auth_token)
             end
           end
         else

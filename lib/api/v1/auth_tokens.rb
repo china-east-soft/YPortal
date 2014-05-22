@@ -7,7 +7,7 @@ module API::V1
     resource :auth_tokens do
       
       get do
-        AuthToken.where(mac: params[:mac], status: 1).where(["expired_timestamp < :expired_timestamp", { expired_timestamp: Time.now.to_i }]).update_all(status: 2)
+        AuthToken.update_expired_status(params[:mac])
         auth_tokens = AuthToken.where(mac: params[:mac], status: 1).where(["expired_timestamp > :expired_timestamp", { expired_timestamp: Time.now.to_i }]).all
         if auth_tokens.present?
           auth_token_list = auth_tokens.map{|au| [au.client_identifier, au.auth_token, au.status, au.expired_timestamp.to_i - Time.now.to_i ].join(";") }
