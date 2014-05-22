@@ -41,6 +41,7 @@ class Wifi::UsersController < WifiController
               if recv_data.present?
                 redirect_to wifi_welcome_url
               else
+                flash[:notice] = 'no recv....'
                 auth_token.update(status: 0)
                 render action: :login
               end
@@ -52,19 +53,19 @@ class Wifi::UsersController < WifiController
             end
 
           else
-            @message = auth_token.errors
+            flash[:notice] = auth_token.errors
             render action: :login
           end
         else
-          @message = "token is valid"
+          flash[:notice] = "token is valid"
           render action: :login
         end
       else
-        @message = "auth_message is missing"
+        flash[:notice] = "auth_message is missing"
         render action: :login
       end
     else
-      @message = "手机号或者验证码不正确"
+      flash[:notice] = "手机号或者验证码不正确"
       render action: :login
     end
   end
