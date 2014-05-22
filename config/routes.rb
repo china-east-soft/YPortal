@@ -46,7 +46,11 @@ Rails.application.routes.draw do
   end
 
   namespace :merchant do
-    resources :portal_styles
+    resources :portal_styles do
+      collection do
+        post :save_order
+      end
+    end
     resources :banners
     resources :terminals
   end

@@ -88,56 +88,18 @@
               <div class="portal_images">
               <div class="row span5 col-centered">
                 <ul class="dragsortBox" id="list1">
-                  <li appid="1" data-itemidx="0">
-                    <div class="col-lg-6 col-xs-6">
-                      <section>
-                        <div class="mf-box">
-                          <%= image_tag "tu_01_07.png"%>
-                          <h5>关注我们</h5>
-                        </div>
-                      </section>
-                    </div> 
-                  </li>
-                  <li appid="2">
-                    <div class="col-lg-6 col-xs-6">
-                      <section>
-                        <div class="mf-box">
-                          <%= image_tag "tu_01_10.png"%>
-                          <h5>商品展示</h5>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li appid="3">
-                    <div class="col-lg-6 col-xs-6">
-                      <section>
-                        <div class="mf-box">
-                          <%= image_tag "tu_01_17.png" %>
-                          <h5>店铺介绍</h5>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li appid="4">
-                    <div class="col-lg-6 col-xs-6">
-                      <section>
-                        <div class="mf-box">
-                          <%= image_tag "tu_01_15.png" %>
-                          <h5>店铺活动</h5>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li appid="5">
-                    <div class="col-lg-6 col-xs-6">
-                      <section>
-                        <div class="mf-box">
-                          <%= image_tag "tu_01_22.png" %>
-                          <h5>搜周边</h5>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
+                  <% @mboxes.each do |mbox| %>
+                    <li appid="<%=mbox.id%>">
+                      <div class="col-lg-6 col-xs-6">
+                        <section>
+                          <div class="mf-box">
+                            <%= image_tag mbox.default_cover %>
+                            <h5><%= mbox.name %></h5>
+                          </div>
+                        </section>
+                      </div> 
+                    </li>                    
+                  <% end %>
                 </ul>
               </div>
               </div>
@@ -152,106 +114,100 @@
 <% end %>
 
 <% content_for :script do %>
-<script>
-  // var i_max = 8;
-  // function add_mk(){
-  //    dialog=art.dialog({
-  //     title: '',
-  //       content: document.getElementById('add_mk'),
-  //     lock: true
-  //   });
-  // }//添加模块
-  // function zdy_mk(){
-  //    dialog=art.dialog({
-  //     title: '',
-  //       content: document.getElementById('zdy_mk'),
-  //     lock: true
-  //   });
-  // }
-  // //删除自定义模块
-  // function enable(appId,isEnable){
-  //   if(isEnable && 5>=i_max){
-  //     alert('最多只能启用8个模块');
-  //     return;
-  //   }
-  //   ajaxPost("/biz/json/appModule_enable.htm",{"appId":appId,"enable":isEnable},function(resp){
-  //     location.reload();
-  //   });
-  // }
-  // function addCustom(){
-  //   if(5>=i_max){
-  //     alert('最多只能启用8个模块');
-  //     return;
-  //   }
+  <%= javascript_tag do %>
+    window._token = '<%= form_authenticity_token %>'
+    // var i_max = 8;
+    // function add_mk(){
+    //    dialog=art.dialog({
+    //     title: '',
+    //       content: document.getElementById('add_mk'),
+    //     lock: true
+    //   });
+    // }//添加模块
+    // function zdy_mk(){
+    //    dialog=art.dialog({
+    //     title: '',
+    //       content: document.getElementById('zdy_mk'),
+    //     lock: true
+    //   });
+    // }
+    // //删除自定义模块
+    // function enable(appId,isEnable){
+    //   if(isEnable && 5>=i_max){
+    //     alert('最多只能启用8个模块');
+    //     return;
+    //   }
+    //   ajaxPost("/biz/json/appModule_enable.htm",{"appId":appId,"enable":isEnable},function(resp){
+    //     location.reload();
+    //   });
+    // }
+    // function addCustom(){
+    //   if(5>=i_max){
+    //     alert('最多只能启用8个模块');
+    //     return;
+    //   }
+      
+    //   location.href='appModule_getCustom.htm';
+    // }
+    // function deleteCustom(appId){
+    //   if(confirm("确定要删除吗?")){
+    //         ajaxPost("/biz/json/appModule_delete.htm",{"appId":appId},function(resp){
+    //           location.reload();
+    //         });
+    //   }
+    // }
+    // function unsubscribe(appId){
+    //   if(confirm("确定要删除吗?")){
+    //         ajaxPost("/biz/json/appModule_unsubscribe.htm",{"appId":appId},function(resp){
+    //           location.reload();
+    //         });
+    //   }
+    // }
+
+    // function saveCustomBg(appId, bg){
+    //   ajaxPost("/biz/json/appModule_saveBackground.htm",{'customBackground':bg,'appId':appId},function(resp){
+    //     if(!resp.isSuccess){
+    //       alert('保存失败');
+    //     }
+    //     else{
+    //       j("#box"+appId).css("background-color",bg);
+    //     }
+    //   });
+    // }
+
+    // function subable_box(){
+    //     dialog=art.dialog({
+    //         title: '应用列表',
+    //         content: document.getElementById('subable_box'),
+    //         lock: true
+    //     });
+    // }
+
+
+
+    // drag sort
+    $("#list1").dragsort({ dragSelector: "div", dragBetween: true, dragEnd: saveOrder, placeHolderTemplate: "<li class='placeHolder'><div></div></li>" });
     
-  //   location.href='appModule_getCustom.htm';
-  // }
-  // function deleteCustom(appId){
-  //   if(confirm("确定要删除吗?")){
-  //         ajaxPost("/biz/json/appModule_delete.htm",{"appId":appId},function(resp){
-  //           location.reload();
-  //         });
-  //   }
-  // }
-  // function unsubscribe(appId){
-  //   if(confirm("确定要删除吗?")){
-  //         ajaxPost("/biz/json/appModule_unsubscribe.htm",{"appId":appId},function(resp){
-  //           location.reload();
-  //         });
-  //   }
-  // }
+    // save order
+    function saveOrder() {
+      var data = $("#list1 li").map(function() { return $(this).children().html(); }).get();
+      $("input[name=list1SortOrder]").val(data.join("|"));
 
-  // function saveCustomBg(appId, bg){
-  //   ajaxPost("/biz/json/appModule_saveBackground.htm",{'customBackground':bg,'appId':appId},function(resp){
-  //     if(!resp.isSuccess){
-  //       alert('保存失败');
-  //     }
-  //     else{
-  //       j("#box"+appId).css("background-color",bg);
-  //     }
-  //   });
-  // }
+      var lis = jQuery("#list1 li");
+      var appIds = [];
+      for(var i=0;i<lis.size();i++){
+        var obj = lis[i];
+        var appId = jQuery(obj).attr("appid");
+        //appIds = appIds + appId + ";";
+        appIds.push(appId);
+      }
 
-  // function subable_box(){
-  //     dialog=art.dialog({
-  //         title: '应用列表',
-  //         content: document.getElementById('subable_box'),
-  //         lock: true
-  //     });
-  // }
-  // //模块拖动
-  // function saveOrder() {
-  //   var data = jQuery("#list1 li").map(function(){
-  //     return
-  //     jQuery(this).children().html();
-  //   }).get();
-  //   jQuery("input[name=list1SortOrder]").val(data.join("|"));
+      $.ajax({
+        type: "POST",
+        url: "/merchant/portal_styles/save_order.js",
+        data: { pids: appIds, id: <%= @portal_style.id %>,authenticity_token: window._token }
+      })
+    };
     
-    
-  //   var lis = jQuery("#list1 li");
-  //   var appIds = [];
-  //   for(var i=0;i<lis.size();i++){
-  //     var obj = lis[i];
-  //     var appId = jQuery(obj).attr("appId");
-  //     //appIds = appIds + appId + ";";
-  //     appIds.push(appId);
-  //   }
-  //   ajaxPost("/biz/json/appModule_changeOrder.htm",{"appIds":appIds},function(resp){
-  //     if(!resp.isSuccess){
-  //       alert(resp.message);
-  //     }
-  //   });
-  // }; 
-
-<!--
-
-  $("#list1").dragsort({ dragSelector: "div", dragBetween: true, dragEnd: saveOrder, placeHolderTemplate: "<li class='placeHolder'><div></div></li>" });
-  
-  function saveOrder() {
-    var data = $("#list1 li").map(function() { return $(this).children().html(); }).get();
-    $("input[name=list1SortOrder]").val(data.join("|"));
-  };
-  
--->
-</script>
+  <% end %>
 <% end %>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @mbox.name %>
+</p>
+
+<p>
+  <strong>Integer:</strong>
+  <%= @mbox.integer %>
+</p>
+
+<p>
+  <strong>Portal style:</strong>
+  <%= @mbox.portal_style_id %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @mbox.category %>
+</p>
+
+<%= link_to 'Edit', edit_mbox_path(@mbox) %> |
+<%= link_to 'Back', mboxes_path %>
