@@ -49,6 +49,12 @@ Rails.application.routes.draw do
     resources :portal_styles
     resources :banners
     resources :terminals
+    resource :merchant_infos do
+      collection do
+        patch :change_contact_info
+        patch :change_password
+      end
+    end
   end
 
   mount API::Entrance => '/api'

@@ -1,0 +1,117 @@
+<% content_for :main_content do %>
+  <div class="row" >
+    <section class="panel">
+      <header class="panel-heading">
+        基本资料
+      </header>
+      <div class="panel-body">
+        <div class="list-group">
+
+          <div class="list-group-item">
+            <div class="list-group-item-heading">
+              <i class="fa fa-book"></i>
+              <b> 基本注册信息 </b>
+            </div>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td>商家全称</td>
+                  <td><%= @merchant_info.name %></td>
+                </tr>
+                <tr>
+                  <td>类型</td>
+                  <td><%= @merchant_info.industry %></td>
+                </tr>
+                <tr>
+                  <td>所在地址</td>
+                  <td><%= @merchant_info.address %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="list-group-item">
+            <div class="list-group-item-heading">
+              <i class="fa fa-pencil"></i>
+              <b>联系信息</b>
+            </div>
+            <%= form_for @merchant_info, url: change_contact_info_merchant_merchant_infos_path do |f| %>
+              <table class="table table-bordered">
+                <tbody>
+                <div class="form-group">
+                  <tr>
+                    <td>
+                      联系人姓名
+                    </td>
+                    <td>
+                    </td>
+                  </tr>
+                </div>
+                <div class="form-group">
+                  <tr>
+                    <td>
+                      联系方式
+                    </td>
+                    <td>
+                      <%= f.text_field :contact, class: "form-control" %>
+                    </td>
+                  </tr>
+                </div>
+              </table>
+              <div class="form-group">
+                <%= f.submit "修改联系信息", class: "btn btn-lg btn-primary" %>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="list-group-item">
+            <div class="list-group-item-heading">
+              <i class="fa fa-lock"></i>
+              <b>修改密码</b>
+            </div>
+            <%= form_for @merchant, url: change_password_merchant_merchant_infos_path do |f| %>
+              <table class="table table-bordered">
+                <tbody>
+                  <div class="form-group">
+                    <tr>
+                      <td>
+                        当前密码
+                      </td>
+                      <td>
+                        <%= password_field_tag :current_tag, nil, class: "form-control" %>
+                      </td>
+                    </tr>
+                  </div>
+                  <div class="form-group">
+                    <tr>
+                      <td>
+                        新密码
+                      </td>
+                      <td>
+                        <%= f.password_field :password, class: "form-control" %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        新密码确认
+                      </td>
+                      <td>
+                        <%= f.password_field :password_confirmation, class: "form-control" %>
+                      </td>
+                    </tr>
+                  </div>
+                </tbody>
+              </table>
+              <div class="form-group">
+                <%= f.submit "修改密码", class: "btn btn-lg btn-primary" %>
+              </div>
+            <% end %>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+<% end %>
+
+

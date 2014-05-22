@@ -46,7 +46,7 @@ group :assets do
   gem 'jquery-ui-rails'
   gem 'jquery_datepicker', :git => "git@github.com:foodforarabbit/jquery_datepicker.git"
   gem 'ui_datepicker-rails3'
-  gem "simple_form" 
+  gem "simple_form"
   gem "truncate_html"
   gem "font-awesome-rails", '3.2.1.3'
 end
@@ -94,3 +94,14 @@ gem "tabs_on_rails"
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+group :development do
+  # Spring speeds up development by keeping your application running in the background. Read more: h    ttps://github.com/jonleighton/spring
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'pry-nav'
+  gem 'spring'
+
+  # Livereload
+  gem 'guard-livereload', require: false
+  gem 'rack-livereload'
+end
