@@ -35,4 +35,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   config.default_url_options = { :host => 'localhost:3000' }
+
+  # Add Rack::LiveReload to the bottom of the middleware stack with the default options.
+  config.middleware.use Rack::LiveReload
 end

@@ -51,8 +51,8 @@ Rails.application.routes.draw do
     resources :terminals
     resource :merchant_infos do
       collection do
-        patch :change_contact_info
-        patch :change_password
+        patch :update_password
+        patch :change_info
       end
     end
   end
