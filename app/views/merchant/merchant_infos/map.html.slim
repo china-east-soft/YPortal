@@ -1,10 +1,53 @@
 = content_for :main_content do
-  = javascript_include_tag "http://webapi.amap.com/maps?v=1.2&key=83ee2dabaaabf215de9adb4ea9d9e7d5"
-  .iCenter
+  = javascript_include_tag "http://webapi.amap.com/maps?v=1.2&key=test"
+  = stylesheet_link_tag "http://api.amap.com/Public/css/demo.Default.css"
+  .row
+    .container
+
+      .col-md-6.col-md-offset-3
+        #iCenter
+        .test
+          div
+            | X：
+            input type="text" id="lngX" name="lngX" value=""
+              |&nbsp;
+            | Y：
+            input type="text" id="latY" name="latY" value=""
 
   javascript:
-    debugger;
-    function abc() {
-      console.log("test");
+    var mapObj;
+    var marker;
+
+    //初始化地图对象，加载地图
+    function mapInit(){
+        mapObj = new AMap.Map("iCenter");
+
+        //为地图注册click事件获取鼠标点击出的经纬度坐标
+        var clickEventListener=AMap.event.addListener(mapObj,'click',function(e){
+            document.getElementById("lngX").value=e.lnglat.getLng();
+            document.getElementById("latY").value=e.lnglat.getLat();
+        });
+
     }
+
+    //实例化点标记
+    function addMarker(){
+        marker = new AMap.Marker({
+            position: mapObj.getCenter(),
+            draggable:true, //点标记可拖拽
+            cursor:'move',  //鼠标悬停点标记时的鼠标样式
+            raiseOnDrag:true,//鼠标拖拽点标记时开启点标记离开地图的效果
+            doubleClickZoom:false, //鼠标双击缩放功能关闭
+            });
+        marker.setMap(mapObj);  //在地图上添加点
+
+        mapObj.setStatus({doubleClickZoom:false});
+
+        var clickEventListener=AMap.event.addListener(mapObj,'dblclick',function(e){
+          marker.setPosition(new AMap.LngLat(e.lnglat.getLng(), e.lnglat.getLat())); //更新点标记位置
+        });
+    }
+
+    mapInit();
+    addMarker();
 

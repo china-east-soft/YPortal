@@ -1,7 +1,7 @@
 class Merchant::MerchantInfosController < ApplicationController
   layout 'merchant'
 
-  before_action :set_merchant
+  before_action :set_merchant, except: [:map]
 
   def show
   end
