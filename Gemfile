@@ -57,7 +57,6 @@ gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'master'
 # gem 'kgio'
 
 gem "paperclip", "~> 4.1"
-gem 'mini_magick'
 
 gem 'grape'
 gem 'mina'
