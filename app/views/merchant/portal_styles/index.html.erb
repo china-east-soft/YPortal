@@ -92,9 +92,10 @@
                     <li appid="<%=mbox.id%>">
                       <div class="col-lg-6 col-xs-6 thumbnail">
                         <div class="caption">
-                          <a class="icon-remove" href="javascript:;"><%= fa_icon("times 2x") %></a>
+                          <a class="icon-remove" href="javascript:enable(<%=mbox.id%>,false);"><%= fa_icon("times 2x") %></a>
                           </button>
-                          <%= link_to "设置", "", class: "btn btn-primary" %>
+                          <br />
+                          <%= link_to "设置", "", class: "btn btn-primary col-centered" %>
                           <p>可鼠标拖动模块进行排序</p>
                           <p>也可以删除此模块</p>
                         </div>
@@ -121,7 +122,7 @@
 <% end %>
 
 <% content_for :script do %>
-  <%= javascript_tag do %>
+  <script type="text/javascript">
     window._token = '<%= form_authenticity_token %>'
     // var i_max = 8;
     // function add_mk(){
@@ -138,16 +139,23 @@
     //     lock: true
     //   });
     // }
-    // //删除自定义模块
-    // function enable(appId,isEnable){
-    //   if(isEnable && 5>=i_max){
-    //     alert('最多只能启用8个模块');
-    //     return;
-    //   }
-    //   ajaxPost("/biz/json/appModule_enable.htm",{"appId":appId,"enable":isEnable},function(resp){
-    //     location.reload();
-    //   });
-    // }
+    //删除自定义模块
+    function enable(appId,isEnable){
+      // if(isEnable && 5>=i_max){
+      //   alert('最多只能启用8个模块');
+      //   return;
+      // }
+      // ajaxPost("/biz/json/appModule_enable.htm",{"appId":appId,"enable":isEnable},function(resp){
+      //   location.reload();
+      // });
+
+      $.ajax({
+        type: "DELETE",
+        url: "/merchant/mboxes/"+appId+".js",
+        data: { authenticity_token: window._token }
+      })
+
+    }
     // function addCustom(){
     //   if(5>=i_max){
     //     alert('最多只能启用8个模块');
@@ -228,5 +236,5 @@
       })
     };
     
-  <% end %>
+  </script>
 <% end %>

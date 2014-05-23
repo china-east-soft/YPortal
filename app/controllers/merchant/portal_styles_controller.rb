@@ -8,12 +8,7 @@ class Merchant::PortalStylesController < MerchantController
   def index
     @portal_style = PortalStyle.where(merchant_id: current_merchant.id).first_or_create
     @banners = @portal_style.banners
-    @mboxes = @portal_style.mboxes
-    # only for before existing data
-    if @mboxes.blank?
-      @portal_style.init_mboxes
-      @mboxes = @portal_style.mboxes
-    end
+    @mboxes = @portal_style.valid_mboxes
   end
 
   # GET /portal_styles/1

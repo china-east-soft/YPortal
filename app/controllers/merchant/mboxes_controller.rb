@@ -1,4 +1,4 @@
-class MboxesController < ApplicationController
+class Merchant::MboxesController < MerchantController
   before_action :set_mbox, only: [:show, :edit, :update, :destroy]
 
   # GET /mboxes
@@ -54,10 +54,11 @@ class MboxesController < ApplicationController
   # DELETE /mboxes/1
   # DELETE /mboxes/1.json
   def destroy
-    @mbox.destroy
+    @mbox.update_column(:status, 0)
     respond_to do |format|
       format.html { redirect_to mboxes_url }
       format.json { head :no_content }
+      format.js
     end
   end
 

@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     end
     resources :banners
     resources :terminals
+    resources :mboxes
   end
 
   mount API::Entrance => '/api'

@@ -3,6 +3,8 @@ class PortalStyle < ActiveRecord::Base
   belongs_to :merchant
   has_many :banners, dependent: :destroy
   has_many :mboxes, -> { order "appid ASC" }, dependent: :destroy
+  has_many :valid_mboxes, -> { where("status = 1").order("appid ASC") }, class_name: "Mbox"
+  has_many :deleted_mboxes, -> { where("status = 0").order("appid ASC") }, class_name: "Mbox"
 
   after_create :init_mboxes
 
