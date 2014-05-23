@@ -47,13 +47,18 @@ Rails.application.routes.draw do
 
   namespace :merchant do
     resources :portal_styles do
-      collection do
+      member do
         post :save_order
+        post :save_name
       end
     end
     resources :banners
     resources :terminals
-    resources :mboxes
+    resources :mboxes do
+      member do
+        post :enable
+      end
+    end
   end
 
   mount API::Entrance => '/api'

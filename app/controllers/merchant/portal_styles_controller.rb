@@ -1,5 +1,5 @@
 class Merchant::PortalStylesController < MerchantController
-  before_action :set_portal_style, only: [:show, :edit, :update, :destroy, :save_order]
+  before_action :set_portal_style, only: [:show, :edit, :update, :destroy, :save_order, :save_name]
 
   set_tab :portal_style
 
@@ -9,6 +9,7 @@ class Merchant::PortalStylesController < MerchantController
     @portal_style = PortalStyle.where(merchant_id: current_merchant.id).first_or_create
     @banners = @portal_style.banners
     @mboxes = @portal_style.valid_mboxes
+    @deleted_mboxes = @portal_style.deleted_mboxes
   end
 
   # GET /portal_styles/1
@@ -70,6 +71,10 @@ class Merchant::PortalStylesController < MerchantController
     mboxes = @portal_style.mboxes
     pids = params[:pids]
     mboxes.map{|mbox| mbox.update_column(:appid, pids.index(mbox.id.to_s)) }
+  end
+
+  def save_name
+    @portal_style.update_column(:name, params[:name])
   end
 
   private

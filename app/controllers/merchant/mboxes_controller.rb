@@ -1,5 +1,5 @@
 class Merchant::MboxesController < MerchantController
-  before_action :set_mbox, only: [:show, :edit, :update, :destroy]
+  before_action :set_mbox, only: [:show, :edit, :update, :destroy, :enable]
 
   # GET /mboxes
   # GET /mboxes.json
@@ -60,6 +60,10 @@ class Merchant::MboxesController < MerchantController
       format.json { head :no_content }
       format.js
     end
+  end
+
+  def enable
+    @mbox.update_column(:status, 1)
   end
 
   private
