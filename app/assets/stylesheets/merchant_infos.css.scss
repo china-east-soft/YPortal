@@ -1,0 +1,19 @@
+@import "bootstrap";
+#basic_material {
+  td {
+    vertical-align: bottom;
+    &:first-child {
+      width: 15%;
+      text-align: center;
+    }
+    input {
+      margin: 0;
+    }
+  }
+
+  .field_with_errors {
+    @extend .has-error;
+  }
+
+}
+

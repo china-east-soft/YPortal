@@ -1,0 +1,10 @@
+<% [:success, :info, :warning, :danger].each do |type| %>
+  <% if flash[type] %>
+    <div class="alert alert-<%=type%>">
+      <a class="close" data-dismiss="alert">
+        &times;
+      </a>
+      <%= flash[type] %>
+    </div>
+  <% end %>
+<% end %>
