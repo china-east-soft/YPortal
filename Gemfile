@@ -105,3 +105,6 @@ group :development do
   gem 'guard-livereload', require: false
   gem 'rack-livereload'
 end
+
+# Slim template
+gem 'slim', '~> 2.0.2'

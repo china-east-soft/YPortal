@@ -7,7 +7,7 @@ class Merchant::MerchantInfosController < ApplicationController
   end
 
   def change_info
-    if @merchant_info.update params.require(:merchant_info).permit(:name, :industry, :address, :contact_person_name, :contact_way)
+    if @merchant_info.update  merchant_info_params
       flash.now[:success] = "修改成功"
     else
       flash.now[:warning] = "请正确填写基本信息"
@@ -24,12 +24,20 @@ class Merchant::MerchantInfosController < ApplicationController
     render :show
   end
 
+  def map
+  end
+
   private
   def set_merchant
     @merchant = current_merchant
     @merchant_info = @merchant.merchant_info
   end
+
   def merchant_params
     params.require(:merchant).permit(:password, :password_confirmation, :current_password)
   end
+  def merchant_info_params
+    params.require(:merchant_info).permit(:name, :industry, :address, :contact_person_name, :contact_way)
+  end
+
 end

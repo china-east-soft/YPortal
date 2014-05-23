@@ -10,7 +10,7 @@ Rails.application.routes.draw do
    :sessions => "merchant/sessions" }
 
   root 'welcome#index'
-  
+
   get 'admin' => "admin/dashboard#home", as: :admin_root
   get 'agent' => "welcome#index", as: :agent_root
   get 'merchant' => "merchant/dashboard#home", as: :merchant_root
@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     resources :terminals
     resource :merchant_infos do
       collection do
+        get :map
         patch :update_password
         patch :change_info
       end

@@ -22,7 +22,7 @@
                 <td>
                   <%= f.text_field :name, class: "form-control" %>
                   <% unless f.object.errors[:name].blank? %>
-                    <span>
+                    <span class="error">
                     <%= f.object.errors[:name].join(",")%>
                   </span>
                 <% end %>
@@ -33,7 +33,7 @@
                 <td>
                   <%= f.text_field :industry, class: "form-control" %>
                   <% unless f.object.errors[:industry].blank? %>
-                    <span>
+                    <span class="error">
                     <%= f.object.errors[:industry].join(",")%>
                   </span>
                 <% end %>
@@ -44,7 +44,7 @@
                 <td>
                   <%= f.text_field :address, class: "form-control"%>
                   <% unless f.object.errors[:address].blank? %>
-                    <span>
+                    <span class="error">
                     <%= f.object.errors[:address].join(",")%>
                   </span>
                 <% end %>
@@ -68,7 +68,7 @@
                 <td>
                   <%= f.text_field :contact_person_name, class: "form-control" %>
                   <% unless f.object.errors[:contact_person_name].blank? %>
-                    <span>
+                    <span class="error">
                     <%= f.object.errors[:contact_person_name].join(",")%>
                   </span>
                 <% end %>
@@ -81,7 +81,7 @@
                 <td>
                   <%= f.text_field :contact_way, class: "form-control" %>
                   <% unless f.object.errors[:contact_way].blank? %>
-                    <span>
+                    <span class="error">
                     <%= f.object.errors[:contact_way].join(",")%>
                   </span>
                 <% end %>
@@ -109,7 +109,7 @@
                 <td>
                   <%= password_field_tag :current_password, nil, class: "form-control" %>
                   <% unless f.object.errors[:current_password].blank? %>
-                    <span>
+                    <span class="error">
                       <%= f.object.errors[:current_password].join(",")%>
                     </span>
                   <% end %>
@@ -122,7 +122,7 @@
                 <td>
                   <%= f.password_field :password, class: "form-control" %>
                   <% unless f.object.errors[:password].blank? %>
-                    <span>
+                    <span class="error">
                     <%= f.object.errors[:password].join(",")%>
                   </span>
                 <% end %>
@@ -135,7 +135,7 @@
                 <td>
                   <%= f.password_field :password_confirmation, class: "form-control" %>
                   <% unless f.object.errors[:password_confirmation].blank? %>
-                    <span>
+                    <span class="error">
                     <%= f.object.errors[:password_confirmation].join(",")%>
                   </span>
                 <% end %>
@@ -152,10 +152,4 @@
       </div> <!-- panel-body -->
     </section>
   </div>
-  <div>
-    <%= simple_form_for :merchant_info do |f| %>
-    <% end %>
-  </div>
 <% end %>
-
-
