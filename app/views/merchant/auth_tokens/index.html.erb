@@ -16,7 +16,7 @@
                   <th>手机号</th>
                   <th>有效时长</th>
                   <th>过期时间</th>
-                  <th colspan="3"></th>
+                  <th></th>
               </tr>
               </thead>
                 <tbody>
@@ -27,7 +27,7 @@
                     <td><%= auth_token.account.mobile %></td>
                     <td><%= humanize_second auth_token.duration %></td>
                     <td><%= DateTime.strptime(auth_token.expired_timestamp,'%s') %></td>
-                    <td><%= link_to '强制下线', disable_merchant_auth_token, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    <td><%= link_to '强制下线', disable_merchant_auth_token, method: :post, data: { confirm: 'Are you sure?' } %></td>
                   </tr>
                 <% end %>
               </tbody>

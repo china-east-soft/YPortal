@@ -1,6 +1,10 @@
 class AuthToken < ActiveRecord::Base
   enum status: [ :init, :active, :expired ] 
 
+  belongs_to :account
+  belongs_to :terminal
+  belongs_to :merchant
+
   validates_uniqueness_of :client_identifier, scope: :mac, conditions: -> { where(status: [AuthToken.statuses[:init], AuthToken.statuses[:active]]) }
   scope :actived, lambda { |merchant| where(status: AuthToken.statuses[:active]) }
 
