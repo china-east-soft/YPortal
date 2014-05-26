@@ -7,9 +7,7 @@ class Merchant::AuthTokensController < MerchantController
 
   def disable
     @auth_token.update_column(:status, AuthToken.statuses[:expired])
-    logger.info(auth_token.mac)
-    logger.info(auth_token.auth_token)
-    logger.info(NatAddress.address(@auth_token.mac.downcase))
+
     if address = NatAddress.address(@auth_token.mac.downcase)
       remote_ip, port, time = address.split("#")
       
