@@ -150,6 +150,8 @@ GEM
     mina (0.3.0)
       open4
       rake
+    mina-sidekiq (0.3.0)
+      mina
     mini_magick (3.7.0)
       subexec (~> 0.2.1)
     minitest (5.3.4)
@@ -324,6 +326,7 @@ DEPENDENCIES
   jquery-ui-rails
   jquery_datepicker!
   mina
+  mina-sidekiq
   mini_magick
   minitest
   omniauth
