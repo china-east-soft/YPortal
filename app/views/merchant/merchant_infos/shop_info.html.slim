@@ -16,7 +16,7 @@
                     td
                       = f.label :shop_photo, "店铺图片"
                     td
-                      - if @merchant_info.shop_photo
+                      - unless @merchant_info.shop_photo.blank?
                         = image_tag @merchant_info.shop_photo.url
                       = f.file_field :shop_photo, class: "form-control"
                       - unless f.object.errors[:shop_photo].blank?

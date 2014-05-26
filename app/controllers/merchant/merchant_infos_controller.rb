@@ -40,7 +40,7 @@ class Merchant::MerchantInfosController < MerchantController
   private
   def set_merchant
     @merchant = current_merchant
-    @merchant_info = @merchant.merchant_info || @merchant.merchant_info.new
+    @merchant_info = @merchant.merchant_info || @merchant.build_merchant_info
   end
 
   def merchant_params

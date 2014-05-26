@@ -11,7 +11,7 @@
     <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'admin', media: 'all' %>
-    
+
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
@@ -282,6 +282,7 @@
                 <%= tab.portal_style  fa_icon("cog")+content_tag(:span, '主页设置'), merchant_portal_styles_path %>
                 <%= tab.terminal  fa_icon("cog")+content_tag(:span, '终端管理'), merchant_terminals_path %>
                 <%= tab.info  fa_icon("user")+content_tag(:span, '资料管理'), merchant_merchant_infos_path %>
+                <%= tab.info  fa_icon("user")+content_tag(:span, '店铺介绍'), shop_info_merchant_merchant_infos_path %>
               <% end %>
               <!-- sidebar menu end-->
           </div>

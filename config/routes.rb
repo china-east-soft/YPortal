@@ -65,7 +65,7 @@ Rails.application.routes.draw do
         patch :update_shop_info
 
         patch :update_password
-        patch :change_info
+        post :change_info
       end
     end
   end
