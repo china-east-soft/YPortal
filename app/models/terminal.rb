@@ -9,6 +9,7 @@ class Terminal < ActiveRecord::Base
 
   belongs_to :merchant
   belongs_to :agent
+  has_many :auth_tokens, dependent: :destroy
 
   after_create :set_mid
 
@@ -24,6 +25,22 @@ class Terminal < ActiveRecord::Base
   def before_create
     self.duration = 60 * 60 * 4
     self.status = Terminal.statuses[:init]
+  end
+
+  around_update :notify_terminal_if_duration_is_changed
+
+  private
+
+  def notify_terminal_if_duration_is_changed
+    duration_changed = self.duration_changed?
+
+    yield
+
+    if duration_changed && self.active? && self.merchant_id.present?
+      auth_token = self.auth_tokens.last
+      CommunicateWorker.perform_async(auth_token.id) if auth_token
+    end
+
   end
 
   before_validation do
