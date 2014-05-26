@@ -1,5 +1,6 @@
 class CommunicateWorker
   include Sidekiq::Worker
+  include Communicate
   sidekiq_options queue: "high"
   # sidekiq_options retry: false
 

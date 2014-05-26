@@ -38,12 +38,12 @@ class Terminal < ActiveRecord::Base
 
     if duration_changed && self.active? && self.merchant_id.present?
       auth_token = self.auth_tokens.last
-      #CommunicateWorker.perform_async(auth_token.id) if auth_token
-      if auth_token
-        address = NatAddress.address(auth_token.mac.downcase)
-        remote_ip, port, time = address.split("#")
-        recv_data = send_to_terminal remote_ip, port, auth_token, 7
-      end
+      CommunicateWorker.perform_async(auth_token.id) if auth_token
+      # if auth_token
+      #   address = NatAddress.address(auth_token.mac.downcase)
+      #   remote_ip, port, time = address.split("#")
+      #   recv_data = send_to_terminal remote_ip, port, auth_token, 7
+      # end
     end
 
   end
