@@ -1,6 +1,8 @@
 class Merchant::MboxesController < MerchantController
   before_action :set_mbox, only: [:show, :edit, :update, :destroy, :enable]
 
+  set_tab :portal_style
+
   # GET /mboxes
   # GET /mboxes.json
   def index
@@ -42,8 +44,9 @@ class Merchant::MboxesController < MerchantController
   def update
     respond_to do |format|
       if @mbox.update(mbox_params)
-        format.html { redirect_to @mbox, notice: 'Mbox was successfully updated.' }
+        format.html { redirect_to merchant_portal_styles_path , notice: 'Mbox was successfully updated.' }
         format.json { head :no_content }
+        format.js { }
       else
         format.html { render action: 'edit' }
         format.json { render json: @mbox.errors, status: :unprocessable_entity }
@@ -70,6 +73,7 @@ class Merchant::MboxesController < MerchantController
     # Use callbacks to share common setup or constraints between actions.
     def set_mbox
       @mbox = Mbox.find(params[:id])
+      @portal_style = @mbox.portal_style
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

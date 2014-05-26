@@ -18,3 +18,4 @@
 //= require jcrop.js
 
 //= require jquery.dragsort-0.5.1.js
+//= require gritter

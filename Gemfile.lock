@@ -107,6 +107,7 @@ GEM
       rack-accept
       rack-mount
       virtus (>= 1.0.0)
+    gritter (1.1.0)
     guard (2.6.1)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -305,6 +306,7 @@ DEPENDENCIES
   execjs
   font-awesome-rails (= 3.2.1.3)
   grape
+  gritter (= 1.1.0)
   guard-livereload
   html5shiv-rails
   i18n!

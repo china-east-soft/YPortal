@@ -49,6 +49,7 @@ group :assets do
   gem "simple_form"
   gem "truncate_html"
   gem "font-awesome-rails", '3.2.1.3'
+  gem "gritter", "1.1.0"
 end
 
 gem 'i18n', github: 'svenfuchs/i18n'

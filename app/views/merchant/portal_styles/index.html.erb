@@ -34,7 +34,7 @@
               <div class="form-group">
                 <label class="string optional col-sm-4 col-sm-4 control-label"><%= box.name %></label>
                 <div class="col-sm-8">
-                    <%= link_to "设置", merchant_banners_path(portal_style_id: @portal_style.id), class: "btn btn-primary" %>
+                    <%= link_to "设置", edit_merchant_mbox_path(box.id), class: "btn btn-primary" %>
                     <%= link_to "启用", enable_merchant_mbox_path(box.id), :method => :post, remote: true, class: "btn btn-primary" %>
                 </div>
               </div>
@@ -110,20 +110,20 @@
                   <% @mboxes.each do |mbox| %>
                     <li appid="<%=mbox.id%>">
                       <div class="col-lg-6 col-xs-6 thumbnail">
-                        <div class="caption">
-                          <a class="icon-remove" href="javascript:enable(<%=mbox.id%>,false);"><%= fa_icon("times 2x") %></a>
-                          </button>
-                          <br />
-                          <%= link_to "设置", "", class: "btn btn-primary col-centered" %>
-                          <p>可鼠标拖动模块进行排序</p>
-                          <p>也可以删除此模块</p>
-                        </div>
                         <section>
                           <div class="mf-box">
                             <%= image_tag mbox.default_cover %>
                             <h5><%= mbox.name %></h5>
                           </div>
                         </section>
+                        <div class="caption">
+                          <a class="icon-remove" href="javascript:enable(<%=mbox.id%>,false);"><%= fa_icon("times 2x") %></a>
+                          </button>
+                          <br />
+                          <%= link_to "设置", edit_merchant_mbox_path(mbox.id), class: "btn btn-primary col-centered" %>
+                          <p>可鼠标拖动模块进行排序</p>
+                          <p>也可以删除此模块</p>
+                        </div>
                       </div>
                     </li>
                   <% end %>

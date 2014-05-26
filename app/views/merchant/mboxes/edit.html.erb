@@ -1,6 +1,8 @@
-<h1>Editing mbox</h1>
+<% content_for :main_content do %>
 
-<%= render 'form' %>
+	<%= render 'form' %>
 
-<%= link_to 'Show', @mbox %> |
-<%= link_to 'Back', mboxes_path %>
+	<%= link_to 'Show', [:merchant, @mbox] %> |
+	<%= link_to 'Back', merchant_portal_style_path() %>
+<% end %>
+
