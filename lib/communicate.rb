@@ -7,6 +7,8 @@ module Communicate
     case type
     when 1
       type = "\x01".force_encoding('UTF-8')
+    when 3
+      type = "\x03".force_encoding('UTF-8')
     when 4
       type = "\x04".force_encoding('UTF-8')
     end
