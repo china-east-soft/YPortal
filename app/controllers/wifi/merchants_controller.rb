@@ -52,7 +52,7 @@ class Wifi::MerchantsController < WifiController
             end
           end
         else
-          terminal = Terminal.where(["mac = ? and status = ? and merchant_id is not null",params[:mac], Terminal.statuses[:active]]).first
+          terminal = Terminal.where(["mac = ? and status = ? and merchant_id is not null",params[:mac].downcase, Terminal.statuses[:active]]).first
           if terminal
             vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
             auth_token = AuthToken.new( auth_token: vtoken, 
