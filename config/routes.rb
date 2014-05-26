@@ -61,9 +61,11 @@ Rails.application.routes.draw do
     end
     resource :merchant_infos do
       collection do
-        get :map
+        get :shop_info
+        patch :update_shop_info
+
         patch :update_password
-        patch :change_info
+        post :change_info
       end
     end
     resources :auth_tokens do

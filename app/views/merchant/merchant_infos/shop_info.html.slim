@@ -1,0 +1,127 @@
+= content_for :main_content do
+  = javascript_include_tag "http://webapi.amap.com/maps?v=1.2&key=test"
+  = stylesheet_link_tag "http://api.amap.com/Public/css/demo.Default.css"
+  .row
+    .container
+      .col-md-10
+        .panel#shop-info
+          .panel-heading
+            p 店铺介绍详细设置
+          .panel-body
+            = render 'shared/flash_messages'
+            = form_for @merchant_info, url: update_shop_info_merchant_merchant_infos_path, method: 'patch', html: {multipart: true, class: 'form-horizontal tasi-form' } do |f|
+              table.table.table-bordered
+                tbody
+                  tr
+                    td
+                      = f.label :shop_photo, "店铺图片"
+                    td
+                      - unless @merchant_info.shop_photo.blank?
+                        = image_tag @merchant_info.shop_photo.url
+                      = f.file_field :shop_photo, class: "form-control"
+                      - unless f.object.errors[:shop_photo].blank?
+                        span class="error"
+                          = f.object.errors[:shop_photo].join(",")
+                  tr
+                    td
+                      = f.label :shop_description, "店铺详细介绍"
+                    td
+                      = f.text_area :shop_description, class: "form-control"
+                      - unless f.object.errors[:shop_description].blank?
+                        span class="error"
+                          = f.object.errors[:shop_description].join(",")
+                  tr
+                    td 联系电话
+                    td
+                      div.row
+                        .col-md-6
+                          = f.telephone_field :shop_phone_one, class: "form-control"
+                          - unless f.object.errors[:shop_phone_one].blank?
+                            span class="error"
+                              = f.object.errors[:shop_phone_one].join(",")
+                        .col-md-4
+                          span.help-block 必填
+                      div.row
+                        .col-md-6
+                          = f.telephone_field :shop_phone_two, class: "form-control"
+                        .col-md-4
+                          span.help-block 可选
+                      span.help-block 联系电话最少填一个
+                  tr
+                    td 地址信息
+                    td
+                      #address
+                        .form-group
+                          = f.label :address, "详细地址 ", class: "col-sm-2 control-label"
+                          .col-sm-10
+                            = f.text_field :address, readonly: true, class: "form-control"
+                      #map
+                        h4.text-success 地理位置
+                        span.text-muted
+                          | 鼠标双击地图相应位置进行定位，相应经纬度可以自动获取并保存。
+                        #map-long-lat.col-md-8.col-md-offset-1
+                          span.text-danger 当前维度:
+                          span.text-muted
+                            | 经度：
+                            = f.text_field :shop_longitude, readonly: true
+                              |&nbsp;
+                            | 维度：
+                            = f.text_field :shop_latitude, readonly: true
+                        #iCenter
+              .col-md-6.col-md-offset-4
+                = f.submit "保存设置", class: "btn btn-lg btn-primary"
+
+  javascript:
+    var longitude = "#{@merchant_info.shop_longitude}";
+    var latitude = "#{@merchant_info.shop_latitude}";
+
+    var mapObj;
+    var marker;
+
+    //初始化地图对象，加载地图
+    function mapInit(){
+        mapObj = new AMap.Map("iCenter");
+
+        mapObj.plugin(["AMap.ToolBar"],function(){
+                toolBar = new AMap.ToolBar();
+                        mapObj.addControl(toolBar);
+                            });
+
+        //为地图注册double click事件获取鼠标点击出的经纬度坐标
+        AMap.event.addListener(mapObj,'dblclick',function(e){
+            document.getElementById("merchant_info_shop_longitude").value=e.lnglat.getLng();
+            document.getElementById("merchant_info_shop_latitude").value=e.lnglat.getLat();
+        });
+    }
+
+    //实例化点标记
+    function Init_Marker(){
+        marker = new AMap.Marker({
+            position: mapObj.getCenter(),
+            draggable:true, //点标记可拖拽
+            cursor:'move',  //鼠标悬停点标记时的鼠标样式
+            raiseOnDrag:true,//鼠标拖拽点标记时开启点标记离开地图的效果
+            doubleClickZoom:false, //鼠标双击缩放功能关闭
+            });
+        if (longitude != "" && latitude != "") {
+          marker.setPosition(new AMap.LngLat(parseFloat(longitude), parseFloat(latitude)));
+        }
+
+        marker.setMap(mapObj);  //在地图上添加点
+
+        mapObj.setStatus({doubleClickZoom:false});
+
+        //双击更改marker位置
+        var clickEventListener=AMap.event.addListener(mapObj,'dblclick',function(e){
+          marker.setPosition(new AMap.LngLat(e.lnglat.getLng(), e.lnglat.getLat())); //更新点标记位置
+        });
+
+        //为地图注册drag事件获取鼠标点击出的经纬度坐标
+        AMap.event.addListener(marker,'dragend',function(e){
+            document.getElementById("merchant_info_shop_longitude").value=e.lnglat.getLng();
+            document.getElementById("merchant_info_shop_latitude").value=e.lnglat.getLat();
+        });
+    }
+
+    mapInit();
+    Init_Marker();
