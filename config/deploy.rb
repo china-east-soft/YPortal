@@ -2,6 +2,7 @@ require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
 require 'mina/rvm'
+require 'mina_sidekiq/tasks'
 #require 'mina/whenever'
 
 environments = {
@@ -63,6 +64,8 @@ end
 desc "Deploys the current version to the server."
 task :deploy => :environment do
   deploy do
+    # stop accepting new workers
+    invoke :'sidekiq:quiet'
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
@@ -71,6 +74,7 @@ task :deploy => :environment do
 
     to :launch do
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
+      invoke :'sidekiq:restart'
     end
   end
 end

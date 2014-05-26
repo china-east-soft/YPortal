@@ -11,6 +11,8 @@ module Communicate
       type = "\x03".force_encoding('UTF-8')
     when 4
       type = "\x04".force_encoding('UTF-8')
+    when 7
+      type = "\x07".force_encoding('UTF-8')
     end
 
     flag1 = "\xaa".force_encoding('UTF-8')

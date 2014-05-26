@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web, at: '/sidekiq'
+
   devise_for :admins, :controllers => {:registrations => "registrations",
    :sessions => "sessions" }
 
