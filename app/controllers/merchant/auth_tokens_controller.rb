@@ -11,7 +11,7 @@ class Merchant::AuthTokensController < MerchantController
     if address = NatAddress.address(@auth_token.mac.downcase)
       remote_ip, port, time = address.split("#")
       
-      recv_data = send_to_terminal remote_ip, port, @auth_token, 4
+      recv_data = send_to_terminal remote_ip, port, @auth_token, 3
       
       if recv_data.present?
         gflash :success => "The product has been created successfully!"
