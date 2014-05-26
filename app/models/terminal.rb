@@ -22,6 +22,7 @@ class Terminal < ActiveRecord::Base
   end
 
   before_validation do
+    self.status = 0
     mac.downcase!
     add_mac_colon!
   end

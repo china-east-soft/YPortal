@@ -26,7 +26,6 @@ class Wifi::MerchantsController < WifiController
     else
       # from teminal
       if params[:client_identifier] && params[:mac]
-        @url = "wifi/merchant?vtoken=#{params[:vtoken]}"
         AuthToken.update_expired_status(params[:mac])
         auth_token = AuthToken.where(client_identifier: params[:client_identifier], mac: params[:mac], status: [AuthToken.statuses[:init], AuthToken.statuses[:active]]).first
         if auth_token

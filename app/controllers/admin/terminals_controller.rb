@@ -90,6 +90,6 @@ class Admin::TerminalsController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def terminal_params
-      params.require(:terminal).permit(:admin, :mac, :imei, :sim_iccid, :status)
+      params.require(:terminal).permit(:admin, :mac, :imei, :sim_iccid)
     end
 end
