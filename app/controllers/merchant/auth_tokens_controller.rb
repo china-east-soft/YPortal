@@ -6,7 +6,7 @@ class Merchant::AuthTokensController < MerchantController
   before_action :set_auth_token, only: [:disable]
 
   def disable
-    @auth_token.update_column(:status, AuthToken.status[:expired])
+    @auth_token.update_column(:status, AuthToken.statuses[:expired])
     logger.info(auth_token.mac)
     logger.info(auth_token.auth_token)
     logger.info(NatAddress.address(@auth_token.mac.downcase))
