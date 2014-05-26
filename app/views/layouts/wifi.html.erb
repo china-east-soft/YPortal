@@ -14,6 +14,7 @@
   <%= favicon_link_tag 'favicon.ico' %>
   <title>YPortal</title>
   <%= stylesheet_link_tag    'wifi', media: 'all' %>
+  <%= javascript_include_tag 'wifi' %>
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
   <!--[if lt IE 9]>
@@ -25,7 +26,6 @@
 <body class="portal_wraped">
 
 	<%= yield %>
-	<%= javascript_include_tag 'wifi' %>
     <script>
 
       $(window).load(function() {

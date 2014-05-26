@@ -5,7 +5,7 @@ class Wifi::MerchantsController < WifiController
 
   def home
     if params[:mid].present?
-      
+
     elsif params[:vtoken].present?
       # only params[:vtoken], from client
       @auth_token = AuthToken.where(auth_token: params[:vtoken]).first
@@ -31,23 +31,23 @@ class Wifi::MerchantsController < WifiController
         if auth_token
           auth_token.update_status
           case auth_token.status
-          when "init" 
+          when "init"
             redirect_to wifi_merchant_url(vtoken: auth_token.auth_token)
           when "active"
             # logger.info(auth_token.mac)
             # logger.info(auth_token.auth_token)
             # logger.info(NatAddress.address(params[:mac].downcase))
             if address = NatAddress.address(params[:mac].downcase)
-              
+
               remote_ip, port, time = address.split("#")
-              
+
               recv_data = send_to_terminal remote_ip, port, auth_token, 1
 
               if recv_data.present?
                 flash[:success] = "已经认证成功可以直接上网!"
                 redirect_to wifi_welcome_url
               else
-                
+
               end
             end
           end
@@ -55,20 +55,20 @@ class Wifi::MerchantsController < WifiController
           terminal = Terminal.where(["mac = ? and status = ? and merchant_id is not null",params[:mac].downcase, Terminal.statuses[:active]]).first
           if terminal
             vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
-            auth_token = AuthToken.new( auth_token: vtoken, 
-                                        mac: params[:mac], 
-                                        client_identifier: params[:client_identifier], 
+            auth_token = AuthToken.new( auth_token: vtoken,
+                                        mac: params[:mac],
+                                        client_identifier: params[:client_identifier],
                                         status: 0,
                                         terminal_id: terminal.id,
                                         merchant_id: terminal.merchant_id )
             auth_token.save!
-            redirect_to wifi_merchant_url(vtoken: auth_token.auth_token)    
+            redirect_to wifi_merchant_url(vtoken: auth_token.auth_token)
           else
             flash[:danger] = "请连接wifi!"
             render :error
           end
         end
-        
+
       else
         flash[:danger] = "请连接wifi!"
         render :error
@@ -79,7 +79,12 @@ class Wifi::MerchantsController < WifiController
   end
 
   def show
-    
+
+  end
+
+  def welcome
+    @merchant = current_merchant
+    @merchant_info = @merchant.merchant_info
   end
 
   private
