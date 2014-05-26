@@ -1,4 +1,7 @@
 class Merchant::BannersController < MerchantController
+
+  set_tab :portal_style
+
   before_action :set_banner, only: [:show, :edit, :update, :destroy]
   before_action :set_portal_style, only: [:new, :index]
 

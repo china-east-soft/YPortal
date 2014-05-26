@@ -66,6 +66,11 @@ Rails.application.routes.draw do
         patch :change_info
       end
     end
+    resources :auth_tokens do
+      member do
+        post :disable
+      end
+    end
   end
 
   mount API::Entrance => '/api'

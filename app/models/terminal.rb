@@ -2,6 +2,8 @@ require 'csv'
 
 class Terminal < ActiveRecord::Base
 
+  enum status: [ :init, :active, :expired ] 
+
   include PrivateKey
   extend OpenSpreadsheet
 

@@ -53,13 +53,21 @@ class Wifi::MerchantsController < WifiController
             end
           end
         else
-          vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
-          auth_token = AuthToken.new( auth_token: vtoken, 
-                                      mac: params[:mac], 
-                                      client_identifier: params[:client_identifier], 
-                                      status: 0 )
-          auth_token.save!
-          redirect_to wifi_merchant_url(vtoken: auth_token.auth_token)          
+          terminal = Terminal.where(["mac = ? and status = ? and merchant_id is not null",params[:mac], Terminal.statuses[:active]]).first
+          if terminal
+            vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
+            auth_token = AuthToken.new( auth_token: vtoken, 
+                                        mac: params[:mac], 
+                                        client_identifier: params[:client_identifier], 
+                                        status: 0,
+                                        terminal_id: terminal.id,
+                                        merchant_id: terminal.merchant_id )
+            auth_token.save!
+            redirect_to wifi_merchant_url(vtoken: auth_token.auth_token)    
+          else
+            flash[:danger] = "请连接wifi!"
+            render :error
+          end
         end
         
       else
