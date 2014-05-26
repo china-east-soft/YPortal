@@ -21,8 +21,11 @@ class Terminal < ActiveRecord::Base
     self.update_column :mid, self.mid
   end
 
+  def before_create
+    self.status = Terminal.statuses[:init]
+  end
+
   before_validation do
-    self.status = 0
     mac.downcase!
     add_mac_colon!
   end
