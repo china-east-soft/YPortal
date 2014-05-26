@@ -111,3 +111,4 @@ gem 'slim', '~> 2.0.2'
 
 gem 'sidekiq'
 gem 'mina-sidekiq'
+gem 'sinatra', require: false
