@@ -22,6 +22,8 @@
               <tr>
                   <th>mac</th>
                   <th>mid</th>
+                  <th>时长</th>
+                  <th></th>
               </tr>
               </thead>
                 <tbody>
@@ -29,6 +31,8 @@
                   <tr>
                     <td><%= terminal.mac %></td>
                     <td><%= terminal.mid %></td>
+                    <td><%= humanize_second terminal.duration.to_i %></td>
+                    <td><button class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_merchant_terminal_path(terminal) %><i class="icon-pencil"></i></button></td>
                   </tr>
                 <% end %>
               </tbody>

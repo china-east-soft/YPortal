@@ -22,6 +22,7 @@ class Terminal < ActiveRecord::Base
   end
 
   def before_create
+    self.duration = 60 * 60 * 4
     self.status = Terminal.statuses[:init]
   end
 
