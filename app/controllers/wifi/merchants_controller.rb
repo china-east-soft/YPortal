@@ -6,7 +6,7 @@ class Wifi::MerchantsController < WifiController
   def home
     ##### preview, required: mid #####
     if params[:mid].present?
-      @terminal = Terminal.where(status: params[:mac].downcase, mid: Terminal.statuses[:active]]).first
+      @terminal = Terminal.where(status: params[:mac].downcase, mid: Terminal.statuses[:active]).first
     ##### preview end #####
     ##### client, required: vtoken #####
     elsif params[:vtoken].present?
@@ -22,7 +22,7 @@ class Wifi::MerchantsController < WifiController
           wifi_merchant_url(client_identifier: @auth_token.client_identifier, mac: @auth_token.mac)
         end
       else
-        gflash :error = "请连接wifi!"
+        gflash :error => "请连接wifi!"
         render :error
       end
     ##### client end #####
@@ -46,12 +46,12 @@ class Wifi::MerchantsController < WifiController
 
               if recv_data.present?
                 gflash :success => "已经认证成功可以直接上网!"
-                redirect_to wifi_welcome_url(:vtoken auth_token.auth_token)
+                redirect_to wifi_welcome_url(vtoken: auth_token.auth_token)
               else
                 message = "can not recv data..."
                 Communicate.logger.add Logger::FATAL, message
                 gflash :error => message
-                redirect_to wifi_welcome_url(:vtoken auth_token.auth_token)
+                redirect_to wifi_welcome_url(vtoken: auth_token.auth_token)
               end
             end
           end
