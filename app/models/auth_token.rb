@@ -6,7 +6,7 @@ class AuthToken < ActiveRecord::Base
   belongs_to :merchant
 
   validates_uniqueness_of :client_identifier, scope: :mac, conditions: -> { where(status: [AuthToken.statuses[:init], AuthToken.statuses[:active]]) }
-  scope :actived, lambda { |merchant| where(status: AuthToken.statuses[:active]) }
+  scope :actived, lambda { |merchant_id| where(status: AuthToken.statuses[:active], merchant_id: merchant_id) }
 
   class << self
     def update_expired_status(mac)
