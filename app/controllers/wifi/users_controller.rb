@@ -35,7 +35,7 @@ class Wifi::UsersController < WifiController
 
                 if recv_data.present?
                   gflash :success => "已经认证成功可以直接上网!"
-                  redirect_to wifi_welcome_url(auth_token: auth_token.auth_token)
+                  redirect_to wifi_welcome_url(vtoken: auth_token.auth_token)
                 else
                   message = "can not recv data..."
                   Communicate.logger.add Logger::FATAL, message
