@@ -51,6 +51,7 @@ class Wifi::MerchantsController < WifiController
                 message = "can not recv data..."
                 Communicate.logger.add Logger::FATAL, message
                 gflash :error => message
+                # to do
                 redirect_to wifi_welcome_url(vtoken: auth_token.auth_token)
               end
             end
