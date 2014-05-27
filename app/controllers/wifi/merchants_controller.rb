@@ -26,8 +26,8 @@ class Wifi::MerchantsController < WifiController
     else
       # from teminal
       if params[:client_identifier] && params[:mac]
-        AuthToken.update_expired_status(params[:mac])
-        auth_token = AuthToken.where(client_identifier: params[:client_identifier], mac: params[:mac], status: [AuthToken.statuses[:init], AuthToken.statuses[:active]]).first
+        AuthToken.update_expired_status(params[:mac].downcase)
+        auth_token = AuthToken.where(client_identifier: params[:client_identifier], mac: params[:mac].downcase, status: [AuthToken.statuses[:init], AuthToken.statuses[:active]]).first
         if auth_token
           auth_token.update_status
           case auth_token.status
@@ -56,7 +56,7 @@ class Wifi::MerchantsController < WifiController
           if terminal
             vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
             auth_token = AuthToken.new( auth_token: vtoken,
-                                        mac: params[:mac],
+                                        mac: params[:mac].downcase,
                                         client_identifier: params[:client_identifier],
                                         status: 0,
                                         terminal_id: terminal.id,
