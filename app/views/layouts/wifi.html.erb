@@ -25,21 +25,15 @@
 </head>
 <body class="portal_wraped">
 
-	<%= yield %>
-    <script>
+  <%= gflash %>
 
-      $(window).load(function() {
-          $('.flexslider').flexslider({
-              // animation: "slide",
-              // start: function(slider) {
-              //     $('body').removeClass('loading');
-              // }
-              // nextSelector: '#slider-next',
-              // prevSelector: '#slider-prev',
-              // nextText: 'Onward →',
-              // prevText: '← Go back'
-          });
-      });
+	<%= yield %>
+  <script>
+    <%= extend_gritter :time => 2000 %>
+    $(window).load(function() {
+        $('.flexslider').flexslider({
+        });
+    });
 
   </script>
   <footer class="footer reset_footer">
