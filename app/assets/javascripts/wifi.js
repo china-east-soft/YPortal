@@ -6,4 +6,5 @@
 //= require jquery.easing.min.js
 //= require common-scripts2
 //= require mform.js
+//= require gritter
 //= require send_message.js

@@ -4,39 +4,40 @@ class Wifi::MerchantsController < WifiController
   include Communicate
 
   def home
+    ##### preview, required: mid #####
     if params[:mid].present?
-
+      @terminal = Terminal.where(status: params[:mac].downcase, mid: Terminal.statuses[:active]]).first
+    ##### preview end #####
+    ##### client, required: vtoken #####
     elsif params[:vtoken].present?
-      # only params[:vtoken], from client
       @auth_token = AuthToken.where(auth_token: params[:vtoken]).first
       if @auth_token.present?
         if @auth_token.init?
           render :home
         elsif @auth_token.active?
-          flash[:success] = "已经认证成功可以直接上网!"
+          gflash :success => "已经认证成功可以直接上网!"
           render :home
         elsif @auth_token.expired?
-          flash[:danger] = "认证已经过期!"
-          render :home
+          gflash :error => "认证已经过期，请重新认证!"
+          wifi_merchant_url(client_identifier: @auth_token.client_identifier, mac: @auth_token.mac)
         end
       else
-        flash[:danger] = "请连接wifi!"
+        gflash :error = "请连接wifi!"
         render :error
       end
+    ##### client end #####
+    ##### terminal, required: client_identifier, mac #####
     else
-      # from teminal
       if params[:client_identifier] && params[:mac]
         AuthToken.update_expired_status(params[:mac].downcase)
         auth_token = AuthToken.where(client_identifier: params[:client_identifier], mac: params[:mac].downcase, status: [AuthToken.statuses[:init], AuthToken.statuses[:active]]).first
+        ##### if rebooting terminal, the auth_token exists
         if auth_token
           auth_token.update_status
           case auth_token.status
           when "init"
             redirect_to wifi_merchant_url(vtoken: auth_token.auth_token)
           when "active"
-            # logger.info(auth_token.mac)
-            # logger.info(auth_token.auth_token)
-            # logger.info(NatAddress.address(params[:mac].downcase))
             if address = NatAddress.address(params[:mac].downcase)
 
               remote_ip, port, time = address.split("#")
@@ -44,13 +45,17 @@ class Wifi::MerchantsController < WifiController
               recv_data = send_to_terminal remote_ip, port, auth_token, 1
 
               if recv_data.present?
-                flash[:success] = "已经认证成功可以直接上网!"
-                redirect_to wifi_welcome_url
+                gflash :success => "已经认证成功可以直接上网!"
+                redirect_to wifi_welcome_url(:vtoken auth_token.auth_token)
               else
-
+                message = "can not recv data..."
+                Communicate.logger.add Logger::FATAL, message
+                gflash :error => message
+                redirect_to wifi_welcome_url(:vtoken auth_token.auth_token)
               end
             end
           end
+        ##### init
         else
           terminal = Terminal.where(["mac = ? and status = ? and merchant_id is not null",params[:mac].downcase, Terminal.statuses[:active]]).first
           if terminal
@@ -58,19 +63,19 @@ class Wifi::MerchantsController < WifiController
             auth_token = AuthToken.new( auth_token: vtoken,
                                         mac: params[:mac].downcase,
                                         client_identifier: params[:client_identifier],
-                                        status: 0,
+                                        status: AuthToken.statuses[:init],
                                         terminal_id: terminal.id,
                                         merchant_id: terminal.merchant_id )
             auth_token.save!
             redirect_to wifi_merchant_url(vtoken: auth_token.auth_token)
           else
-            flash[:danger] = "请连接wifi!"
+            gflash :error => "请连接wifi!"
             render :error
           end
         end
 
       else
-        flash[:danger] = "请连接wifi!"
+        gflash :error => "请连接wifi!"
         render :error
       end
 

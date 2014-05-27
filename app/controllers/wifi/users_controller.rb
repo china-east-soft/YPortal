@@ -21,53 +21,57 @@ class Wifi::UsersController < WifiController
         if auth_token
           terminal = auth_token.terminal
           duration = terminal.duration || 14400
-          case auth_token.status
-            
-          when "init"
 
-          when "active"
-
-          when "expired"
-
-          end
           account = Account.where(mobile: params[:account][:mobile]).first_or_create
-          if auth_token.update(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active], account_id: account.id)
-            logger.info(auth_token.mac)
-            logger.info(auth_token.auth_token)
-            logger.info(NatAddress.address(auth_token.mac.downcase))
-            if address = NatAddress.address(auth_token.mac.downcase)
-              remote_ip, port, time = address.split("#")
-              
-              recv_data = send_to_terminal remote_ip, port, auth_token, 1
+          
+          case auth_token.status
+          when "init"
+            if auth_token.update(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active], account_id: account.id)
 
-              if recv_data.present?
-                redirect_to wifi_welcome_url
+              if address = NatAddress.address(auth_token.mac.downcase)
+                remote_ip, port, time = address.split("#")
+                
+                recv_data = send_to_terminal remote_ip, port, auth_token, 1
+
+                if recv_data.present?
+                  gflash :success => "已经认证成功可以直接上网!"
+                  redirect_to wifi_welcome_url(auth_token: auth_token.auth_token)
+                else
+                  message = "can not recv data..."
+                  Communicate.logger.add Logger::FATAL, message
+                  auth_token.update(status: 0)
+                  gflash :error => message
+                  render action: :login
+                end
+
               else
-                flash[:notice] = 'no recv....'
-                auth_token.update(status: 0)
+                message = "no nat address..."
+                Communicate.logger.add Logger::FATAL, message
+                gflash :error => message
                 render action: :login
               end
 
             else
-              logger.info("no nat address")
+              gflash :error => auth_token.errors
               render action: :login
-              
-            end
-
-          else
-            flash[:notice] = auth_token.errors
-            render action: :login
+            end            
+          when "active"
+            gflash :success => "已经认证成功可以直接上网!"
+            redirect_to wifi_welcome_url(vtoken: auth_token.auth_token)
+          when "expired"
+            gflash :error => "认证已经过期，请重新认证!"
+            wifi_merchant_url(client_identifier: auth_token.client_identifier, mac: auth_token.mac)
           end
         else
-          flash[:notice] = "token is valid"
+          gflash :notice => "请连接wifi!"
           render action: :login
         end
       else
-        flash[:notice] = "auth_message is missing"
+        gflash :notice => "请获取验证码!"
         render action: :login
       end
     else
-      flash[:notice] = "手机号或者验证码不正确"
+      gflash :notice => "手机号或者验证码不正确!"
       render action: :login
     end
   end

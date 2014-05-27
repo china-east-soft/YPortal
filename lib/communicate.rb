@@ -2,6 +2,12 @@ module Communicate
 
   include NoBlockUDP
 
+  class << self
+    def log
+      Logger.new("#{Rails.root}/log/communicate.log")
+    end
+  end
+
   def send_to_terminal remote_ip, port, auth_token, type
     version = "\x00".force_encoding('UTF-8')
     case type
