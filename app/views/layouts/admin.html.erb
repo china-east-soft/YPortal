@@ -290,6 +290,7 @@
       <!--main content start-->
       <section id="main-content">
         <section class="wrapper site-min-height">
+          <%= gflash %>
           <%= yield %>
         </section>
       </section>
@@ -310,7 +311,7 @@
   <%= yield :script %>
   
   <script>
-
+      <%= extend_gritter :time => 2000 %>
       //owl carousel
 
       $(document).ready(function() {
