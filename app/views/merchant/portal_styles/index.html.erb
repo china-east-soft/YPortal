@@ -116,14 +116,14 @@
                             <h5><%= mbox.name %></h5>
                           </div>
                         </section>
-<!--                         <div class="caption">
+                        <div class="caption">
                           <a class="icon-remove" href="javascript:enable(<%=mbox.id%>,false);"><%= fa_icon("times 2x") %></a>
                           </button>
                           <br />
                           <%= link_to "设置", edit_merchant_mbox_path(mbox.id), class: "btn btn-primary col-centered" %>
                           <p>可鼠标拖动模块进行排序</p>
                           <p>也可以删除此模块</p>
-                        </div> -->
+                        </div>
                       </div>
                     </li>
                   <% end %>
@@ -248,10 +248,6 @@
         })  
     });
 
-
-    // drag sort
-    $("#list1").dragsort({ dragSelector: "div", dragBetween: true, dragEnd: saveOrder, placeHolderTemplate: "<li class='placeHolder'><div></div></li>" });
-
     // save order
     function saveOrder() {
       var data = $("#list1 li").map(function() { return $(this).children().html(); }).get();
@@ -274,11 +270,6 @@
     };
 
   $("#list1").dragsort({ dragSelector: "div", dragBetween: true, dragEnd: saveOrder, placeHolderTemplate: "<li class='placeHolder'><div></div></li>" });
-
-  function saveOrder() {
-    var data = $("#list1 li").map(function() { return $(this).children().html(); }).get();
-    $("input[name=list1SortOrder]").val(data.join("|"));
-  };
 
 -->
 </script>
