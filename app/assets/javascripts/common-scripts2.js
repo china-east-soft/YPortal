@@ -19,19 +19,10 @@ var Script = function () {
         slideMargin: 20
     });
 
-    $(window).load(function() {
-        $('.flexslider').flexslider({
-            animation: "slide",
-            start: function(slider) {
-                $('body').removeClass('loading');
-            }
-        });
-    });
-
-
-
-
-
-
-
 }();
+
+$( document ).ready(function() {
+  $('.carousel').carousel({
+    interval: 3000
+  })    
+})
