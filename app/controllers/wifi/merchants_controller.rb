@@ -83,7 +83,7 @@ class Wifi::MerchantsController < WifiController
   end
 
   def welcome
-    @merchant = current_merchant
+    @merchant = current_terminal.merchant || current_merchant
     @merchant_info = @merchant.merchant_info
   end
 
