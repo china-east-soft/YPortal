@@ -54,6 +54,11 @@ class Wifi::MerchantsController < WifiController
                 # to do
                 redirect_to wifi_welcome_url(vtoken: @auth_token.auth_token)
               end
+            else
+              message = "no nat address..."
+              Communicate.logger.add Logger::FATAL, message
+              gflash :error => message
+              render :error
             end
           end
         ##### init
