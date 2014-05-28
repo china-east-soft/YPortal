@@ -10,6 +10,7 @@ class Merchant::PortalStylesController < MerchantController
     @banners = @portal_style.banners
     @mboxes = @portal_style.valid_mboxes
     @deleted_mboxes = @portal_style.deleted_mboxes
+    @default_terminal = current_merchant.terminals.where(status: AuthToken.statuses[:active]).first
   end
 
   # GET /portal_styles/1

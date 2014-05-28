@@ -5,6 +5,16 @@
   <div id="myCarousel" class="carousel slide">
       <!-- Carousel items -->
       <div class="carousel-inner">
+        <% if @banners.present? %>
+          <% @banners.each_with_index do |banner,bindex| %>
+              <div class="<%= 'active' if bindex == 0 %> item">
+                <%= image_tag banner.cover %>
+                <div class="carousel-caption">
+                    <p><%= banner.description %></p>
+                </div>
+            </div>
+          <% end %>
+        <% else %>
           <div class="active item">
               <%= image_tag "about_1.jpg" %>
               <div class="carousel-caption">
@@ -23,6 +33,7 @@
                   <p>Honest and amazing things that bring positive results</p>
               </div>
           </div>
+        <% end %>
       </div>
       <!-- Carousel nav -->
       <a class="carousel-control left" href="#myCarousel" data-slide="prev">

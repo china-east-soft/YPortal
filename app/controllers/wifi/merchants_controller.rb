@@ -6,7 +6,7 @@ class Wifi::MerchantsController < WifiController
   def home
     ##### preview, required: mid #####
     if params[:mid].present?
-      @terminal = Terminal.where(status: params[:mac].downcase, mid: Terminal.statuses[:active]).first
+      @terminal = Terminal.where(status: Terminal.statuses[:active], mid: params[:mid]).first
     ##### preview end #####
     ##### client, required: vtoken #####
     elsif params[:vtoken].present?
@@ -89,8 +89,7 @@ class Wifi::MerchantsController < WifiController
   end
 
   def welcome
-    @merchant = current_terminal.merchant || current_merchant
-    @merchant_info = @merchant.merchant_info
+    @merchant_info = terminal_merchant.merchant_info
   end
 
   private
