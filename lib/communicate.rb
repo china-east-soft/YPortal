@@ -8,7 +8,7 @@ module Communicate
     end
   end
 
-  def send_to_terminal remote_ip, port, auth_token, type
+  def send_to_terminal remote_ip, port, auth_token, type, duration: nil
     version = "\x00".force_encoding('UTF-8')
     case type
     when 1
@@ -28,7 +28,11 @@ module Communicate
     mac = [auth_token.mac.gsub(/:/,'')].pack('H*').force_encoding('UTF-8')
     client_identifier = [auth_token.client_identifier.gsub(/:/,'')].pack('H*').force_encoding('UTF-8')
     
-    expired_timestamp = [0].pack("S*")+[auth_token.expired_timestamp - Time.now.to_i].pack("S*").reverse.force_encoding('UTF-8')
+    if duration
+      expired_timestamp = [0].pack("S*")+[duration].pack("S*").reverse.force_encoding('UTF-8')
+    else
+      expired_timestamp = [0].pack("S*")+[auth_token.expired_timestamp - Time.now.to_i].pack("S*").reverse.force_encoding('UTF-8')
+    end
     errcode = "\x00".force_encoding('UTF-8')
     attrnum = "\x01".force_encoding('UTF-8')
 

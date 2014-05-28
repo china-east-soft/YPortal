@@ -54,7 +54,7 @@ class Terminal < ActiveRecord::Base
       if auth_token_sample
         address = NatAddress.address(auth_token_sample.mac.downcase)
         remote_ip, port, time = address.split("#")
-        recv_data = send_to_terminal remote_ip, port, auth_token_sample, 7
+        recv_data = send_to_terminal remote_ip, port, auth_token_sample, 7, duration: self.duration
       end
     end
 
