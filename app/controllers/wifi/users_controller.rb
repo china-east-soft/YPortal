@@ -60,7 +60,7 @@ class Wifi::UsersController < WifiController
             redirect_to wifi_welcome_url(vtoken: auth_token.auth_token)
           when "expired"
             gflash :error => "认证已经过期，请重新认证!"
-            wifi_merchant_url(client_identifier: auth_token.client_identifier, mac: auth_token.mac)
+            redirect_to wifi_merchant_url(client_identifier: auth_token.client_identifier, mac: auth_token.mac)
           end
         else
           gflash :notice => "请连接wifi!"
@@ -97,7 +97,7 @@ class Wifi::UsersController < WifiController
         redirect_to wifi_merchant_url
       elsif @auth_token.expired?
         gflash :error => "认证已经过期，请重新认证!"
-        wifi_merchant_url(client_identifier: @auth_token.client_identifier, mac: @auth_token.mac)
+        redirect_to wifi_merchant_url(client_identifier: @auth_token.client_identifier, mac: @auth_token.mac)
       end
     else
       gflash :error => "请连接wifi!"
@@ -109,19 +109,19 @@ class Wifi::UsersController < WifiController
     terminal = @auth_token.terminal
     duration = @auth_token.duration || 14400
 
-    if auth_token.update(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
-      if address = NatAddress.address(auth_token.mac.downcase)
+    if @auth_token.update(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
+      if address = NatAddress.address(@auth_token.mac.downcase)
         remote_ip, port, time = address.split("#")
 
-        recv_data = send_to_terminal remote_ip, port, auth_token, 1
+        recv_data = send_to_terminal remote_ip, port, @auth_token, 1
 
         if recv_data.present?
           gflash :success => "已经认证成功可以直接上网!"
-          redirect_to wifi_welcome_url(vtoken: auth_token.auth_token)
+          redirect_to wifi_welcome_url(vtoken: @auth_token.auth_token)
         else
           message = "can not recv data..."
           Communicate.logger.add Logger::FATAL, message
-          auth_token.update(status: 0)
+          @auth_token.update(status: 0)
           gflash :error => message
           render action: :login
         end
@@ -132,7 +132,7 @@ class Wifi::UsersController < WifiController
         render action: :login
       end
     else
-      gflash :error => auth_token.errors
+      gflash :error => @auth_token.errors
       render action: :login
     end
   end
