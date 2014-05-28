@@ -60,7 +60,7 @@ class Wifi::UsersController < WifiController
             redirect_to wifi_welcome_url(vtoken: auth_token.auth_token)
           when "expired"
             gflash :error => "认证已经过期，请重新认证!"
-            wifi_merchant_url(client_identifier: auth_token.client_identifier, mac: auth_token.mac)
+            redirect_to wifi_merchant_url(client_identifier: auth_token.client_identifier, mac: auth_token.mac)
           end
         else
           gflash :notice => "请连接wifi!"
@@ -97,7 +97,7 @@ class Wifi::UsersController < WifiController
         redirect_to wifi_merchant_url
       elsif @auth_token.expired?
         gflash :error => "认证已经过期，请重新认证!"
-        wifi_merchant_url(client_identifier: @auth_token.client_identifier, mac: @auth_token.mac)
+        redirect_to wifi_merchant_url(client_identifier: @auth_token.client_identifier, mac: @auth_token.mac)
       end
     else
       gflash :error => "请连接wifi!"
