@@ -12,6 +12,21 @@ class Mbox < ActiveRecord::Base
 
   end
 
+  def detail_url
+    case self.category
+    when '店铺介绍'
+      'wifi_products_url'
+    when '商品展示'
+      'wifi_products_url'
+    when '店铺活动'
+      'wifi_products_url'
+    when '搜周边'
+      'wifi_products_url'
+    else
+      'wifi_products_url'
+    end
+  end
+
   def default_cover
     Mbox.default_covers[self.name]
   end
