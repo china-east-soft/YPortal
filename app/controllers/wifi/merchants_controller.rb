@@ -30,29 +30,29 @@ class Wifi::MerchantsController < WifiController
     else
       if params[:client_identifier] && params[:mac]
         AuthToken.update_expired_status(params[:mac].downcase)
-        auth_token = AuthToken.where(client_identifier: params[:client_identifier], mac: params[:mac].downcase, status: [AuthToken.statuses[:init], AuthToken.statuses[:active]]).first
+        @auth_token = AuthToken.where(client_identifier: params[:client_identifier], mac: params[:mac].downcase, status: [AuthToken.statuses[:init], AuthToken.statuses[:active]]).first
         ##### if rebooting terminal, the auth_token exists
-        if auth_token
-          auth_token.update_status
-          case auth_token.status
+        if @auth_token
+          @auth_token.update_status
+          case @auth_token.status
           when "init"
-            redirect_to wifi_merchant_url(vtoken: auth_token.auth_token)
+            redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
           when "active"
             if address = NatAddress.address(params[:mac].downcase)
 
               remote_ip, port, time = address.split("#")
 
-              recv_data = send_to_terminal remote_ip, port, auth_token, 1
+              recv_data = send_to_terminal remote_ip, port, @auth_token, 1
 
               if recv_data.present?
                 gflash :success => "已经认证成功可以直接上网!"
-                redirect_to wifi_welcome_url(vtoken: auth_token.auth_token)
+                redirect_to wifi_welcome_url(vtoken: @auth_token.auth_token)
               else
                 message = "can not recv data..."
                 Communicate.logger.add Logger::FATAL, message
                 gflash :error => message
                 # to do
-                redirect_to wifi_welcome_url(vtoken: auth_token.auth_token)
+                redirect_to wifi_welcome_url(vtoken: @auth_token.auth_token)
               end
             end
           end
@@ -61,14 +61,14 @@ class Wifi::MerchantsController < WifiController
           terminal = Terminal.where(["mac = ? and status = ? and merchant_id is not null",params[:mac].downcase, Terminal.statuses[:active]]).first
           if terminal
             vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
-            auth_token = AuthToken.new( auth_token: vtoken,
+            @auth_token = AuthToken.new( auth_token: vtoken,
                                         mac: params[:mac].downcase,
                                         client_identifier: params[:client_identifier],
                                         status: AuthToken.statuses[:init],
                                         terminal_id: terminal.id,
                                         merchant_id: terminal.merchant_id )
-            auth_token.save!
-            redirect_to wifi_merchant_url(vtoken: auth_token.auth_token)
+            @auth_token.save!
+            redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
           else
             gflash :error => "请连接wifi!"
             render :error
