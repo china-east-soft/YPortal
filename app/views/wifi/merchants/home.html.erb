@@ -1,67 +1,39 @@
-<% flash.each do |key,value| %>
-  <div class="alert alert-<%=key%>">
-    <%= value %>
-  </div>
-<% end %>
+<%
+  @portal_style = terminal_merchant.portal_style
+  @banners = @portal_style.banners
+  @mboxes = @portal_style.valid_mboxes
+%>
 <div class="container" >
   <div class="row mbot30">
     <div class="col-lg-5 col-xs-12 col-centered">
-      <%= render partial: "partial/adv", locals: { title: "店铺名称" } %>
-      <% if @auth_token && @auth_token.init? %>
-      <div class="row span5 col-centered free-wifi">
-        <%= link_to wifi_login_url(vtoken: params[:vtoken]) do %>
-        <h4 class="text-center"><%= image_tag 'tu_01_03.png',height: '23' %>点击免费上网</h4>
-        <% end %>
-      </div>
+      <%= render partial: "partial/adv", locals: { title: @portal_style.name } %>
+
+      <% if current_merchant || @auth_token && @auth_token.init? %>
+        <div class="row span5 col-centered free-wifi">
+          <%= link_to wifi_login_url(vtoken: params[:vtoken], mid: params[:mid]) do %>
+          <h4 class="text-center"><%= image_tag 'tu_01_03.png',height: '23' %>点击免费上网</h4>
+          <% end %>
+        </div>
       <% end %>
 
       <!-- portal images start -->
       <div class="portal_images">
-      <div class="row span5 col-centered">
-        <div class="col-lg-6 col-xs-6">
-          <section>
-            <div class="mf-box">
-              <%= image_tag "tu_01_07.png"%>
-              <h5>关注我们</h5>
-            </div>
-          </section>
+        <div class="row span5 col-centered">
+          <ul>
+            <% @mboxes.each do |mbox| %>
+              <li class="col-lg-6 col-xs-6">
+                <div>
+                  <section>
+                    <div class="mf-box">
+                      <%= image_tag mbox.default_cover %>
+                      <h5><%= mbox.name %></h5>
+                    </div>
+                  </section>
+                </div>
+              </li>
+            <% end %>
+          </ul>
         </div>
-        <div class="col-lg-6 col-xs-6">
-          <section>
-            <div class="mf-box">
-              <%= image_tag "tu_01_10.png"%>
-              <h5>商品展示</h5>
-            </div>
-          </section>
-        </div>
-      </div>
-      <div class="col-lg-6 col-xs-6">
-        <section>
-          <div class="mf-box">
-            <%= image_tag "tu_01_17.png" %>
-            <h5>店铺介绍</h5>
-          </div>
-        </section>
-      </div>
-      <div class="col-lg-6 col-xs-6">
-        <section>
-          <div class="mf-box">
-            <%= image_tag "tu_01_15.png" %>
-            <h5>店铺活动</h5>
-          </div>
-        </section>
-      </div>
-      <div class="row col-centered">
-        <div class="col-lg-12 col-xs-12">
-          <section>
-            <div class="mf-box">
-              <%= image_tag "tu_01_22.png" %>
-              <h5>搜周边</h5>
-            </div>
-          </section>
-          </div>
-        </div>
-      </div>
       </div>
       <!-- portal images end -->
 

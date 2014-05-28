@@ -5,6 +5,8 @@ class WifiController < ActionController::Base
 
   layout 'wifi'
 
+  helper_method :current_terminal, :terminal_merchant
+
   def current_terminal
     if params[:mid]
       Terminal.where(mid: params[:mid]).first
@@ -12,6 +14,10 @@ class WifiController < ActionController::Base
       auth_token = AuthToken.where(auth_token: params[:vtoken]).first
       auth_token.terminal
     end
+  end
+
+  def terminal_merchant
+    current_merchant || current_terminal.merchant
   end
 
 end
