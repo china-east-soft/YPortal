@@ -3,7 +3,7 @@ module Communicate
   include NoBlockUDP
 
   class << self
-    def log
+    def logger
       Logger.new("#{Rails.root}/log/communicate.log")
     end
   end
