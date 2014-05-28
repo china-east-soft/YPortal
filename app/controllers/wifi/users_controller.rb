@@ -13,7 +13,7 @@ class Wifi::UsersController < WifiController
   def sign_in
 
     params[:vtoken] = params[:account][:vtoken]
-    
+
     if params[:account][:mobile] && params[:account][:verify_code] && params[:account] && params[:account][:vtoken]
       auth_message = AuthMessage.where(mobile: params[:account][:mobile], verify_code: params[:account][:verify_code]).first
       if auth_message
@@ -23,14 +23,14 @@ class Wifi::UsersController < WifiController
           duration = terminal.duration || 14400
 
           account = Account.where(mobile: params[:account][:mobile]).first_or_create
-          
+
           case auth_token.status
           when "init"
             if auth_token.update(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active], account_id: account.id)
 
               if address = NatAddress.address(auth_token.mac.downcase)
                 remote_ip, port, time = address.split("#")
-                
+
                 recv_data = send_to_terminal remote_ip, port, auth_token, 1
 
                 if recv_data.present?
@@ -54,7 +54,7 @@ class Wifi::UsersController < WifiController
             else
               gflash :error => auth_token.errors
               render action: :login
-            end            
+            end
           when "active"
             gflash :success => "已经认证成功可以直接上网!"
             redirect_to wifi_welcome_url(vtoken: auth_token.auth_token)
@@ -76,5 +76,65 @@ class Wifi::UsersController < WifiController
     end
   end
 
+  def quick_login
+    params[:account] ||= {}
+
+    if params[:vtoken].present?
+      process_vtoken_present
+    else
+      redirect_to wifi_merchant_url
+    end
+  end
+
+  private
+  def process_vtoken_present
+    @auth_token = AuthToken.where(auth_token: params[:vtoken]).first
+    if @auth_token.present?
+      if @auth_token.init?
+        process_init_update_token_and_communicate_with_terminal
+      elsif @auth_token.active?
+        gflash :success => "已经认证成功可以直接上网!"
+        redirect_to wifi_merchant_url
+      elsif @auth_token.expired?
+        gflash :error => "认证已经过期，请重新认证!"
+        wifi_merchant_url(client_identifier: @auth_token.client_identifier, mac: @auth_token.mac)
+      end
+    else
+      gflash :error => "请连接wifi!"
+      render :login
+    end
+  end
+
+  def process_init_update_token_and_communicate_with_terminal
+    terminal = @auth_token.terminal
+    duration = @auth_token.duration || 14400
+
+    if auth_token.update(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
+      if address = NatAddress.address(auth_token.mac.downcase)
+        remote_ip, port, time = address.split("#")
+
+        recv_data = send_to_terminal remote_ip, port, auth_token, 1
+
+        if recv_data.present?
+          gflash :success => "已经认证成功可以直接上网!"
+          redirect_to wifi_welcome_url(vtoken: auth_token.auth_token)
+        else
+          message = "can not recv data..."
+          Communicate.logger.add Logger::FATAL, message
+          auth_token.update(status: 0)
+          gflash :error => message
+          render action: :login
+        end
+      else
+        message = "no nat address..."
+        Communicate.logger.add Logger::FATAL, message
+        gflash :error => message
+        render action: :login
+      end
+    else
+      gflash :error => auth_token.errors
+      render action: :login
+    end
+  end
 
 end
