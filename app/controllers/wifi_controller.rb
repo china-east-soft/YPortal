@@ -13,6 +13,8 @@ class WifiController < ActionController::Base
     elsif params[:vtoken]
       auth_token = AuthToken.where(auth_token: params[:vtoken]).first
       auth_token.terminal
+    elsif params[:mac]
+      Terminal.where(mac: params[:mac].downcase).first
     end
   end
 
