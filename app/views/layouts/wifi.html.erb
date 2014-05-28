@@ -31,8 +31,22 @@
   <script>
     <%= extend_gritter :time => 2000 %>
     $(window).load(function() {
-        $('.flexslider').flexslider({
-        });
+       $('.flexslider').flexslider({
+           animation: "slide",
+           start: function(slider) {
+               $('body').removeClass('loading');
+           }
+       });
+     });
+
+    //    bxslider
+
+    $('.bxslider').show();
+    $('.bxslider').bxSlider({
+        minSlides: 3,
+        maxSlides: 2,
+        slideWidth: 276,
+        slideMargin: 20
     });
 
   </script>

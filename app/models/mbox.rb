@@ -15,7 +15,7 @@ class Mbox < ActiveRecord::Base
   def detail_url
     case self.category
     when '店铺介绍'
-      'wifi_products_url'
+      'wifi_welcome_url'
     when '商品展示'
       'wifi_products_url'
     when '店铺活动'
