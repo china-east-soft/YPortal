@@ -77,7 +77,7 @@ Rails.application.routes.draw do
         patch :update_shop_info
 
         patch :update_password
-        post :change_info
+        patch :change_info
       end
     end
     resources :auth_tokens do
