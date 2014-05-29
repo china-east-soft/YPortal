@@ -9,6 +9,8 @@ class Merchant < ActiveRecord::Base
 
   has_one :portal_style, dependent: :destroy
 
+  has_many :products, dependent: :destroy
+
   validates_presence_of     :password, if: :password_required?
   validates_confirmation_of :password, if: :password_required?
   validates_length_of       :password, within: 8..18, allow_blank: true

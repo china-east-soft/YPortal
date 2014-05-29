@@ -21,6 +21,7 @@ class Merchant::MboxesController < MerchantController
 
   # GET /mboxes/1/edit
   def edit
+    @product = current_merchant.products.build
   end
 
   # POST /mboxes

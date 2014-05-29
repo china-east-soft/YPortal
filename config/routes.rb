@@ -77,6 +77,8 @@ Rails.application.routes.draw do
         post :disable
       end
     end
+
+    resource :products, except: [:new]
   end
 
   mount API::Entrance => '/api'

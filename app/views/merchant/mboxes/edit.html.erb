@@ -4,5 +4,8 @@
 
 	<%= link_to 'Show', [:merchant, @mbox] %> |
 	<%= link_to 'Back', merchant_portal_style_path() %>
+  <% if @mbox.category == "商品展示" %>
+    <%= render '/merchant/products/form' %>
+  <% end %>
 <% end %>
 

@@ -1,0 +1,14 @@
+zh-CN:
+  hello: "Hello world"
+  merchant:
+    products:
+      form:
+        add_product: "添加产品"
+        name: "产品名"
+        photo: "产品图片"
+        price: "产品价格"
+        description: "产品描述"
+
+
+
+
