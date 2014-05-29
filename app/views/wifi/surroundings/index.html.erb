@@ -1,0 +1,82 @@
+<div class="container" >
+  <div class="row mbot30">
+    <div class="col-lg-5 col-xs-12 col-centered">
+
+    	<div class="row span5 col-centered rim_seBox">
+    		<form class="form-inline">
+	    		<div class="form-group col-lg-4 col-xs-4">
+	          <%= select_tag "distance", options_for_select(@distances, @distances.first), class: "form-control" %>
+	        </div>
+	        <div class="form-group col-lg-4 col-xs-4">
+	        	<%= select_tag "industry", options_for_select(@industries, @industries.first),
+	        	class: "form-control" %>
+	        </div>
+	        <div class="form-group col-lg-4 col-xs-4">
+	        	<%= select_tag "order_by", options_for_select(@order_bys, @order_bys.first),
+	        	class: "form-control" %>
+	    		</div>
+	    	</form>
+    	</div>
+
+    	<div class="row span5 col-centered surrounding_merchants" id="surrounding_merchants">
+    		<% @merchant_infos.each do |merchant_info| %>
+	    			<section class="panel">
+	            <header class="panel-heading">
+	               <h4><%= merchant_info.name %></h4>
+	            </header>
+	            <div class="panel-body">
+
+            	</div>
+	        </section>
+    		<% end %>
+    	</div>
+
+    	<div id="loaderCircle" class="row span5 col-centered" style="display:none">
+    		<%= image_tag "loading.gif" %>
+    	</div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+
+	$( document ).ready(function() {
+		$( "#distance" ).change(function(event) {
+			onSearch();
+		});
+		$( "#industry" ).change(function(event) {
+			onSearch();
+		});
+		$( "#order_by" ).change(function(event) {
+			onSearch();
+		});
+	});
+
+	window._token = '<%= form_authenticity_token %>'
+	var handler = null;
+  var page = 1;
+
+	function onSearch(){
+		page = 1;
+		$('#surrounding_merchants').html("");
+		loadData();
+	}
+   
+  function loadData() {
+	  $('#loaderCircle').show();
+	  var distance = $('#distance').val();
+	  var industry = $('#industry').val();
+	  var order_by = $('#order_by').val();
+    $.ajax({
+      url: '/wifi/surroundings/load.js',
+      data: { authenticity_token: window._token,
+      			distance: distance,
+      			industry: industry,
+      			order_by: order_by,
+      			mid: '<%= params[:mid] %>',
+      			vtoken: '<%= params[:vtoken] %>' }
+    });
+  };
+
+</script>

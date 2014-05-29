@@ -32,6 +32,11 @@ Rails.application.routes.draw do
       end
     end
     resources :products, only: [:index,:show]
+    resources :surroundings, only: [:index] do
+      collection do
+        get :load
+      end
+    end
   end
 
   namespace :admin do

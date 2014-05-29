@@ -24,7 +24,7 @@
               <li class="col-lg-6 col-xs-6">
                 <div>
                   <section>
-                    <%= link_to(eval mbox.detail_url) do %>
+                    <%= link_to(eval "#{mbox.detail_url}(mid: params[:mid], vtoken: params[:vtoken])") do %>
                       <div class="mf-box">
                         <%= image_tag mbox.default_cover %>
                         <h5><%= mbox.name %></h5>

@@ -1,0 +1,133 @@
+
+    var handler = null;
+    var page = 1;
+    var isLoading = false;
+    var options = {
+      autoResize: true, 
+      container: j('#wookmark')
+     // offset: 2, 
+     // itemWidth: 210 
+    };
+   
+    function onSearch(){
+        page = 1;
+        j('#wookmark li').remove();
+        loadData();
+    }
+   
+    function onScroll(event) {
+      if(!isLoading) {
+        var closeToBottom = (j(window).scrollTop() + j(window).height() > j(document).height() - 100);
+        if(closeToBottom) {
+          loadData();
+        }
+      }
+    };
+    
+    function applyLayout() {
+      if(handler) handler.wookmarkClear();
+      handler = j('#wookmark li');
+      handler.wookmark(options);
+    };
+    
+    function loadData() {
+      isLoading = true;
+      j('#loaderCircle').show();
+      var bizType = j('#bizType').val();
+      var juli = j('#juli').val();
+      var sortName = j('#sortName').val();
+      j.ajax({
+        url: '/json/receShopActivity_lbsPageList.htm',
+        dataType: 'html',
+        data: {page: page,mid:'77baa9c0c53c11e3b3e3ac162d8aadbc',said:'',juli:juli,bizType:bizType,sortName:sortName}, 
+        success: onLoadData
+      });
+    };
+    
+    function onLoadData(data) {
+        data = data.parseObj();
+        isLoading = false;
+        j('#loaderCircle').hide();
+        var recordList = data.datelist;
+        if(recordList!=null && recordList.length>0){
+            for(var i = 0 ;i<recordList.length;i++){
+                var po = recordList[i];
+                var title = po.title;
+                var content = po.content;
+                var bizType = po.bizTypeVal;
+                var bizName = po.bizName;
+                var bizJuli = parseInt(po.bizJuli,10);
+                var bizCount = parseInt(po.bizCount,10)-1;
+                var blessing = po.blessing;
+                var juliUnit = 'm';
+                if(bizJuli>1000){
+                    bizJuli = bizJuli/1000;
+                    bizJuli = bizJuli.toFixed(2);
+                    juliUnit = 'km';
+                }
+                var hotDiv ='';
+                var imgDiv = '';
+                var bizCountSpan ='';
+                if(po.status=='1'){
+                    hotDiv = '<div class="t_icon"></div>';
+                }
+                if(po.picPath.length>10){
+                    imgDiv = '<img src="'+po.picPath+'">';
+                }
+                var blessingDiv = '人气：';
+                var juliDiv = '<div class="klm fr font20"><b>'+bizJuli+'</b><span class="font12">'+juliUnit+'</span></div>';
+                if(bizCount>0){
+                    bizCountSpan = '<div class="line fl"></div><a href="/receShopActivity_page.htm?mid='+po.merchantId+'&vtoken=aa3c6b95e56611e3b3e3ac162d8aadbc"><span class="font12 fr">查看该店其他'+bizCount+'个活动</span></a>';
+                }
+                var timeTxt = getFormatDateByLong(po.gmtStart.time, "yyyy-MM-dd")+'~'+getFormatDateByLong(po.gmtEnd.time, "yyyy-MM-dd");
+                j('#wookmark').append('<li class="clearfix"><div class="flBox font12 fr">'+bizType+'</div><a href="javascript:void(0);" class="openBtn sa'+po.id+'" sid="'+po.id+'"><div class="title c_orange">'+title+'</div><div class="font16 c_black">'+bizName+'</div></a>'+bizCountSpan+'<div class="fl font12 c_gray" style="width:100%"><div class="menIcon fl"></div>人气：<span id="bl'+po.id+'">'+blessing+'</span></div><div class="s_info fl"><span class="timeT font14 c_orange">'+timeTxt+'</span><div class="t font16">'+content+'</div>'+imgDiv+'</div><div class="time font14"><a href="javascript:void(0);" class="openBtn sa'+po.id+'" sid="'+po.id+'"><div class="frB fr font12"><div class="fl btnInfo">详 情</div><div class="fl btnInfo" style="display:none">收 回</div><div class="btnIcon icon1 fl"></div></div></a></div></li>');
+            }
+            if(data.more!='Y'){
+                isLoading = true;
+            }
+            page++;
+        }else{
+            isLoading = true;
+        }
+    };
+    
+    j(function() {
+      j(document).bind('scroll', onScroll);
+      loadData();
+      j('.openBtn').live('click', function() {
+            if(j(this).parents("li").children(".s_info").is(':hidden')){
+                clickActivity(j(this).attr('sid'));
+            }
+            j(this).parents("li").children(".s_info").slideToggle(800);
+            //j(".btnInfo",this).toggle();
+            //j(".btnIcon",this).toggleClass("icon2");
+            j(this).parents("li").find(".btnInfo").toggle();
+            j(this).parents("li").find(".btnIcon").toggleClass("icon2");
+        });
+        j('.openBtn').live('mouseover', function() {
+            j(".btnInfo",this).css("color","#575757");
+        });
+        j('.openBtn').live('mouseout', function() {
+            j(".btnInfo",this).css("color","#8d8d8d");
+        });
+    });
+    
+    function clickActivity(id){
+        para = 'id='+id;
+        j.ajax({
+            type : "POST",
+            url:"/json/receShopActivity_clickShopActivity.htm",
+            dateType:"json",
+            data:para,
+            success : function(data){
+                data = data.parseObj();
+                if(data.status=='Y'){
+                    j('#bl'+id).html(data.shopActivity.blessing)
+                }else{
+                    alert(data.message);
+                }
+            },error:function(data){
+                alert('error');
+            }
+        });
+    }
