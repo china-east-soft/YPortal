@@ -9,7 +9,7 @@
       <%= render 'shared/flash_messages' %>
       <div class="list-group">
 
-        <%= form_for @merchant_info, url: change_info_merchant_merchant_infos_path do |f| %>
+        <%= form_for @merchant_info, url: change_info_merchant_merchant_infos_path, method: 'patch' do |f| %>
           <div class="list-group-item">
             <div class="list-group-item-heading">
               <i class="fa fa-book"></i>
