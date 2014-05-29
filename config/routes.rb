@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+
+
   require 'sidekiq/web'
   mount Sidekiq::Web, at: '/sidekiq'
 
@@ -49,6 +51,7 @@ Rails.application.routes.draw do
       end
     end
     resources :products
+    resources :categories
   end
 
   namespace :agent do
