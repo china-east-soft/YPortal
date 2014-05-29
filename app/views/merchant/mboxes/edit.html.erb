@@ -1,11 +1,22 @@
 <% content_for :main_content do %>
 
-	<%= render 'form' %>
+  <% if @show_product_form %>
+    <div class = "row">
+      <div class="col-md-6">
+        <%= render 'form' %>
 
-	<%= link_to 'Show', [:merchant, @mbox] %> |
-	<%= link_to 'Back', merchant_portal_style_path() %>
-  <% if @mbox.category == "商品展示" %>
-    <%= render '/merchant/products/form' %>
+        <%= link_to 'Show', [:merchant, @mbox] %> |
+        <%= link_to 'Back', merchant_portal_style_path() %>
+      </div>
+      <div class="col-md-4">
+        <%= render '/merchant/products/form' %>
+      </div>
+    </div>
+  <% else %>
+    <%= render 'form' %>
+
+    <%= link_to 'Show', [:merchant, @mbox] %> |
+    <%= link_to 'Back', merchant_portal_style_path() %>
   <% end %>
 <% end %>
 

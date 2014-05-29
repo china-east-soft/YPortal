@@ -1,0 +1,90 @@
+ul#products {
+  background-color: white;
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+
+  li {
+    float: left;
+    width: 50%;
+    margin-bottom: 2em;
+
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+}
+
+figure.product {
+  overflow: hidden;
+  position: relative;
+  background: white;
+  padding: 1em;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  border-radius: 8px;
+
+  .product_thumb {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    text-align: center;
+    display: block;
+
+    img {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+
+
+  .product_mask {
+    webkit-transition: opacity 0.2s ease;
+    -moz-transition: opacity 0.2s ease;
+    -o-transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease;
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 101;
+  }
+
+  .product_mask_backdrop {
+    background-color: rgba(0,3,9,0.6);
+    display: block;
+    height: 100%;
+    opacity: 0;
+    width: 100%;
+  }
+
+  figcaption {
+    text-align: center;
+    h5 {
+      height: 20px;
+      font-size: 14px;
+      margin-bottom: 5px;
+      padding-bottom: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+figure.product:hover .product_mask {
+  opacity: 1;
+}

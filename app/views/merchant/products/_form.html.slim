@@ -1,5 +1,5 @@
 .row
-  .col-md-6
+  .col-md-12
     .panel
       .panel-heading
         = t(".add_product")
@@ -9,7 +9,6 @@
           .form-group
             = f.label :name, t(".name"), class: "control-label"
             = f.text_field :name, class: "form-control"
-            span.help-block = t(".
           .form-group
             = f.label :product_photo, t(".photo"), class: "control-label"
             = f.file_field :product_photo, class: "form-control"
