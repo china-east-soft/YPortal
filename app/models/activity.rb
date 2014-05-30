@@ -7,7 +7,7 @@ class Activity < ActiveRecord::Base
   has_attached_file :cover, :styles => { :small => "458x257#", :large => "800x800>" }, :processors => [:cropper]
   validates_attachment_content_type :cover, :content_type => /\Aimage/
 
-  validates_attachment :cover, :presence => true,
+  validates_attachment :cover, :presence => false,
                         :size => { :in => 0..500.kilobytes }
 
   validates_presence_of :description

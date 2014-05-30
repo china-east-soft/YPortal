@@ -17,6 +17,9 @@
               </a>
             <div id="collapse<%= activity.id %>" class="panel-collapse collapse">
               <div class="panel-body">
+                <% if activity.cover %>  
+                  <%= image_tag activity.cover.url(:small),style: "width:100%" %>
+                <% end %>
                 <%= activity.description %>
               </div>
             </div>
