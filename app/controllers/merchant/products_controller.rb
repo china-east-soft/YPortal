@@ -2,7 +2,7 @@ class Merchant::ProductsController < MerchantController
   skip_before_filter :verify_authenticity_token
 
   before_action :require_merchant
-  before_action :find_product, only: [:edit, :update, :destroy]
+  before_action :find_product, only: [:show, :edit, :update, :destroy]
 
   layout 'wifi'
 
@@ -21,7 +21,8 @@ class Merchant::ProductsController < MerchantController
   end
 
   def index
-    @products = current_merchant.products.all
+    @hot_products = current_merchant.products.hot
+    @products = current_merchant.products.all - @hot_products
   end
 
   def edit
@@ -43,6 +44,6 @@ class Merchant::ProductsController < MerchantController
   end
 
   def find_product
-    current_merchant.products.find params[:id]
+    @product = current_merchant.products.find params[:id]
   end
 end

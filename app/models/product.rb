@@ -12,4 +12,6 @@ class Product < ActiveRecord::Base
   validates_attachment :product_photo, :presence => true,
                         :size => { :in => 0..100.kilobytes }
 
+  scope :hot, -> { where("hot >= 1").limit(2) }
+
 end
