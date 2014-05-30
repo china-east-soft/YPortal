@@ -12,15 +12,17 @@ class Terminal < ActiveRecord::Base
   belongs_to :agent
   has_many :auth_tokens, dependent: :destroy
 
-  after_create :set_mid
+  before_create :set_mid
 
   validates :mac, format: { with: /\A([a-f0-9]{2}:){5}[a-f0-9]{2}\z/ }, uniqueness: true
 
   validates_presence_of :mac
 
   def set_mid
-    self.mid = generate_mid mac, Time.now, self.id
-    self.update_column :mid, self.mid
+    self.mid = generate_mid mac, Time.now
+    while Terminal.exists?(mid: self.mid)
+      self.mid = generate_mid mac, Time.now
+    end
   end
 
   def before_create
@@ -106,14 +108,20 @@ class Terminal < ActiveRecord::Base
 
   private
 
-    def generate_mid mac, timestamp, tid
+    def generate_mid mac, timestamp
       reverse_mac = mac.delete(':').reverse
       exchange_mac = [reverse_mac[8..11], reverse_mac[0..3], reverse_mac[4..7]].inject(:+)
       sort_weight = Digest::MD5.hexdigest(timestamp.to_s)[0..23].chars.each_slice(2).map { |s| s.join.to_i 16 }
       index = -1
       sort_mac = exchange_mac.chars.to_a.sort_by! { |k| sort_weight[index += 1] + index.to_f/100 }.join
       result = Base64.urlsafe_encode64(HMAC::SHA1.digest(private_key, sort_mac)).strip
-      tid.to_s + '-' + result.first(8)
+      sample_arr = ('a'..'z').to_a + ('A'..'Z').to_a - %w{ 0 1 I o O}
+      result = result.first(8)
+      %w{ 0 1 I o O}.each do |k|
+        result.gsub!(k,sample_arr.sample)
+      end
+      #result.first(8).gsub(/[01IoO]/,sample_arr.sample)
+      result
     end
 
 end
