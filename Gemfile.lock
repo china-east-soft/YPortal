@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/foodforarabbit/jquery_datepicker.git
+  revision: 317b1dbd77377b79d9e955ac442aeeca52fe4513
+  specs:
+    jquery_datepicker (0.4)
+
+GIT
   remote: git://github.com/svenfuchs/i18n.git
   revision: f871057b496ea596762b596cc7fe23f5a78cf484
   specs:
@@ -129,7 +135,6 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (4.2.1)
       railties (>= 3.2.16)
-    jquery_datepicker (0.4)
     json (1.8.1)
     jwt (0.1.13)
       multi_json (>= 1.5)
@@ -334,7 +339,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   jquery-ui-rails
-  jquery_datepicker
+  jquery_datepicker!
   mina
   mina-sidekiq
   mini_magick
