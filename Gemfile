@@ -117,3 +117,5 @@ gem 'sinatra', require: false
 gem 'geocoder'
 
 gem 'validates_timeliness', '~> 3.0'
+
+gem 'whenever', :require => false
