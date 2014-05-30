@@ -17,6 +17,7 @@ class Merchant < ActiveRecord::Base
   accepts_nested_attributes_for :merchant_info
 
   has_one :portal_style, dependent: :destroy
+  has_many :activities, dependent: :destroy
 
   validates_presence_of     :password, if: :password_required?
   validates_confirmation_of :password, if: :password_required?

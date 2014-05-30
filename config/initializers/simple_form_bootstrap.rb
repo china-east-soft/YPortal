@@ -1,4 +1,7 @@
 # Use this setup block to configure all options available in SimpleForm.
+require 'ui_datepicker-rails3'
+UiDatePickerRails3.activate :simple_form
+require 'simple_form_extensions'
 SimpleForm.setup do |config|
   config.wrappers :bootstrap, tag: 'div', class: 'form-group', error_class: 'has-warning' do |b|
     b.use :html5

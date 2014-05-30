@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-
-
   require 'sidekiq/web'
   mount Sidekiq::Web, at: '/sidekiq'
 
@@ -85,6 +83,9 @@ Rails.application.routes.draw do
         post :disable
       end
     end
+
+    resources :activities
+
   end
 
   mount API::Entrance => '/api'
