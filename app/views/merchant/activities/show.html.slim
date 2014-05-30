@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @activity.title
+p
+  strong Started at:
+  = @activity.started_at
+p
+  strong End at:
+  = @activity.end_at
+p
+  strong Description:
+  = @activity.description
+p
+  strong Hot:
+  = @activity.hot
+
+= link_to 'Edit', edit_activity_path(@activity)
+'|
+= link_to 'Back', activities_path

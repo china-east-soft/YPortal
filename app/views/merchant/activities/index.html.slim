@@ -1,0 +1,40 @@
+- content_for :main_content do
+  div class="row"
+    div class="col-lg-12"
+      selection class="panel"
+        header class="panel-heading"
+          | activities
+        div class="panel-body"
+          div class="clearfix"
+            div class="btn-group"
+              button class="btn green"
+                = link_to fa_icon("plus"), new_merchant_activity_path
+
+          div class="space15"
+            table class="table table-striped table-advance table-hover"
+              thead
+                tr
+                  th Title
+                  th Started at
+                  th End at
+                  th Description
+                  th Hot
+                  th
+                  th
+                  th
+
+              tbody
+                - @activities.each do |activity|
+                  tr
+                    td = activity.title
+                    td = activity.started_at
+                    td = activity.end_at
+                    td = activity.description
+                    td = activity.hot
+                    td = link_to 'Show', merchant_activity
+                    td = link_to 'Edit', edit_merchant_activity_path(activity)
+                    td = link_to 'Destroy', [:merchant, activity], data: {:confirm => 'Are you sure?'}, :method => :delete
+
+            br
+
+            

@@ -8,6 +8,7 @@ class Merchant < ActiveRecord::Base
   accepts_nested_attributes_for :merchant_info
 
   has_one :portal_style, dependent: :destroy
+  has_many :activities, dependent: :destroy
 
   validates_presence_of     :password, if: :password_required?
   validates_confirmation_of :password, if: :password_required?
@@ -15,7 +16,7 @@ class Merchant < ActiveRecord::Base
 
   validates_presence_of :mobile, :verify_code, :mid, on: :create
 
-  validate :mid_must_be_in_terminals
+  validate :mid_must_be_in_terminals, on: :create
 
   def mid_must_be_in_terminals
     errors.add(:mid, "无效的mid") unless Terminal.exists?(mid: mid, status: AuthToken.statuses[:init])
