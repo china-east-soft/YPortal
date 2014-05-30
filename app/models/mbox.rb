@@ -19,7 +19,7 @@ class Mbox < ActiveRecord::Base
     when '商品展示'
       'wifi_products_url'
     when '店铺活动'
-      'wifi_products_url'
+      'wifi_activities_url'
     when '搜周边'
       'wifi_surroundings_url'
     else
