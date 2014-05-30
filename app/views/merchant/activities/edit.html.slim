@@ -1,8 +1,9 @@
-h1 Editing activity
+- content_for :main_content do 
+  h1 Editing activity
 
-== render 'form'
+  == render 'form'
 
-= link_to 'Show', @activity
-'|
-= link_to 'Back', activities_path
+  = link_to 'Show', [:merchant, @activity]
+  '|
+  = link_to 'Back', merchant_activities_path
 

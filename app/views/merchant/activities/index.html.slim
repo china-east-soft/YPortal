@@ -17,7 +17,6 @@
                   th Title
                   th Started at
                   th End at
-                  th Description
                   th Hot
                   th
                   th
@@ -29,9 +28,8 @@
                     td = activity.title
                     td = activity.started_at
                     td = activity.end_at
-                    td = activity.description
                     td = activity.hot
-                    td = link_to 'Show', merchant_activity
+                    td = link_to 'Show', [:merchant, activity]
                     td = link_to 'Edit', edit_merchant_activity_path(activity)
                     td = link_to 'Destroy', [:merchant, activity], data: {:confirm => 'Are you sure?'}, :method => :delete
 

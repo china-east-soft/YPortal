@@ -26,7 +26,7 @@ class Merchant::ActivitiesController < MerchantController
   # POST /activities.json
   def create
     @activity = Activity.new(activity_params)
-
+    @activity.merchant_id = current_merchant.id
     respond_to do |format|
       if @activity.save
         if params[:activity][:cover].present?

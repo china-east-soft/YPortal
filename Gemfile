@@ -115,3 +115,5 @@ gem 'mina-sidekiq'
 gem 'sinatra', require: false
 
 gem 'geocoder'
+
+gem 'validates_timeliness', '~> 3.0'
