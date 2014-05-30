@@ -3,7 +3,7 @@ require 'mina/rails'
 require 'mina/git'
 require 'mina/rvm'
 require 'mina_sidekiq/tasks'
-#require 'mina/whenever'
+require 'mina/whenever'
 
 environments = {
   'production' => {
@@ -76,6 +76,7 @@ task :deploy => :environment do
     invoke :'rails:assets_precompile'
 
     to :launch do
+      invoke :'whenever:update'
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
       invoke :'sidekiq:restart'
     end
