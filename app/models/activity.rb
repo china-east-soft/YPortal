@@ -17,9 +17,12 @@ class Activity < ActiveRecord::Base
 
   enum status: [ :init, :active, :expired ] 
 
-  validates_presence_of :merchant_id, :title, :started_at, :end_at, :description, :hot
+  validates_presence_of :merchant_id, :title, :started_at, :end_at, :description
   validates_date :started_at, :end_at
   validates_date :end_at, :after => :started_at
+
+  default_scope { order(("hot DESC nulls last, id DESC")) }
+  #scope :actived, -> { where('status = ?', Activity.statuses[:active] ) }
 
   def before_update
     if Date.today < self.started_at

@@ -37,6 +37,7 @@ Rails.application.routes.draw do
         get :load
       end
     end
+    resources :activities
   end
 
   namespace :admin do
