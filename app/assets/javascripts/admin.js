@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require jquery-1.8.3.js
 //= require jquery.ui.datepicker.js
 //= require bootstrap.min.js
 //= require jquery.dcjqaccordion.2.7.js
