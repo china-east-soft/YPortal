@@ -115,9 +115,9 @@ class Terminal < ActiveRecord::Base
       index = -1
       sort_mac = exchange_mac.chars.to_a.sort_by! { |k| sort_weight[index += 1] + index.to_f/100 }.join
       result = Base64.urlsafe_encode64(HMAC::SHA1.digest(private_key, sort_mac)).strip
-      sample_arr = ('a'..'z').to_a + ('A'..'Z').to_a - %w{ 0 1 I o O}
+      sample_arr = ('a'..'z').to_a + ('A'..'Z').to_a - %w{ 0 1 l I o O}
       result = result.first(8)
-      %w{ 0 1 I o O}.each do |k|
+      %w{ 0 1 l I o O}.each do |k|
         result.gsub!(k,sample_arr.sample)
       end
       #result.first(8).gsub(/[01IoO]/,sample_arr.sample)
