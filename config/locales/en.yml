@@ -21,3 +21,15 @@
 
 en:
   hello: "Hello world"
+  merchant:
+    products:
+      form:
+        add_product: "Add Product"
+        name: "Product Name"
+        photo: "Product Photo"
+        price: "Product Price"
+        description: "Prodcut Description"
+
+
+
+

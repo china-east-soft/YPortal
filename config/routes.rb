@@ -85,7 +85,7 @@ Rails.application.routes.draw do
     end
 
     resources :activities
-
+    resources :products, except: [:new]
   end
 
   mount API::Entrance => '/api'

@@ -6,63 +6,9 @@
       <%= image_tag 'tu_03_03.png' %> <span>热门活动</span>
     </div>
     <div class="row span5 col-centered" style="margin-top:5px;">
-    <%= simple_form_for :account, as: :post, url:  sign_in_wifi_users_path,:role => "form", html: { class: "form-signin" } do |f| %>
-
-      <div style="padding:5px 10px;">
-        <%= f.input_field :mobile, :autofocus => true, class: "form-control input-lg", placeholder: "手机", value: params[:account][:mobile] %>
-      </div>
-
-      <div class="form-group" style="padding:3px 10px;margin-bottom:10px;">
-        <div class="row">
-          <div class=" col-xs-5 col-sm-7 col-lg-7">
-            <%= f.input_field :verify_code, class: "form-control input-lg", placeholder: "验证码" %>
-          </div>
-          <div class="col-xs-5 col-sm-5 col-lg-5" style="padding-left:0px;padding-top:5px;">
-            <a class="btn btn-info" id="send_message">获取验证码</a>
-          </div>
-        </div>
-      </div>
-      <div class="row span5 col-centered" style="font-weight:100;color:#797979;font-size:13px;letter-spacing: 0.2em;">
-        <div class="col-lg-offset-2 col-xs-offset-2">
-          <div class="checkboxes">
-            <label class="label_check" for="checkbox-03">
-            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox"> 我已阅读免责声明并同意。</label>
-          </div>
-        </div>
-      </div>
-      <%= f.hidden_field :vtoken, value: params[:vtoken] %>
-      <div class="row span5 col-centered text-center" style="margin-top:2px;">
-        <%= f.submit "登录", class: "btn btn-info btn-lg", style: "width:30%;letter-spacing: 0.8em;" %>
-      </div>
-
-    <% end %>
     <%= form_tag quick_login_wifi_users_path, method: 'post' do %>
       <%= hidden_field_tag :vtoken, params[:vtoken] %>
-      <%= submit_tag '一键登录', class: "btn btn-lg btn-primary col-md-12"%>
+      <%= submit_tag '直接登录', class: "btn btn-lg btn-primary col-sm-12 col-xs-12 col-lg-12 col-md-12"%>
     <% end %>
     </div>
-
-    <div class="row span5 col-centered " style="color:#514625;background-color:#eecd77;padding:5px 10px;margin-top:15px;">
-      其它登录方式
-    </div>
-    <div class="row span5 col-centered center-block" style="background-color:#e8e08a">
-      <div class="col-lg-1 col-xs-1"></div>
-      <div class="col-lg-3 col-xs-3" style="">
-        <div class="vf-box">
-          <%= image_tag "tu_03_25.png"%>
-        </div>
-      </div>
-      <div class="col-lg-3 col-xs-3" style="">
-        <div class="vf-box">
-          <%= image_tag "tu_03_27.png"%>
-        </div>
-      </div>
-      <div class="col-lg-3 col-xs-3" style="">
-        <div class="vf-box">
-          <%= image_tag "tu_03_29.png"%>
-        </div>
-      </div>
-    </div>
-
-
 </div>

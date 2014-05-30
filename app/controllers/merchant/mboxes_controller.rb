@@ -21,6 +21,10 @@ class Merchant::MboxesController < MerchantController
 
   # GET /mboxes/1/edit
   def edit
+    if @mbox.category == "商品展示"
+      @product = current_merchant.products.build
+      @show_product_form = true
+    end
   end
 
   # POST /mboxes
