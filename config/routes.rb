@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     get 'merchant' => "merchants#home"
     get 'login' => "users#login"
     get 'welcome' => "merchants#welcome"
+    get 'login_success' => "merchants#login_success"
     resources :merchants, only: [:show]
     resources :users do
       collection do

@@ -97,6 +97,11 @@ class Wifi::MerchantsController < WifiController
     @merchant_info = terminal_merchant.merchant_info
   end
 
+  def login_success
+    # @merchant = terminal_merchant
+    @merchant = current_merchant
+  end
+
   private
 
     def generate_vtoken mac, client_identifier, timestamp
