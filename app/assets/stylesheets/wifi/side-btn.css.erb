@@ -1,0 +1,32 @@
+.side-btns {
+  position: fixed;
+  right: 0;
+  bottom: 80px;
+  border: 1px solid #dfdfdf;
+  border-right: 0;
+  border-radius: 3px 0 0 3px;
+  background-color: #fff;
+  background-color: rgba(255,255,255,.7);
+  }
+
+.side-btns a.totop {
+  background-position: -50px 0;
+}
+
+.side-btns a {
+  width: 43px;
+  height: 40px;
+  display: block;
+  background: url(<%= asset_path('h_i_s2.png')%>) -50px -50px no-repeat;
+  background-size: 100px 400px;
+  border-bottom: 1px solid #dfdfdf;
+  position: relative;
+}
+
+.side-btns a:last-child {
+  border: 0;
+}
+
+.side-btns a.tohome {
+  background-position: -50px -50px;
+}

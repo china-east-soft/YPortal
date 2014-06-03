@@ -31,12 +31,26 @@
 }
 
 .shop_title {
-  background-color: #409ce4;
+  margin-bottom: 5px;
+  /* background-color: #409ce4; */
+  background-color: #fff;
   letter-spacing: 0.3em;
+  border-bottom: 1px solid #f29406;
   font-style: boder;
-  color: #fff;
+  /* color: #fff; */
+  color: #f29406;
+  text-align: center;
+  i.fa {
+    color: #f29406;
+  }
+  a {
+    padding-top: 2px;
+    float: left;
+    margin-left: 15px;
+  }
   h1,h2,h3,h4,h5 {
-    margin: 10px 0;
+    margin: 10px auto;
+    display: inline-block;
   }
 }
 
@@ -44,12 +58,15 @@
   background-color: #ec7b4c;
   letter-spacing: 0.3em;
   color: #fff;
-    h1,h2,h3,h4 {
+  h1,h2,h3,h4 {
     margin: 15px 0;
     img {
       margin-right: 10px;
     }
-  }
+  };
+  h1,h2,h3,h4:hover {
+    color: #428bca;
+  };
 }
 
 .mf-box {
@@ -141,7 +158,8 @@
   }
 
   .row.span5 {
-    background: #bfbfbf;
+    /* background: #bfbfbf; */
+    background-color: #f1f1f1;
     color: #25435a;
     padding: 10px;
   }
@@ -253,7 +271,7 @@
 
 /***** flash adv title */
 .carousel-caption {
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.2);
     padding-bottom: 0px;
 
     bottom: 0;
@@ -270,4 +288,8 @@
     p {
       margin:0 0 5px;
     }
+}
+
+.carousel-control {
+  background: rgba(0,0,0,0.5) !important;
 }
