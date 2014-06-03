@@ -1,0 +1,37 @@
+.wifi_sections {
+  margin-top: 10px;
+
+  section {
+    margin-bottom: 10px;
+
+    span.duration {
+      padding-left: 20px;
+      color: #f0ad4e;
+    }
+    
+    header.panel-heading {
+
+      h1,h2,h3,h4,h5,h6 {
+        margin-top: 0;
+      }
+
+      position:relative;
+      img.hot_img {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+
+      span.pull-right .detail {
+        padding-right: 20px;
+      }
+    }
+
+
+    .panel-body {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

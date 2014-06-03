@@ -22,17 +22,22 @@ class Activity < ActiveRecord::Base
   validates_date :end_at, :after => :started_at
 
   default_scope { order(("hot DESC nulls last, id DESC")) }
-  #scope :actived, -> { where('status = ?', Activity.statuses[:active] ) }
+  scope :actived, -> { where(status: [Activity.statuses[:init], Activity.statuses[:active]] ) }
 
-  def before_update
-    if Date.today < self.started_at
-      self.status = Activity.statuses[:init]
-    elsif Date.today >= self.started_at && Date.today <= self.end_at
-      self.status = Activity.statuses[:active]
-    else
-      self.status = Activity.statuses[:expired]
+  before_save :before_save_callback
+
+  private
+  
+    def before_save_callback
+      if Date.today < self.started_at
+        self.status = Activity.statuses[:init]
+      elsif Date.today >= self.started_at && Date.today <= self.end_at
+        self.status = Activity.statuses[:active]
+      else
+        self.status = Activity.statuses[:expired]
+      end
+      return true
     end
-  end
 
 
 
