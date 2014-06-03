@@ -6,10 +6,14 @@
           h2.text-center
             = link_to @product.name, wifi_product_path(@product)
         .panel-body#product_content
-          #product_photo
-            = image_tag @product.product_photo.url
-          #product_description
-            p = @product.description
-          #price
-            | 价格:
-            = "  ¥#{@product.price}"
+          figure.product
+            .product_thumb
+              = image_tag @product.product_photo.url
+            figcaption
+              #product_description
+                p = @product.description
+              #price
+                | 价格:
+                = "  ¥#{@product.price}"
+
+
