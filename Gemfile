@@ -119,3 +119,4 @@ gem 'geocoder'
 gem 'validates_timeliness', '~> 3.0'
 
 gem 'whenever', :require => false
+gem 'kaminari'

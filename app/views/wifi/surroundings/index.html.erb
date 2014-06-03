@@ -37,29 +37,40 @@
 
 <script>
 
-	$( document ).ready(function() {
-		$( "#distance" ).change(function(event) {
-			onSearch();
-		});
-		$( "#industry" ).change(function(event) {
-			onSearch();
-		});
-		$( "#order_by" ).change(function(event) {
-			onSearch();
-		});
-	});
-
 	window._token = '<%= form_authenticity_token %>'
-	var handler = null;
-  var page = 1;
+  var handler = null;
+  var page = 2;
+  var isLoading = false;
+  var options = {
+    autoResize: true, 
+    container: $('#wookmark')
+   // offset: 2, 
+   // itemWidth: 210 
+  };
 
 	function onSearch(){
 		page = 1;
 		$('#surrounding_merchants').html("");
 		loadData();
 	}
-   
+
+  function onScroll(event) {
+    if(!isLoading) {
+      var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
+      if(closeToBottom) {
+        loadData();
+      }
+    }
+  };
+
+  function applyLayout() {
+    if(handler) handler.wookmarkClear();
+    handler = $('#wookmark li');
+    handler.wookmark(options);
+  };
+
   function loadData() {
+  	isLoading = true;
 	  $('#loaderCircle').show();
 	  var distance = $('#distance').val();
 	  var industry = $('#industry').val();
@@ -70,9 +81,25 @@
       			distance: distance,
       			industry: industry,
       			order_by: order_by,
+      			page: page,
       			mid: '<%= params[:mid] %>',
       			vtoken: '<%= params[:vtoken] %>' }
     });
   };
+
+	$( document ).ready(function() {
+		$( "#distance" ).change(function(event) {
+			onSearch();
+		});
+		$( "#industry" ).change(function(event) {
+			onSearch();
+		});
+		$( "#order_by" ).change(function(event) {
+			onSearch();
+		});
+
+		$(document).bind('scroll', onScroll);
+	});
+
 
 </script>

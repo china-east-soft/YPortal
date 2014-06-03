@@ -4,8 +4,8 @@ class Wifi::SurroundingsController < WifiController
 
   def index
     
-    @merchant_infos = MerchantInfo#.where.not(merchant_id: terminal_merchant.id)
-    @merchant_infos = @merchant_infos.all
+    @merchant_infos = MerchantInfo.where.not(merchant_id: terminal_merchant.id)
+    @merchant_infos = @merchant_infos.all.page(1).per(5)
 
     @distances = ["全部距离","100 m","500 m","1 km","5 km"]
     @industries = ["全部分类"] + MerchantInfo.uniq.pluck('industry').compact
@@ -14,7 +14,7 @@ class Wifi::SurroundingsController < WifiController
   end
 
   def load
-    @merchant_infos = MerchantInfo#.where.not(merchant_id: terminal_merchant.id)
+    @merchant_infos = MerchantInfo.where.not(merchant_id: terminal_merchant.id)
     if params[:distance] != '全部距离'
       distance, units = params[:distance].split(' ')
       sym_unit = case units
@@ -24,7 +24,7 @@ class Wifi::SurroundingsController < WifiController
       @merchant_infos = @merchant_infos.near([@merchant_info.shop_latitude, @merchant_info.shop_longitude], distance.to_i, units: sym_unit)
     end
     @merchant_infos = @merchant_infos.where(industry: params[:industry]) if params[:industry] != '全部分类'
-    @merchant_infos = @merchant_infos.all
+    @merchant_infos = @merchant_infos.page(params[:page]).per(5)
   end
 
   private

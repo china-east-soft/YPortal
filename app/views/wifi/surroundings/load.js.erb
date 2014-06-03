@@ -1,2 +1,8 @@
 $('#loaderCircle').hide();
-$('#surrounding_merchants').html("<%= j(render :partial => 'merchant_boxes') %>")
+$('#wookmark').append("<%= j(render :partial => 'merchant_boxes') %>");
+<% if @merchant_infos.size > 0 %>
+  isLoading = false;
+  page++;
+<% else %>
+  isLoading = true;
+<% end %>

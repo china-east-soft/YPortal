@@ -1,4 +1,6 @@
+<ul id="wookmark" style="list-style:none">
 <% @merchant_infos.each do |merchant_info| %>
+  <li>
 		<% activities = merchant_info.merchant.activities.actived %>
 		<section class="panel">
       <header class="panel-heading">
@@ -29,4 +31,6 @@
       	</div>
       </div>
   </section>
+  </li>
 <% end %>
+</ul>
