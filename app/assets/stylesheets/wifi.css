@@ -6,11 +6,11 @@
  *= require font-awesome.css
  *= require flexslider.css
  *= require jquery.bxslider.css
- *= require style-m.css
- *= require style-responsive-m.css
  *= require gritter
  *= require share.css
- *= require mshare.css
+ *= require wifi/style-m.css
+ *= require wifi/style-responsive-m.css
+ *= require wifi/mshare.css
  *= require wifi/surrounding
  *= require wifi/activity.css
  *= require wifi/wifi_section.css
