@@ -1,10 +1,32 @@
 <% @merchant_infos.each do |merchant_info| %>
+		<% activities = merchant_info.merchant.activities.actived %>
 		<section class="panel">
       <header class="panel-heading">
-         <h4><%= merchant_info.name %></h4>
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= merchant_info.id %>">
+           <h3 style="color:#f0ad4e"><%= merchant_info.name %></h3>
+           <p><%= merchant_info.shop_description %>
+           </p>
+           <div>
+               <span style="margin-left:10px;font-size:15px;color:#518616"><%= image_tag "map_03.png", style:"margin-right:5px;height:20px;" %><%= merchant_info.address %></span>
+          	 <span class="pull-right detail">详细 <%= fa_icon "angle-double-down" %></span>
+           </div>
+         </a>
       </header>
-      <div class="panel-body">
-
-    	</div>
+      <div id="collapse<%= merchant_info.id %>" class="panel-collapse collapse">
+        <div class="panel-body">
+        	
+        	<% activities.each_with_index do |activity,index| %>
+        		<h4><%= activity.title %></h4>
+        		<span class="duration"><%= activity.started_at %> ~ <%= activity.end_at %></span>
+           	<% if activity.cover %>  
+              <%= image_tag activity.cover.url(:small) %>
+            <% end %>
+            <%= activity.description %>
+            <% if index != activities.size - 1 %>
+            <hr size="1" noshade="noshade" style="border:1px #cccccc dotted;">
+            <% end %>
+        	<% end %>
+      	</div>
+      </div>
   </section>
 <% end %>
