@@ -15,6 +15,7 @@
               thead
                 tr
                   th Title
+                  th Status
                   th Started at
                   th End at
                   th Hot
@@ -26,6 +27,7 @@
                 - @activities.each do |activity|
                   tr
                     td = activity.title
+                    td = activity.status
                     td = activity.started_at
                     td = activity.end_at
                     td = activity.hot

@@ -1,7 +1,12 @@
 <div class="container" >
   <div class="row mbot30">
     <div class="col-lg-5 col-xs-12 col-centered">
-
+    	<div class="row span5 col-centered shop_title">
+			  <h5 class="text-center"><strong>搜周边</strong></h5>
+			</div>
+			<div class="span5 about-carousel">
+				<%= image_tag @merchant_info.shop_photo.url(:small) %>
+			</div>
     	<div class="row span5 col-centered rim_seBox">
     		<form class="form-inline">
 	    		<div class="form-group col-lg-4 col-xs-4">
@@ -18,7 +23,7 @@
 	    	</form>
     	</div>
 
-    	<div class="row span5 col-centered surrounding_merchants wifi_sections" id="surrounding_merchants">
+    	<div class="row span5 col-centered surrounding_merchants wifi_sections" id="surrounding_merchants" style="margin-top:5px">
     		<%= render partial: "merchant_boxes" %>
     	</div>
 
