@@ -5,7 +5,7 @@ class Product < ActiveRecord::Base
 
   include ImgCrop
 
-  attached start
+  # attached start
   has_attached_file :product_photo, :styles => { :small => "458x257#", :large => "800x800>" }, :processors => [:cropper]
   validates_attachment_content_type :product_photo, :content_type => /\Aimage/
 
