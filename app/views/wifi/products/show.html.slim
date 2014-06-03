@@ -1,0 +1,19 @@
+.container
+  .row
+    .col-lg-5.col-xs-12.col-centered
+      .panel
+        .panel-heading#product_title
+          h2.text-center
+            = link_to @product.name, wifi_product_path(@product)
+        .panel-body#product_content
+          figure.product
+            .product_thumb
+              = image_tag @product.product_photo.url
+            figcaption
+              #product_description
+                p = @product.description
+              #price
+                | 价格:
+                = "  ¥#{@product.price}"
+
+

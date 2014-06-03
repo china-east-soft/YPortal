@@ -4,7 +4,8 @@ class Wifi::ProductsController < WifiController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @hot_products = current_merchant.products.hot
+    @products = current_merchant.products.all - @hot_products
   end
 
   # GET /products/1

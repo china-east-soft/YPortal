@@ -17,3 +17,9 @@
  *= require wifi/side-btn.css
 */
 
+#success_info {
+  background-color: #52D8D4
+}
+#success_info p {
+  color: #fff;
+}

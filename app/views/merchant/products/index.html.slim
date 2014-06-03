@@ -1,16 +1,21 @@
-.col-md-6.col-md-offset-3
-  ul.product-list#products
-    - @hot_products.each do |product|
-      li.hot
-        figure.product
-          .product_thumb
-            = image_tag product.product_photo.url
-            .product_mask
-              = link_to '', merchant_product_path(product), target: "_blank", class: 'product_mask_backdrop'
-          figcaption
-            h5 data-placement="top" title="true" data-toggle="tooltip" data-original-title="#{product.name}"
-              = link_to product.name, merchant_product_path(product), target: "_blank"
-            em
-              span.price = "$#{product.price}"
+header#header
+  .col-md-6.col-md-offset-3#products_hot
+    ul.product_list.hot
+      - @hot_products.each do |product|
+        li
+          figure.product
+            .product_thumb
+              = image_tag product.product_photo.url
+              .product_mask
+                = link_to '', merchant_product_path(product), target: "_blank", class: 'product_mask_backdrop'
+              .hot_mask
+                = image_tag "hot.png"
+            figcaption
+              h5 data-placement="top" title="true" data-toggle="tooltip" data-original-title="#{product.name}"
+                = link_to product.name, merchant_product_path(product), target: "_blank"
+              em
+                span.price = "$#{product.price}"
 
+.col-md-6.col-md-offset-3#products_all
+  ul.product_list#products
     = render @products

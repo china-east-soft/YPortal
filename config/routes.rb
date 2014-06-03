@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     get 'merchant' => "merchants#home"
     get 'login' => "users#login"
     get 'welcome' => "merchants#welcome"
+    get 'login_success' => "merchants#login_success"
     resources :merchants, only: [:show]
     resources :users do
       collection do
@@ -86,7 +87,12 @@ Rails.application.routes.draw do
     end
 
     resources :activities
-    resources :products, except: [:new]
+    resources :products, except: [:new] do
+      member do
+        patch :set_hot
+        delete :unset_hot
+      end
+    end
   end
 
   mount API::Entrance => '/api'
