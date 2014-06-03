@@ -6,10 +6,10 @@
         <h5 class="text-center"><strong>店铺活动</strong></h5>
       </div>
 
-      <div class="row span5 col-centered surrounding_merchants" style="margin-top:10px">
+      <div class="row span5 col-centered wifi_sections" style="margin-top:10px">
 
         <% @activities.each do |activity| %>
-          <section class="panel">
+          <section class="panel" style="margin-bottom: 10px;">
             <header class="panel-heading" style="position:relative;">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= activity.id %>">
                 <% if activity.hot %>
