@@ -100,6 +100,7 @@ class Wifi::MerchantsController < WifiController
   def login_success
     # @merchant = terminal_merchant
     @merchant = current_merchant
+    @products = current_merchant.products
   end
 
   private

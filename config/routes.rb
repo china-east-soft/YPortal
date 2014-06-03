@@ -86,7 +86,12 @@ Rails.application.routes.draw do
     end
 
     resources :activities
-    resources :products, except: [:new]
+    resources :products, except: [:new] do
+      member do
+        patch :set_hot
+        delete :unset_hot
+      end
+    end
   end
 
   mount API::Entrance => '/api'

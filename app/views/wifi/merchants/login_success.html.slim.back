@@ -1,0 +1,21 @@
+.container
+  .row.mbot30
+    .col-sm-12.col-centered.col-lg-5
+      .row.col-centered.shop_title
+        h5.text-center
+          strong  店铺名称
+      .row.col-sm-5.succ_info
+        h4.text-center 欢迎使用我们为您提供的免费WiFi
+        p.text-center
+          你已成功登录，获得4小时的免费上网时长。
+        p.text-center
+          有5人与您同时在线。
+      .row.hot_products.col-sm-5.col-centered
+        .col-lg-12.col-sm-12.col-xs-12
+          .quote-info.p-header
+            span 热门商品推荐
+            = fa_icon "angle-right 2x", class: "pull-right"
+      .panel#hot_activities
+        p 推荐优惠活动
+      .panel#seaarch_around
+
