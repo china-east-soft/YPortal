@@ -9,7 +9,18 @@
         <%= link_to 'Back', merchant_portal_style_path() %>
       </div>
       <div class="col-md-4">
-        <%= render '/merchant/products/form' %>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel">
+              <div class="panel-heading">
+                添加产品
+              </div>
+              <div class="panel-body">
+                <%= render '/merchant/products/form' %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   <% else %>

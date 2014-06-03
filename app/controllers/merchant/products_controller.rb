@@ -2,7 +2,7 @@ class Merchant::ProductsController < MerchantController
   skip_before_filter :verify_authenticity_token
 
   before_action :require_merchant
-  before_action :find_product, only: [:show, :edit, :update, :destroy]
+  before_action :find_product, only: [:show, :edit, :update, :destroy, :set_hot, :unset_hot]
 
   layout 'wifi'
 
@@ -30,12 +30,31 @@ class Merchant::ProductsController < MerchantController
 
   def update
     if @product.update product_params
+      gflash :success => "修改产品成功!"
+      redirect_to merchant_product_url(@product)
     else
+      gflash :error => "修改产品失败, 请填写正确信息"
+      render :edit
     end
   end
 
   def destroy
     @product.destroy
+    gflash :success => "删除产品成功！"
+    redirect_to merhcant_products_url
+  end
+
+
+  def set_hot
+    @product.update_attributes(hot: 1)
+    gflash :success => "设置热销产品成功!"
+    redirect_to merchant_product_url(@product)
+  end
+
+  def unset_hot
+    @product.update_attributes(hot: 0)
+    gflash :success => "取消设置热销产品成功!"
+    redirect_to merchant_product_url(@product)
   end
 
   private

@@ -13,4 +13,12 @@
           #price
             | 价格:
             = "  ¥#{@product.price}"
+          .edit
+            - if current_merchant
+              - if @product.hot?
+                = link_to "取消热销商品设置", unset_hot_merchant_product_path, method: 'delete', class: "btn btn-primary"
+              - else
+                = link_to "设置为热销商品", set_hot_merchant_product_path, method: 'patch', class: "btn btn-primary"
+              = link_to "修改产品信息", edit_merchant_product_path(@product), class: "btn btn-primary "
+              = link_to "删除产品", merchant_product_path(@product), method: "delete", data: {confirm: "删除商品?"}, class: "btn btn-primary"
 

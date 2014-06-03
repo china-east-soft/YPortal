@@ -14,4 +14,8 @@ class Product < ActiveRecord::Base
 
   scope :hot, -> { where("hot >= 1").limit(2) }
 
+  def hot?
+    self.hot >= 1
+  end
+
 end

@@ -1,4 +1,4 @@
-ul#products {
+ul.product_list {
   background-color: white;
   list-style: none;
   margin: 0;
@@ -14,10 +14,20 @@ ul#products {
     padding-left: 15px;
     padding-right: 15px;
   }
-
-  li.hot {
+}
+#header {
+  #products_hot {
+    position: fixed;
+    top: 0;
+    height: 200px;
+    z-index: 1030;
   }
+  margin-bottom: 260px;
+}
 
+#products_all {
+  top: 100px;
+  margin-bottom: 100px;
 }
 
 figure.product {
@@ -49,6 +59,12 @@ figure.product {
       max-height: 100%;
       max-width: 100%;
     }
+
+    .hot {
+      height: 30px;
+      width: 30px;
+      border: 1px solid gray;
+    }
   }
 
 
@@ -64,6 +80,20 @@ figure.product {
     top: 0;
     width: 100%;
     z-index: 101;
+  }
+
+  .hot_mask {
+    webkit-transition: opacity 0.2s ease;
+    -moz-transition: opacity 0.2s ease;
+    -o-transition: opacity 0.2s ease;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: -30%;
+    left: -30%;
+    z-index: 1;
+    img {
+    }
   }
 
   .product_mask_backdrop {
