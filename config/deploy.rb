@@ -6,19 +6,23 @@ require 'mina_sidekiq/tasks'
 require 'mina/whenever'
 
 environments = {
+  'develop' => {
+    domain: 'portal.cloudchain.co',
+    branch: 'develop'
+  },
   'production' => {
-    domain: '114.215.180.66',
+    domain: 'portal.cloudchain.cn',
     branch: 'master'
   }
 }
 
-rails_env = environments.keys.include?(ENV['RAILS_ENV']) ? ENV['RAILS_ENV'] : 'production'
+rails_env = environments.keys.include?(ENV['RAILS_ENV']) ? ENV['RAILS_ENV'] : 'develop'
 branch = environments[rails_env][:branch]
 domain = environments[rails_env][:domain]
 
 set :rails_env, rails_env
 set :domain, domain
-set :deploy_to, "/var/app/portal"
+set :deploy_to, "/var/app/#{domain}"
 set :repository, 'git@github.com:china-east-soft/YPortal.git'
 set :branch, branch
 set :ssh_options, '-A'
