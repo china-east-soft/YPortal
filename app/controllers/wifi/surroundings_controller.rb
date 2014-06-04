@@ -15,13 +15,20 @@ class Wifi::SurroundingsController < WifiController
 
   def load
     @merchant_infos = MerchantInfo.where.not(merchant_id: terminal_merchant.id)
-    if params[:distance] != '全部距离'
-      distance, units = params[:distance].split(' ')
-      sym_unit = case units
-      when "km" then :km
-      when "m" then :mi
+    if params[:distance] != '全部距离' || params[:order_by] == "距离最近"
+      if params[:distance] != '全部距离'
+        distance, units = params[:distance].split(' ')
+        sym_unit = case units
+        when "km" then :km
+        when "m" then :mi
+        end
+        @merchant_infos = @merchant_infos.near([@merchant_info.shop_latitude, @merchant_info.shop_longitude], distance.to_i, units: sym_unit)
+      else
+        @merchant_infos = @merchant_infos.near([@merchant_info.shop_latitude, @merchant_info.shop_longitude])
       end
-      @merchant_infos = @merchant_infos.near([@merchant_info.shop_latitude, @merchant_info.shop_longitude], distance.to_i, units: sym_unit)
+      if params[:order_by] == "距离最近"
+        @merchant_infos.reorder('distance')
+      end
     end
     @merchant_infos = @merchant_infos.where(industry: params[:industry]) if params[:industry] != '全部分类'
     @merchant_infos = @merchant_infos.page(params[:page]).per(5)
