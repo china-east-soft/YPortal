@@ -18,10 +18,11 @@ class Wifi::SurroundingsController < WifiController
     if params[:distance] != '全部距离' || params[:order_by] == "距离最近"
       if params[:distance] != '全部距离'
         distance, units = params[:distance].split(' ')
-        sym_unit = case units
-        when "km" then :km
-        when "m" then :mi
+        distance = case units
+        when "km" then distance
+        when "m" then distance.to_i/1000
         end
+        sym_unit = :km
         @merchant_infos = @merchant_infos.near([@merchant_info.shop_latitude, @merchant_info.shop_longitude], distance.to_i, units: sym_unit)
       else
         @merchant_infos = @merchant_infos.near([@merchant_info.shop_latitude, @merchant_info.shop_longitude])
