@@ -23,3 +23,24 @@
 #success_info p {
   color: #fff;
 }
+
+
+/* /wifi/merchant/login_success page */
+#login_success figure {
+  position: relative;
+}
+#login_success figcaption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  float: left;
+  width: 100%;
+
+  font-size: 10px;
+}
+
+#login_success figcaption span.price {
+  margin-left: 40px;
+}
+
