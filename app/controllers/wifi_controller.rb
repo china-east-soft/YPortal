@@ -8,12 +8,12 @@ class WifiController < ActionController::Base
   helper_method :current_terminal, :terminal_merchant
 
   def current_terminal
-    if params[:mid]
+    if params[:mid].present?
       Terminal.where(mid: params[:mid]).first
-    elsif params[:vtoken]
+    elsif params[:vtoken].present?
       auth_token = AuthToken.where(auth_token: params[:vtoken]).first
       auth_token.terminal
-    elsif params[:mac]
+    elsif params[:mac].present?
       Terminal.where(mac: params[:mac].downcase).first
     end
   end
