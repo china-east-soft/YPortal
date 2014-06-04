@@ -1,0 +1,102 @@
+<div class="container" >
+  <div class="row mbot30">
+    <div class="col-lg-5 col-xs-12 col-centered" id="login_success">
+      <div class="row span5 col-centered shop_title">
+        <% if params[:controller] != 'wifi/merchants' && params[:controller] != 'home' %>
+          <%= link_to fa_icon(["angle-left", "2x"]), wifi_merchant_path(mid: params[:mid], vtoken: params[:vtoken]) %>
+        <% end %>
+        <h5 class="text-center"><strong><%= "店铺名称" %></strong></h5>
+      </div>
+
+      <div class="row span5 col-centered succ-info">
+        <p>
+        <h4 class="text-center">欢迎使用我们为您提供的免费WiFi</h4>
+        </p>
+        <p class="text-center">
+        你已成功登录，获得4小时的免费上网时长。
+        </p>
+        <p class="text-center">
+        有5人与您同时在线。
+        </p>
+      </div>
+
+      <div class="row span5 col-centered">
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+          <div class="quote-info p-header">
+            <a href=<%= wifi_products_path %>>
+              <span>热门商品推荐</span>
+              <%= fa_icon("angle-right 2x",class: "pull-right")%>
+            </a>
+          </div>
+          <div class="products_hot">
+            <ul class="product_list">
+              <% @products.each do |product| %>
+                <li style="margin-top: 0;margin-bottom: 0;">
+                  <figure class="product">
+                    <figcaption>
+                    <div>
+                      <span class="name" data-placement="top" title="true" data-toggle="tooltip" data-original-title="#{product.name}">
+                        商品: <%= product.name %>
+                      </span>
+                      <span class="price"> 价格: ¥<%= product.price %></span>
+                    </div>
+                    </figcaption>
+                    <div class="product_thumb">
+                      <%= image_tag product.product_photo.url %>
+                      <div class="product_mask">
+                          <%= link_to '', wifi_product_path(product), target: "_blank", class: 'product_mask_backdrop' %>
+                      </div>
+                      <div class="hot_mask">
+                        <%= image_tag "hot.png" %>
+                      </div>
+                    </div>
+                  </figure>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="row span5 col-centered">
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+          <div class="quote-info p-header">
+            <a href=<%=wifi_activities_path%>>
+              <span>热门活动</span>
+              <%= fa_icon("angle-right 2x",class: "pull-right")%>
+            </a>
+          </div>
+        <div class="row span5 col-centered wifi_sections">
+
+          <% @activities.each do |activity| %>
+            <section class="panel">
+              <header class="panel-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= activity.id %>">
+                  <% if activity.hot %>
+                    <%= image_tag "hu_hot.png", class: "hot_img" %>
+                  <% end %>
+                  <h4><%= activity.title %></h4>
+                  <span class="duration"><%= activity.started_at %> ~ <%= activity.end_at %></span>
+                  <span class="pull-right detail">详细 <%= fa_icon "angle-double-down" %></span>
+                </a>
+              </header>
+              <div id="collapse<%= activity.id %>" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <% if activity.cover %>
+                    <%= image_tag activity.cover.url(:small) %>
+                  <% end %>
+                  <%= activity.description %>
+                </div>
+              </div>
+            </section>
+          <% end %>
+        </div>
+        </div>
+      </div>
+
+      <%= link_to "搜周边", wifi_surroundings_path, class: "btn btn-lg btn-primary col-sm-12 col-xs-12 col-md-12" %>
+
+    </div>
+
+  </div>
+</div>
