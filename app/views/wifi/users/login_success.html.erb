@@ -23,12 +23,14 @@
       <div class="row span5 col-centered">
         <div class="col-lg-12 col-sm-12 col-xs-12">
           <div class="quote-info p-header">
-            <span>热门商品推荐</span>
-            <%= link_to fa_icon("angle-right 2x",class: "pull-right"), '#' %>
+            <a href=<%= wifi_products_path %>>
+              <span>热门商品推荐</span>
+              <%= fa_icon("angle-right 2x",class: "pull-right")%>
+            </a>
           </div>
           <div class="products_hot">
             <ul class="product_list">
-              <% terminal_merchant.products.hot.each do |product| %>
+              <% @products.each do |product| %>
                 <li style="margin-top: 0;margin-bottom: 0;">
                   <figure class="product">
                     <figcaption>
@@ -59,7 +61,7 @@
       <div class="row span5 col-centered">
         <div class="col-lg-12 col-sm-12 col-xs-12">
           <div class="quote-info p-header">
-            <a href="#">
+            <a href=<%=wifi_activities_path%>>
               <span>热门活动</span>
               <%= fa_icon("angle-right 2x",class: "pull-right")%>
             </a>
@@ -92,7 +94,7 @@
         </div>
       </div>
 
-      <%= link_to "搜周边", wifi_surroundings_path, class: "btn btn-lg btn-primary col-sm-12" %>
+      <%= link_to "搜周边", wifi_surroundings_path, class: "btn btn-lg btn-primary col-sm-12 col-xs-12 col-md-12" %>
 
     </div>
 

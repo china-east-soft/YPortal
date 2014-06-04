@@ -89,7 +89,7 @@ class Wifi::UsersController < WifiController
 
   def login_success
     @merchant = terminal_merchant
-    @products = @merchant.products
+    @products = @merchant.products.hot.take 2
     @activities = terminal_merchant.activities.actived.where(hot: true).take 2
   end
 
