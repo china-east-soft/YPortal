@@ -25,7 +25,9 @@
     	</div>
 
     	<div class="row span5 col-centered surrounding_merchants wifi_sections" id="surrounding_merchants" style="margin-top:5px">
-    		<%= render partial: "merchant_boxes" %>
+        <ul id="wookmark" style="list-style:none">
+    		  <%= render partial: "merchant_boxes" %>
+        </ul>
     	</div>
 
     	<div id="loaderCircle" class="row span5 text-center" style="display:none">
@@ -51,7 +53,7 @@
 
 	function onSearch(){
 		page = 1;
-		$('#surrounding_merchants').html("");
+		$('#wookmark').html("");
 		loadData();
 	}
 

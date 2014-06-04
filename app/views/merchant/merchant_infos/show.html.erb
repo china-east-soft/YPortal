@@ -31,7 +31,7 @@
               <tr>
                 <td>类型</td>
                 <td>
-                  <%= f.select :industry,  Category.all.collect { |p| [ p.name, p.id ] },{}, { class: "form-control" } %>
+                  <%= f.select :industry,  Category.all.collect { |p| [ p.name, p.name ] },{}, { class: "form-control" } %>
                   <% unless f.object.errors[:industry].blank? %>
                     <span class="error">
                     <%= f.object.errors[:industry].join(",")%>
