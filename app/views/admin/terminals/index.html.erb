@@ -7,9 +7,9 @@
               <div class="panel-body">
                 <div class="clearfix">
                     <div class="btn-group">
-                      <button class="btn green" >
+                      <span class="btn btn-primary" >
                         <%= link_to fa_icon("plus"), new_admin_terminal_path %>
-                      </button>
+                      </span>
 
 
                     </div>
@@ -24,9 +24,9 @@
                   </div>
                   <%= submit_tag "导入", class: "btn btn-success" %>
 
-                  <button class="btn green" >
+                  <span class="btn btn-primary" >
                     <%= link_to "导出模板",export_admin_terminals_path({format: :csv}.merge!(params)) %>
-                  </button>
+                  </span>
                 <% end %>
 
                 <div class="space15"></div>
@@ -70,9 +70,9 @@
                         <td><%= terminal.sim_iccid %></td>
                         <td><%= terminal.status %></td>
                         <td>
-                          <button class="btn btn-success btn-xs"><%= link_to fa_icon("check"), [:admin, terminal] %></button>
-                          <button class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_admin_terminal_path(terminal) %><i class="icon-pencil"></i></button>
-                          <button class="btn btn-danger btn-xs"><%= link_to fa_icon("trash-o"), [:admin, terminal], method: :delete, data: { confirm: 'Are you sure?' } %></button>
+                          <span class="btn btn-success btn-xs"><%= link_to fa_icon("check"), [:admin, terminal] %></span>
+                          <span class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_admin_terminal_path(terminal) %><i class="icon-pencil"></i></span>
+                          <span class="btn btn-danger btn-xs"><%= link_to fa_icon("trash-o"), [:admin, terminal], method: :delete, data: { confirm: 'Are you sure?' } %></span>
                         </td>
                       </tr>
                     <% end %>

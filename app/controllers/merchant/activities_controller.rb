@@ -5,7 +5,7 @@ class Merchant::ActivitiesController < MerchantController
   # GET /activities
   # GET /activities.json
   def index
-    @activities = Activity.all
+    @activities = Activity.where(merchant_id: current_merchant.id).all
   end
 
   # GET /activities/1

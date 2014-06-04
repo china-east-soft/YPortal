@@ -9,9 +9,8 @@
 
             <div class="clearfix">
                 <div class="btn-group">
-                  <button class="btn green" >
-                    <%= link_to fa_icon("plus"), new_merchant_terminal_path %>
-                  </button>
+                  <span class="btn btn-primary"><%= link_to fa_icon("plus"), new_merchant_terminal_path %></span>
+                  
                 </div>
             </div>
 
@@ -32,7 +31,7 @@
                     <td><%= terminal.mac %></td>
                     <td><%= terminal.mid %></td>
                     <td><%= humanize_second terminal.duration.to_i %></td>
-                    <td><button class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_merchant_terminal_path(terminal) %><i class="icon-pencil"></i></button></td>
+                    <td><span class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_merchant_terminal_path(terminal) %><i class="icon-pencil"></i></span></td>
                   </tr>
                 <% end %>
               </tbody>

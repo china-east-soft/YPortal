@@ -7,9 +7,9 @@
               <div class="panel-body">
                 <div class="clearfix">
                     <div class="btn-group">
-                        <button class="btn green" >
+                        <span class="btn btn-primary" >
                           <%= link_to fa_icon("plus"), new_admin_merchant_path %>
-                        </button>
+                        </span>
                     </div>
                 </div>
                 <div class="space15"></div>
@@ -47,9 +47,9 @@
                         <td><%= merchant.merchant_info.try(:mobile) %></td>
                         <td><%= merchant.merchant_info.try(:secondary) %></td>
                         <td>
-                          <button class="btn btn-success btn-xs"><%= link_to fa_icon("check"), [:admin, merchant] %></button>
-                          <button class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_admin_merchant_path(merchant) %><i class="icon-pencil"></i></button>
-                          <button class="btn btn-danger btn-xs"><%= link_to fa_icon("trash-o"), [:admin, merchant], method: :delete, data: { confirm: 'Are you sure?' } %></button>
+                          <span class="btn btn-success btn-xs"><%= link_to fa_icon("check"), [:admin, merchant] %></span>
+                          <span class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_admin_merchant_path(merchant) %><i class="icon-pencil"></i></span>
+                          <span class="btn btn-danger btn-xs"><%= link_to fa_icon("trash-o"), [:admin, merchant], method: :delete, data: { confirm: 'Are you sure?' } %></span>
                         </td>
                       </tr>
                     <% end %>
