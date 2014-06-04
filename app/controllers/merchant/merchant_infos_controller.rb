@@ -1,6 +1,6 @@
 class Merchant::MerchantInfosController < MerchantController
 
-  before_action :set_merchant
+  before_action :set_merchant, :set_locale
 
   def show
   end
@@ -52,6 +52,10 @@ class Merchant::MerchantInfosController < MerchantController
 
   def shop_info_params
     params.require(:merchant_info).permit :shop_photo, :shop_description, :shop_phone_one, :shop_phone_two, :shop_longitude, :shop_latitude
+  end
+
+  def set_locale
+     I18n.locale = params[:locale] || I18n.default_locale
   end
 
 end

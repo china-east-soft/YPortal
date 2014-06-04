@@ -1,6 +1,32 @@
 zh-CN:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      merchant:
+    errors:
+      models:
+        merchant_infos:
+          attributes:
+
   merchant:
+    merchant_infos:
+      flashes:
+        successfully_updated: "成功更新用户"
+
+
+      show:
+        basic_info: "基本资料"
+        basic_reg_info: "基本注册信息"
+        name: "商家全称"
+        type: "类型"
+        address: "所在地址"
+        contact_info: "联系信息"
+        contact_person_name: "联系人姓名"
+        contact_way: "联系方式"
+        change_reg_info: "修改注册信息"
+        change_password: "修改密码"
+        current_password:  "当前密码"
+        new_password: "新密码"
+        new_password_confirm: "新密码确认"
     products:
       form:
         add_product: "添加商品"

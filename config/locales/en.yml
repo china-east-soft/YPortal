@@ -22,6 +22,8 @@
 en:
   hello: "Hello world"
   merchant:
+    merchant_infos:
+      name: "Shop Name"
     products:
       form:
         add_product: "Add Product"
