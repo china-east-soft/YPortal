@@ -1,0 +1,12 @@
+zh-CN:
+  activerecord:
+    models:
+      terminal: "终端"
+      category: "目录"
+      agent: "代理商"
+      activity: "活动"
+      banner: "广告"
+  helpers:
+    submit:
+      terminal:
+  simple_form:

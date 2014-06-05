@@ -7,18 +7,18 @@ class Merchant::MerchantInfosController < MerchantController
 
   def change_info
     if @merchant_info.update(merchant_info_params.merge(validate_base_info: true))
-      flash.now[:success] = "修改成功"
+      flash.now[:success] = I18n.t("merchant.merchant_infos.flashes.successfully_updated")
     else
-      flash.now[:warning] = "请正确填写基本信息"
+      flash.now[:warning] = I18n.t("merchant.merchant_infos.flashes.fail_updated")
     end
     render :show
   end
 
   def update_password
     if @merchant.update_with_password  merchant_params
-      flash.now[:success] = "密码修改成功"
+      flash.now[:success] = I18n.t("merchant.merchant_infos.flashes.passwd_success_updated")
     else
-      flash.now[:warning] = "请正确填写密码"
+      flash.now[:warning] = I18n.t("merchant.merchant_infos.flashes.passwd_fail_updated")
     end
     render :show
   end

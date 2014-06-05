@@ -1,7 +1,48 @@
 zh-CN:
   activerecord:
     attributes:
+      admin:
+        email: "邮箱"
+        password: "密码"
+        password_confirmation: "确认密码"
+      terminal:
+      category:
+        name: "名称"
+      agent:
+        email: "邮箱"
+        password: "密码"
+        password_confirmation: "确认密码"
       merchant:
+        email: "邮箱"
+        password: "密码"
+        password_confirmation: "确认密码"
+        mobile: "手机号码"
+        verify_code: "验证码"
+      mbox:
+        category: "类别"
+        name: "名称"
+      banner:
+        cover: "广告图片"
+        description: "广告描述"
+        url: "链接地址"
+      activity:
+        title: "活动标题"
+        started_at: "活动开始时间"
+        end_at: "活动结束时间"
+        description: "活动描述"
+        hot: "热门活动"
+
+      merchant_info:
+        name: "店铺全名"
+        industry: "类别"
+        province: "省"
+        city: "市"
+        area: "区"
+        address: "地址"
+        contact_way: "联系方式"
+        contact_person_name: "联系人姓名"
+        shop_photo: "店铺图片"
+        shop_description: "店铺详细介绍"
     errors:
       models:
         merchant_infos:
@@ -10,9 +51,11 @@ zh-CN:
   merchant:
     merchant_infos:
       flashes:
-        successfully_updated: "成功更新用户"
+        successfully_updated: "修改成功"
+        fail_updated: "请正确填写基本信息"
 
-
+        passwd_success_updated: "密码修改成功"
+        passwd_fail_updated: "请正确填写密码"
       show:
         basic_info: "基本资料"
         basic_reg_info: "基本注册信息"
@@ -27,6 +70,8 @@ zh-CN:
         current_password:  "当前密码"
         new_password: "新密码"
         new_password_confirm: "新密码确认"
+      show_info:
+
     products:
       form:
         add_product: "添加商品"
