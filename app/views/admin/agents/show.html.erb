@@ -1,54 +1,54 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Email:</strong>
+<strong><%= t(".email") %>:</strong>
   <%= @agent.email %>
 </p>
 
 <p>
-  <strong>Category:</strong>
+  <strong><%= t(".category") %>:</strong>
   <%= @agent.agent_info.try(:category) %>
 </p>
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= t(".name") %>:</strong>
   <%= @agent.agent_info.try(:name) %>
 </p>
 
 <p>
-  <strong>Industry:</strong>
+  <strong><%= t(".industry") %>:</strong>
   <%= @agent.agent_info.try(:industry) %>
 </p>
 
 <p>
-  <strong>City:</strong>
+  <strong><%= t(".city") %>:</strong>
   <%= @agent.agent_info.try(:city) %>
 </p>
 
 <p>
-  <strong>Contact:</strong>
+  <strong><%= t(".contact") %>:</strong>
   <%= @agent.agent_info.try(:contact) %>
 </p>
 
 <p>
-  <strong>Telephone:</strong>
+  <strong><%= t(".telephone") %>:</strong>
   <%= @agent.agent_info.try(:telephone) %>
 </p>
 
 <p>
-  <strong>Known from:</strong>
+  <strong><%= t(".known_from") %>:</strong>
   <%= @agent.agent_info.try(:known_from) %>
 </p>
 
 <p>
-  <strong>Remark:</strong>
+<strong><%= t(".remark") %>:</strong>
   <%= @agent.agent_info.try(:remark) %>
 </p>
 
 <p>
-  <strong>Status:</strong>
+  <strong><%= t(".status") %>:</strong>
   <%= @agent.agent_info.try(:status) %>
 </p>
 
-<%= link_to 'Edit', edit_admin_agent_path(@agent) %> |
-<%= link_to 'Back', admin_agents_path %>
+<%= link_to t(".edit"), edit_admin_agent_path(@agent) %> |
+<%= link_to t(".back"), admin_agents_path %>

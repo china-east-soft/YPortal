@@ -31,7 +31,7 @@
                     <tbody>
                     <% @agents.each do |agent| %>
                       <tr>
-                        <td><%= agent.category %></td>
+                        <td><%= agent.agent_info.try(:category) %></td>
                         <td><%= agent.agent_info.try(:name) %></td>
                         <td><%= agent.agent_info.try(:industry) %></td>
                         <td><%= agent.agent_info.try(:city) %></td>

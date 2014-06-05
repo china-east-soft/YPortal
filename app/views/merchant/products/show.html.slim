@@ -1,24 +1,23 @@
-.container
-  .row
-    .col-lg-5.col-xs-12.col-centered
-      .panel
-        .panel-heading#product_title
-          h2.text-center
-            = link_to @product.name, merchant_product_path(@product)
-        .panel-body#product_content
-          #product_photo
+- content_for :main_content do
+  .container
+    .row
+      .col-md-12
+        .panel
+          .panel-heading#product_title
+            h2.text-center
+              = link_to @product.name, merchant_product_path(@product)
+          .panel-body#product_content
+            strong = t(".product_photo")
             = image_tag @product.product_photo.url
-          #product_description
-            p = @product.description
-          #price
-            | 价格:
-            = "  ¥#{@product.price}"
-          .edit
-            - if current_merchant
-              - if @product.hot?
-                = link_to "取消热销商品设置", unset_hot_merchant_product_path, method: 'delete', class: "btn btn-primary"
-              - else
-                = link_to "设置为热销商品", set_hot_merchant_product_path, method: 'patch', class: "btn btn-primary"
-              = link_to "修改产品信息", edit_merchant_product_path(@product), class: "btn btn-primary "
-              = link_to "删除产品", merchant_product_path(@product), method: "delete", data: {confirm: "删除商品?"}, class: "btn btn-primary"
+            #product_description
+              strong = t(".description")
+              |:
+              span = @product.description
+            #price
+              | 价格:
+              = "  ¥#{@product.price}"
+
+        = link_to t(".edit"), edit_merchant_product_path(@product)
+        = " | "
+        = link_to t(".back"), merchant_products_path
 

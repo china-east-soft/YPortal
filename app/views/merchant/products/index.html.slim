@@ -1,21 +1,34 @@
-header#header
-  .col-md-6.col-md-offset-3#products_hot
-    ul.product_list.hot
-      - @hot_products.each do |product|
-        li
-          figure.product
-            .product_thumb
-              = image_tag product.product_photo.url
-              .product_mask
-                = link_to '', merchant_product_path(product), target: "_blank", class: 'product_mask_backdrop'
-              .hot_mask
-                = image_tag "hot.png"
-            figcaption
-              h5 data-placement="top" title="true" data-toggle="tooltip" data-original-title="#{product.name}"
-                = link_to product.name, merchant_product_path(product), target: "_blank"
-              em
-                span.price = "$#{product.price}"
-
-.col-md-6.col-md-offset-3#products_all
-  ul.product_list#products
-    = render @products
+- content_for :main_content do
+  .row
+    .col-lg-12
+      section.panel
+        header.panel-heading
+          = t(".products")
+        .panel-body
+          .clearfix
+            .btn-group
+              span.btn.btn-primary
+                = link_to fa_icon("plus"), edit_merchant_mbox_path(2)
+          .space15
+            table.table.table-striped.table-advance.table-hover
+              thead
+                tr
+                  th = t(".product_photo")
+                  th = t(".description")
+                  th = t('.price') + "( ¥ )"
+                  th = t('.hot') + "(?)"
+                  th colspan="3"
+                tbody
+                  - @products.each do |product|
+                    tr
+                      td = image_tag product.product_photo.url, size: "64x36"
+                      td = product.description
+                      td = product.price
+                      td
+                        - if product.hot?
+                          | True
+                        - else
+                          | False
+                      td = link_to t(".show"), [:merchant, product]
+                      td = link_to t(".edit"), edit_merchant_product_path(product)
+                      td = link_to t(".destroy"), [:merchant, product], method: :delete, data: { confirm: 'Are you sure?' }

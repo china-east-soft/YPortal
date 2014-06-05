@@ -27,10 +27,13 @@ zh-CN:
         url: "链接地址"
       activity:
         title: "活动标题"
+        cover: "活动图片"
         started_at: "活动开始时间"
         end_at: "活动结束时间"
         description: "活动描述"
         hot: "热门活动"
+      terminal:
+        duration: "时长"
 
       merchant_info:
         name: "店铺全名"
@@ -47,6 +50,92 @@ zh-CN:
       models:
         merchant_infos:
           attributes:
+
+  admin:
+    agents:
+      form:
+        form_elements: "表单"
+      new:
+        back: "后退"
+      show:
+        email: "邮箱"
+        category: "类别"
+        name: "代理商全名"
+        industry: "所属行业"
+        city: "市"
+        contact: "联系人"
+        telephone: "电话"
+        known_from: "获取渠道"
+        remark: "备注"
+        status: "状态"
+        edit: "编辑"
+        back: "后退"
+      edit:
+        editing_agent: "修改代理商信息"
+        show: "显示"
+        back: "后退"
+    merchants:
+      index:
+        email: "邮箱"
+        name: "商家全称"
+        industry: "所属行业"
+        province: "省"
+        city: "市"
+        area: "区"
+        address: "地址"
+        contact_person_name: "联系人姓名"
+        contact_way: "联系方式"
+      edit:
+        form_elements: "表单"
+        show: "显示"
+        back: "后退"
+      show:
+        name: "商家全称"
+        industry: "所属行业"
+        province: "省"
+        city: "市"
+        area: "区"
+        address: "地址"
+        contact_person_name: "联系人姓名"
+        contact_way: "联系方式"
+        edit: "编辑"
+        back: "后退"
+    terminals:
+      new:
+        new_terminal: "新建终端"
+        back: "返回"
+      form:
+        form_elements: "表单"
+      edit:
+        editing_terminal: "修改终端"
+        show: "显示"
+        back: "返回"
+      show:
+        edit: "编辑"
+        back: "返回"
+    categories:
+      form:
+        form_elements: "表单"
+      index:
+        name: "类别名"
+        show: "显示"
+        edit: "编辑"
+        destroy: "删除"
+      new:
+        new_category: "新增类别"
+        back: "返回"
+      show:
+        name: "类别名"
+        edit: "编辑"
+        back: "返回"
+      edit:
+        editing_category: "修改类别"
+        show: "显示"
+        back: "返回"
+
+
+
+
 
   merchant:
     merchant_infos:
@@ -79,6 +168,111 @@ zh-CN:
         photo: "商品图片"
         price: "商品价格"
         description: "商品描述"
+    activities:
+      new:
+        new_activity: "新增活动"
+      form:
+        form_elements: "表单"
+      show:
+        title: "活动标题"
+        cover: "活动图片"
+        status: "活动状态"
+        started_at: "开始时间"
+        end_at: "结束时间"
+        hot: "热门活动？"
+        edit: "编辑"
+        destroy: "删除"
+        back: "后退"
+
+      edit:
+        editing_activity: "修改活动"
+      index:
+        activities: "所有活动"
+        title: "活动标题"
+        status: "活动状态"
+        started_at: "开始时间"
+        end_at: "结束时间"
+        hot: "热门活动？"
+        show: "显示"
+        edit: "编辑"
+        destroy: "删除"
+
+    portal_styles:
+      show:
+        name: "样式名称"
+        btn_style: "按钮样式"
+        edit: "编辑"
+        back: "后退"
+    banners:
+      index:
+        banner: "广告"
+        cover: "广告图片"
+        description: "广告描述"
+        url: "链接地址"
+        show: "显示"
+        edit: "编辑"
+        destroy: "删除"
+      new:
+        new_banner: "新增广告"
+        back: "后退"
+      show:
+        cover: "广告图片"
+        description: "广告描述"
+        url: "链接地址"
+        edit: "编辑"
+        back: "后退"
+      edit:
+        editing_banner: "修改广告"
+        show: "显示"
+        back: "后退"
+      form:
+        form_elements: "表单"
+    mboxes:
+      edit:
+        show: "显示"
+        back: "后退"
+      form:
+        form_elements: "表单"
+    terminals:
+      form:
+        form_elements: "表单"
+      new:
+        show: "显示"
+        back: "后退"
+      edit:
+        form_elements: "表单"
+        show: "显示"
+        back: "后退"
+      index:
+        terminal: "终端"
+    products:
+      index:
+        products: "所有产品"
+        product_photo: "产品图片"
+        description: "产品描述"
+        price: "价格"
+        hot: "热卖产品"
+        show: "显示"
+        edit: "编辑"
+        destroy: "删除"
+      show:
+        product_photo: "产品图片"
+        description: "产品描述"
+        show: "显示"
+        edit: "编辑"
+        destroy: "删除"
+        back: "后退"
+      edit:
+        editing_product: "修改产品"
+        show: "显示"
+        back: "后退"
+      form:
+        form_elements: "表单"
+        name: "产品名"
+        product_photo: "产品图片"
+        price: "价格"
+        description: "产品描述"
+
 
 
 

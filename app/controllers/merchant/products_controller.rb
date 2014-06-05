@@ -4,7 +4,6 @@ class Merchant::ProductsController < MerchantController
   before_action :require_merchant
   before_action :find_product, only: [:show, :edit, :update, :destroy, :set_hot, :unset_hot]
 
-  layout 'wifi'
 
   def create
      @product = current_merchant.products.create product_params
@@ -22,8 +21,7 @@ class Merchant::ProductsController < MerchantController
   end
 
   def index
-    @hot_products = current_merchant.products.hot
-    @products = current_merchant.products.all - @hot_products
+    @products = current_merchant.products.all
   end
 
   def edit
@@ -42,7 +40,7 @@ class Merchant::ProductsController < MerchantController
   def destroy
     @product.destroy
     gflash :success => "删除产品成功！"
-    redirect_to merhcant_products_url
+    redirect_to merchant_products_url
   end
 
 
@@ -60,7 +58,7 @@ class Merchant::ProductsController < MerchantController
 
   private
   def product_params
-    params.require(:product).permit(:name, :product_photo, :price, :description)
+    params.require(:product).permit(:name, :product_photo, :price, :description, :hot)
   end
 
   def find_product
