@@ -16,7 +16,7 @@ class Wifi::UsersController < WifiController
     params[:vtoken] = params[:account][:vtoken]
 
     if params[:account][:mobile] && params[:account][:verify_code] && params[:account] && params[:account][:vtoken]
-      auth_message = AuthMessage.where(mobile: params[:account][:mobile], verify_code: params[:account][:verify_code]).first
+      auth_message = AuthMessage.where(mobile: params[:account][:mobile], verify_code: params[:account][:verify_code], category: 1).first
       if auth_message
         auth_token = AuthToken.where(auth_token: params[:account][:vtoken]).first
         if auth_token

@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  devise_for :app_accounts, :controllers => {:registrations => "app_account/registrations",
+   :sessions => "app_account/sessions" }
+
   require 'sidekiq/web'
   mount Sidekiq::Web, at: '/sidekiq'
 
@@ -14,6 +17,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   get 'admin' => "admin/dashboard#home", as: :admin_root
+  get 'app_account' => "welcome#index", as: :app_account_root
   get 'agent' => "welcome#index", as: :agent_root
   get 'merchant' => "merchant/dashboard#home", as: :merchant_root
   get 'wifi' => "welcome#index", as: :wifi_root

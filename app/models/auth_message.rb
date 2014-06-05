@@ -6,6 +6,8 @@ class AuthMessage < ActiveRecord::Base
   include MobileMsg
   attr_accessor :send_result
 
+  # category {1: wifi, 0: merchant, 2: app_account}
+
   validates :mobile, presence: true, format: /\A\d{11}\z/
   validates_uniqueness_of :mobile, scope: [ :category ]
 

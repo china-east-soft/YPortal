@@ -9,11 +9,18 @@ $( document ).ready(function() {
     curCount = count;
     var uid = ""
     var account_mobile = ""
+    var controller_name = ""
     if($("#merchant_mobile").length > 0){
       uid=$("#merchant_mobile").val();//用户uid
     }
-    if($("#account_mobile".length > 0)){
+    if($("#account_mobile").length > 0){
       account_mobile = $("#account_mobile").val();
+    } else if($("#app_account_mobile").length > 0){
+      account_mobile = $("#app_account_mobile").val();
+    }
+
+    if($("#controller_name").length > 0){
+      controller_name = $("#controller_name").val();
     }
 
     //设置button效果，开始计时
@@ -25,7 +32,7 @@ $( document ).ready(function() {
       type: "get",
       dataType: "text", //数据格式:JSON
       url: '/welcome/generate_verify_code', //目标地址
-      data: "uid=" + uid + "&account_mobile=" + account_mobile,
+      data: "uid=" + uid + "&account_mobile=" + account_mobile + "&controller_name=" + controller_name,
       error: function (XMLHttpRequest, textStatus, errorThrown) { },
       success: function (msg){ }
     });

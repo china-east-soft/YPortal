@@ -27,10 +27,14 @@ class Merchant < ActiveRecord::Base
 
   validates_presence_of :mobile, :verify_code, :mid, on: :create
 
-  validate :mid_must_be_in_terminals, on: :create
+  validate :mid_must_be_in_terminals, :verify_code_must_be_in_auth_messages, on: :create
 
   def mid_must_be_in_terminals
     errors.add(:mid, "无效的mid") unless Terminal.exists?(mid: mid, status: AuthToken.statuses[:init])
+  end
+
+  def verify_code_must_be_in_auth_messages
+    errors.add(:verify_code, "无效的验证码") unless AuthMessage.exists?(verify_code: verify_code, category: 0)
   end
 
   after_create :get_terminal

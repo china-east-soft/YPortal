@@ -3,7 +3,7 @@
 
 		<%= devise_error_messages! %>
 
-  	<h2 class="form-signin-heading">registration now</h2>
+  	<h2 class="form-signin-heading">注册</h2>
   	<div class="login-wrap">
 		  <%= f.input_field :mobile, :autofocus => true, class: "form-control", placeholder: "手机" %>
 		  <div class="form-group">
@@ -18,16 +18,9 @@
 		  </div>
 		  <%= f.password_field :password, class: "form-control", placeholder: "密码", required: true %>
 		  <%= f.password_field :password_confirmation, class: "form-control", placeholder: "确认密码", required: true %>
-		  <%= f.input_field :mid, class: "form-control", required: true, placeholder: "MID" %>
 
-		  <%= f.submit "Submit", class: "btn btn-lg btn-login btn-block" %>
+		  <%= f.submit "确认", class: "btn btn-lg btn-login btn-block" %>
 
-      <div class="registration">
-          Already Registered.
-          <a class="" href="login.html">
-              Login
-          </a>
-      </div>
   	</div>
 	<% end %>
 	<%= hidden_field_tag 'controller_name', params[:controller] %>
