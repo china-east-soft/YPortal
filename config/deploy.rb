@@ -20,7 +20,7 @@ rails_env = environments.keys.include?(ENV['RAILS_ENV']) ? ENV['RAILS_ENV'] : 'd
 branch = environments[rails_env][:branch]
 domain = environments[rails_env][:domain]
 
-set :rails_env, ENV['RAILS_ENV']
+set :rails_env, rails_env
 set :domain, domain
 set :deploy_to, "/var/app/#{domain}"
 set :repository, 'git@github.com:china-east-soft/YPortal.git'
