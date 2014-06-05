@@ -1,6 +1,5 @@
 = content_for :main_content do
   = javascript_include_tag "http://webapi.amap.com/maps?v=1.2&key=test"
-  = stylesheet_link_tag "http://api.amap.com/Public/css/demo.Default.css"
   .row
     .container
       .col-md-10
@@ -14,7 +13,7 @@
                 tbody
                   tr
                     td
-                      = f.label :shop_photo, "店铺图片"
+                      = f.label :shop_photo
                     td
                       - unless @merchant_info.shop_photo.blank?
                         = image_tag @merchant_info.shop_photo.url
@@ -24,7 +23,7 @@
                           = f.object.errors[:shop_photo].join(",")
                   tr
                     td
-                      = f.label :shop_description, "店铺详细介绍"
+                      = f.label :shop_description
                     td
                       = f.text_area :shop_description, class: "form-control"
                       - unless f.object.errors[:shop_description].blank?

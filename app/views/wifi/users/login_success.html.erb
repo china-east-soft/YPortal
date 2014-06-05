@@ -9,21 +9,23 @@
       </div>
 
       <div class="row span5 col-centered succ-info">
-        <p>
-        <h4 class="text-center">欢迎使用我们为您提供的免费WiFi</h4>
-        </p>
-        <p class="text-center">
-        你已成功登录，获得4小时的免费上网时长。
-        </p>
-        <p class="text-center">
-        有5人与您同时在线。
-        </p>
+        <div class="success-Icon">
+        </div>
+        <div class="success-font">
+          <h4 class="text-center">欢迎使用我们为您提供的免费WiFi</h4>
+          <p class="text-center">
+          你已成功登录，获得4小时的免费上网时长。
+          </p>
+          <p class="text-center">
+          有5人与您同时在线。
+          </p>
+        </div>
       </div>
 
       <div class="row span5 col-centered">
         <div class="col-lg-12 col-sm-12 col-xs-12">
           <div class="quote-info p-header">
-            <a href=<%= wifi_products_path %>>
+            <a href=<%= "#{wifi_products_path}?mid=#{params[:mid]}&&vtoken=#{params[:vtoken]}" %>>
               <span>热门商品推荐</span>
               <%= fa_icon("angle-right 2x",class: "pull-right")%>
             </a>
@@ -61,7 +63,7 @@
       <div class="row span5 col-centered">
         <div class="col-lg-12 col-sm-12 col-xs-12">
           <div class="quote-info p-header">
-            <a href=<%=wifi_activities_path%>>
+            <a href=<%= "#{wifi_activities_path}?mid=#{params[:mid]}&&vtoken=#{params[:vtoken]}" %>>
               <span>热门活动</span>
               <%= fa_icon("angle-right 2x",class: "pull-right")%>
             </a>
@@ -94,7 +96,7 @@
         </div>
       </div>
 
-      <%= link_to "搜周边", wifi_surroundings_path, class: "btn btn-lg btn-primary col-sm-12 col-xs-12 col-md-12" %>
+      <%= link_to "搜周边", wifi_surroundings_path(mid: params[:mid], vtoken: params[:vtoken]), class: "btn btn-lg btn-primary col-sm-12 col-xs-12 col-md-12" %>
 
     </div>
 
