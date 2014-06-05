@@ -17,17 +17,17 @@
                 <table class="table table-striped table-advance table-hover">
                   <thead>
                     <tr>
-                      <th>Email</th>
-                      <th>Name</th>
-                      <th>Industry</th>
-                      <th>Province</th>
-                      <th>City</th>
-                      <th>Area</th>
-                      <th>Circle</th>
-                      <th>Address</th>
-                      <th>Contact</th>
-                      <th>Mobile</th>
-                      <th>Secondary</th>
+                      <th><%= t(".email") %></th>
+                      <th><%= t(".name") %></th>
+                      <th><%= t(".industry") %></th>
+                      <th><%= t(".province") %></th>
+                      <th><%= t(".city") %></th>
+                      <th><%= t(".area") %></th>
+                      <th><%= t(".circle") %></th>
+                      <th><%= t(".address") %></th>
+                      <th><%= t(".contact_person_name") %></th>
+                      <th><%= t(".contact_way") %></th>
+                      <th><%= t(".secondary") %></th>
                       <th colspan="3"></th>
                     </tr>
                   </thead>
@@ -43,8 +43,8 @@
                         <td><%= merchant.merchant_info.try(:area) %></td>
                         <td><%= merchant.merchant_info.try(:circle) %></td>
                         <td><%= merchant.merchant_info.try(:address) %></td>
-                        <td><%= merchant.merchant_info.try(:contact) %></td>
-                        <td><%= merchant.merchant_info.try(:mobile) %></td>
+                        <td><%= merchant.merchant_info.try(:contact_person_name) %></td>
+                        <td><%= merchant.merchant_info.try(:contact_way) %></td>
                         <td><%= merchant.merchant_info.try(:secondary) %></td>
                         <td>
                           <span class="btn btn-success btn-xs"><%= link_to fa_icon("check"), [:admin, merchant] %></span>

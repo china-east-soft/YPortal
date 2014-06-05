@@ -1,14 +1,16 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @portal_style.name %>
-</p>
+<% content_for :main_content do %>
+  <p>
+  <strong><%= t(".name") %> :</strong>
+    <%= @portal_style.name %>
+  </p>
 
-<p>
-  <strong>Btn style:</strong>
-  <%= @portal_style.btn_style %>
-</p>
+  <p>
+  <strong><%= t(".btn_style") %>:</strong>
+    <%= @portal_style.btn_style %>
+  </p>
 
-<%= link_to 'Edit', edit_merchant_portal_style_path(@portal_style) %> |
-<%= link_to 'Back', edit_merchant_portal_style_pathportal_styles_path %>
+  <%= link_to t(".edit"), edit_merchant_portal_style_path(@portal_style) %> |
+  <%= link_to t(".back"), merchant_portal_styles_path %>
+<% end %>

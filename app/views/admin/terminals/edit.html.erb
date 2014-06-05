@@ -1,6 +1,6 @@
-<h1>Editing terminal</h1>
+<h1><%= t(".editing_terminal") %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', [:admin, @terminal] %> |
-<%= link_to 'Back', admin_terminals_path %>
+<%= link_to t(".show"), [:admin, @terminal] %> |
+<%= link_to t(".back"), admin_terminals_path %>

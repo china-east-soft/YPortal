@@ -1,21 +1,21 @@
 <% content_for :main_content do %>
-<p id="notice"><%= notice %></p>
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Cover:</strong>
-  <%= image_tag @banner.cover.url(:small) %>
-</p>
+  <p>
+  <strong><%= t(".cover") %>:</strong>
+    <%= image_tag @banner.cover.url(:small) %>
+  </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @banner.description %>
-</p>
+  <p>
+  <strong><%= t(".description") %>:</strong>
+    <%= @banner.description %>
+  </p>
 
-<p>
-  <strong>Url:</strong>
-  <%= @banner.url %>
-</p>
+  <p>
+  <strong><%= t(".url") %>:</strong>
+    <%= @banner.url %>
+  </p>
 
-<%= link_to 'Edit', edit_merchant_banner_path(id: @banner.id, portal_style_id: @portal_style.id) %> |
-<%= link_to 'Back', merchant_banners_path(portal_style_id: @portal_style.id)	 %>
+  <%= link_to t(".edit"), edit_merchant_banner_path(id: @banner.id, portal_style_id: @portal_style.id) %> |
+  <%= link_to t(".back"), merchant_banners_path(portal_style_id: @portal_style.id)	 %>
 <% end %>

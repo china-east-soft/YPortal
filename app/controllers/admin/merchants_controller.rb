@@ -67,6 +67,7 @@ class Admin::MerchantsController < AdminController
     # Use callbacks to share common setup or constraints between actions.
     def set_merchant
       @merchant = Merchant.find(params[:id])
+      @merchant_info = @merchant.merchant_info
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

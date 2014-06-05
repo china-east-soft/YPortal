@@ -1,54 +1,54 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @merchant.name %>
+  <strong><%= t(".name") %>:</strong>
+  <%= @merchant_info.name %>
 </p>
 
 <p>
-  <strong>Industry:</strong>
-  <%= @merchant.industry %>
+  <strong><%= t(".industry") %>:</strong>
+  <%= @merchant_info.industry %>
 </p>
 
 <p>
-  <strong>Province:</strong>
-  <%= @merchant.province %>
+  <strong><%= t(".province") %>:</strong>
+  <%= @merchant_info.province %>
 </p>
 
 <p>
-  <strong>City:</strong>
-  <%= @merchant.city %>
+  <strong><%= t(".city") %>:</strong>
+  <%= @merchant_info.city %>
 </p>
 
 <p>
-  <strong>Area:</strong>
-  <%= @merchant.area %>
+  <strong><%= t(".area") %>:</strong>
+  <%= @merchant_info.area %>
 </p>
 
 <p>
-  <strong>Circle:</strong>
-  <%= @merchant.circle %>
+  <strong><%= t(".circle") %>:</strong>
+  <%= @merchant_info.circle %>
 </p>
 
 <p>
-  <strong>Address:</strong>
-  <%= @merchant.address %>
+  <strong><%= t(".address") %>:</strong>
+  <%= @merchant_info.address %>
 </p>
 
 <p>
-  <strong>Contact:</strong>
-  <%= @merchant.contact %>
+  <strong><%= t(".contact_person_name") %>:</strong>
+  <%= @merchant_info.contact_person_name %>
 </p>
 
 <p>
-  <strong>Mobile:</strong>
-  <%= @merchant.mobile %>
+  <strong><%= t(".contact_way") %>:</strong>
+  <%= @merchant_info.contact_way %>
 </p>
 
 <p>
-  <strong>Secondary:</strong>
-  <%= @merchant.secondary %>
+   <strong><%= t(".secondary") %>:</strong>
+  <%= @merchant_info.secondary %>
 </p>
 
-<%= link_to 'Edit', edit_admin_merchant_path(@merchant) %> |
-<%= link_to 'Back', admin_merchants_path %>
+<%= link_to t(".edit"), edit_admin_merchant_path(@merchant_info) %> |
+<%= link_to t(".back"), admin_merchants_path %>

@@ -8,7 +8,7 @@
       span class="error"
         = f.object.errors[:name].join(",")
   .form-group
-    = f.label :product_photo, t(".photo"), class: "control-label"
+    = f.label :product_photo, t(".product_photo"), class: "control-label"
     - unless @product.product_photo.blank?
       = image_tag @product.product_photo.url
     = f.file_field :product_photo, class: "form-control"
@@ -27,6 +27,12 @@
     - unless f.object.errors[:product_photo].blank?
       span class="error"
         = f.object.errors[:product_photo].join(",")
+  .form-group
+    .row
+      .col-md-6
+        = f.label :hot, t(".hot") + "?"
+      .col-md-6.col-offset-6
+        = f.check_box :hot
   .form-actions
     - if @product.new_record?
       = f.submit "添加产品", class: "btn"
