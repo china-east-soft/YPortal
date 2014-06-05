@@ -70,7 +70,7 @@
               .col-md-6.col-md-offset-4
                 = f.submit "保存设置", class: "btn btn-lg btn-primary"
 
-= content_for :main_content do
+= content_for :script do
   javascript:
     var longitude = "#{@merchant_info.shop_longitude}";
     var latitude = "#{@merchant_info.shop_latitude}";
