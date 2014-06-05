@@ -15,6 +15,7 @@ class Merchant::ProductsController < MerchantController
      end
 
      redirect_to edit_merchant_mbox_url(params[:mbox_id])
+
   end
 
   def show

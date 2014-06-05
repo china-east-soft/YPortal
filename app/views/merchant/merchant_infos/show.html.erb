@@ -2,7 +2,7 @@
   <div class="row" >
   <section class="panel" id = "basic_material">
     <header class="panel-heading">
-      基本资料
+      <%= t(".basic_info") %>
     </header>
 
     <div class="panel-body">
@@ -13,12 +13,12 @@
           <div class="list-group-item">
             <div class="list-group-item-heading">
               <i class="fa fa-book"></i>
-              <b> 基本注册信息 </b>
+              <b> <%= t(".basic_reg_info") %></b>
             </div>
             <table class="table table-bordered">
               <tbody>
               <tr>
-                <td>商家全称</td>
+                <td><%= t(".name") %></td>
                 <td>
                   <%= f.text_field :name, class: "form-control" %>
                   <% unless f.object.errors[:name].blank? %>
@@ -29,7 +29,7 @@
                 </td>
               </tr>
               <tr>
-                <td>类型</td>
+                <td><%= t(".type") %></td>
                 <td>
                   <%= f.select :industry,  Category.all.collect { |p| [ p.name, p.name ] },{}, { class: "form-control" } %>
                   <% unless f.object.errors[:industry].blank? %>
@@ -40,7 +40,7 @@
                 </td>
               </tr>
               <tr>
-                <td>所在地址</td>
+                <td><%= t(".address") %></td>
                 <td>
                   <%= f.text_field :address, class: "form-control"%>
                   <% unless f.object.errors[:address].blank? %>
@@ -57,13 +57,13 @@
           <div class="list-group-item">
             <div class="list-group-item-heading">
               <i class="fa fa-pencil"></i>
-              <b>联系信息</b>
+              <b><%= t(".contact_info") %></b>
             </div>
             <table class="table table-bordered">
               <tbody>
               <tr>
                 <td>
-                  联系人姓名
+                  <%= t(".contact_person_name") %>
                 </td>
                 <td>
                   <%= f.text_field :contact_person_name, class: "form-control" %>
@@ -76,7 +76,7 @@
               </tr>
               <tr>
                 <td>
-                  联系方式
+                  <%= t(".contact_way") %>
                 </td>
                 <td>
                   <%= f.text_field :contact_way, class: "form-control" %>
@@ -90,21 +90,21 @@
             </table>
           </div>
           <div class="form-group col-md-offset-3 ">
-            <%= f.submit "修改注册信息", class: "btn btn-lg btn-primary" %>
+            <%= f.submit t(".change_reg_info"), class: "btn btn-lg btn-primary" %>
           </div>
         <% end %>
 
           <div class="list-group-item">
             <div class="list-group-item-heading">
               <i class="fa fa-lock"></i>
-              <b>修改密码</b>
+              <b><%= t(".change_password") %></b>
             </div>
             <%= form_for @merchant, url: update_password_merchant_merchant_infos_path do |f| %>
               <table class="table table-bordered">
               <tbody>
               <tr>
                 <td>
-                  当前密码
+                  <%= t(".current_password") %>
                 </td>
                 <td>
                   <%= password_field_tag :current_password, nil, class: "form-control" %>
@@ -117,7 +117,7 @@
               </tr>
               <tr>
                 <td>
-                  新密码
+                  <%= t(".new_password") %>
                 </td>
                 <td>
                   <%= f.password_field :password, class: "form-control" %>
@@ -130,7 +130,7 @@
               </tr>
               <tr>
                 <td>
-                  新密码确认
+                  <%= t(".new_password_confirm") %>
                 </td>
                 <td>
                   <%= f.password_field :password_confirmation, class: "form-control" %>
@@ -144,7 +144,7 @@
               </tbody>
             </table>
             <div class="form-group col-md-offset-3" >
-              <%= f.submit "修改密码", class: "btn btn-lg btn-primary" %>
+              <%= f.submit t(".change_password"), class: "btn btn-lg btn-primary" %>
             </div>
           <% end %>
           </div>
