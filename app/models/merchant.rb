@@ -1,4 +1,6 @@
 class Merchant < ActiveRecord::Base
+  enum status: [ :init, :active, :locked ]
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -38,6 +40,7 @@ class Merchant < ActiveRecord::Base
   end
 
   after_create :get_terminal
+  after_create :send_email
 
   attr_accessor :verify_code, :mid
 
@@ -55,6 +58,9 @@ class Merchant < ActiveRecord::Base
 
     def get_terminal
       Terminal.where(mid: self.mid, status: AuthToken.statuses[:init], merchant_id: nil).update_all(merchant_id: self.id, status: AuthToken.statuses[:active])
+    end
+
+    def send_email
     end
 
 

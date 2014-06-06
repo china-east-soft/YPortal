@@ -25,4 +25,12 @@ every 10.days, :at => '5 am' do
   rake "redis:clear_invalid_keys"
 end
 
+if @environment == 'production'
+  every 1.day, at: '02:00 am' do
+    command "cd /root/ && perform --trigger protal_cloudchain_cn_files_backup"
+    command "cd /root/ && perform --trigger protal_cloudchain_cn_database_backup"
+  end
+end
+
+
 # Learn more: http://github.com/javan/whenever

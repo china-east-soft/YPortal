@@ -18,6 +18,7 @@
                   <thead>
                     <tr>
                       <th><%= t(".email") %></th>
+                      <th><%= t(".status") %></th>
                       <th><%= t(".name") %></th>
                       <th><%= t(".industry") %></th>
                       <th><%= t(".province") %></th>
@@ -36,6 +37,9 @@
                     <% @merchants.each do |merchant| %>
                       <tr>
                         <td><%= merchant.email %></td>
+                        <td>
+                          <%= t(".#{merchant.status}") %>
+                        </td>
                         <td><%= merchant.merchant_info.try(:name) %></td>
                         <td><%= merchant.merchant_info.try(:industry) %></td>
                         <td><%= merchant.merchant_info.try(:province) %></td>
