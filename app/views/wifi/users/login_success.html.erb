@@ -1,3 +1,6 @@
+<%
+  @merchant_info = terminal_merchant.merchant_info
+%>
 <div class="container" >
   <div class="row mbot30">
     <div class="col-lg-5 col-xs-12 col-centered" id="login_success">
@@ -5,14 +8,14 @@
         <% if params[:controller] != 'wifi/merchants' && params[:controller] != 'home' %>
           <%= link_to fa_icon(["angle-left", "2x"]), wifi_merchant_path(mid: params[:mid], vtoken: params[:vtoken]) %>
         <% end %>
-        <h5 class="text-center"><strong><%= "店铺名称" %></strong></h5>
+        <h5 class="text-center"><strong><%= @merchant_info.name %></strong></h5>
       </div>
 
       <div class="row span5 col-centered succ-info">
         <div class="success-Icon">
         </div>
         <div class="success-font">
-          <h4 class="text-center">欢迎使用我们为您提供的免费WiFi</h4>
+          <h3 class="text-center">欢迎使用我们为您提供的免费WiFi</h4>
           <p class="text-center">
           你已成功登录，获得4小时的免费上网时长。
           </p>

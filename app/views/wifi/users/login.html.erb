@@ -42,6 +42,7 @@
 
     <% end %>
     <%= form_tag quick_login_wifi_users_path, method: 'post' do %>
+      <%= hidden_field_tag :mid, params[:mid] %>
       <%= hidden_field_tag :vtoken, params[:vtoken] %>
       <%= submit_tag '直接登录', class: "btn btn-lg btn-primary col-sm-12 col-xs-12 col-lg-12 col-md-12"%>
     <% end %>

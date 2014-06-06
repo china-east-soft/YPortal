@@ -8,7 +8,7 @@
     <div class="col-lg-5 col-xs-12 col-centered">
       <%= render partial: "partial/adv", locals: { title: @portal_style.name } %>
 
-      <% if current_merchant || (@auth_token && @auth_token.init?) %>
+      <% if terminal_merchant || (@auth_token && @auth_token.init?) %>
         <div class="row span5 col-centered free-wifi">
           <%= link_to wifi_login_url(vtoken: params[:vtoken], mid: params[:mid]) do %>
           <h4 class="text-center"><%= image_tag 'tu_01_03.png',height: '23' %>点击免费上网</h4>
