@@ -16,6 +16,10 @@
 		    <%= f.check_box :remember_me %> 记住我
       </label>
 		  <%= f.submit "登录", class: "btn btn-lg btn-login btn-block" %>
+      <div class="registration">
+          还没有帐号？
+          <%= link_to "立即注册", new_merchant_registration_path %>
+      </div>
   	</div>
 	<% end %>
 
