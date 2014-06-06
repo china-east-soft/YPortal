@@ -80,7 +80,9 @@ class Wifi::UsersController < WifiController
   def quick_login
     params[:account] ||= {}
 
-    if params[:vtoken].present?
+    if params[:mid].present?
+      process_preview
+    elsif params[:vtoken].present?
       process_vtoken_present
     else
       redirect_to wifi_merchant_url
@@ -94,6 +96,11 @@ class Wifi::UsersController < WifiController
   end
 
   private
+
+  def process_preview
+    redirect_to login_success_wifi_users_url(mid: params[:mid])
+  end
+
   def process_vtoken_present
     @auth_token = AuthToken.where(auth_token: params[:vtoken]).first
     if @auth_token.present?
@@ -101,7 +108,7 @@ class Wifi::UsersController < WifiController
         process_init_update_token_and_communicate_with_terminal
       elsif @auth_token.active?
         gflash :success => "已经认证成功可以直接上网!"
-        redirect_to wifi_users_login_success_url(vtoken: @auth_token.auth_token)
+        redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
       elsif @auth_token.expired?
         gflash :error => "认证已经过期，请重新认证!"
         redirect_to wifi_merchant_url(client_identifier: @auth_token.client_identifier, mac: @auth_token.mac)
@@ -124,7 +131,7 @@ class Wifi::UsersController < WifiController
 
         if recv_data.present?
           gflash :success => "已经认证成功可以直接上网!"
-          redirect_to wifi_users_login_success_url(vtoken: @auth_token.auth_token)
+          redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
         else
           message = "can not recv data..."
           Communicate.logger.add Logger::FATAL, message
