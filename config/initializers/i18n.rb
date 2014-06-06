@@ -2,7 +2,7 @@ Rails.application.config.time_zone = 'Beijing'
 
 Rails.application.config.i18n.default_locale = "zh-CN"
 
-I18n.locale = ""
+I18n.locale = "zh-CN"
 
 Rails.application.config.i18n.available_locales = ["zh-CN", :en]
 
