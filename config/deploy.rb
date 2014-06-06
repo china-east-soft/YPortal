@@ -27,7 +27,7 @@ set :repository, 'git@github.com:china-east-soft/YPortal.git'
 set :branch, branch
 set :ssh_options, '-A'
 
-set :shared_paths, ['log', '.private_key', 'tmp/restart.txt', 'public/system', 'public/uploads', 'public/robots.txt', 'config/database.yml']
+set :shared_paths, ['log', '.private_key', 'tmp/restart.txt', 'public/system', 'public/uploads', 'public/robots.txt', 'config/database.yml', 'config/nginx.conf']
 
 set :user, 'root'
 set :term_mode, :nil
@@ -65,7 +65,10 @@ task :setup => :environment do
 
   queue! %[touch "#{deploy_to}/shared/config/database.yml"]
   queue  %[echo "-----> Be sure to edit '#{deploy_to}/shared/config/database.yml'."]
-  
+ 
+  queue! %[touch "#{deploy_to}/shared/config/nginx.conf"]
+  queue  %[echo "-----> Be sure to edit '#{deploy_to}/shared/config/nginx.conf'."]
+
 end
 
 desc "Deploys the current version to the server."

@@ -42,6 +42,7 @@ public/*.mp4
 .sass-cache
 /config/config.yml
 /config/database.yml
+/config/nginx.conf
 /coverage.data
 /coverage/
 /db/*.javadb/
