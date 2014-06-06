@@ -85,8 +85,15 @@ zh-CN:
         address: "地址"
         contact_person_name: "联系人姓名"
         contact_way: "联系方式"
-      edit:
+      new:
+        new_merchant: "新增商户"
+        back: "后退"
+
+      form:
         form_elements: "表单"
+
+      edit:
+        editing_merchant: "修改商户"
         show: "显示"
         back: "后退"
       show:
