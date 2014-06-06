@@ -3,18 +3,18 @@ require 'ui_datepicker-rails3'
 UiDatePickerRails3.activate :simple_form
 require 'simple_form_extensions'
 SimpleForm.setup do |config|
-  config.wrappers :bootstrap, tag: 'div', class: 'form-group', error_class: 'has-warning' do |b|
+  config.wrappers :bootstrap, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder
     b.use :label
     b.wrapper tag: 'div', class: 'col-sm-8' do |ba|
       ba.use :input
-      ba.use :error, wrap_with: { tag: 'span', class: 'help-inline' }
+      ba.use :error, wrap_with: { tag: 'p', class: 'help-block' }
       ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
     end
   end
 
-  config.wrappers :prepend, tag: 'div', class: "form-group", error_class: 'has-warning' do |b|
+  config.wrappers :prepend, tag: 'div', class: "form-group", error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder
     b.use :label
@@ -22,12 +22,12 @@ SimpleForm.setup do |config|
       input.wrapper tag: 'div', class: 'input-prepend' do |prepend|
         prepend.use :input
       end
+      input.use :error, wrap_with: { tag: 'p', class: 'help-block' }
       input.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
-      input.use :error, wrap_with: { tag: 'span', class: 'help-inline' }
     end
   end
 
-  config.wrappers :append, tag: 'div', class: "form-group", error_class: 'has-warning' do |b|
+  config.wrappers :append, tag: 'div', class: "form-group", error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder
     b.use :label
@@ -35,8 +35,8 @@ SimpleForm.setup do |config|
       input.wrapper tag: 'div', class: 'input-append' do |append|
         append.use :input
       end
+      input.use :error, wrap_with: { tag: 'p', class: 'help-block' }
       input.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
-      input.use :error, wrap_with: { tag: 'span', class: 'help-inline' }
     end
   end
 

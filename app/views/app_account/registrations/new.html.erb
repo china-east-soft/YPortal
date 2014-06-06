@@ -1,12 +1,17 @@
 <div class="container">
 	<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), :role => 'form', html: { class: "form-signin" }) do |f| %>
 
-		<%= devise_error_messages! %>
-
   	<h2 class="form-signin-heading">注册</h2>
   	<div class="login-wrap">
-		  <%= f.input_field :mobile, :autofocus => true, class: "form-control", placeholder: "手机" %>
-		  <div class="form-group">
+  		<div class="form-group <%= 'has-error' if f.object.errors[:mobile].present? %>">
+			  <%= f.input_field :mobile, class: "form-control", placeholder: "手机号" %>
+			  <%  unless f.object.errors[:mobile].blank? %>
+	        <span class="help-block">
+	      		<%= f.object.errors[:mobile].join(",") %>
+	        </span>
+	      <% end %>
+      </div>
+		  <div class="form-group <%= 'has-error' if f.object.errors[:verify_code].present? %>">
 		  	<div class="row">
 		  		<div class="col-sm-7 col-lg-7">
 					  <%= f.input_field :verify_code, class: "form-control", placeholder: "验证码" %>	
@@ -15,12 +20,33 @@
 		  			<button class="btn btn-info" id="send_message">获取验证码</button>
 		  		</div>		  		
 		  	</div>
+			  	<% unless f.object.errors[:verify_code].blank? %>
+		        <span class="help-block">
+		      		<%= f.object.errors[:verify_code].join(",") %>
+		        </span>
+		      <% end %>
 		  </div>
-		  <%= f.password_field :password, class: "form-control", placeholder: "密码", required: true %>
-		  <%= f.password_field :password_confirmation, class: "form-control", placeholder: "确认密码", required: true %>
-
+		  <div class="form-group <%= 'has-error' if f.object.errors[:password].present? %>">
+	  		<%= f.password_field :password, class: "form-control", placeholder: "密码", required: true %>
+		  	<% unless f.object.errors[:password].blank? %>
+	        <span class="help-block">
+	      		<%= f.object.errors[:password].join(",") %>
+	        </span>
+	      <% end %>
+	  	</div>
+	  	<div class="form-group <%= 'has-error' if f.object.errors[:password_confirmation].present? %>">
+	  		<%= f.password_field :password_confirmation, class: "form-control", placeholder: "确认密码", required: true %>
+		  	<% unless f.object.errors[:password_confirmation].blank? %>
+        <span class="help-block">
+      		<%= f.object.errors[:password_confirmation].join(",") %>
+        </span>
+      <% end %>
+	  	</div>
 		  <%= f.submit "确认", class: "btn btn-lg btn-login btn-block" %>
-
+      <div class="registration">
+          已经拥有帐号?
+          <%= link_to "直接登录", app_account_session_path %>
+      </div>
   	</div>
 	<% end %>
 	<%= hidden_field_tag 'controller_name', params[:controller] %>

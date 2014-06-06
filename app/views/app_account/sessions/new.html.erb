@@ -1,9 +1,34 @@
 <div class="container">
   <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :role => 'form', html: { class: "form-signin" }) do |f| %>
   	<h2 class="form-signin-heading">欢迎登陆</h2>
+		<% flash.each do |key, value| %>
+		   <div class="alert alert-block alert-danger fade in">
+		    <button data-dismiss="alert" class="close close-sm" type="button">
+		    	<%= fa_icon "times" %>
+	      </button>
+		    <center><strong><%= value %></strong></center>
+		  </div>
+		<% end %>
   	<div class="login-wrap">
-		  <%= f.input_field :mobile, :autofocus => true, class: "form-control", placeholder: "手机号" %>
-		  <%= f.password_field :password, class: "form-control", placeholder: "密码" %>
+  		<div class="form-group <%= 'has-error' if f.object.errors[:mobile].present? %>">
+			  <%= f.input_field :mobile, :autofocus => true, class: "form-control", placeholder: "手机号" %>
+			  <%  unless f.object.errors[:mobile].blank? %>
+	        <span class="help-block">
+	      		<%= f.object.errors[:mobile].join(",") %>
+	        </span>
+	      <% end %>
+		  </div>
+  		<div class="form-group <%= 'has-error' if f.object.errors[:password].present? %>">
+			  <%= f.password_field :password, class: "form-control", placeholder: "密码" %>
+		  	<% unless f.object.errors[:password].blank? %>
+	        <span class="help-block">
+	      		<%= f.object.errors[:password].join(",") %>
+	        </span>
+	      <% end %>
+		  </div>
+		  <label class="checkbox">
+		    <%= f.check_box :remember_me %> 记住我
+      </label>
 		  <%= f.submit "登录", class: "btn btn-lg btn-login btn-block" %>
   	</div>
 	<% end %>

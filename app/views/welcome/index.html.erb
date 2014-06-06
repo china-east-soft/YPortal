@@ -1,7 +1,12 @@
 <div class="container" >
   <div class="row mbot30">
     <div class="col-lg-5 col-xs-12 col-centered">
-      云链网络 | 智能路由
+  		云链网络 | 智能路由
+      <% if app_account_signed_in? %>
+			  <li>
+			  <%= link_to('Logout', destroy_app_account_session_path, :method => :delete) %>        
+			  </li>
+			<% end %>
     </div>
   </div>
 </div>
