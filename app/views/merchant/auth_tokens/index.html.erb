@@ -24,7 +24,7 @@
                   <tr>
                     <td><%= auth_token.mac %></td>
                     <td><%= auth_token.client_identifier %></td>
-                    <td><%= auth_token.account.mobile %></td>
+                    <td><%= auth_token.account.try(:mobile) %></td>
                     <td><%= humanize_second auth_token.duration %></td>
                     <td><%= DateTime.strptime(auth_token.expired_timestamp.to_s,'%s') %></td>
                     <td><%= link_to '强制下线', disable_merchant_auth_token_path(auth_token), method: :post, data: { confirm: 'Are you sure?' } %></td>
