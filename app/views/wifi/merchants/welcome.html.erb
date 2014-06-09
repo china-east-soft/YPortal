@@ -10,11 +10,11 @@
 
       <div class="row span5 col-centered merchant_info" style="margin-top:10px;">
         <%= image_tag "tu_04_09.png" %>
-        <span>订购热线：0571-85360738</span>
+        <span>订购热线：<%= @merchant_info.shop_phone_one %></span>
       </div>
       <div class="row span5 col-centered merchant_info">
         <%= image_tag "tu_04_13.png" %>
-        <span>地址：湖北省武汉市洪山区华中科技大学</span>
+        <span>地址：<%= @merchant_info.address %></span>
       </div>
       <div id="iCenter">
       </div>
