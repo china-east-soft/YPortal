@@ -24,6 +24,7 @@ class Merchant < ActiveRecord::Base
   validates_presence_of     :password, if: :password_required?
   validates_confirmation_of :password, if: :password_required?
   validates_length_of       :password, within: 8..18, allow_blank: true
+  validates_uniqueness_of :mobile
 
   validates_presence_of :mobile, :verify_code, :mid, on: :create
 
