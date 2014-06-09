@@ -14,6 +14,7 @@ zh-CN:
         password_confirmation: "确认密码"
       merchant:
         email: "邮箱"
+        status: "状态"
         password: "密码"
         password_confirmation: "确认密码"
         mobile: "手机号码"
@@ -77,6 +78,7 @@ zh-CN:
     merchants:
       index:
         email: "邮箱"
+        status: "状态"
         name: "商家全称"
         industry: "所属行业"
         province: "省"
@@ -85,18 +87,27 @@ zh-CN:
         address: "地址"
         contact_person_name: "联系人姓名"
         contact_way: "联系方式"
+
+        init: "新注册"
+        active: "激活"
+        locked: "锁定"
+
       new:
         new_merchant: "新增商户"
         back: "后退"
 
       form:
         form_elements: "表单"
+        init: "新注册"
+        active: "激活"
+        locked: "锁定"
 
       edit:
         editing_merchant: "修改商户"
         show: "显示"
         back: "后退"
       show:
+        status: "状态"
         name: "商家全称"
         industry: "所属行业"
         province: "省"
@@ -107,6 +118,10 @@ zh-CN:
         contact_way: "联系方式"
         edit: "编辑"
         back: "后退"
+
+        init: "新注册"
+        active: "激活"
+        locked: "锁定"
     terminals:
       new:
         new_terminal: "新建终端"

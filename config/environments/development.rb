@@ -38,4 +38,7 @@ Rails.application.configure do
 
   # Add Rack::LiveReload to the bottom of the middleware stack with the default options.
   config.middleware.use Rack::LiveReload
+
+  config.action_mailer.raise_delivery_errors = true
+
 end
