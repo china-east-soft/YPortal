@@ -10,7 +10,7 @@ class WelcomeController < ActionController::Base
       auth_message = AuthMessage.where(mobile: params[:uid], category: 1).first_or_initialize
     elsif params[:account_mobile].present?
       case params[:controller_name]
-      when /app_account/
+      when /account/
         auth_message = AuthMessage.where(mobile: params[:account_mobile], category: 2).first_or_initialize
       when /merchant/
         auth_message = AuthMessage.where(mobile: params[:account_mobile], category: 0).first_or_initialize

@@ -1,4 +1,4 @@
-class AppAccount::SessionsController < Devise::SessionsController
+class Account::SessionsController < Devise::SessionsController
 
   layout 'devise'
 

@@ -1,4 +1,4 @@
-class AppAccount::RegistrationsController < Devise::RegistrationsController
+class Account::RegistrationsController < Devise::RegistrationsController
 
   layout 'devise'
 
