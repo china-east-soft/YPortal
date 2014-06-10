@@ -12,11 +12,10 @@ $( document ).ready(function() {
     var controller_name = ""
     if($("#account_mobile").length > 0){
       uid=$("#account_mobile").val();//用户uid
+      account_mobile = $("#account_mobile").val();
     }
     if($("#merchant_mobile").length > 0){
       account_mobile = $("#merchant_mobile").val();
-    } else if($("#app_account_mobile").length > 0){
-      account_mobile = $("#app_account_mobile").val();
     }
 
     if($("#controller_name").length > 0){

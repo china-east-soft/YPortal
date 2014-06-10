@@ -15,12 +15,12 @@ class Account < ActiveRecord::Base
     false
   end
 
-  attr_accessor :verify_code
+  attr_accessor :verify_code, :signing, :fix_mobile_number
 
   validates_presence_of     :password, if: :password_required?
   validates_confirmation_of :password, if: :password_required?
   validates_length_of       :password, within: 8..18, allow_blank: true
-  validates_uniqueness_of :mobile
+  validates_uniqueness_of :mobile, if: :fix_mobile_number_required?
 
   validates_presence_of :mobile, :verify_code, on: :create
   validate :verify_code_must_be_in_auth_messages, on: :create
@@ -35,7 +35,11 @@ class Account < ActiveRecord::Base
     # Passwords are always required if it's a new record, or if the password
     # or confirmation are being set somewhere.
     def password_required?
-      !persisted? || !password.nil? || !password_confirmation.nil?
+      signing && (!persisted? || !password.nil? || !password_confirmation.nil?)
+    end
+
+    def fix_mobile_number_required?
+      !fix_mobile_number
     end
 
 end

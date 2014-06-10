@@ -16,7 +16,7 @@ class DropAppAccount < ActiveRecord::Migration
     add_column :accounts, :current_sign_in_ip, :string
     add_column :accounts, :last_sign_in_ip, :string
 
-    add_index :accounts, :email,                unique: true
+    add_index :accounts, :mobile,                unique: true
     add_index :accounts, :reset_password_token, unique: true
   end
 end

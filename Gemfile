@@ -76,7 +76,7 @@ gem 'mini_magick'
 gem 'redis'
 
 gem 'thread_safe', '0.2.0'
-gem 'devise'
+gem 'devise', '3.2.4'
 
 gem 'execjs'
 

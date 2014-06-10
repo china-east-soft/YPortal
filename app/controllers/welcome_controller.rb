@@ -7,11 +7,14 @@ class WelcomeController < ActionController::Base
 
   def generate_verify_code
     if params[:uid].present?
-      auth_message = AuthMessage.where(mobile: params[:uid], category: 1).first_or_initialize
-    elsif params[:account_mobile].present?
       case params[:controller_name]
       when /account/
         auth_message = AuthMessage.where(mobile: params[:account_mobile], category: 2).first_or_initialize
+      else
+        auth_message = AuthMessage.where(mobile: params[:uid], category: 1).first_or_initialize
+      end
+    elsif params[:account_mobile].present?
+      case params[:controller_name]
       when /merchant/
         auth_message = AuthMessage.where(mobile: params[:account_mobile], category: 0).first_or_initialize
       end

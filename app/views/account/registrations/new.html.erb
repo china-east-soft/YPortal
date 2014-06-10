@@ -42,6 +42,7 @@
         </span>
       <% end %>
 	  	</div>
+	  	<%= f.input 'signing', :as => :hidden, :input_html => { value: true } %>
 		  <%= f.submit "确认", class: "btn btn-lg btn-login btn-block" %>
       <div class="registration">
           已经拥有帐号?
