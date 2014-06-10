@@ -1,4 +1,4 @@
-class MerchantWorker
+class AgentWorker
   include Sidekiq::Worker
 
   sidekiq_options queue: "high"

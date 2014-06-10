@@ -4,6 +4,10 @@ class Agent < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  after_create do |agent|
+    agent.build_agent_info.save
+  end
+
   has_one :agent_info, dependent: :destroy
   accepts_nested_attributes_for :agent_info
 
