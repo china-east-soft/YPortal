@@ -16,39 +16,41 @@
         <%= image_tag "tu_04_13.png" %>
         <span>地址：<%= @merchant_info.address %></span>
       </div>
-      <div id="iCenter">
-      </div>
-      <script>
-        $(function() {
-            var longitude = "<%= @merchant_info.shop_longitude %>";
-            var latitude = "<%= @merchant_info.shop_latitude %>";
+      <% if @merchant_info.shop_longitude && @merchant_info.shop_latitude %>
+        <div id="iCenter">
+        </div>
+        <script>
+          $(function() {
+              var longitude = "<%= @merchant_info.shop_longitude %>";
+              var latitude = "<%= @merchant_info.shop_latitude %>";
 
-            var mapObj;
-            var marker;
+              var mapObj;
+              var marker;
 
-            //初始化地图对象，加载地图
-            function mapInit(){
-              mapObj = new AMap.Map("iCenter", {
-                    center:new AMap.LngLat(parseFloat(longitude), parseFloat(latitude)), //地图中心点
-                    level: 13,
-                  });
-              mapObj.plugin(["AMap.ToolBar"],function(){
-                toolBar = new AMap.ToolBar();
-                toolBar.hideDirection();
-
-                mapObj.addControl(toolBar);
-              });
-            }
-            function Init_Marker(){
-                marker = new AMap.Marker({
-                    position: mapObj.getCenter(),
+              //初始化地图对象，加载地图
+              function mapInit(){
+                mapObj = new AMap.Map("iCenter", {
+                      center:new AMap.LngLat(parseFloat(longitude), parseFloat(latitude)), //地图中心点
+                      level: 13,
                     });
-                marker.setMap(mapObj);  //在地图上添加点
-            }
-            mapInit();
-            Init_Marker();
-        });
-      </script>
+                mapObj.plugin(["AMap.ToolBar"],function(){
+                  toolBar = new AMap.ToolBar();
+                  toolBar.hideDirection();
+
+                  mapObj.addControl(toolBar);
+                });
+              }
+              function Init_Marker(){
+                  marker = new AMap.Marker({
+                      position: mapObj.getCenter(),
+                      });
+                  marker.setMap(mapObj);  //在地图上添加点
+              }
+              mapInit();
+              Init_Marker();
+          });
+        </script>
+      <% end %>
     </div>
   </div>
 </div>
