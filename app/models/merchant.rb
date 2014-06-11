@@ -13,6 +13,8 @@ class Merchant < ActiveRecord::Base
     false
   end
 
+  has_many :auth_tokens, dependent: :destroy
+
   has_one :merchant_info, dependent: :destroy
   accepts_nested_attributes_for :merchant_info
 

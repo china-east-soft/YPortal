@@ -19,7 +19,6 @@ function countUp(count)
     }, int_speed);
 }
 
-countUp(495);
 
 function countUp2(count)
 {
