@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta property="qc:admins" content="2354672216517646" />
-  <meta property="qc:admins" content="24313122505430116636" />
-  <meta property="wb:webmaster" content="5dc39ed0d5203ca6" />
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="Mosaddek">
-  <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
   
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.ico' %>
-  <title>YPortal</title>
+  <title><%= current_merchant.merchant_info.try(:name) || "云链智能路由" %></title>
   <%= stylesheet_link_tag    'wifi', media: 'all' %>
   <%= javascript_include_tag 'wifi' %>
 
