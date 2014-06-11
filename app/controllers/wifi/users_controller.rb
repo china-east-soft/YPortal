@@ -27,38 +27,17 @@ class Wifi::UsersController < WifiController
 
           case auth_token.status
           when "init"
-            if auth_token.update(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active], account_id: account.id)
-
-              if address = NatAddress.address(auth_token.mac.downcase)
-                remote_ip, port, time = address.split("#")
-
-                recv_data = send_to_terminal remote_ip, port, auth_token, 1
-
-                if recv_data.present?
-                  gflash :success => "已经认证成功可以直接上网!"
-                  redirect_to wifi_welcome_url(vtoken: auth_token.auth_token)
-                else
-                  message = "can not recv data..."
-                  Communicate.logger.add Logger::FATAL, message
-                  auth_token.update(status: 0)
-                  gflash :error => message
-                  render action: :login
-                end
-
-              else
-                message = "no nat address..."
-                Communicate.logger.add Logger::FATAL, message
-                gflash :error => message
-                render action: :login
-              end
-
+            if auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active], account_id: account.id)
+              gflash :success => "已经认证成功可以直接上网!"
+              redirect_to login_success_wifi_users_url(vtoken: auth_token.auth_token)
             else
-              gflash :error => auth_token.errors
+              message = "认证失败!"
+              gflash :error => message
               render action: :login
             end
           when "active"
             gflash :success => "已经认证成功可以直接上网!"
-            redirect_to wifi_welcome_url(vtoken: auth_token.auth_token)
+            redirect_to login_success_wifi_users_url(vtoken: auth_token.auth_token)
           when "expired"
             gflash :error => "认证已经过期，请重新认证!"
             redirect_to wifi_merchant_url(client_identifier: auth_token.client_identifier, mac: auth_token.mac)
@@ -123,30 +102,12 @@ class Wifi::UsersController < WifiController
     terminal = @auth_token.terminal
     duration = @auth_token.duration || 14400
 
-    if @auth_token.update(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
-      if address = NatAddress.address(@auth_token.mac.downcase)
-        remote_ip, port, time = address.split("#")
-
-        recv_data = send_to_terminal remote_ip, port, @auth_token, 1
-
-        if recv_data.present?
-          gflash :success => "已经认证成功可以直接上网!"
-          redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
-        else
-          message = "can not recv data..."
-          Communicate.logger.add Logger::FATAL, message
-          @auth_token.update(status: 0)
-          gflash :error => message
-          render action: :login
-        end
-      else
-        message = "no nat address..."
-        Communicate.logger.add Logger::FATAL, message
-        gflash :error => message
-        render action: :login
-      end
+    if @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
+      gflash :success => "已经认证成功可以直接上网!"
+      redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
     else
-      gflash :error => @auth_token.errors
+      message = "认证失败!"
+      gflash :error => message
       render action: :login
     end
   end

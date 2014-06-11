@@ -1,0 +1,24 @@
+<%
+  @portal_style = terminal_merchant.portal_style
+  @banners = @portal_style.banners
+  params[:vtoken] = @auth_token.auth_token if params[:vtoken].blank?
+%>
+
+<div class="container">
+  <div class="row mbot30">
+    <div class="col-lg-5 col-xs-12 col-centered">
+    <%= render partial: "partial/adv", locals: { title: "签到界面" } %>
+    <div class="row span5 col-centered broadcast">
+      <%= image_tag 'tu_03_03.png' %> <span>热门活动</span>
+    </div>
+
+    <%= form_tag account_sign_on_path, method: 'post' do %>
+      <%= hidden_field_tag :vtoken, @auth_token.auth_token %>
+      <%= hidden_field_tag :mac, params[:mac] %>
+      <%= hidden_field_tag :client_identifier, params[:client_identifier] %>
+      <%= submit_tag '签到', class: "btn btn-lg btn-primary col-sm-12 col-xs-12 col-lg-12 col-md-12"%>
+    <% end %>
+    </div>
+
+
+</div>

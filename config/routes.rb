@@ -27,7 +27,11 @@ Rails.application.routes.draw do
     get 'merchant' => "merchants#home"
     get 'login' => "users#login"
     get 'welcome' => "merchants#welcome"
-    resources :merchants, only: [:show]
+    resources :merchants, only: [:show] do
+      collection do
+        get :error
+      end
+    end
     resources :users do
       collection do
         post :sign_in
@@ -58,6 +62,11 @@ Rails.application.routes.draw do
   end
 
   namespace :agent do
+  end
+
+  namespace :account do
+    get 'signing' => "accounts#signing"
+    post 'sign_on' => "accounts#sign_on"
   end
 
   namespace :merchant do
