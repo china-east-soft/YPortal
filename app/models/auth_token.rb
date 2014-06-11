@@ -21,7 +21,7 @@ class AuthToken < ActiveRecord::Base
 
     if address = NatAddress.address(self.mac.downcase)
       remote_ip, port, time = address.split("#")
-      recv_data = send_to_terminal remote_ip, port, self.auth_token, 1
+      recv_data = send_to_terminal remote_ip, port, self, 1
       
       if recv_data.present?
         self.update(status: status)
