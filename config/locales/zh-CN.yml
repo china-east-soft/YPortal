@@ -12,6 +12,15 @@ zh-CN:
         email: "邮箱"
         password: "密码"
         password_confirmation: "确认密码"
+      agent_info:
+        category: "分类"
+        name: "名称"
+        industry: "行业"
+        city: "市"
+        contact: "联系人"
+        telephone: "手机号码"
+        known_from: "获取渠道"
+        remark: "备注"
       merchant:
         email: "邮箱"
         status: "状态"
@@ -56,6 +65,9 @@ zh-CN:
     agents:
       form:
         form_elements: "表单"
+        init: "新注册"
+        active: "激活"
+        locked: "锁定"
       new:
         back: "后退"
       show:
@@ -71,6 +83,15 @@ zh-CN:
         status: "状态"
         edit: "编辑"
         back: "后退"
+
+        init: "新注册"
+        active: "激活"
+        locked: "锁定"
+      index:
+        init: "新注册"
+        active: "激活"
+        locked: "锁定"
+
       edit:
         editing_agent: "修改代理商信息"
         show: "显示"
@@ -88,19 +109,12 @@ zh-CN:
         contact_person_name: "联系人姓名"
         contact_way: "联系方式"
 
-        init: "新注册"
-        active: "激活"
-        locked: "锁定"
-
       new:
         new_merchant: "新增商户"
         back: "后退"
 
       form:
         form_elements: "表单"
-        init: "新注册"
-        active: "激活"
-        locked: "锁定"
 
       edit:
         editing_merchant: "修改商户"
@@ -119,9 +133,6 @@ zh-CN:
         edit: "编辑"
         back: "后退"
 
-        init: "新注册"
-        active: "激活"
-        locked: "锁定"
     terminals:
       new:
         new_terminal: "新建终端"

@@ -15,17 +15,17 @@
         <div class="success-Icon">
         </div>
         <div class="success-font">
-          <h3 class="text-center">欢迎使用我们为您提供的免费WiFi</h4>
-          <p class="text-center">
-          你已成功登录，获得4小时的免费上网时长。
+          <p >已成功连接免费WiFi</p>
+          <p >
+            本次获得4小时的免费上网时长。
           </p>
-          <p class="text-center">
-          有5人与您同时在线。
+          <p >
+            当前有5人与您同时在线。
           </p>
         </div>
       </div>
 
-      <div class="row span5 col-centered">
+      <div class="row span5 col-centered" id="show_products">
         <div class="col-lg-12 col-sm-12 col-xs-12">
           <div class="quote-info p-header">
             <a href=<%= "#{wifi_products_path}?mid=#{params[:mid]}&&vtoken=#{params[:vtoken]}" %>>
@@ -36,7 +36,7 @@
           <div class="products_hot">
             <ul class="product_list">
               <% @products.each do |product| %>
-                <li style="margin-top: 0;margin-bottom: 0;">
+                <li style="margin-top: 0; margin-bottom: 0; padding-left: 0;">
                   <figure class="product">
                     <figcaption>
                     <div>
@@ -63,7 +63,7 @@
         </div>
       </div>
 
-      <div class="row span5 col-centered">
+      <div class="row span5 col-centered" id="show_activities">
         <div class="col-lg-12 col-sm-12 col-xs-12">
           <div class="quote-info p-header">
             <a href=<%= "#{wifi_activities_path}?mid=#{params[:mid]}&&vtoken=#{params[:vtoken]}" %>>
@@ -99,7 +99,7 @@
         </div>
       </div>
 
-      <%= link_to "搜周边", wifi_surroundings_path(mid: params[:mid], vtoken: params[:vtoken]), class: "btn btn-lg btn-primary col-sm-12 col-xs-12 col-md-12" %>
+      <%= link_to "搜周边", wifi_surroundings_path(mid: params[:mid], vtoken: params[:vtoken]), class: "btn btn-lg btn-primary col-sm-12 col-xs-12 col-md-12", id: "surrounding" %>
 
     </div>
 

@@ -47,8 +47,9 @@
 
 <p>
   <strong><%= t(".status") %>:</strong>
-  <%= @agent.agent_info.try(:status) %>
+  <%= t(".#{@agent.agent_info.try(:status)}") %>
 </p>
+
 
 <%= link_to t(".edit"), edit_admin_agent_path(@agent) %> |
 <%= link_to t(".back"), admin_agents_path %>

@@ -5,7 +5,7 @@
         <%= t(".form_elements") %>
       </header>
       <div class="panel-body">
-        <%= simple_form_for [:admin, @agent], :defaults => { :input_html => { :class => "form-control" } }, html: { multipart: true, class: 'form-horizontal tasi-form' } do |f| %> 
+        <%= simple_form_for [:admin, @agent], :defaults => { :input_html => { :class => "form-control" } }, html: { multipart: true, class: 'form-horizontal tasi-form' } do |f| %>
 
           <%= f.input :email %>
           <%= f.input :password %>
@@ -19,7 +19,7 @@
             <%= tf.input :telephone %>
             <%= tf.input :known_from %>
             <%= tf.input :remark %>
-            <%= tf.input :status %>
+            <%= tf.input :status, collection: [[t(".init"), 'init'], [t(".active"), 'active'], [t(".locked"), 'locked']], selected: t(".#{@agent.agent_info.try(:status)}") %>
           <% end %>
           <div class="form-actions">
             <%= f.button :submit %>
