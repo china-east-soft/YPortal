@@ -18,22 +18,24 @@ class AuthToken < ActiveRecord::Base
   end
 
   def update_and_send_to_terminal(expired_timestamp: expired_timestamp,duration: duration, status: status, account_id: account_id)
-
-    if address = NatAddress.address(self.mac.downcase)
-      remote_ip, port, time = address.split("#")
-      recv_data = send_to_terminal remote_ip, port, self, 1
-      
-      if recv_data.present?
-        self.update(status: status)
+    account_id = account_id || self.account_id
+    if auth_token.update(expired_timestamp: expired_timestamp, duration: duration, status: status, account_id: account_id)
+      if address = NatAddress.address(self.mac.downcase)
+        remote_ip, port, time = address.split("#")
+        recv_data = send_to_terminal remote_ip, port, self, 1
+        
+        if recv_data.present?
+          self.update(status: status)
+        else
+          message = "can not recv data..."
+          Communicate.logger.add Logger::FATAL, message
+          false
+        end
       else
-        message = "can not recv data..."
+        message = "no nat address..."
         Communicate.logger.add Logger::FATAL, message
         false
       end
-    else
-      message = "no nat address..."
-      Communicate.logger.add Logger::FATAL, message
-      false
     end
 
   end
