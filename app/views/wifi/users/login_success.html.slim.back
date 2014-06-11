@@ -2,8 +2,8 @@
   .row.mbot30
     .col-sm-12.col-centered.col-lg-5
       .row.col-centered.shop_title
-        h5.text-center
-          strong  店铺名称
+        h4.text-center
+          strong  = terminal_merchant.portal_style.try(:name)
       .row.col-sm-5.succ_info
         h4.text-center 欢迎使用我们为您提供的免费WiFi
         p.text-center
