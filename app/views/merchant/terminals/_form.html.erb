@@ -7,7 +7,7 @@
       <div class="panel-body">
         <%= simple_form_for [:merchant, @terminal], :defaults => { :input_html => { :class => "form-control" } }, html: { multipart: true, class: 'form-horizontal tasi-form' } do |f| %>
 
-          <%= f.input :mid %>
+          <%= f.input :mid, input_html: {value: f.object.mid || params[:mid]}  %>
 
           <div class="form-actions">
             <%= f.button :submit %>

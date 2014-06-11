@@ -107,3 +107,10 @@ figure.product {
 figure.product:hover .product_mask {
   opacity: 1;
 }
+#products_all {
+  padding-left: 10px;
+  li {
+      padding-left: 0;
+      margin-left: 0;
+  }
+}
