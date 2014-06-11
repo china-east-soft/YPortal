@@ -12,7 +12,7 @@ class Terminal < ActiveRecord::Base
   belongs_to :agent
   has_many :auth_tokens, dependent: :destroy
 
-  before_create :set_mid
+  before_create :set_mid, :set_duration
 
   validates :mac, format: { with: /\A([a-f0-9]{2}:){5}[a-f0-9]{2}\z/ }, uniqueness: true
 
@@ -25,7 +25,7 @@ class Terminal < ActiveRecord::Base
     end
   end
 
-  def before_create
+  def set_duration
     self.duration = 60 * 60 * 4
     self.status = Terminal.statuses[:init]
   end
