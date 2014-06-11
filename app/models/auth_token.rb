@@ -19,7 +19,7 @@ class AuthToken < ActiveRecord::Base
 
   def update_and_send_to_terminal(expired_timestamp: expired_timestamp,duration: duration, status: status, account_id: account_id)
     account_id = account_id || self.account_id
-    if auth_token.update(expired_timestamp: expired_timestamp, duration: duration, status: status, account_id: account_id)
+    if self.update(expired_timestamp: expired_timestamp, duration: duration, status: status, account_id: account_id)
       if address = NatAddress.address(self.mac.downcase)
         remote_ip, port, time = address.split("#")
         recv_data = send_to_terminal remote_ip, port, self, 1
