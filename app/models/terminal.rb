@@ -41,20 +41,20 @@ class Terminal < ActiveRecord::Base
 
     if duration_changed && self.active? && self.merchant_id.present?
     
-      actived_auth_tokens = self.auth_tokens.actived(self.merchant_id).where(mac: self.mac)
+      #actived_auth_tokens = self.auth_tokens.actived(self.merchant_id).where(mac: self.mac)
       
-      auth_token_sample = nil
+      auth_token_sample = self.auth_tokens.last
 
-      actived_auth_tokens.each do |auth_token|
-        start_at = auth_token.expired_timestamp - auth_token.duration
-        auth_token_status = (start_at + self.duration) > Time.now.to_i ? AuthToken.statuses[:active] : AuthToken.statuses[:init]
-        auth_token.update(duration: self.duration, expired_timestamp: start_at + self.duration, status: auth_token_status)
-        auth_token_sample = auth_token if auth_token_sample.nil? && auth_token.active?
-      end
+      # actived_auth_tokens.each do |auth_token|
+      #   start_at = auth_token.expired_timestamp - auth_token.duration
+      #   auth_token_status = (start_at + self.duration) > Time.now.to_i ? AuthToken.statuses[:active] : AuthToken.statuses[:init]
+      #   auth_token.update(duration: self.duration, expired_timestamp: start_at + self.duration, status: auth_token_status)
+      #   auth_token_sample = auth_token if auth_token_sample.nil? && auth_token.active?
+      # end
 
       #CommunicateWorker.perform_async(auth_token_sample.id) if auth_token_sample
       if auth_token_sample
-        address = NatAddress.address(auth_token_sample.mac.downcase)
+        address = NatAddress.address(self.mac.downcase)
         remote_ip, port, time = address.split("#")
         recv_data = send_to_terminal remote_ip, port, auth_token_sample, 7, duration: self.duration
       end
@@ -117,7 +117,7 @@ class Terminal < ActiveRecord::Base
       result = Base64.urlsafe_encode64(HMAC::SHA1.digest(private_key, sort_mac)).strip
       sample_arr = ('a'..'z').to_a + ('A'..'Z').to_a - %w{ 0 1 l I o O}
       result = result.first(8)
-      %w{ 0 1 l I o O}.each do |k|
+      %w{ 0 1 l I o O }.each do |k|
         result.gsub!(k,sample_arr.sample)
       end
       #result.first(8).gsub(/[01IoO]/,sample_arr.sample)
