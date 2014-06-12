@@ -11,7 +11,7 @@ module API::V1
       get :mid do
         terminal = Terminal.where(mac: params[:mac]).first
         if terminal
-          present terminal.mid
+          present [terminal.mid, Terminal.statuses[terminal.status]]
         else
           present error: 1
         end
