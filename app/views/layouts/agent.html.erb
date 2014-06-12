@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+    <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+
+    <title>云链智能路由代理商管理系统</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'admin', media: 'all' %>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+      <%= javascript_include_tag 'html5shiv.js' %>
+      <%= javascript_include_tag 'respond.min.js' %>
+    <![endif]-->
+  </head>
+
+  <body>
+
+  <section id="container" >
+      <!--header start-->
+      <header class="header white-bg">
+            <div class="sidebar-toggle-box">
+                <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder fa fa-bars tooltips"></div>
+            </div>
+            <!--logo start-->
+            <%= link_to image_tag("logo.png",style: "height:25px"), agent_root_path, class: "logo" %>
+            <!--logo end-->
+            <div class="top-nav ">
+                <!--search & user info start-->
+                <ul class="nav pull-right top-menu">
+                    <li>
+                        <input type="text" class="form-control search" placeholder="Search">
+                    </li>
+                    <!-- user login dropdown start-->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <%= image_tag "avatar1_small.jpg" %>
+                            <span class="username"><%= current_agent.agent_info.name %></span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu extended logout">
+                            <li><%= link_to "#{fa_icon'key'} Log Out".html_safe, destroy_admin_session_path, :method => :delete %>
+                            </a></li>
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->
+                </ul>
+                <!--search & user info end-->
+            </div>
+        </header>
+      <!--header end-->
+      <!--sidebar start-->
+      <aside>
+          <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <%= tabs_tag :builder => MenuTabBuilder, :open_tabs => { :id => "nav-accordion", :class => "sidebar-menu" } do |tab| %>
+                <%= tab.dashboard  fa_icon("dashboard")+content_tag(:span, '首页'), agent_root_path %>
+              <% end %>
+              <!-- sidebar menu end-->
+          </div>
+      </aside>
+      <!--sidebar end-->
+      <!--main content start-->
+      <section id="main-content">
+        <section class="wrapper site-min-height">
+          <%= gflash %>
+          <%= yield :main_content %>
+        </section>
+      </section>
+      <!--main content end-->
+      <!--footer start-->
+      <footer class="site-footer">
+          <div class="text-center">
+              浙ICP备11055684号-2 &copy; 2013 云链网络 版权所有
+              <a href="#" class="go-top">
+                  <%= fa_icon "angle-up" %>
+              </a>
+          </div>
+      </footer>
+      <!--footer end-->
+  </section>
+
+  <%= javascript_include_tag 'admin' %>
+  <%= yield :script %>
+
+  <script>
+
+      <%= extend_gritter :time => 2000 %>
+      //owl carousel
+
+      $(document).ready(function() {
+          $("#owl-demo").owlCarousel({
+              navigation : true,
+              slideSpeed : 300,
+              paginationSpeed : 400,
+              singleItem : true,
+              autoPlay:true
+
+          });
+      });
+
+      //custom select box
+
+      $(function(){
+          $('select.styled').customSelect();
+      });
+
+  </script>
+
+  </body>
+</html>
