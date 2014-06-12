@@ -8,3 +8,4 @@
 //= require mform.js
 //= require gritter
 //= require send_message.js
+//= require time_count_down.js

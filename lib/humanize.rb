@@ -1,7 +1,7 @@
 module Humanize
 
   def humanize_second secs
-    [[60, :seconds], [60, :minutes], [24, :hours], [1000, :days]].map{ |count, name|
+    [[60, '秒'], [60, '分'], [24, '小时'], [1000, '天']].map{ |count, name|
       if secs > 0
         secs, n = secs.divmod(count)
         "#{n.to_i} #{name}"

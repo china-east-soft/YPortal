@@ -17,7 +17,7 @@
         <div class="success-font">
           <p >已成功连接免费WiFi</p>
           <p >
-            本次获得4小时的免费上网时长。
+            本次获得 <span id='countdown' class="time_counter"><%= humanize_second(@auth_token.try(:duration) || 14400) %></span> 的免费上网时长。
           </p>
           <p >
             当前有5人与您同时在线。
@@ -105,3 +105,7 @@
 
   </div>
 </div>
+
+<%= javascript_tag do %>
+  timeCountDown('countdown',<%= @auth_token.try(:duration) || 14400 %>)
+<% end %>
