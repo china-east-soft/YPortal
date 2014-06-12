@@ -100,7 +100,7 @@ class Wifi::UsersController < WifiController
 
   def process_init_update_token_and_communicate_with_terminal
     terminal = @auth_token.terminal
-    duration = @auth_token.duration || 14400
+    duration = @terminal.duration || 14400
 
     if @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
       gflash :success => "已经认证成功可以直接上网!"
