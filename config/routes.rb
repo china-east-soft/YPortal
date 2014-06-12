@@ -60,6 +60,7 @@ Rails.application.routes.draw do
     end
     resources :products
     resources :categories
+    resource :auth_message, only: [:show, :update]
   end
 
   namespace :agent do

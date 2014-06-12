@@ -1,15 +1,24 @@
-<h2>Sign in</h2>
-
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email, required: false, autofocus: true %>
-    <%= f.input :password, required: false %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Sign in" %>
-  </div>
-<% end %>
-
-<%= render "agents/shared/links" %>
+<div class="container">
+  <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :role => 'form', html: { class: "form-signin" }) do |f| %>
+  	<h2 class="form-signin-heading">欢迎登陆代理商后台</h2>
+		<% flash.each do |key, value| %>
+		   <div class="alert alert-block alert-danger fade in">
+		    <button data-dismiss="alert" class="close close-sm" type="button">
+		    	<%= fa_icon "times" %>
+	      </button>
+		    <center><strong><%= value %></strong></center>
+		  </div>
+		<% end %>
+  	<div class="login-wrap">
+		  <%= f.input_field :email, :autofocus => true, class: "form-control", placeholder: "邮箱" %>
+		  <%= f.password_field :password, class: "form-control", placeholder: "密码" %>
+		  <label class="checkbox">
+		    <%= f.check_box :remember_me %> 记住我
+      </label>
+		  <%= f.submit "登录", class: "btn btn-lg btn-login btn-block" %>
+      <div class="registration">
+          <%= render "agent/shared/links" %>
+      </div>
+  	</div>
+	<% end %>
+</div>

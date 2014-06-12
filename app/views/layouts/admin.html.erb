@@ -281,6 +281,7 @@
                 <%= tab.merchants   '商家', admin_merchants_path %>
                 <%= tab.terminals   '终端', admin_terminals_path %>
                 <%= tab.categories   '类别', admin_categories_path %>
+                <%= tab.auth_message '验证消息', admin_auth_message_path%>
               <% end %>
               <!-- sidebar menu end-->
           </div>
@@ -305,10 +306,10 @@
       </footer>
       <!--footer end-->
   </section>
-    
+
   <%= javascript_include_tag 'admin' %>
   <%= yield :script %>
-  
+
   <script>
       <%= extend_gritter :time => 2000 %>
       //owl carousel
