@@ -1,17 +1,24 @@
-.col-sm-6.col-sm-offset-3#products_all
-  ul.product_list.hot
-    - @hot_products.each do |product|
-      li
-        figure.product
-          .product_thumb
-            = image_tag product.product_photo.url
-            .product_mask
-              = link_to '', wifi_product_path(product), target: "_blank", class: 'product_mask_backdrop'
-            .hot_mask
-              = image_tag "hot.png"
-          figcaption
-            h5 data-placement="top" title="true" data-toggle="tooltip" data-original-title="#{product.name}"
-              = link_to product.name, wifi_product_path(product), target: "_blank"
-            em
-              span.price = "$#{product.price}"
-    = render @products
+.container
+  .row.mbot30
+    .col-lg-5.col-xs-12.col-centered
+      .row.span5.col-centered.shop_title
+        = link_to fa_icon(["angle-left", "2x"]), wifi_merchant_path(mid: params[:mid], vtoken: params[:vtoken])
+        h5.text-center
+          strong 商品展示
+      .col-sm-12#products_all
+        ul.product_list.hot
+          - @hot_products.each do |product|
+            li
+              figure.product
+                .product_thumb
+                  = image_tag product.product_photo.url
+                  .product_mask
+                    = link_to '', wifi_product_path(product), target: "_blank", class: 'product_mask_backdrop'
+                  .hot_mask
+                    = image_tag "hot.png"
+                figcaption
+                  h5 data-placement="top" title="true" data-toggle="tooltip" data-original-title="#{product.name}"
+                    = link_to product.name, wifi_product_path(product), target: "_blank"
+                  em
+                    span.price = "$#{product.price}"
+          = render @products

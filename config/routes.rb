@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'merchant' => "merchant/dashboard#home", as: :merchant_root
   get 'wifi' => "welcome#index", as: :wifi_root
   get "/welcome/generate_verify_code" => "welcome#generate_verify_code"
+  get "/merchant/link_from_terminal" => "merchant#link_from_terminal"
 
   namespace :wifi do
     get 'merchant' => "merchants#home"
