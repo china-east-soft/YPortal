@@ -32,5 +32,8 @@ if @environment == 'production'
   end
 end
 
+every 7.days, :at => '03:00 am' do
+  rake "log:clear"
+end
 
 # Learn more: http://github.com/javan/whenever
