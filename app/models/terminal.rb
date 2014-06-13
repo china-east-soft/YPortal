@@ -95,16 +95,13 @@ class Terminal < ActiveRecord::Base
 
       if duration_changed && self.active? && self.merchant_id.present?
       
-        #actived_auth_tokens = self.auth_tokens.actived(self.merchant_id).where(mac: self.mac)
+        actived_auth_tokens = self.auth_tokens.actived(self.merchant_id).where(mac: self.mac)
         
         auth_token_sample = self.auth_tokens.last
 
-        # actived_auth_tokens.each do |auth_token|
-        #   start_at = auth_token.expired_timestamp - auth_token.duration
-        #   auth_token_status = (start_at + self.duration) > Time.now.to_i ? AuthToken.statuses[:active] : AuthToken.statuses[:init]
-        #   auth_token.update(duration: self.duration, expired_timestamp: start_at + self.duration, status: auth_token_status)
-        #   auth_token_sample = auth_token if auth_token_sample.nil? && auth_token.active?
-        # end
+        actived_auth_tokens.each do |auth_token|
+          auth_token.update_terminal_duration(self.duration)
+        end
 
         #CommunicateWorker.perform_async(auth_token_sample.id) if auth_token_sample
         if auth_token_sample
