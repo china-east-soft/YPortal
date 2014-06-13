@@ -28,7 +28,7 @@ class AuthToken < ActiveRecord::Base
   def update_terminal_duration(terminal_duration)
     start_at = self.expired_timestamp - self.duration
     auth_token_status = (start_at + terminal_duration) > Time.now.to_i ? AuthToken.statuses[:active] : AuthToken.statuses[:init]
-    self.update(duration: self.duration, expired_timestamp: start_at + terminal_duration, status: auth_token_status)
+    self.update(duration: terminal_duration, expired_timestamp: start_at + terminal_duration, status: auth_token_status)
   end
 
   def update_and_send_to_terminal(expired_timestamp: expired_timestamp,duration: duration, status: status, account_id: account_id)
