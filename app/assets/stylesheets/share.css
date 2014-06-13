@@ -6,7 +6,3 @@
   float: none;
   margin: 0 auto;
 }
-
-@media(max-width:767px){
-  .form-signin { margin: 60px auto 0; }
-}
