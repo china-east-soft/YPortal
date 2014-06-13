@@ -32,34 +32,14 @@ class Terminal < ActiveRecord::Base
 
   around_update :notify_terminal_if_duration_is_changed
 
-  private
+  attr_accessor :beaut_duration
 
-  def notify_terminal_if_duration_is_changed
-    duration_changed = self.duration_changed?
+  def beaut_duration
+    self.duration/(60)
+  end
 
-    yield
-
-    if duration_changed && self.active? && self.merchant_id.present?
-    
-      #actived_auth_tokens = self.auth_tokens.actived(self.merchant_id).where(mac: self.mac)
-      
-      auth_token_sample = self.auth_tokens.last
-
-      # actived_auth_tokens.each do |auth_token|
-      #   start_at = auth_token.expired_timestamp - auth_token.duration
-      #   auth_token_status = (start_at + self.duration) > Time.now.to_i ? AuthToken.statuses[:active] : AuthToken.statuses[:init]
-      #   auth_token.update(duration: self.duration, expired_timestamp: start_at + self.duration, status: auth_token_status)
-      #   auth_token_sample = auth_token if auth_token_sample.nil? && auth_token.active?
-      # end
-
-      #CommunicateWorker.perform_async(auth_token_sample.id) if auth_token_sample
-      if auth_token_sample
-        address = NatAddress.address(self.mac.downcase)
-        remote_ip, port, time = address.split("#")
-        recv_data = send_to_terminal remote_ip, port, auth_token_sample, 7, duration: self.duration
-      end
-    end
-
+  def beaut_duration=(bdu)
+    self.duration = bdu.to_i*(60)
   end
 
   before_validation do
@@ -107,6 +87,34 @@ class Terminal < ActiveRecord::Base
   end
 
   private
+
+    def notify_terminal_if_duration_is_changed
+      duration_changed = self.duration_changed?
+
+      yield
+
+      if duration_changed && self.active? && self.merchant_id.present?
+      
+        #actived_auth_tokens = self.auth_tokens.actived(self.merchant_id).where(mac: self.mac)
+        
+        auth_token_sample = self.auth_tokens.last
+
+        # actived_auth_tokens.each do |auth_token|
+        #   start_at = auth_token.expired_timestamp - auth_token.duration
+        #   auth_token_status = (start_at + self.duration) > Time.now.to_i ? AuthToken.statuses[:active] : AuthToken.statuses[:init]
+        #   auth_token.update(duration: self.duration, expired_timestamp: start_at + self.duration, status: auth_token_status)
+        #   auth_token_sample = auth_token if auth_token_sample.nil? && auth_token.active?
+        # end
+
+        #CommunicateWorker.perform_async(auth_token_sample.id) if auth_token_sample
+        if auth_token_sample
+          address = NatAddress.address(self.mac.downcase)
+          remote_ip, port, time = address.split("#")
+          recv_data = send_to_terminal remote_ip, port, auth_token_sample, 7, duration: self.duration
+        end
+      end
+
+    end
 
     def generate_mid mac, timestamp
       reverse_mac = mac.delete(':').reverse

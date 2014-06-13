@@ -49,7 +49,7 @@ class Merchant::TerminalsController < MerchantController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def terminal_params
-      params.require(:terminal).permit(:mid, :duration)
+      params.require(:terminal).permit(:mid, :duration, :beaut_duration)
     end
 
 end
