@@ -12,6 +12,7 @@
 
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'devise', media: 'all' %>
+    <%= javascript_include_tag 'devise' %>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
@@ -21,12 +22,7 @@
 </head>
 
   <body class="login-body">
-
     <%= yield %>
-
-    <!-- js placed at the end of the document so the pages load faster -->
-    <%= javascript_include_tag 'devise' %>
-
-
+    <%= gflash %>
   </body>
 </html>

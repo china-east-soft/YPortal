@@ -3,6 +3,7 @@ class Merchant::MerchantInfosController < MerchantController
   before_action :set_merchant, :set_locale
 
   def show
+    set_tab :merchant_info
   end
 
   def change_info
@@ -24,6 +25,7 @@ class Merchant::MerchantInfosController < MerchantController
   end
 
   def shop_info
+    set_tab :shop_info
   end
 
   def update_shop_info

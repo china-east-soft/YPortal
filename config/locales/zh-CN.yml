@@ -61,10 +61,10 @@ zh-CN:
         merchant_infos:
           attributes:
 
-  admin:
-    agents:
-      form:
-        form_elements: "表单"
+            admin:
+              agents:
+                form:
+                  form_elements: "表单"
         init: "新注册"
         active: "激活"
         locked: "锁定"
@@ -166,9 +166,25 @@ zh-CN:
         show: "显示"
         back: "返回"
 
-
-
-
+  agent:
+    registrations:
+      new:
+        agent_register: "代理商申请"
+        register_hint: "在向我们提交代理申请前先请您了解云链的代理相关政策。然后请填写基本信息并提交，我们的客服人员会在1个工作日内通过电话或邮件形式与您取得联系！"
+        email: "您的电子邮箱"
+        category: "您是个人还是公司？"
+        name: "公司名或个人名"
+        industry: "您所的到行业"
+        city: "您想代理到城市"
+        contact: "联系人"
+        telephone: "联系电话"
+        known_from: "您是如何知道云链的"
+        remark: "备注"
+    shared:
+      links:
+        sign_in: "登录"
+        sign_up: "注册"
+        forgot_your_password?: "忘记密码?"
 
   merchant:
     merchant_infos:

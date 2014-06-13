@@ -4,8 +4,9 @@ class Agent < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  after_create do |agent|
-    agent.build_agent_info.save
+  attr_accessor :not_required_password
+  def password_required?
+    super unless self.not_required_password
   end
 
   has_one :agent_info, dependent: :destroy

@@ -1,17 +1,30 @@
-<h2>Sign up</h2>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <section class="panel">
+      <div class="panel-body">
+        <p style="font-size: 1.2em;"> <%= t(".register_hint") %>
+          <% if resource.errors.any? %>
+            <%= resource.errors.full_messages %>
+          <% end %>
+          </p>
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), :role => 'form', html: { multipart: true, class: 'form-horizontal tasi-form' } ) do |f| %>
+          <%= f.input :email, label: t(".email") %>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
-    <%= f.input :password, required: true %>
-    <%= f.input :password_confirmation, required: true %>
+          <%= f.simple_fields_for :agent_info do |tf| %>
+            <%= tf.input :name, label: t(".name"), required: true %>
+            <%= tf.input :category, as: :select, collection: [["个人", "个人"], ["公司", "公司"]], selected: "公司", label: t(".category"), required: true %>
+            <%= tf.input :industry, label: t(".industry"), required: true %>
+            <%= tf.input :city, label: t(".city"), required: true%>
+            <%= tf.input :contact, label: t(".contact"), required: true %>
+            <%= tf.input :telephone, label: t(".telephone"), required: true %>
+            <%= tf.input :known_from, label: t(".known_from") %>
+            <%= tf.input :remark, as: :text, label: t(".remark"), :input_html => {cols: 30, :rows => 4 } %>
+          <% end %>
+          <div class="form-actions">
+            <%= f.button :submit, value: "提交" %>
+          </div>
+        <% end %>
+      </div>
+    </section>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "agent/shared/links" %>
+</div>

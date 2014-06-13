@@ -1,0 +1,17 @@
+.panel
+  .panel-body
+    p 定制发送给用户到验证短信。
+    span = raw '消息示例: 注册验证码：#{verify_code}，欢迎使用WiFi上网帐号'
+    p
+      span
+        strong 注意:
+      strong #{ raw '#{verify_code}'}
+      span 表示验证码所在的位置。实际发送时会替换为具体的验证码，如7699等。
+
+    = form_tag admin_auth_message_path, remote: true, method: 'patch' do
+      .form-group
+        = text_field_tag :auth_message, @message,  class: "form-control"
+      .form-group
+        = submit_tag  "修改验证消息", class: "btn btn-md btn-primary"
+
+
