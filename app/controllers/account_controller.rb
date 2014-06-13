@@ -15,7 +15,7 @@ class AccountController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource_or_scope)
-    return account_root_path
+    return account_sign_on_path
   end
 
 
