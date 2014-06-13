@@ -10,7 +10,6 @@
     <title>云链智能路由商家管理系统</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'admin', media: 'all' %>
-    <%= javascript_include_tag 'admin' %>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
@@ -67,13 +66,13 @@
                       <span>功能设置</span>
                   </a>
                   <ul class="sub">
-                    <%= tab.portal_style  fa_icon("cog")+content_tag(:span, '主页设置'), merchant_portal_styles_path %>
+                    <%= tab.portal_style  fa_icon("puzzle-piece")+content_tag(:span, '主页设置'), merchant_portal_styles_path %>
                     <%= tab.terminal  fa_icon("cog")+content_tag(:span, '终端管理'), merchant_terminals_path %>
                   </ul>
                 </li>
 
 
-                <%= tab.activity  fa_icon("cog")+content_tag(:span, '活动'), merchant_activities_path %>
+                <%= tab.activity  fa_icon("star")+content_tag(:span, '活动'), merchant_activities_path %>
                 <%= tab.merchant_info  fa_icon("user")+content_tag(:span, '资料管理'), merchant_merchant_infos_path %>
                 <%= tab.shop_info  fa_icon("cloud")+content_tag(:span, '店铺介绍'), shop_info_merchant_merchant_infos_path %>
                 <%= tab.auth_token  fa_icon("group")+content_tag(:span, '在线用户'), merchant_auth_tokens_path %>
@@ -102,7 +101,8 @@
       </footer>
       <!--footer end-->
   </section>
-
+  
+  <%= javascript_include_tag 'admin' %>
   <%= yield :script %>
 
   <script>

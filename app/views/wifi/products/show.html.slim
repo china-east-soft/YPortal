@@ -1,19 +1,24 @@
 .container
   .row
     .col-lg-5.col-xs-12.col-centered
-      .panel
-        .panel-heading#product_title
-          h2.text-center
-            = link_to @product.name, wifi_product_path(@product)
-        .panel-body#product_content
-          figure.product
-            .product_thumb
-              = image_tag @product.product_photo.url
-            figcaption
-              #product_description
-                p = @product.description
-              #price
-                | 价格:
-                = "  ¥#{@product.price}"
+      .row.span5.col-centered.shop_title
+        = link_to fa_icon(["angle-left", "2x"]), wifi_merchant_path(mid: params[:mid], vtoken: params[:vtoken])
+        h5.text-center
+          strong 商品展示
+      .col-sm-12#products_all
+        .panel
+          .panel-heading#product_title
+            h2.text-center
+              = @product.name
+          .panel-body#product_content
+            figure.product
+              .product_thumb
+                = image_tag @product.product_photo.url
+              figcaption
+                #product_description
+                  p = @product.description
+                #price
+                  | 价格:
+                  = "  ¥#{@product.price}"
 
 

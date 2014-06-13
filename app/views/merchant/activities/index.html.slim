@@ -1,38 +1,39 @@
-- content_for :main_content do
+= content_for :main_content do
   .row
-    .col-lg-12
-      selection.panel
-        header.panel-heading
-          = t(".activities")
-        .panel-body
-          .clearfix
-            .btn-group
-              .btn.btn-primary
-                = link_to fa_icon("plus"), new_merchant_activity_path
+    .container
+      .col-md-12
+        .panel
+          header.panel-heading
+            = t(".activities")
+          .panel-body
+            .clearfix
+              .btn-group
+                .btn.btn-primary
+                  = link_to fa_icon("plus"), new_merchant_activity_path
 
-          .space15
-            table.table.table-striped.table-advance.table-hover
-              thead
-                tr
-                  th = t(".title")
-                  th = t(".status")
-                  th = t(".started_at")
-                  th = t(".end_at")
-                  th = t(".hot")
-                  th
-                  th
-                  th
-
-              tbody
-                - @activities.each do |activity|
+            .space15
+              table.table.table-striped.table-advance.table-hover
+                thead
                   tr
-                    td = activity.title
-                    td = activity.status
-                    td = activity.started_at
-                    td = activity.end_at
-                    td = activity.hot
-                    td = link_to t(".show"), [:merchant, activity]
-                    td = link_to t(".edit"), edit_merchant_activity_path(activity)
-                    td = link_to t(".destroy"), [:merchant, activity], data: {:confirm => 'Are you sure?'}, :method => :delete
+                    th = t(".title")
+                    th = t(".status")
+                    th = t(".started_at")
+                    th = t(".end_at")
+                    th = t(".hot")
+                    th
+                    th
+                    th
 
-            br
+                tbody
+                  - @activities.each do |activity|
+                    tr
+                      td = activity.title
+                      td = activity.status
+                      td = activity.started_at
+                      td = activity.end_at
+                      td = activity.hot
+                      td = link_to t(".show"), [:merchant, activity]
+                      td = link_to t(".edit"), edit_merchant_activity_path(activity)
+                      td = link_to t(".destroy"), [:merchant, activity], data: {:confirm => 'Are you sure?'}, :method => :delete
+
+              br
