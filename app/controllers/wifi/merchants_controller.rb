@@ -13,6 +13,7 @@ class Wifi::MerchantsController < WifiController
     elsif params[:vtoken].present?
       @auth_token = AuthToken.where(auth_token: params[:vtoken]).first
       if @auth_token.present?
+        @auth_token.update_status
         if @auth_token.init?
           render :home
         elsif @auth_token.active?
