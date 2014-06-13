@@ -18,7 +18,11 @@ class AuthToken < ActiveRecord::Base
   end
 
   def left_duration
-    self.expired_timestamp - Time.now.to_i > 0 ? self.expired_timestamp - Time.now.to_i : 0
+    if expired_timestamp
+      (self.expired_timestamp - Time.now.to_i) > 0 ? (self.expired_timestamp - Time.now.to_i) : 0
+    else
+      0
+    end
   end
 
   def update_and_send_to_terminal(expired_timestamp: expired_timestamp,duration: duration, status: status, account_id: account_id)

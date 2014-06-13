@@ -15,7 +15,7 @@
                   <th>客户端</th>
                   <th>手机号</th>
                   <th>有效时长</th>
-                  <th>过期时间</th>
+                  <th>剩余时间</th>
                   <th></th>
               </tr>
               </thead>
@@ -25,8 +25,8 @@
                     <td><%= auth_token.mac %></td>
                     <td><%= auth_token.client_identifier %></td>
                     <td><%= auth_token.account.try(:mobile) %></td>
-                    <td><%= humanize_second auth_token.duration %></td>
-                    <td><%= DateTime.strptime(auth_token.expired_timestamp.to_s,'%s') %></td>
+                    <td><%= humanize_second auth_token.duration.to_i %></td>
+                    <td><%= humanize_second auth_token.left_duration %></td>
                     <td><%= link_to '强制下线', disable_merchant_auth_token_path(auth_token), method: :post, data: { confirm: 'Are you sure?' } %></td>
                   </tr>
                 <% end %>
