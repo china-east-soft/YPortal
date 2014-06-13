@@ -31,7 +31,7 @@
         <div class="col-lg-offset-2 col-xs-offset-2">
           <div class="checkboxes">
             <label class="label_check" for="disclaimer_check">
-            <input name="disclaimer_check" id="disclaimer_check" value="1" type="checkbox"> 我已阅读免责声明并同意。</label>
+            <input name="disclaimer_check" id="disclaimer_check" value="1" type="checkbox"  data-toggle="modal" data-target="#myModal"> 我已阅读免责声明并同意。</label>
           </div>
         </div>
       </div>
@@ -71,6 +71,21 @@
       </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel"> 免责声明</h4>
+          </div>
+          <div class="modal-body">
+            <p>尊敬的用户：您在使用视网魔免费提供的免费无线上网服务时，请保护好您的个人信息与资料，以免被他人非法获得或使用；请遵守国家相关法律法规规定，不访问非法、不良网站及发表、传输任何违法信息。您在网络上泄露个人信息资料，或者访问非法、不良网站及发表、传输任何违法信息而导致的相关损失与责任，均由您自行承担，视网魔对此不承担任何责任。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
 
 </div>
 
