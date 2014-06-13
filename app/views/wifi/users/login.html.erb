@@ -30,14 +30,14 @@
       <div class="row span5 col-centered" style="font-weight:100;color:#797979;font-size:13px;letter-spacing: 0.2em;">
         <div class="col-lg-offset-2 col-xs-offset-2">
           <div class="checkboxes">
-            <label class="label_check" for="checkbox-03">
-            <input name="sample-checkbox-02" id="checkbox-03" value="1" type="checkbox"> 我已阅读免责声明并同意。</label>
+            <label class="label_check" for="disclaimer_check">
+            <input name="disclaimer_check" id="disclaimer_check" value="1" type="checkbox"> 我已阅读免责声明并同意。</label>
           </div>
         </div>
       </div>
       <%= f.hidden_field :vtoken, value: params[:vtoken] %>
       <div class="row span5 col-centered text-center" style="margin-top:2px;">
-        <%= f.submit "登录", class: "btn btn-info btn-lg", style: "width:50%;letter-spacing: 0.8em;" %>
+        <%= f.submit "登录", class: "btn btn-info btn-lg sign_in", style: "width:50%;letter-spacing: 0.8em;" %>
       </div>
 
     <% end %>
@@ -73,3 +73,16 @@
 
 
 </div>
+
+<%= javascript_tag do %>
+  $( document ).ready(function() {
+    $(".sign_in").click(function(){
+      if($("label[for$='disclaimer_check']").prop("class").indexOf("c_on") >= 0){
+        return true;
+      }
+      else{
+        alert('请确认同意免责声明。'); return false;
+      }
+    })
+  })
+<% end %>
