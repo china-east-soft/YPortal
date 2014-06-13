@@ -54,7 +54,7 @@
 
       <div class="registration">
           已经拥有帐号?
-          <%= link_to "直接登录", merchant_session_path %>
+          <%= link_to "直接登录", merchant_session_path(mid: params[:mid]) %>
       </div>
   	</div>
 	<% end %>

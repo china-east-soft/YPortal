@@ -10,6 +10,9 @@
 		  </div>
 		<% end %>
   	<div class="login-wrap">
+      <% if params[:mid].present? %>
+        <%= hidden_field_tag :mid, params[:mid] %>
+      <% end %>
 		  <%= f.input_field :mobile, :autofocus => true, class: "form-control", placeholder: "手机号" %>
 		  <%= f.password_field :password, class: "form-control", placeholder: "密码" %>
 		  <label class="checkbox">
@@ -18,7 +21,7 @@
 		  <%= f.submit "登录", class: "btn btn-lg btn-login btn-block" %>
       <div class="registration">
           还没有帐号？
-          <%= link_to "立即注册", new_merchant_registration_path %>
+          <%= link_to "立即注册", new_merchant_registration_path(mid: params[:mid]) %>
       </div>
   	</div>
 	<% end %>

@@ -8,7 +8,13 @@
   
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.ico' %>
-  <title><%= current_merchant.merchant_info.try(:name) || "云链智能路由" %></title>
+  <title>
+    <% if current_merchant && current_merchant.merchant_info && current_merchant.merchant_info.respond_to?(:name) %>
+      <%= current_merchant.merchant_info.name %>
+  <% else %>
+      云链智能路由
+  <% end %>
+  </title>
   <%= stylesheet_link_tag    'wifi', media: 'all' %>
   <%= javascript_include_tag 'wifi' %>
 
