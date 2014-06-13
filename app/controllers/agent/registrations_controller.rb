@@ -12,10 +12,10 @@ class Agent::RegistrationsController < Devise::RegistrationsController
   def create
     @agent = Agent.new(agent_params.merge({not_required_password: true}))
     if @agent.save
-      gflash success: "success"
+      gflash success: "申请成功，请等等客服处理！"
       redirect_to new_agent_registration_url
     else
-      gflash error: "error"
+      gflash error: "请正确填写申请信息！"
       render :new
     end
   end

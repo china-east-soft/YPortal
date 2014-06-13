@@ -1,1 +1,2 @@
-message: "注册验证码：#{verify_code}，欢迎使用WiFi上网帐号"
+---
+message: "注册验证码：#{verify_code}，欢迎使用WiFi上网帐号。"

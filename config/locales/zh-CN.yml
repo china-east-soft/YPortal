@@ -170,7 +170,7 @@ zh-CN:
     registrations:
       new:
         agent_register: "代理商申请"
-        register_hint: "在您了解完云链的代理相关政策之后，可以向我们提交代理申请。请填写一下基本信息并完成提交，我们的渠道经理会在1个工作日内通过电话或邮件形式与您取得联系！"
+        register_hint: "在向我们提交代理申请前先请您了解云链的代理相关政策。然后请填写基本信息并提交，我们的客服人员会在1个工作日内通过电话或邮件形式与您取得联系！"
         email: "您的电子邮箱"
         category: "您是个人还是公司？"
         name: "公司名或个人名"
@@ -178,11 +178,8 @@ zh-CN:
         city: "您想代理到城市"
         contact: "联系人"
         telephone: "联系电话"
-        know_from: "您是如何知道云链的"
+        known_from: "您是如何知道云链的"
         remark: "备注"
-
-
-
     shared:
       links:
         sign_in: "登录"

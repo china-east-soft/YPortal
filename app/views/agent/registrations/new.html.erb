@@ -18,7 +18,7 @@
             <%= tf.input :contact, label: t(".contact"), required: true %>
             <%= tf.input :telephone, label: t(".telephone"), required: true %>
             <%= tf.input :known_from, label: t(".known_from") %>
-            <%= tf.input :remark, as: :text, label: t(".remark") %>
+            <%= tf.input :remark, as: :text, label: t(".remark"), :input_html => {cols: 30, :rows => 4 } %>
           <% end %>
           <div class="form-actions">
             <%= f.button :submit, value: "提交" %>
