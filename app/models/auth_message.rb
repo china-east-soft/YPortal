@@ -17,8 +17,12 @@ class AuthMessage < ActiveRecord::Base
   end
 
   after_save do
-    message = "注册验证码：#{verify_code}，欢迎使用WiFi上网帐号"
-    self.send_result = send_out(mobile, message)
+    default_message = "注册验证码：#{verify_code}，欢迎使用WiFi上网帐号"
+    msg_from_file = YAML.load(File.read(Rails.root.join  "config/auth_message.yml"))["message"]
+    msg_from_file ||= default_message
+    msg_from_file.gsub!(/{verify_code}/, verify_code.to_s)
+
+    self.send_result = send_out(mobile, msg_from_file)
   end
 
   private
@@ -41,7 +45,7 @@ class AuthMessage < ActiveRecord::Base
         return repeat_verify_code
       else
         return SecureRandom.random_number(10000).to_s.rjust(4, '0')
-      end      
+      end
     end
 
     def last_auth_message
