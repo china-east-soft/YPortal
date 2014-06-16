@@ -21,3 +21,4 @@
 //= require jquery.dragsort-0.5.1.js
 //= require gritter
 //= require datepicker.js
+//= require jquery.placeholder.js

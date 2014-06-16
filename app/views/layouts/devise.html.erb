@@ -23,5 +23,11 @@
   <body class="login-body">
     <%= yield %>
     <%= gflash %>
+    <script>
+
+      $(function() {
+        $('input, textarea').placeholder();
+      });
+    </script>
   </body>
 </html>

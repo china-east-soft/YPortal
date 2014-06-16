@@ -3,3 +3,4 @@
 //= require bootstrap.min.js
 //= require send_message.js
 //= require gritter
+//= require jquery.placeholder.js
