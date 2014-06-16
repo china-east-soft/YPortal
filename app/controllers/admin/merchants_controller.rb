@@ -6,7 +6,7 @@ class Admin::MerchantsController < AdminController
   # GET /merchants
   # GET /merchants.json
   def index
-    @merchants = Merchant.all
+    @merchants = Merchant.all.page(params[:page]).per(1)
   end
 
   # GET /merchants/1
