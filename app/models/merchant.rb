@@ -40,11 +40,15 @@ class Merchant < ActiveRecord::Base
     errors.add(:verify_code, "无效的验证码") unless AuthMessage.exists?(verify_code: verify_code, category: 0)
   end
 
-  after_create :get_terminal
+  after_create :get_terminal, :get_portal_style
 
   attr_accessor :verify_code, :mid
 
   has_many :terminals, dependent: :nullify
+
+  def get_portal_style
+    PortalStyle.where(merchant_id: self.id).first_or_create
+  end
 
   protected
 
