@@ -31,7 +31,7 @@ class Wifi::MerchantsController < WifiController
     ##### terminal, required: client_identifier, mac #####
     else
       if params[:client_identifier] && params[:mac]
-        if Terminal.exists?(status: Terminal.statuses[:active], mac: params[:mac])
+        if Terminal.exists?(status: Terminal.statuses[:active], mac: params[:mac].downcase)
           AuthToken.update_expired_status(params[:mac].downcase)
           @auth_token = AuthToken.where(client_identifier: params[:client_identifier], mac: params[:mac].downcase, status: [AuthToken.statuses[:init], AuthToken.statuses[:active]]).first
           ##### if rebooting terminal, the auth_token exists
