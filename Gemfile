@@ -120,3 +120,5 @@ gem 'validates_timeliness', '~> 3.0'
 
 gem 'whenever', :require => false
 gem 'kaminari'
+
+gem 'newrelic_rpm'
