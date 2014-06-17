@@ -16,7 +16,7 @@ class Merchant::TerminalsController < MerchantController
 
   def create
     @terminal = Terminal.where(mid: terminal_params[:mid], status: AuthToken.statuses[:init]).first
-    if @terminal && @terminal.update(merchant_id: current_merchant.id, status: AuthToken.statuses[:active])
+    if @terminal && @terminal.update(merchant_id: current_merchant.id, status: AuthToken.statuses[:active], added_by_merchant_at: Time.now)
       gflash :success => "The product has been created successfully!"
       redirect_to merchant_terminals_path
     else

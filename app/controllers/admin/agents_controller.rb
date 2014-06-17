@@ -58,7 +58,7 @@ class Admin::AgentsController < AdminController
   def destroy
     @agent.destroy
     respond_to do |format|
-      format.html { redirect_to agents_url }
+      format.html { redirect_to admin_agents_url }
       format.json { head :no_content }
     end
   end

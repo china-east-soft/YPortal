@@ -3,9 +3,9 @@ li
     .product_thumb
       = image_tag product.product_photo.url
       .product_mask
-        = link_to '', wifi_product_path(product), target: "_blank", class: 'product_mask_backdrop'
+        = link_to '', wifi_product_path(product, mid: params[:mid], vtoken: params[:vtoken]), target: "_blank", class: 'product_mask_backdrop'
     figcaption
       h5 data-placement="top" title="true" data-toggle="tooltip" data-original-title="#{product.name}"
-        = link_to product.name, wifi_product_path(product), target: "_blank"
+        = link_to product.name, wifi_product_path(product, mid: params[:mid], vtoken: params[:vtoken]), target: "_blank"
       em
         span.price = "$#{product.price}"

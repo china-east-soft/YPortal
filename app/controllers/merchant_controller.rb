@@ -14,20 +14,20 @@ class MerchantController < ActionController::Base
       if current_merchant
         #mid被添加过
         if current_merchant.terminals.find_by mid: mid
-          gflash notice: "终端已经添加过了，请前往终端管理页面查看"
+          gflash notice: "此终端已经添加过了， 请前往终端管理页面查看"
           redirect_to merchant_root_url
 
         #mid未被添加过
         else
           @terminal = Terminal.where(mid: mid, status: AuthToken.statuses[:init]).first
-          if @terminal && @terminal.update(merchant_id: current_merchant.id, status: AuthToken.statuses[:active])
+          if @terminal && @terminal.update(merchant_id: current_merchant.id, status: AuthToken.statuses[:active], added_by_merchant_at: Time.now)
+
             gflash success: "终端添加成功，请前往终端管理页面查看"
           else
-            gflash notice: "终端添加失败，请前往终端管理界面添加"
+            gflash notice: "终端添加失败，终端不存在或已经被添加过了，请前往终端管理界面添加"
           end
 
           redirect_to merchant_root_path
-
         end
 
       #未登录
