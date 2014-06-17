@@ -69,7 +69,6 @@ zh-CN:
         active: "激活"
         locked: "锁定"
       new:
-        back: "后退"
       show:
         email: "邮箱"
         category: "类别"
@@ -81,8 +80,6 @@ zh-CN:
         known_from: "获取渠道"
         remark: "备注"
         status: "状态"
-        edit: "编辑"
-        back: "后退"
 
         init: "新注册"
         active: "激活"
@@ -94,8 +91,6 @@ zh-CN:
 
       edit:
         editing_agent: "修改代理商信息"
-        show: "显示"
-        back: "后退"
     merchants:
       index:
         email: "邮箱"
@@ -111,15 +106,12 @@ zh-CN:
 
       new:
         new_merchant: "新增商户"
-        back: "后退"
 
       form:
         form_elements: "表单"
 
       edit:
         editing_merchant: "修改商户"
-        show: "显示"
-        back: "后退"
       show:
         status: "状态"
         name: "商家全称"
@@ -130,41 +122,26 @@ zh-CN:
         address: "地址"
         contact_person_name: "联系人姓名"
         contact_way: "联系方式"
-        edit: "编辑"
-        back: "后退"
 
     terminals:
       new:
         new_terminal: "新建终端"
-        back: "返回"
       form:
         form_elements: "表单"
       edit:
         editing_terminal: "修改终端"
-        show: "显示"
-        back: "返回"
       show:
-        edit: "编辑"
-        back: "返回"
     categories:
       form:
         form_elements: "表单"
       index:
         name: "类别名"
-        show: "显示"
-        edit: "编辑"
-        destroy: "删除"
       new:
         new_category: "新增类别"
-        back: "返回"
       show:
         name: "类别名"
-        edit: "编辑"
-        back: "返回"
       edit:
         editing_category: "修改类别"
-        show: "显示"
-        back: "返回"
 
   agent:
     registrations:
@@ -229,9 +206,6 @@ zh-CN:
         started_at: "开始时间"
         end_at: "结束时间"
         hot: "热门活动？"
-        edit: "编辑"
-        destroy: "删除"
-        back: "后退"
 
       edit:
         editing_activity: "修改活动"
@@ -242,56 +216,36 @@ zh-CN:
         started_at: "开始时间"
         end_at: "结束时间"
         hot: "热门活动？"
-        show: "显示"
-        edit: "编辑"
-        destroy: "删除"
 
     portal_styles:
       show:
         name: "样式名称"
         btn_style: "按钮样式"
-        edit: "编辑"
-        back: "后退"
     banners:
       index:
         banner: "广告"
         cover: "广告图片"
         description: "广告描述"
         url: "链接地址"
-        show: "显示"
-        edit: "编辑"
-        destroy: "删除"
       new:
         new_banner: "新增广告"
-        back: "后退"
       show:
         cover: "广告图片"
         description: "广告描述"
         url: "链接地址"
-        edit: "编辑"
-        back: "后退"
       edit:
         editing_banner: "修改广告"
-        show: "显示"
-        back: "后退"
       form:
         form_elements: "表单"
     mboxes:
-      edit:
-        show: "显示"
-        back: "后退"
       form:
         form_elements: "表单"
     terminals:
       form:
         form_elements: "表单"
       new:
-        show: "显示"
-        back: "后退"
       edit:
         form_elements: "表单"
-        show: "显示"
-        back: "后退"
       index:
         terminal: "终端"
     products:
@@ -301,20 +255,11 @@ zh-CN:
         description: "产品描述"
         price: "价格"
         hot: "热卖产品"
-        show: "显示"
-        edit: "编辑"
-        destroy: "删除"
       show:
         product_photo: "产品图片"
         description: "产品描述"
-        show: "显示"
-        edit: "编辑"
-        destroy: "删除"
-        back: "后退"
       edit:
         editing_product: "修改产品"
-        show: "显示"
-        back: "后退"
       form:
         form_elements: "表单"
         name: "产品名"

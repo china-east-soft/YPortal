@@ -30,9 +30,9 @@
                     <td><%= image_tag banner.cover, size: "64x36" %></td>
                     <td><%= banner.description %></td>
                     <td><%= banner.url %></td>
-                    <td><%= link_to t(".show"), [:merchant, banner] %></td>
-                    <td><%= link_to t(".edit"), edit_merchant_banner_path(banner) %></td>
-                    <td><%= link_to t(".destroy"), [:merchant, banner], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    <td><%= link_to t("views.show"), [:merchant, banner] %></td>
+                    <td><%= link_to t("views.edit"), edit_merchant_banner_path(banner) %></td>
+                    <td><%= link_to t("views.destroy"), [:merchant, banner], method: :delete, data: { confirm: 'Are you sure?' } %></td>
                   </tr>
                 <% end %>
               </tbody>
