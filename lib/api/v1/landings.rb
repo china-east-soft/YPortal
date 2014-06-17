@@ -6,7 +6,7 @@ module API::V1
       
       get :current do
         landing = Landing.where("start_at <= ? and end_at >= ?", Date.today.beginning_of_day, Date.today.end_of_day).first
-        present { cover: landing.cover.url, url: cover.url } if landing
+        present cover: landing.cover.url, url: landing.url if landing
       end
 
     end
