@@ -5,8 +5,8 @@ module API::V1
     resource :landings do
       
       get :current do
-        landing = Landing.where("start_at <= ? and end_at >= ?", Date.today.beginning_of_day, Date.today.end_of_day).first
-        present cover: landing.cover.url, url: landing.url if landing
+        landings = Landing.where("(start_at <= ? and end_at >= ?) or start_at >= ?", Date.today.beginning_of_day, Date.today.end_of_day, Date.today.end_of_day).all
+        present landings.map{|i| {cover: i.cover.url, url: i.url, start_at: i.start_at, end_at: i.end_at } }
       end
 
     end
