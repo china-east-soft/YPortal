@@ -43,7 +43,10 @@ class Admin::CategoriesController < AdminController
   def update
     respond_to do |format|
       if @category.update(category_params)
-        format.html { redirect_to [:admin, @category], notice: 'Category was successfully updated.' }
+        format.html { 
+          gflash :notice => 'Category was successfully updated.' 
+          redirect_to [:admin, @category]
+        }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

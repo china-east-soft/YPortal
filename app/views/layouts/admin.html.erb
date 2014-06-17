@@ -290,7 +290,7 @@
       <!--main content start-->
       <section id="main-content">
         <section class="wrapper site-min-height">
-          <%= gflash %>
+          
           <%= yield %>
         </section>
       </section>
@@ -308,6 +308,7 @@
   </section>
 
   <%= javascript_include_tag 'admin' %>
+  <%= gflash %>
   <%= yield :script %>
 
   <script>

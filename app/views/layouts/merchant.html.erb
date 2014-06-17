@@ -10,7 +10,7 @@
     <title>云链网络商家管理系统</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'admin', media: 'all' %>
-    <%= javascript_include_tag 'admin' %>
+
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
@@ -85,7 +85,7 @@
       <!--main content start-->
       <section id="main-content">
         <section class="wrapper site-min-height">
-          <%= gflash %>
+          
           <%= yield :main_content %>
         </section>
       </section>
@@ -102,6 +102,8 @@
       <!--footer end-->
   </section>
   
+  <%= javascript_include_tag 'admin' %>
+  <%= gflash %>
   <%= yield :script %>
 
   <script>
