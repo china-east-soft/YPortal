@@ -61,7 +61,7 @@ class Merchant < ActiveRecord::Base
 
 
     def get_terminal
-      Terminal.where(mid: self.mid, status: AuthToken.statuses[:init], merchant_id: nil).update_all(merchant_id: self.id, status: AuthToken.statuses[:active])
+      Terminal.where(mid: self.mid, status: AuthToken.statuses[:init], merchant_id: nil).update_all(merchant_id: self.id, status: AuthToken.statuses[:active], added_by_merchant_at: Time.now)
     end
 
 
