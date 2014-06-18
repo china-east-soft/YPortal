@@ -81,7 +81,7 @@ class Wifi::MerchantsController < WifiController
               gflash :error => "请连接wifi!"
               render :error
             end
-          end 
+          end
         else
           gflash :error => "请连接wifi!"
           render :error
@@ -97,11 +97,9 @@ class Wifi::MerchantsController < WifiController
   end
 
   def show
-
   end
 
   def welcome
-    @merchant_info = terminal_merchant.merchant_info
   end
 
 end

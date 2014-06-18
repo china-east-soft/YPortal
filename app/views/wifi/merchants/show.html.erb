@@ -2,20 +2,8 @@
   <div class="row mbot30">
     <div class="col-lg-5 col-xs-12 col-centered">
       <%= render partial: "partial/adv", locals: { title: "店铺介绍" } %>
-
-      <div class="row span5 col-centered broadcast" style="border: 1px solid #696;">
-        <%= image_tag 'tu_04_05.png' %> <span>本店有各种家常小炒，特色小吃</span>
-      </div>
-
-      <div class="row span5 col-centered merchant_info" style="margin-top:10px;">
-        <%= image_tag "tu_04_09.png" %>
-        <span>订购热线：0571-85360738</span>
-      </div>
-      <div class="row span5 col-centered merchant_info">
-        <%= image_tag "tu_04_13.png" %>
-        <span>地址：湖北省武汉市洪山区华中科技大学</span>
-      </div>
-      
+      <%= render partial: "partial/portal_notification", locals: {style: "border: 1px solid #696;"} %>
+      <%= render partial: "partial/shop_info" %>
 
   </div>
   </div>
