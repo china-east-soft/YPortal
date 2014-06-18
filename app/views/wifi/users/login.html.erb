@@ -10,20 +10,20 @@
     <div class="row span5 col-centered broadcast">
       <%= image_tag 'tu_03_03.png' %> <span>热门活动</span>
     </div>
-    <div class="row span5 col-centered" style="margin-top:5px; margin-bottom: 5px; background-color: #f1eddf;">
+    <div class="row span5 col-centered" style="padding:5px 15px;margin-top:5px;margin-bottom: 5px;background-color: #f1eddf;">
     <%= simple_form_for :account, as: :post, url:  sign_in_wifi_users_path,:role => "form", html: { class: "form-signin" } do |f| %>
 
-      <div style="padding:5px 10px;">
+      <div class="form-group" style="margin-bottom:10px;">
         <%= f.input_field :mobile, :autofocus => true, class: "form-control input-lg", placeholder: "手机", value: params[:account][:mobile] %>
       </div>
 
-      <div class="form-group" style="padding:3px 10px;margin-bottom:10px;">
+      <div class="form-group" style="margin-bottom:10px;">
         <div class="row">
           <div class=" col-xs-7 col-sm-7 col-lg-7">
             <%= f.input_field :verify_code, class: "form-control input-lg", placeholder: "验证码" %>
           </div>
           <div class="col-xs-5 col-sm-5 col-lg-5" style="padding-left:0px;padding-top:5px;">
-            <a class="btn btn-info" id="send_message">获取验证码</a>
+            <a class="btn btn-info pull-right col-xs-12 col-sm-12 col-lg-12" style="letter-spacing: 0.15em;" id="send_message">获取验证码</a>
           </div>
         </div>
       </div>
@@ -36,18 +36,17 @@
         </div>
       </div>
       <%= f.hidden_field :vtoken, value: params[:vtoken] %>
-      <div class="row span5 col-centered text-center" style="margin-top:2px;">
-        <%= f.submit "登录", class: "btn btn-info btn-lg sign_in", style: "width:50%;letter-spacing: 0.8em;" %>
-      </div>
+      <%= f.submit "登录", class: "btn btn-info btn-lg col-sm-12 col-xs-12 col-lg-12 col-md-12", style: "margin-top: 1%;letter-spacing: 2em;" %>
 
     <% end %>
-    </div>
 
     <%= form_tag quick_login_wifi_users_path, method: 'post' do %>
       <%= hidden_field_tag :mid, params[:mid] %>
       <%= hidden_field_tag :vtoken, params[:vtoken] %>
-      <%= submit_tag '直接登录', class: "btn btn-lg btn-success col-sm-12 col-xs-12 col-lg-12 col-md-12", style: "margin-top: 2%;"%>
+      <%= submit_tag '直接登录', class: "btn btn-lg btn-success col-sm-12 col-xs-12 col-lg-12 col-md-12", style: "margin-top: 2%;letter-spacing: 1em;"%>
     <% end %>
+
+    </div>
 
     <div class="row span5 col-centered " style="color:#514625;background-color:#eecd77;padding:5px 10px;margin-top:15px;">
       其它登录方式
@@ -98,6 +97,8 @@
       else{
         alert('请确认同意免责声明。'); return false;
       }
-    })
+    });
+
+    $("#disclaimer_check").trigger("click");
   })
 <% end %>
