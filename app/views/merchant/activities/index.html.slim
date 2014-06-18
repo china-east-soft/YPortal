@@ -36,4 +36,13 @@
                       td = link_to t("views.edit"), edit_merchant_activity_path(activity)
                       td = link_to t("views.destroy"), [:merchant, activity], data: {:confirm => 'Are you sure?'}, :method => :delete
 
+              .row
+                .col-lg-6
+                  .dataTables_info 
+                    |共有
+                    = @activities.total_count 
+                    |条记录
+                .col-lg-6
+                  .dataTables_paginate.paging_bootstrap.pagination
+                    = paginate @activities 
               br

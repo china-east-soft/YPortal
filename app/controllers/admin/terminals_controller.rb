@@ -6,7 +6,7 @@ class Admin::TerminalsController < AdminController
   # GET /terminals
   # GET /terminals.json
   def index
-    @terminals = Terminal.all
+    @terminals = Terminal.all.page(params[:page])
   end
 
   # GET /terminals/1

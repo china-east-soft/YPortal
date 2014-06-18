@@ -24,7 +24,7 @@ class Merchant::AuthTokensController < MerchantController
   end
 
   def index
-    @auth_tokens = AuthToken.actived(current_merchant.id).all
+    @auth_tokens = AuthToken.actived(current_merchant.id).all.page(params[:page])
   end
 
 

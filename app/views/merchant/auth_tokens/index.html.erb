@@ -32,7 +32,19 @@
                 <% end %>
               </tbody>
           </table>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="dataTables_info ">
+                共有<%= @auth_tokens.total_count %>条记录
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="dataTables_paginate paging_bootstrap pagination">
+                <%= paginate @auth_tokens %>
+              </div>
+            </div>
           </div>
+        </div>
       </section>
   </div>
 </div>
