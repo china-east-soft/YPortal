@@ -93,7 +93,11 @@
       if($("label[for$='disclaimer_check']").prop("class").indexOf("c_on") >= 0){
         if(checkMobil($("#account_mobile").val())){
           if($("#account_verify_code").val() == ""){
-            alert('验证码不能为空！'); 
+            jQuery.gritter.add({
+              image: '<%= asset_path "notice.png" %>',
+              title: '通知',
+              text: '验证码不能为空！'
+            });
             return false;
           } else {
             return true;
@@ -102,7 +106,12 @@
           return false;
         }
       } else {
-        alert('请确认同意免责声明。'); return false;
+        jQuery.gritter.add({
+          image: '<%= asset_path "notice.png" %>',
+          title: '通知',
+          text: '请确认同意免责声明！'
+        });
+        return false;
       };
     });
 
