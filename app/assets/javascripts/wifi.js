@@ -7,5 +7,6 @@
 //= require common-scripts2
 //= require mform.js
 //= require gritter
+//= require validate.js
 //= require send_message.js
 //= require time_count_down.js

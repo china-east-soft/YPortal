@@ -22,6 +22,11 @@ $( document ).ready(function() {
       controller_name = $("#controller_name").val();
     }
 
+    if(checkMobil(account_mobile)){
+    } else {
+      return false;
+    };
+
     //设置button效果，开始计时
     $("#send_message").attr("disabled", "true");
     $("#send_message").text(curCount + " 秒后重发");
@@ -34,7 +39,7 @@ $( document ).ready(function() {
       data: "uid=" + uid + "&account_mobile=" + account_mobile + "&controller_name=" + controller_name,
       error: function (XMLHttpRequest, textStatus, errorThrown) { },
       success: function (msg){ }
-    });
+    });      
 
   });
 

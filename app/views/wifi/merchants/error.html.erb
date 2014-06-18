@@ -4,6 +4,9 @@
 <div class="alert alert-danger">
   3 秒后将跳转到wifi主页
 </div>
-<script type="text/javascript">
-	setTimeout(function(){window.location = 'http://'+window.location.host+'<%= wifi_root_path %>'},3000);
-</script>
+
+<% content_for :script do %>
+	<script type="text/javascript">
+		setTimeout(function(){window.location = 'http://'+window.location.host+'<%= wifi_root_path %>'},3000);
+	</script>
+<% end %>

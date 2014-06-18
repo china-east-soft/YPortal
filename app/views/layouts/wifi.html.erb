@@ -16,7 +16,7 @@
   <% end %>
   </title>
   <%= stylesheet_link_tag    'wifi', media: 'all' %>
-  <%= javascript_include_tag 'wifi' %>
+  
 
   <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
   <!--[if lt IE 9]>
@@ -25,8 +25,6 @@
   
 </head>
 <body class="portal_wraped">
-
-  <%= gflash %>
 
 	<%= yield %>
   
@@ -41,6 +39,8 @@
  
 </style>
 
+  <%= javascript_include_tag 'wifi' %>
+  <%= gflash %>
   <script type="text/javascript">
 
     var showFloat = false;
@@ -93,6 +93,9 @@
     });
 
   </script>
+
+  <%= yield :script %>
+
   <footer class="footer reset_footer">
     <div class="container" >
       <div class="row mbot30">

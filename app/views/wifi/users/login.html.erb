@@ -35,8 +35,9 @@
           </div>
         </div>
       </div>
-      <%= f.hidden_field :vtoken, value: params[:vtoken] %>
-      <%= f.submit "登录", class: "btn btn-info btn-lg col-sm-12 col-xs-12 col-lg-12 col-md-12", style: "margin-top: 1%;letter-spacing: 2em;" %>
+      <%= hidden_field_tag :mid, params[:mid] %>
+      <%= hidden_field_tag :vtoken, params[:vtoken] %>
+      <%= f.submit "&nbsp;登&nbsp;录&nbsp;".html_safe, class: "btn btn-info btn-lg col-sm-12 col-xs-12 col-lg-12 col-md-12 sign_in", style: "margin-top: 1%;letter-spacing: 1em;" %>
 
     <% end %>
 
@@ -87,18 +88,27 @@
     </div>
 
 </div>
-
+<% content_for :script do %>
 <%= javascript_tag do %>
   $( document ).ready(function() {
     $(".sign_in").click(function(){
       if($("label[for$='disclaimer_check']").prop("class").indexOf("c_on") >= 0){
-        return true;
-      }
-      else{
+        if(checkMobil($("#account_mobile").val())){
+          if($("#account_verify_code").val() == ""){
+            alert('验证码不能为空！'); 
+            return false;
+          } else {
+            return true;
+          }
+        } else {
+          return false;
+        }
+      } else {
         alert('请确认同意免责声明。'); return false;
-      }
+      };
     });
 
     $("#disclaimer_check").trigger("click");
   })
+<% end %>
 <% end %>

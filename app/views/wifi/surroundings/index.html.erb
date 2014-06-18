@@ -37,7 +37,7 @@
     </div>
   </div>
 </div>
-
+<% content_for :script do %>
 <script>
 
 	window._token = '<%= form_authenticity_token %>'
@@ -106,3 +106,4 @@
 
 
 </script>
+<% end %>
