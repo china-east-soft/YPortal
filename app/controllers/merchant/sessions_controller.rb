@@ -31,7 +31,7 @@ class Merchant::SessionsController < Devise::SessionsController
     #添加终端到代码，处理从终端过的到登录消息
     if params[:mid].present?
       @terminal = Terminal.where(mid: params[:mid], status: AuthToken.statuses[:init]).first
-      if @terminal && @terminal.update(merchant_id: current_merchant.id, status: AuthToken.statuses[:active])
+      if @terminal && @terminal.update(merchant_id: current_merchant.id, status: AuthToken.statuses[:active], added_by_merchant_at: Time.now)
         gflash :success => "添加终端成功，请前往终端管理页面查看。"
       else
         gflash :error => "添加终端失败！ 请前往终端管理页面手动添加."

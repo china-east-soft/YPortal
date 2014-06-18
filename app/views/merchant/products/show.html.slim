@@ -17,7 +17,7 @@
               | 价格:
               = "  ¥#{@product.price}"
 
-        = link_to t(".edit"), edit_merchant_product_path(@product)
+        = link_to t("views.edit"), edit_merchant_product_path(@product)
         = " | "
-        = link_to t(".back"), merchant_products_path
+        = link_to t("views.back"), merchant_products_path
 

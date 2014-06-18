@@ -23,6 +23,7 @@
                   <th>mac</th>
                   <th>mid</th>
                   <th>时长</th>
+                  <th>添加时间</th>
                   <th></th>
               </tr>
               </thead>
@@ -32,6 +33,7 @@
                     <td><%= terminal.mac %></td>
                     <td><%= terminal.mid %></td>
                     <td><%= humanize_second terminal.duration.to_i %></td>
+                    <td><%= I18n.l(terminal.added_by_merchant_at).split(" ")[0..1].join(" ") %></td>
                     <td><span class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_merchant_terminal_path(terminal) %><i class="icon-pencil"></i></span></td>
                   </tr>
                 <% end %>

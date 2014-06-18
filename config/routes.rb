@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resources :landings
     resources :agents
     resources :merchants
     resources :terminals do

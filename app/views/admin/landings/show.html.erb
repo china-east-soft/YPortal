@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Start at:</strong>
+  <%= @landing.start_at %>
+</p>
+
+<p>
+  <strong>End at:</strong>
+  <%= @landing.end_at %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @landing.url %>
+</p>
+
+<p>
+  <strong>Cover:</strong>
+  <%= image_tag @landing.cover.url(:original) %>
+</p>
+
+<%= link_to t("views.edit"), edit_admin_landing_path(@landing) %> |
+<%= link_to t("views.back"), admin_landings_path %>

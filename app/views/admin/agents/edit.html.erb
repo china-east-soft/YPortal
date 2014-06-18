@@ -1,6 +1,4 @@
-<h1>Editing agent</h1>
+<%= render 'form', title: "编辑代理商" %>
 
-<%= render 'form' %>
-
-<%= link_to t(".show"), [:admin, @agent] %> |
-<%= link_to t(".back"), admin_agents_path %>
+<%= link_to t("views.show"), [:admin, @agent] %> |
+<%= link_to t("views.back"), admin_agents_path %>

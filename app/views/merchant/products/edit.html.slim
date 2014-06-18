@@ -7,7 +7,7 @@
             | 修改产品
           .panel-body
             = render '/merchant/products/form'
-      = link_to t(".show"), merchant_product_path(@product)
+      = link_to t("views.show"), merchant_product_path(@product)
       = " | "
-      = link_to t(".back"), merchant_products_path
+      = link_to t("views.back"), merchant_products_path
 

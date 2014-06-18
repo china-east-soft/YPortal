@@ -26,9 +26,9 @@
                     <% @categories.each do |category| %>
                       <tr>
                         <td><%= category.name %></td>
-                        <td><%= link_to t(".show"), [:admin, category] %></td>
-                        <td><%= link_to t(".edit"), edit_admin_category_path(category) %></td>
-                        <td><%= link_to t(".destroy"), [:admin, category], method: :delete, data: { confirm: 'Are you sure?' } %>
+                        <td><%= link_to t("views.show"), [:admin, category] %></td>
+                        <td><%= link_to t("views.edit"), edit_admin_category_path(category) %></td>
+                        <td><%= link_to t("views.destroy"), [:admin, category], method: :delete, data: { confirm: 'Are you sure?' } %>
                         </td>
                       </tr>
                     <% end %>

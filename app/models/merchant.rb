@@ -40,11 +40,15 @@ class Merchant < ActiveRecord::Base
     errors.add(:verify_code, "无效的验证码") unless AuthMessage.exists?(verify_code: verify_code, category: 0)
   end
 
-  after_create :get_terminal
+  after_create :get_terminal, :get_portal_style
 
   attr_accessor :verify_code, :mid
 
   has_many :terminals, dependent: :nullify
+
+  def get_portal_style
+    PortalStyle.where(merchant_id: self.id).first_or_create
+  end
 
   protected
 
@@ -57,7 +61,7 @@ class Merchant < ActiveRecord::Base
 
 
     def get_terminal
-      Terminal.where(mid: self.mid, status: AuthToken.statuses[:init], merchant_id: nil).update_all(merchant_id: self.id, status: AuthToken.statuses[:active])
+      Terminal.where(mid: self.mid, status: AuthToken.statuses[:init], merchant_id: nil).update_all(merchant_id: self.id, status: AuthToken.statuses[:active], added_by_merchant_at: Time.now)
     end
 
 

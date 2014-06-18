@@ -43,6 +43,7 @@ public/*.mp4
 /config/config.yml
 /config/database.yml
 /config/nginx.conf
+/config/auth_message.yml
 /coverage.data
 /coverage/
 /db/*.javadb/

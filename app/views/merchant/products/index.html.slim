@@ -29,6 +29,6 @@
                           | True
                         - else
                           | False
-                      td = link_to t(".show"), [:merchant, product]
-                      td = link_to t(".edit"), edit_merchant_product_path(product)
-                      td = link_to t(".destroy"), [:merchant, product], method: :delete, data: { confirm: 'Are you sure?' }
+                      td = link_to t("views.show"), [:merchant, product]
+                      td = link_to t("views.edit"), edit_merchant_product_path(product)
+                      td = link_to t("views.destroy"), [:merchant, product], method: :delete, data: { confirm: 'Are you sure?' }
