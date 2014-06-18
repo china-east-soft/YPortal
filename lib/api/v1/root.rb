@@ -12,6 +12,5 @@ module API::V1
     mount API::V1::Ping
     mount API::V1::Accounts
     mount API::V1::Terminals
-    mount API::V1::Landings
   end
 end

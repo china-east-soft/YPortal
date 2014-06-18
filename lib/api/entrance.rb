@@ -50,6 +50,8 @@ module API
     end
 
     mount API::V1::Root
+    # all the v3 api is about app and continue from ymtv
+    mount API::V3::Root
   end
 end
 

@@ -1,5 +1,5 @@
 # coding:utf-8
-module API::V1
+module API::V3
   class Landings < Grape::API
 
     resource :landings do
