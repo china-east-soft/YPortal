@@ -106,6 +106,8 @@
   </div>
 </div>
 
-<%= javascript_tag do %>
-  timeCountDown('countdown',<%= @auth_token.try(:left_duration) || 14400 %>)
+<% content_for :script do %>
+  <%= javascript_tag do %>
+    timeCountDown('countdown',<%= @auth_token.try(:left_duration) || 14400 %>)
+  <% end %>
 <% end %>

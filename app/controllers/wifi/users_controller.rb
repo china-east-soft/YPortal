@@ -13,12 +13,10 @@ class Wifi::UsersController < WifiController
 
   def sign_in
 
-    params[:vtoken] = params[:account][:vtoken]
-
-    if params[:account][:mobile] && params[:account][:verify_code] && params[:account] && params[:account][:vtoken]
+    if params[:account][:mobile] && params[:account][:verify_code] && params[:account] && params[:vtoken]
       auth_message = AuthMessage.where(mobile: params[:account][:mobile], verify_code: params[:account][:verify_code], category: 1).first
       if auth_message
-        auth_token = AuthToken.where(auth_token: params[:account][:vtoken]).first
+        auth_token = AuthToken.where(auth_token: params[:vtoken]).first
         if auth_token
           terminal = auth_token.terminal
           duration = terminal.duration || 14400
