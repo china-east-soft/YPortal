@@ -1,7 +1,7 @@
 - @activity_hot = terminal_merchant.activities.actived.where(hot: true).first
 - @notification = @activity_hot.try(:title) || "热门活动"
 
-.row.span5.col-centered.broadcast style = "#{style if defined?(style)}"
-  = image_tag 'tu_04_05.png'
-  span
-    = link_to @notification, wifi_activities_path
+a href="#{wifi_activities_path}"
+  .row.span5.col-centered.broadcast style = "#{style if defined?(style)}"
+    = image_tag 'tu_04_05.png'
+    span = @notification
