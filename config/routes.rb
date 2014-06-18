@@ -65,7 +65,7 @@ Rails.application.routes.draw do
   end
 
   namespace :agent do
-    
+
   end
 
   namespace :account do

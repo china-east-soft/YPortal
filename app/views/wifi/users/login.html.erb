@@ -7,9 +7,7 @@
   <div class="row mbot30">
     <div class="col-lg-5 col-xs-12 col-centered">
     <%= render partial: "partial/adv", locals: { title: "登录界面" } %>
-    <div class="row span5 col-centered broadcast">
-      <%= image_tag 'tu_03_03.png' %> <span>热门活动</span>
-    </div>
+    <%= render partial: "partial/portal_notification" %>
     <div class="row span5 col-centered" style="padding:5px 15px;margin-top:5px;margin-bottom: 5px;background-color: #f1eddf;">
     <%= simple_form_for :account, as: :post, url:  sign_in_wifi_users_path,:role => "form", html: { class: "form-signin" } do |f| %>
 
