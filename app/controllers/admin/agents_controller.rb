@@ -17,6 +17,7 @@ class Admin::AgentsController < AdminController
   # GET /agents/new
   def new
     @agent = Agent.new
+    @agent.build_agent_info
   end
 
   # GET /agents/1/edit
@@ -43,7 +44,7 @@ class Admin::AgentsController < AdminController
   # PATCH/PUT /agents/1.json
   def update
     respond_to do |format|
-      if @agent.update(agent_params)
+      if @agent.update(agent_params.merge(not_required_password: true))
         format.html { redirect_to [:admin, @agent], notice: 'Agent was successfully updated.' }
         format.json { head :no_content }
       else
