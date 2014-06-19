@@ -1,0 +1,49 @@
+<div class="row span5 col-centered shop_title">
+  <% if params[:controller] != 'wifi/merchants' || params[:action] != 'home' %>
+    <%= link_to fa_icon(["angle-left", "2x"]), wifi_merchant_path(mid: params[:mid], vtoken: params[:vtoken]) %>
+  <% end %>
+  <h4 class="text-center"><strong><%= title %></strong></h4>
+</div>
+<div class="span5 about-carousel">
+  <div id="myCarousel" class="carousel slide">
+      <!-- Carousel items -->
+      <div class="carousel-inner">
+        <% if @banners.present? %>
+          <% @banners.each_with_index do |banner,bindex| %>
+              <div class="<%= 'active' if bindex == 0 %> item">
+                <%= image_tag banner.cover %>
+                <div class="carousel-caption">
+                    <p><%= banner.description %></p>
+                </div>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="active item">
+              <%= image_tag "about_1.jpg" %>
+              <div class="carousel-caption">
+                  <p>Donec luctus ullamcorper nulla</p>
+              </div>
+          </div>
+          <div class="item">
+              <%= image_tag "about_2.jpg" %>
+              <div class="carousel-caption">
+                  <p>Blanditiis praesentium voluptatum</p>
+              </div>
+          </div>
+          <div class="item">
+              <%= image_tag "about_1.jpg" %>
+              <div class="carousel-caption">
+                  <p>Honest and amazing things that bring positive results</p>
+              </div>
+          </div>
+        <% end %>
+      </div>
+      <!-- Carousel nav -->
+      <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+        <%= fa_icon "angle-left" %>
+      </a>
+      <a class="carousel-control right" href="#myCarousel" data-slide="next">
+        <%= fa_icon "angle-right" %>
+      </a>
+  </div>
+</div>
