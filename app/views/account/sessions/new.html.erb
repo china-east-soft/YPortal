@@ -1,6 +1,6 @@
 <div class="container">
   <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :role => 'form', html: { class: "form-signin" }) do |f| %>
-  	<h2 class="form-signin-heading">欢迎登陆</h2>
+  	<h2 class="form-signin-heading">欢迎使用免费WiFi</h2>
 		<% flash.each do |key, value| %>
 		   <div class="alert alert-block alert-danger fade in">
 		    <button data-dismiss="alert" class="close close-sm" type="button">
@@ -31,7 +31,7 @@
 		  <label class="checkbox">
 		    <%= f.check_box :remember_me %> 记住我
       </label>
-		  <%= f.submit "登录", class: "btn btn-lg btn-login btn-block" %>
+		  <%= f.submit "开通上网", class: "btn btn-lg btn-login btn-block" %>
       <div class="registration">
           还没有帐号？
           <%= link_to "立即注册", new_account_registration_path(mac: params[:mac], client_identifier: params[:client_identifier]) %>

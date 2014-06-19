@@ -3,3 +3,11 @@
 }
 
 .placeholder { color: #aaa; }
+
+.form-signin-heading {
+  letter-spacing: 0.1em;
+}
+
+input[type="submit"] {
+  letter-spacing: 0.5em;
+}
