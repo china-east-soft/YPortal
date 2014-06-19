@@ -21,15 +21,38 @@ class Account::AccountsController < AccountController
       end
     else
       vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
-      @auth_token = AuthToken.create(auth_token: vtoken,
-                  mac: params[:mac], 
-                  client_identifier: params[:client_identifier], 
-                  status: AuthToken.statuses[:init],
-                  terminal_id: current_terminal.id,
-                  account_id: current_account.id ,
-                  merchant_id: current_terminal.merchant_id)
-      render :signing
+      if current_account.created_at <= Time.now + 5.minutes
+        @auth_token = AuthToken.create(auth_token: vtoken,
+              mac: params[:mac], 
+              client_identifier: params[:client_identifier], 
+              status: AuthToken.statuses[:active],
+              terminal_id: current_terminal.id,
+              account_id: current_account.id ,
+              merchant_id: current_terminal.merchant_id)
+
+        account = @auth_token.account
+        duration = current_terminal.duration || 14400
+        if @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
+          gflash :success => "已经签到成功可以直接上网!"
+          redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
+        else
+          message = "签到失败!"
+          gflash :error => message
+          render action: :signing
+        end
+      else
+        @auth_token = AuthToken.create(auth_token: vtoken,
+              mac: params[:mac], 
+              client_identifier: params[:client_identifier], 
+              status: AuthToken.statuses[:init],
+              terminal_id: current_terminal.id,
+              account_id: current_account.id ,
+              merchant_id: current_terminal.merchant_id)
+        render :signing
+      end
     end
+
+
   end
 
   def sign_on
