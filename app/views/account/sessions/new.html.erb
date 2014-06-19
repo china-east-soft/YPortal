@@ -10,25 +10,23 @@
 		  </div>
 		<% end %>
   	<div class="login-wrap">
-  		<div class="form-group <%= 'has-error' if f.object.errors[:mobile].present? %>">
+  		<div class="form-group">
 			  <%= f.input_field :mobile, :autofocus => true, class: "form-control", placeholder: "手机号" %>
-			  <%  unless f.object.errors[:mobile].blank? %>
-	        <span class="help-block">
-	      		<%= f.object.errors[:mobile].join(",") %>
-	        </span>
-	      <% end %>
 		  </div>
-  		<div class="form-group <%= 'has-error' if f.object.errors[:password].present? %>">
-			  <%= f.password_field :password, class: "form-control", placeholder: "密码" %>
-		  	<% unless f.object.errors[:password].blank? %>
-	        <span class="help-block">
-	      		<%= f.object.errors[:password].join(",") %>
-	        </span>
-	      <% end %>
+  		<div class="form-group" style="margin-bottom:0;">
+			  <div class="row">
+			  	<div class="col-xs-7 col-sm-7 col-lg-7">
+			  		<%= f.password_field :password, class: "form-control", placeholder: "密码" %>
+	      	</div>
+		  		<div class="col-xs-5 col-sm-5 col-lg-5" style="padding-left:0;">
+		  			<button class="btn btn-info pull-right col-xs-12 col-sm-12 col-lg-12 " id="send_message">忘记密码</button>
+		  		</div>	
+	      </div>
 		  </div>
       <%= hidden_field_tag :mac, params[:mac] %>
       <%= hidden_field_tag :client_identifier, params[:client_identifier] %>
-		  <label class="checkbox">
+
+		  <label class="checkbox" style="margin-top:0;">
 		    <%= f.check_box :remember_me %> 记住我
       </label>
 		  <%= f.submit "开通上网", class: "btn btn-lg btn-login btn-block" %>

@@ -3,7 +3,8 @@ class AccountController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :authenticate_account!, :required_terminal, :required_client_identifier, except: [:signing]
+  before_filter :authenticate_account!, except: [:signing]
+  before_filter :required_terminal, :required_client_identifier
   layout 'account'
 
   helper_method :current_terminal, :terminal_merchant
