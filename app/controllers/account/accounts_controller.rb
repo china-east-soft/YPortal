@@ -5,6 +5,8 @@ class Account::AccountsController < AccountController
   include Vtoken
   layout 'wifi'
 
+  before_filter :check_account
+
   def signing
     @auth_token = AuthToken.where(mac: params[:mac], 
       client_identifier: params[:client_identifier], 
@@ -53,6 +55,15 @@ class Account::AccountsController < AccountController
       redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
     end
   end
+
+  private
+
+    def check_account
+      unless current_account
+        redirect_to new_account_session_path(mac: params[:mac], 
+          client_identifier: params[:client_identifier])
+      end
+    end
 
 
 

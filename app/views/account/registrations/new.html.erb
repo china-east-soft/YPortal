@@ -43,10 +43,12 @@
       <% end %>
 	  	</div>
 	  	<%= f.input 'signing', :as => :hidden, :input_html => { value: true } %>
+      <%= hidden_field_tag :mac, params[:mac] %>
+      <%= hidden_field_tag :client_identifier, params[:client_identifier] %>
 		  <%= f.submit "确认", class: "btn btn-lg btn-login btn-block" %>
       <div class="registration">
           已经拥有帐号?
-          <%= link_to "直接登录", account_session_path %>
+          <%= link_to "直接登录", account_session_path(mac: params[:mac], client_identifier: params[:client_identifier]) %>
       </div>
   	</div>
 	<% end %>
