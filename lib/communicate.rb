@@ -42,7 +42,7 @@ module Communicate
 
     max_delay, step = 4000, 1000
 
-    max_retry = 3
+    max_retry = 1
 
     recv_data = nil
 
