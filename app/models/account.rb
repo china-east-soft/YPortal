@@ -26,7 +26,7 @@ class Account < ActiveRecord::Base
   validate :verify_code_must_be_in_auth_messages, on: :create
 
   def verify_code_must_be_in_auth_messages
-    errors.add(:verify_code, "无效的验证码") unless AuthMessage.exists?(verify_code: verify_code, category: 2)
+    errors.add(:verify_code, "无效的验证码") unless AuthMessage.exists?(verify_code: verify_code, category: [1, 2])
   end
 
   protected

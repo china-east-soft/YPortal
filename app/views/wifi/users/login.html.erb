@@ -15,7 +15,7 @@
         <%= f.input_field :mobile, :autofocus => true, class: "form-control input-lg", placeholder: "手机", value: params[:account][:mobile] %>
       </div>
 
-      <div class="form-group" style="margin-bottom:10px;">
+      <div class="form-group" id="verify_code_group" style="margin-bottom:10px;">
         <div class="row">
           <div class=" col-xs-7 col-sm-7 col-lg-7">
             <%= f.input_field :verify_code, class: "form-control input-lg", placeholder: "验证码" %>
@@ -86,27 +86,52 @@
     </div>
 
 </div>
+
 <% content_for :script do %>
-<%= javascript_tag do %>
-  $( document ).ready(function() {
-    $(".sign_in").click(function(){
-      if($("label[for$='disclaimer_check']").prop("class").indexOf("c_on") >= 0){
-        if(checkMobil($("#account_mobile").val())){
-          if($("#account_verify_code").val() == ""){
-            alert('验证码不能为空！'); 
-            return false;
+  <%= javascript_tag do %>
+    $( document ).ready(function() {
+      $(".sign_in").click(function(){
+        if($("label[for$='disclaimer_check']").prop("class").indexOf("c_on") >= 0){
+          if(checkMobil($("#account_mobile").val())){
+            if($("#account_verify_code").val() == ""){
+              alert('验证码不能为空！');
+              return false;
+            } else {
+              return true;
+            }
           } else {
-            return true;
+            return false;
           }
         } else {
-          return false;
-        }
-      } else {
-        alert('请确认同意免责声明。'); return false;
-      };
-    });
+          alert('请确认同意免责声明。'); return false;
+        };
+      });
 
-    $("#disclaimer_check").trigger("click");
-  })
-<% end %>
+      $("#disclaimer_check").trigger("click");
+
+      <% if @mobile && @verify_code %>
+        var mobile = <%= @mobile %>,
+            verify_code = <%= @verify_code %>;
+
+        $("#verify_code_group").hide();
+        $("#account_verify_code").val(verify_code);
+
+        $("#account_mobile").change(function() {
+          if (mobile != $("#account_mobile").val() )
+          {
+            $("#verify_code_group").show();
+            if ($("#account_verify_code").val() == verify_code)
+            {
+              $("#account_verify_code").val("");
+            }
+          }
+          else
+          {
+            $("#verify_code_group").hide();
+            $("#account_verify_code").val(verify_code);
+          }
+        });
+      <% end %>
+    })
+  <% end %>
 <% end %>
