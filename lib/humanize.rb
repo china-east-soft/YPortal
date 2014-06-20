@@ -6,7 +6,7 @@ module Humanize
         secs, n = secs.divmod(count)
         "#{n.to_i} #{name}"
       end
-    }.compact.reverse.join(' ')
+    }.compact.reverse[0..-2].join(' ')
   end
 
 end

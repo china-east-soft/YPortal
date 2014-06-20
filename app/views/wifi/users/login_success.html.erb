@@ -17,10 +17,10 @@
         <div class="success-font">
           <p >已成功连接免费WiFi</p>
           <p >
-            剩余 <span id='countdown' class="time_counter"><%= humanize_second(@auth_token.try(:left_duration) || 14400) %></span> 的免费上网时长。
+            剩余 <span id='countdown' class="time_counter"><%= humanize_second(@auth_token.try(:left_duration) || 14400) %></span> 的免费上网时长
           </p>
           <p >
-            当前 <%= AuthToken.actived(terminal_merchant.id).count %> 人同时在线。
+            当前 <%= AuthToken.actived(terminal_merchant.id).count %> 人同时在线
           </p>
         </div>
       </div>

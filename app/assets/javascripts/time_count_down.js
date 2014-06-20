@@ -17,16 +17,15 @@ function timeCountDown(countdown_tag,duration)
       seconds_left = seconds_left % 3600;
        
       minutes = parseInt(seconds_left / 60);
-      seconds = parseInt(seconds_left % 60);
        
       // format countdown string + set tag value
       countdown.innerHTML = hours + " 小时 "
-      + minutes + " 分 " + seconds + " 秒";     
+      + minutes + " 分 ";     
     } else {
       window.clearInterval(refreshIntervalId);
     }
   
     duration = duration - 1;
    
-  }, 1000);
+  }, 60000);
 }
