@@ -21,7 +21,7 @@ class Account::AccountsController < AccountController
       end
     else
       vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
-      if current_account.last_sign_in_at <= Time.now + 5.minutes || current_account.created_at <= Time.now + 5.minutes
+      if current_account.current_sign_in_at <= Time.now + 5.minutes || current_account.created_at <= Time.now + 5.minutes
         @auth_token = AuthToken.create(auth_token: vtoken,
               mac: params[:mac], 
               client_identifier: params[:client_identifier], 
