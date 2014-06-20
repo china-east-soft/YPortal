@@ -40,9 +40,9 @@ module Communicate
 
     logger.info send_data
 
-    max_delay, step = 3000, 600
+    max_delay, step = 4000, 1000
 
-    max_retry = 2
+    max_retry = 3
 
     recv_data = nil
 
