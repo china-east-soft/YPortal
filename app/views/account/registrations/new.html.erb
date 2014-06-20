@@ -14,10 +14,10 @@
 		  <div class="form-group <%= 'has-error' if f.object.errors[:verify_code].present? %>" style="margin-bottom:0;">
 		  	<div class="row">
 		  		<div class="col-xs-7 col-sm-7 col-lg-7">
-					  <%= f.input_field :verify_code, class: "form-control", placeholder: "验证码" %>	
+					  <%= f.input_field :verify_code, class: "form-control", placeholder: "动态密码" %>	
 		  		</div>
 		  		<div class="col-xs-5 col-sm-5 col-lg-5" style="padding-left:0;">
-		  			<button class="btn btn-info pull-right col-xs-12 col-sm-12 col-lg-12" id="send_message">获取验证码</button>
+		  			<button class="btn btn-info pull-right col-xs-12 col-sm-12 col-lg-12" id="send_message">获取动态密码</button>
 		  		</div>		  		
 		  	</div>
 			  	<% unless f.object.errors[:verify_code].blank? %>
@@ -26,23 +26,10 @@
 		        </span>
 		      <% end %>
 		  </div>
-		  <div class="form-group <%= 'has-error' if f.object.errors[:password].present? %>">
-	  		<%= f.password_field :password, class: "form-control", placeholder: "密码", required: true %>
-		  	<% unless f.object.errors[:password].blank? %>
-	        <span class="help-block">
-	      		<%= f.object.errors[:password].join(",") %>
-	        </span>
-	      <% end %>
-	  	</div>
-	  	<div class="form-group <%= 'has-error' if f.object.errors[:password_confirmation].present? %>">
-	  		<%= f.password_field :password_confirmation, class: "form-control", placeholder: "确认密码", required: true %>
-		  	<% unless f.object.errors[:password_confirmation].blank? %>
-        <span class="help-block">
-      		<%= f.object.errors[:password_confirmation].join(",") %>
-        </span>
-      <% end %>
-	  	</div>
+
 	  	<%= f.input 'signing', :as => :hidden, :input_html => { value: true } %>
+	  	<%= f.input 'password', :as => :hidden %>
+	  	<%= f.input 'password_confirmation', :as => :hidden %>
       <%= hidden_field_tag :mac, params[:mac] %>
       <%= hidden_field_tag :client_identifier, params[:client_identifier] %>
 		  <%= f.submit "开通上网", class: "btn btn-lg btn-login btn-block" %>

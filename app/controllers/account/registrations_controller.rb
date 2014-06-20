@@ -12,7 +12,6 @@ class Account::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     mobile = sign_up_params[:mobile]
-
     if account = resource_class.where(mobile: mobile, encrypted_password: "").first
       account.assign_attributes(sign_up_params)
       resource = account
@@ -34,13 +33,10 @@ class Account::RegistrationsController < Devise::RegistrationsController
       end
     else
       # fix the mobile validates uniqueness
-      if account
-        resource = build_resource(sign_up_params.merge(fix_mobile_number: true))
-        resource_saved = resource.save    
-      else
-        resource = build_resource(sign_up_params)
-        resource_saved = resource.save
-      end
+      sign_up_params.merge(fix_mobile_number: true)
+
+      resource = build_resource(sign_up_params)
+      resource_saved = resource.save
 
       clean_up_passwords resource
       respond_with resource
