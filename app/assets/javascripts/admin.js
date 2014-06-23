@@ -22,3 +22,5 @@
 //= require gritter
 //= require datepicker.js
 //= require jquery.placeholder.js
+//= require jquery.cityselect.js
+//= require city.min.js

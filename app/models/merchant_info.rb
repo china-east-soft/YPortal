@@ -4,7 +4,7 @@ class MerchantInfo < ActiveRecord::Base
   attr_accessor :validate_base_info
   attr_accessor :validate_shop_info
 
-  validates_presence_of :name, :industry, :address, :contact_person_name, :contact_way, if: "validate_base_info"
+  validates_presence_of :name, :contact_person_name, :contact_way, if: "validate_base_info"
 
   #detailed infomation
   include ImgCrop
@@ -15,7 +15,7 @@ class MerchantInfo < ActiveRecord::Base
 
   validates_attachment :shop_photo, :presence => true,
                         :size => { :in => 0..100.kilobytes }, if: "validate_shop_info"
-  validates_presence_of :shop_description, :shop_phone_one, :shop_longitude, :shop_latitude, if: :"validate_shop_info"
+  validates_presence_of :shop_description, :shop_phone_one, :shop_longitude, :shop_latitude, :province, :city, :area, :address, if: :"validate_shop_info"
 
   imag_attr :shop_photo
 
