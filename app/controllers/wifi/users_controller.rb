@@ -13,7 +13,7 @@ class Wifi::UsersController < WifiController
     if params[:vtoken]
       auth_token = AuthToken.where(auth_token: params[:vtoken]).first
       if auth_token.present?
-        @mobile = auth_token.account.mobile
+        @mobile = auth_token.account.try(:mobile)
         @verify_code = AuthMessage.where(mobile: @mobile, category: 0).first.try(:verify_code)
         params[:account][:mobile] = @mobile
       end
