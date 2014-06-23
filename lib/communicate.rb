@@ -8,6 +8,10 @@ module Communicate
     end
   end
 
+  #type: 
+  # 7 : update duration
+  # 1 : account sign in
+  # 3 : offline
   def send_to_terminal remote_ip, port, auth_token, type, duration: nil
     version = "\x00".force_encoding('UTF-8')
     case type

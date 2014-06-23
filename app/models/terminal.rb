@@ -103,7 +103,6 @@ class Terminal < ActiveRecord::Base
           auth_token.update_terminal_duration(self.duration)
         end
 
-        #CommunicateWorker.perform_async(auth_token_sample.id) if auth_token_sample
         if auth_token_sample
           address = NatAddress.address(self.mac.downcase)
           remote_ip, port, time = address.split("#")
