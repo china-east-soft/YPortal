@@ -30,7 +30,6 @@ class Merchant::MerchantInfosController < MerchantController
   end
 
   def update_shop_info
-    binding.pry
     if @merchant_info.update(shop_info_params.merge(validate_shop_info: true))
       flash[:success] = "保存成功！"
       redirect_to  shop_info_merchant_merchant_infos_url
