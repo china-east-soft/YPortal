@@ -102,4 +102,18 @@ class Wifi::MerchantsController < WifiController
   def welcome
   end
 
+  def test
+    terminal = Terminal.where(["mac = ? and status = ? and merchant_id is not null",params[:mac].downcase, Terminal.statuses[:active]]).first
+    vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
+    @auth_token = AuthToken.new( auth_token: vtoken,
+                                mac: params[:mac].downcase,
+                                client_identifier: params[:client_identifier],
+                                status: AuthToken.statuses[:init],
+                                terminal_id: terminal.id,
+                                merchant_id: terminal.merchant_id )
+    terminal = @auth_token.terminal
+    duration = 10
+    @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
+  end
+
 end
