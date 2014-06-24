@@ -1,4 +1,4 @@
-= content_for :main_content do
+- content_for :main_content do
   = javascript_include_tag "http://webapi.amap.com/maps?v=1.2&key=test"
   .row
     .container
@@ -51,9 +51,15 @@
                     td
                       #address
                         .form-group
+                          #city
+                            = f.label :province, "所在地区", class: "col-sm-2 control-label"
+                            .col-sm-10
+                              = f.select :province, "", {}, { class: "prov form-control" }
+                              = f.select :city, "", {}, {class: "city form-control"}
+                              = f.select :area, "", {}, {class: "dist form-control"}
                           = f.label :address, "详细地址 ", class: "col-sm-2 control-label"
                           .col-sm-10
-                            = f.text_field :address, readonly: true, class: "form-control"
+                            = f.text_field :address, class: "form-control"
                       #map
                         h4.text-success 地理位置
                         span.text-muted
@@ -72,6 +78,7 @@
 
 = content_for :script do
   javascript:
+    /********* 地图  ********/
     var longitude = "#{@merchant_info.shop_longitude}";
     var latitude = "#{@merchant_info.shop_latitude}";
 
@@ -80,12 +87,21 @@
 
     //初始化地图对象，加载地图
     function mapInit(){
-        mapObj = new AMap.Map("iCenter");
 
-        mapObj.plugin(["AMap.ToolBar"],function(){
+        if (longitude != "" && latitude != "") {
+          mapObj = new AMap.Map("iCenter", {
+            center: new AMap.LngLat(parseFloat(longitude), parseFloat(latitude)),
+            level: 13,
+          });
+        }
+        else {
+          mapObj = new AMap.Map("iCenter");
+        }
+
+        mapObj.plugin(["AMap.ToolBar"], function(){
                 toolBar = new AMap.ToolBar();
-                        mapObj.addControl(toolBar);
-                            });
+                  mapObj.addControl(toolBar);
+                    });
 
         //为地图注册double click事件获取鼠标点击出的经纬度坐标
         AMap.event.addListener(mapObj,'dblclick',function(e){
@@ -125,3 +141,16 @@
 
     mapInit();
     Init_Marker();
+    /********************* end *******************/
+
+    /********  省市地区下拉菜单 ******************/
+
+    $(function(){
+      $("#city").citySelect({
+          url: china,
+          prov: "#{@merchant_info.province || '浙江'}",
+          city: "#{@merchant_info.city || '杭州'}",
+          dist: "#{@merchant_info.area }"
+        });
+    });
+

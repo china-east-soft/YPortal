@@ -61,3 +61,10 @@
     margin-top: 30px;
   }
 }
+
+#city {
+  .form-control {
+    display: inline;
+    width: 33%;
+  }
+}

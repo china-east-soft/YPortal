@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
-  
+
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.ico' %>
   <title>
@@ -16,18 +16,18 @@
   <% end %>
   </title>
   <%= stylesheet_link_tag    'wifi', media: 'all' %>
-  
+
 
   <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
   <![endif]-->
-  
+
 </head>
 <body class="portal_wraped">
 
 	<%= yield %>
-  
+
   <div class="side-btns" id="float_section" style="opacity: 1;">
     <a href="javascript:void(0);" id="gotop" class="totop"></a>
             <a href="<%= wifi_merchant_path(mid: params[:mid], vtoken: params[:vtoken]) %>" class="tohome" id="tohome">
@@ -36,7 +36,7 @@
   </div>
 
 <style type="text/css">
- 
+
 </style>
 
   <%= javascript_include_tag 'wifi' %>
@@ -82,15 +82,22 @@
        });
      });
 
+    $(document).ready(function(){
+        $('.bxslider').bxSlider({
+            auto: true,
+            captions: true,
+        });
+    });
+
     //    bxslider
 
-    $('.bxslider').show();
-    $('.bxslider').bxSlider({
-        minSlides: 3,
-        maxSlides: 2,
-        slideWidth: 276,
-        slideMargin: 20
-    });
+    // $('.bxslider').show();
+    // $('.bxslider').bxSlider({
+    //     minSlides: 3,
+    //     maxSlides: 2,
+    //     slideWidth: 276,
+    //     slideMargin: 20
+    // });
 
   </script>
 

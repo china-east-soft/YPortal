@@ -6,16 +6,16 @@
 <div class="container">
   <div class="row mbot30">
     <div class="col-lg-5 col-xs-12 col-centered">
-    <%= render partial: "partial/adv", locals: { title: "登录界面" } %>
-    <%= render partial: "partial/portal_notification" %>
-    <div class="row span5 col-centered" style="padding:5px 15px;margin-top:5px;margin-bottom: 5px;background-color: #f1eddf;">
-    <%= simple_form_for :account, as: :post, url:  sign_in_wifi_users_path,:role => "form", html: { class: "form-signin" } do |f| %>
+      <%= render partial: "partial/adv", locals: { title: "登录界面" } %>
+      <%= render partial: "partial/portal_notification" %>
+      <div class="row span5 col-centered" style="padding:5px 15px;margin-top:5px;margin-bottom: 5px;background-color: #f1eddf;">
+        <%= simple_form_for :account, as: :post, url:  sign_in_wifi_users_path,:role => "form", html: { class: "form-signin" } do |f| %>
 
-      <div class="form-group" style="margin-bottom:10px;">
-        <%= f.input_field :mobile, :autofocus => true, class: "form-control input-lg", placeholder: "手机", value: params[:account][:mobile] %>
-      </div>
+          <div class="form-group" style="margin-bottom:10px;">
+          <%= f.input_field :mobile, :autofocus => true, class: "form-control input-lg", placeholder: "手机", value: params[:account][:mobile] %>
+          </div>
 
-      <div class="form-group" style="margin-bottom:10px;">
+      <div class="form-group" id="verify_code_group" style="margin-bottom:10px;">
         <div class="row">
           <div class=" col-xs-7 col-sm-7 col-lg-7">
             <%= f.input_field :verify_code, class: "form-control input-lg", placeholder: "验证码" %>
@@ -86,9 +86,10 @@
     </div>
 
 </div>
+
 <% content_for :script do %>
 <%= javascript_tag do %>
-  $( document ).ready(function() {
+   $( document ).ready(function() {
     $(".sign_in").click(function(){
       if($("label[for$='disclaimer_check']").prop("class").indexOf("c_on") >= 0){
         if(checkMobil($("#account_mobile").val())){
@@ -115,7 +116,34 @@
       };
     });
 
+
     $("#disclaimer_check").trigger("click");
+
+    <% if @mobile && @verify_code %>
+        var mobile = <%= @mobile %>,
+            verify_code = <%= @verify_code %>;
+
+        $("#verify_code_group").hide();
+        $("#account_verify_code").val(verify_code);
+
+        $("#account_mobile").change(function() {
+          if (mobile != $("#account_mobile").val() )
+          {
+            $("#verify_code_group").show();
+            if ($("#account_verify_code").val() == verify_code)
+            {
+              $("#account_verify_code").val("");
+            }
+          }
+          else
+          {
+            $("#verify_code_group").hide();
+            $("#account_verify_code").val(verify_code);
+          }
+        });
+
+      <% end %>
+
   })
-<% end %>
+  <% end %>
 <% end %>

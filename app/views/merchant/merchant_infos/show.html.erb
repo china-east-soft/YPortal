@@ -39,17 +39,6 @@
                 <% end %>
                 </td>
               </tr>
-              <tr>
-                <td><%= t(".address") %></td>
-                <td>
-                  <%= f.text_field :address, class: "form-control"%>
-                  <% unless f.object.errors[:address].blank? %>
-                    <span class="error">
-                    <%= f.object.errors[:address].join(",")%>
-                  </span>
-                <% end %>
-                </td>
-              </tr>
               </tbody>
             </table>
           </div>

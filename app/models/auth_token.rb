@@ -1,8 +1,9 @@
 class AuthToken < ActiveRecord::Base
 
   include Communicate
+  include Sidekiq::Worker # include sidekiq worker
 
-  enum status: [ :init, :active, :expired ] 
+  enum status: [ :init, :active, :expired ]
 
   belongs_to :account
   belongs_to :terminal
@@ -38,17 +39,22 @@ class AuthToken < ActiveRecord::Base
         if address = NatAddress.address(self.mac.downcase)
           remote_ip, port, time = address.split("#")
           recv_data = send_to_terminal remote_ip, port, self, 1
-          
+
           if recv_data.present?
             self.update(status: status)
           else
             message = "can not recv data..."
             Communicate.logger.add Logger::FATAL, message
+
+            DeveloperMailer.system_error_email("[#{I18n.l Time.now}]: error occurs when server send data to terminal", message).deliver
             false
           end
         else
           message = "no nat address..."
           Communicate.logger.add Logger::FATAL, message
+
+          DeveloperMailer.system_error_email("[#{I18n.l Time.now}]: error occurs when server send data to terminal", message).deliver
+
           false
         end
       end

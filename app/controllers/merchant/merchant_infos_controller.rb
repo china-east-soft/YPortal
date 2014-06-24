@@ -12,6 +12,7 @@ class Merchant::MerchantInfosController < MerchantController
     else
       flash.now[:warning] = I18n.t("merchant.merchant_infos.flashes.fail_updated")
     end
+
     render :show
   end
 
@@ -49,11 +50,11 @@ class Merchant::MerchantInfosController < MerchantController
     params.require(:merchant).permit :password, :password_confirmation, :current_password
   end
   def merchant_info_params
-    params.require(:merchant_info).permit :name, :industry, :address, :contact_person_name, :contact_way
+    params.require(:merchant_info).permit :name, :industry, :contact_person_name, :contact_way
   end
 
   def shop_info_params
-    params.require(:merchant_info).permit :shop_photo, :shop_description, :shop_phone_one, :shop_phone_two, :shop_longitude, :shop_latitude
+    params.require(:merchant_info).permit :shop_photo, :shop_description, :shop_phone_one, :shop_phone_two, :shop_longitude, :shop_latitude, :province, :city, :area, :address
   end
 
   def set_locale

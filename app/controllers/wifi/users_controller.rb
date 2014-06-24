@@ -9,6 +9,16 @@ class Wifi::UsersController < WifiController
 
   def login
     params[:account] ||= {}
+
+    if params[:vtoken]
+      auth_token = AuthToken.where(auth_token: params[:vtoken]).first
+      if auth_token.present?
+        @mobile = auth_token.account.try(:mobile)
+        @verify_code = AuthMessage.where(mobile: @mobile, category: 0).first.try(:verify_code)
+        params[:account][:mobile] = @mobile
+      end
+    end
+
   end
 
   def sign_in
@@ -21,7 +31,7 @@ class Wifi::UsersController < WifiController
           terminal = auth_token.terminal
           duration = terminal.duration || 14400
 
-          account = Account.where(mobile: params[:account][:mobile]).first_or_create
+          account = Account.where(mobile: params[:account][:mobile]).first_or_create account_params
 
           case auth_token.status
           when "init"
@@ -121,6 +131,11 @@ class Wifi::UsersController < WifiController
     else
       redirect_to wifi_merchant_url(client_identifier: @auth_token.client_identifier, mac: @auth_token.mac)
     end
+  end
+
+  private
+  def account_params
+    { verify_code: params[:account][:verify_code] }
   end
 
 end
