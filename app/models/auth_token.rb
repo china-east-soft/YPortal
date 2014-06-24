@@ -8,8 +8,8 @@ class AuthToken < ActiveRecord::Base
   belongs_to :account
   belongs_to :terminal
   belongs_to :merchant
-
-  validates_uniqueness_of :client_identifier, scope: :mac, conditions: -> { where(status: [AuthToken.statuses[:init], AuthToken.statuses[:active]]) }
+  # for test
+  #validates_uniqueness_of :client_identifier, scope: :mac, conditions: -> { where(status: [AuthToken.statuses[:init], AuthToken.statuses[:active]]) }
   scope :actived, lambda { |merchant_id| where(status: AuthToken.statuses[:active], merchant_id: merchant_id) }
 
   class << self
@@ -61,7 +61,7 @@ class AuthToken < ActiveRecord::Base
     end
 
   end
-
+  # for test
   # return expired if left duration less than 1 min
   def update_status
     # if self.expired_timestamp.present? && self.active? && self.expired_timestamp.to_i < Time.now.to_i + 60
