@@ -11,8 +11,9 @@ class Account::AccountsController < AccountController
     @auth_token = AuthToken.where(mac: params[:mac], 
       client_identifier: params[:client_identifier], 
       status: [AuthToken.statuses[:init],AuthToken.statuses[:active]]).first
-    
+
     if @auth_token
+      @auth_token.update_status
       case @auth_token.status
       when 'init'
         render :signing
@@ -59,6 +60,7 @@ class Account::AccountsController < AccountController
     @auth_token = AuthToken.where(mac: params[:mac], 
       client_identifier: params[:client_identifier], 
       auth_token: params[:vtoken]).first
+    @auth_token.update_status
     case @auth_token.status
     when "init"
       account = @auth_token.account

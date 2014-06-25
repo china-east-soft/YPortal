@@ -40,14 +40,14 @@
         </div>
       </div>
       <!-- portal images end -->
-
+      <%= request.env['HTTP_USER_AGENT'] %>
   </div>
   </div>
 </div>
 
 <% content_for :script do %>
   <%= javascript_tag do %>
-  <% if @auth_token && @auth_token.init? && request.env['HTTP_USER_AGENT'].match /CaptiveNetworkSupport/ %>
+  <% if @auth_token && @auth_token.init? %>
     $(document).ready(function() {
       $.ajax({
         type: "get",
