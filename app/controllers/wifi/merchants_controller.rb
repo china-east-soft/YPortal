@@ -15,6 +15,10 @@ class Wifi::MerchantsController < WifiController
       if @auth_token.present?
         @auth_token.update_status
         if @auth_token.init?
+          Thread.new do
+            sleep(2)
+            test_wifi
+          end
           render :home
         elsif @auth_token.active?
           gflash :success => "已经认证成功可以直接上网!"
@@ -39,9 +43,6 @@ class Wifi::MerchantsController < WifiController
             @auth_token.update_status
             case @auth_token.status
             when "init"
-              Thread.new do
-                test_wifi
-              end
               redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
             when "active"
               if address = NatAddress.address(params[:mac].downcase)
@@ -79,9 +80,6 @@ class Wifi::MerchantsController < WifiController
                                           terminal_id: terminal.id,
                                           merchant_id: terminal.merchant_id )
               @auth_token.save!
-              Thread.new do
-                test_wifi
-              end
               redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
             else
               gflash :error => "请连接wifi!"
