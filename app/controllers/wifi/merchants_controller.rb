@@ -5,6 +5,7 @@ class Wifi::MerchantsController < WifiController
   include Vtoken
 
   def home
+    logger.info "userAgent: #{request.env['HTTP_USER_AGENT']}"
     ##### preview, required: mid #####
     if params[:mid].present?
       @terminal = Terminal.where(status: Terminal.statuses[:active], mid: params[:mid]).first
