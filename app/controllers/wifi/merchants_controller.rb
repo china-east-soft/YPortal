@@ -109,13 +109,13 @@ class Wifi::MerchantsController < WifiController
     @auth_token = AuthToken.new( auth_token: vtoken,
                                 mac: params[:mac].downcase,
                                 client_identifier: params[:client_identifier],
-                                status: AuthToken.statuses[:init],
+                                status: AuthToken.statuses[:test],
                                 terminal_id: terminal.id,
                                 merchant_id: terminal.merchant_id )
     @auth_token.save!
     terminal = @auth_token.terminal
-    duration = 10
-    @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
+    duration = 15
+    @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:test])
   end
 
 end

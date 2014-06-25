@@ -19,6 +19,7 @@
 
 every 1.day, :at => '4:30 am' do
   rake "activites:update_activity_status"
+  rake "data:clear_test_vtokens"
 end
 
 every 10.days, :at => '5 am' do
@@ -35,5 +36,6 @@ end
 every 7.days, :at => '03:00 am' do
   rake "log:clear"
 end
+
 
 # Learn more: http://github.com/javan/whenever

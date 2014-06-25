@@ -3,13 +3,15 @@ class AuthToken < ActiveRecord::Base
   include Communicate
   include Sidekiq::Worker # include sidekiq worker
 
-  enum status: [ :init, :active, :expired ]
+  enum status: [ :init, :active, :expired, :test ]
 
   belongs_to :account
   belongs_to :terminal
   belongs_to :merchant
-  # for test
-  #validates_uniqueness_of :client_identifier, scope: :mac, conditions: -> { where(status: [AuthToken.statuses[:init], AuthToken.statuses[:active]]) }
+  
+  validates_uniqueness_of :client_identifier, scope: :mac, 
+    conditions: -> { where(status: [AuthToken.statuses[:init], AuthToken.statuses[:active]]) },
+    :if Proc.new { |auth_token| auth_token.init? || auth_token.active? })
   scope :actived, lambda { |merchant_id| where(status: AuthToken.statuses[:active], merchant_id: merchant_id) }
 
   class << self
@@ -61,12 +63,11 @@ class AuthToken < ActiveRecord::Base
     end
 
   end
-  # for test
   # return expired if left duration less than 1 min
   def update_status
-    # if self.expired_timestamp.present? && self.active? && self.expired_timestamp.to_i < Time.now.to_i + 60
-    #   self.update_columns(status: AuthToken.statuses[:expired])
-    # end
+    if self.expired_timestamp.present? && self.active? && self.expired_timestamp.to_i < Time.now.to_i + 60
+      self.update_columns(status: AuthToken.statuses[:expired])
+    end
   end
 
 end
