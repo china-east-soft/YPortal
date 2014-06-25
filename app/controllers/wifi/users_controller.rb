@@ -91,6 +91,7 @@ class Wifi::UsersController < WifiController
   def process_vtoken_present
     @auth_token = AuthToken.where(auth_token: params[:vtoken]).first
     if @auth_token.present?
+      @auth_token.update_status
       if @auth_token.init?
         process_init_update_token_and_communicate_with_terminal
       elsif @auth_token.active?

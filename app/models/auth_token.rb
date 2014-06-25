@@ -31,19 +31,19 @@ class AuthToken < ActiveRecord::Base
   def update_terminal_duration(terminal_duration)
     start_at = self.expired_timestamp - self.duration
     auth_token_status = (start_at + terminal_duration) > Time.now.to_i ? AuthToken.statuses[:active] : AuthToken.statuses[:init]
-    self.update(duration: terminal_duration, expired_timestamp: start_at + terminal_duration, status: auth_token_status)
+    self.update_columns(duration: terminal_duration, expired_timestamp: start_at + terminal_duration, status: auth_token_status)
   end
 
   def update_and_send_to_terminal(expired_timestamp: expired_timestamp,duration: duration, status: status, account_id: account_id)
     transaction do
       account_id = account_id || self.account_id
-      if self.update(expired_timestamp: expired_timestamp, duration: duration, status: status, account_id: account_id)
+      if self.update_columns(expired_timestamp: expired_timestamp, duration: duration, status: status, account_id: account_id)
         if address = NatAddress.address(self.mac.downcase)
           remote_ip, port, time = address.split("#")
           recv_data = send_to_terminal remote_ip, port, self, 1
 
           if recv_data.present?
-            self.update(status: status)
+            self.update_columns(status: status)
           else
             message = "can not recv data..."
             Communicate.logger.add Logger::FATAL, message
