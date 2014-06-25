@@ -5,7 +5,7 @@ class Wifi::MerchantsController < WifiController
   include Vtoken
 
   def home
-    if request.env['HTTP_USER_AGENT'].match /CaptiveNetworkSupport/
+    if request.env['HTTP_USER_AGENT'].to_s.match /CaptiveNetworkSupport/
       $redis.set("CaptiveNetworkSupport##{params[:mac].downcase}##{params[:client_identifier]}", Time.now.to_i)
       render text: 'ok'
     else
@@ -113,7 +113,7 @@ class Wifi::MerchantsController < WifiController
 
   def test
     captive_time = $redis.get("CaptiveNetworkSupport##{params[:mac].downcase}##{params[:client_identifier]}")
-    if captive_time && captive_time.to_i < Time.now.to_i - 30
+    if captive_time && captive_time.to_i > Time.now.to_i - 30
       terminal = Terminal.where(["mac = ? and status = ? and merchant_id is not null",params[:mac].downcase, Terminal.statuses[:active]]).first
       vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
       @auth_token = AuthToken.new( auth_token: vtoken,
