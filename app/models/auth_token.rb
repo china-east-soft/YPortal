@@ -46,14 +46,14 @@ class AuthToken < ActiveRecord::Base
             message = "can not recv data..."
             Communicate.logger.add Logger::FATAL, message
 
-            DeveloperMailer.system_error_email("[#{I18n.l Time.now}]: error occurs when server send data to terminal", message).deliver
+            #DeveloperMailer.system_error_email("[#{I18n.l Time.now}]: error occurs when server send data to terminal", message).deliver
             false
           end
         else
           message = "no nat address..."
           Communicate.logger.add Logger::FATAL, message
 
-          DeveloperMailer.system_error_email("[#{I18n.l Time.now}]: error occurs when server send data to terminal", message).deliver
+          #DeveloperMailer.system_error_email("[#{I18n.l Time.now}]: error occurs when server send data to terminal", message).deliver
 
           false
         end
