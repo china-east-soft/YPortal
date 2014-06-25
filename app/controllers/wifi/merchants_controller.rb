@@ -5,7 +5,15 @@ class Wifi::MerchantsController < WifiController
   include Vtoken
 
   def home
-    logger.info "userAgent: #{request.env['HTTP_USER_AGENT']}"
+    if request.env['HTTP_USER_AGENT'].match /CaptiveNetworkSupport/
+      $redis.set("CaptiveNetworkSupport##{params[:mac].downcase}##{params[:client_identifier]}", Time.now.to_i)
+      render text: 'ok'
+    else
+      process_wifi
+    end
+  end
+
+  def process_wifi
     ##### preview, required: mid #####
     if params[:mid].present?
       @terminal = Terminal.where(status: Terminal.statuses[:active], mid: params[:mid]).first
@@ -94,8 +102,7 @@ class Wifi::MerchantsController < WifiController
         render :error
       end
 
-    end
-
+    end   
   end
 
   def show
@@ -105,18 +112,21 @@ class Wifi::MerchantsController < WifiController
   end
 
   def test
-    terminal = Terminal.where(["mac = ? and status = ? and merchant_id is not null",params[:mac].downcase, Terminal.statuses[:active]]).first
-    vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
-    @auth_token = AuthToken.new( auth_token: vtoken,
+    captive_time = $redis.get("CaptiveNetworkSupport##{params[:mac].downcase}##{params[:client_identifier]}")
+    if captive_time && captive_time < Time.now.to_i - 30
+      terminal = Terminal.where(["mac = ? and status = ? and merchant_id is not null",params[:mac].downcase, Terminal.statuses[:active]]).first
+      vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
+      @auth_token = AuthToken.new( auth_token: vtoken,
                                 mac: params[:mac].downcase,
                                 client_identifier: params[:client_identifier],
                                 status: AuthToken.statuses[:test],
                                 terminal_id: terminal.id,
                                 merchant_id: terminal.merchant_id )
-    @auth_token.save!
-    terminal = @auth_token.terminal
-    duration = 15
-    @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:test])
+      @auth_token.save!
+      terminal = @auth_token.terminal
+      duration = 15
+      @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:test])
+    end
   end
 
 end
