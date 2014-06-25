@@ -44,3 +44,19 @@
   </div>
   </div>
 </div>
+
+<% content_for :script do %>
+  <%= javascript_tag do %>
+  <% if @auth_token %>
+   $(document).ready(function() {
+      $.ajax({
+        type: "get",
+        dataType: "text",
+        url: '/wifi/test',
+        data: 'mac=<%= @auth_token.mac %>&client_identifier=<%=@auth_token.client_identifier %>',
+        success: function (msg){ }
+      });
+    })
+  <% end %>
+  <% end %>
+<% end %>

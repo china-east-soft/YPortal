@@ -39,11 +39,6 @@ class Wifi::MerchantsController < WifiController
             @auth_token.update_status
             case @auth_token.status
             when "init"
-              Thread.new do
-                logger.info 'xxxxx'
-                sleep(2)
-                test_wifi
-              end
               redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
             when "active"
               if address = NatAddress.address(params[:mac].downcase)
@@ -81,11 +76,7 @@ class Wifi::MerchantsController < WifiController
                                           terminal_id: terminal.id,
                                           merchant_id: terminal.merchant_id )
               @auth_token.save!
-              Thread.new do
-                logger.info 'xxxxx'
-                sleep(2)
-                test_wifi
-              end
+
               redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
             else
               gflash :error => "请连接wifi!"
@@ -112,21 +103,19 @@ class Wifi::MerchantsController < WifiController
   def welcome
   end
 
-  private
-
-    def test_wifi
-      terminal = Terminal.where(["mac = ? and status = ? and merchant_id is not null",params[:mac].downcase, Terminal.statuses[:active]]).first
-      vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
-      @auth_token = AuthToken.new( auth_token: vtoken,
-                                  mac: params[:mac].downcase,
-                                  client_identifier: params[:client_identifier],
-                                  status: AuthToken.statuses[:init],
-                                  terminal_id: terminal.id,
-                                  merchant_id: terminal.merchant_id )
-      @auth_token.save!
-      terminal = @auth_token.terminal
-      duration = 10
-      @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
-    end
+  def test
+    terminal = Terminal.where(["mac = ? and status = ? and merchant_id is not null",params[:mac].downcase, Terminal.statuses[:active]]).first
+    vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
+    @auth_token = AuthToken.new( auth_token: vtoken,
+                                mac: params[:mac].downcase,
+                                client_identifier: params[:client_identifier],
+                                status: AuthToken.statuses[:init],
+                                terminal_id: terminal.id,
+                                merchant_id: terminal.merchant_id )
+    @auth_token.save!
+    terminal = @auth_token.terminal
+    duration = 10
+    @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
+  end
 
 end
