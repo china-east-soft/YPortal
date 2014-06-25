@@ -11,12 +11,12 @@ module API::V1
       delete :logout do
         auth_token = AuthToken.where(auth_token: params[:vtoken], mac: params[:mac]).first
         duration = 0
-        error_code = if auth_token
+        if auth_token
           case auth_token.status
           when 'expired'
-            1 # expired
+            error_code = 1 # expired
           when 'init'
-            2 # init
+            error_code = 2 # init
           when 'active'
             expired_timestamp = auth_token.expired_timestamp
             left_time = expired_timestamp - Time.now.to_i
@@ -26,11 +26,11 @@ module API::V1
               end
             else
               duration = left_time
-              3
+              error_code = 3
             end
           end
         else
-          4 # not exists
+          error_code = 4 # not exists
         end
         if error_code
           present :error, error_code
