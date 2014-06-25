@@ -49,7 +49,7 @@ class Wifi::MerchantsController < WifiController
 
                 if recv_data.present?
                   gflash :success => "已经认证成功可以直接上网!"
-                  redirect_to wifi_welcome_url(vtoken: @auth_token.auth_token)
+                  redirect_to wifi_welcome_url(vtoken: @auth_token.auth_token, userAgent: params[:userAgent])
                 else
                   message = "can not recv data..."
                   Communicate.logger.add Logger::FATAL, message
@@ -77,7 +77,7 @@ class Wifi::MerchantsController < WifiController
                                           merchant_id: terminal.merchant_id )
               @auth_token.save!
 
-              redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
+              redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token, userAgent: params[:userAgent])
             else
               gflash :error => "请连接wifi!"
               render :error

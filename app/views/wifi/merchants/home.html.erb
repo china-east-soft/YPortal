@@ -47,7 +47,7 @@
 
 <% content_for :script do %>
   <%= javascript_tag do %>
-  <% if @auth_token && @auth_token.init? %>
+  <% if @auth_token && @auth_token.init? && params[:userAgent].match /CaptiveNetworkSupport/ %>
     $(document).ready(function() {
       $.ajax({
         type: "get",
