@@ -40,6 +40,7 @@ class Wifi::MerchantsController < WifiController
             case @auth_token.status
             when "init"
               Thread.new do
+                logger.info 'xxxxx'
                 sleep(2)
                 test_wifi
               end
@@ -81,6 +82,7 @@ class Wifi::MerchantsController < WifiController
                                           merchant_id: terminal.merchant_id )
               @auth_token.save!
               Thread.new do
+                logger.info 'xxxxx'
                 sleep(2)
                 test_wifi
               end
