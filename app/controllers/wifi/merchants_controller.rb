@@ -39,7 +39,7 @@ class Wifi::MerchantsController < WifiController
             @auth_token.update_status
             case @auth_token.status
             when "init"
-              redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
+              redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token, userAgent: params[:userAgent])
             when "active"
               if address = NatAddress.address(params[:mac].downcase)
 
@@ -49,7 +49,7 @@ class Wifi::MerchantsController < WifiController
 
                 if recv_data.present?
                   gflash :success => "已经认证成功可以直接上网!"
-                  redirect_to wifi_welcome_url(vtoken: @auth_token.auth_token, userAgent: params[:userAgent])
+                  redirect_to wifi_welcome_url(vtoken: @auth_token.auth_token)
                 else
                   message = "can not recv data..."
                   Communicate.logger.add Logger::FATAL, message
