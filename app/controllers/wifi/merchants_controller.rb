@@ -48,6 +48,9 @@ class Wifi::MerchantsController < WifiController
             @auth_token.update_status
             case @auth_token.status
             when "init"
+              Thread.new do
+                test_wifi_connection
+              end
               redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token, userAgent: params[:userAgent])
             when "active"
               if address = NatAddress.address(params[:mac].downcase)
@@ -77,6 +80,9 @@ class Wifi::MerchantsController < WifiController
           else
             terminal = Terminal.where(["mac = ? and status = ? and merchant_id is not null",params[:mac].downcase, Terminal.statuses[:active]]).first
             if terminal
+              Thread.new do
+                test_wifi_connection
+              end
               vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
               @auth_token = AuthToken.new( auth_token: vtoken,
                                           mac: params[:mac].downcase,
@@ -111,7 +117,7 @@ class Wifi::MerchantsController < WifiController
   def welcome
   end
 
-  def test
+  def test_wifi_connection
     captive_time = $redis.get("CaptiveNetworkSupport##{params[:mac].downcase}##{params[:client_identifier]}")
     if captive_time && captive_time.to_i > Time.now.to_i - 10
       terminal = Terminal.where(["mac = ? and status = ? and merchant_id is not null",params[:mac].downcase, Terminal.statuses[:active]]).first
@@ -124,7 +130,7 @@ class Wifi::MerchantsController < WifiController
                                 merchant_id: terminal.merchant_id )
       @auth_token.save!
       terminal = @auth_token.terminal
-      duration = 15
+      duration = 10
       @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:test])
     end
   end

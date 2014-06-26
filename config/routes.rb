@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   get "/merchant/link_from_terminal" => "merchant#link_from_terminal"
 
   namespace :wifi do
-    get 'test' => "merchants#test"
+    #get 'test' => "merchants#test"
     get 'merchant' => "merchants#home"
     get 'login' => "users#login"
     get 'welcome' => "merchants#welcome"
