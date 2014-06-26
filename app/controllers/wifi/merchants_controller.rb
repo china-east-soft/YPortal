@@ -50,6 +50,7 @@ class Wifi::MerchantsController < WifiController
             when "init"
               Thread.new do
                 test_wifi_connection
+                ActiveRecord::Base.connection.close
               end
               redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token, userAgent: params[:userAgent])
             when "active"
@@ -82,6 +83,7 @@ class Wifi::MerchantsController < WifiController
             if terminal
               Thread.new do
                 test_wifi_connection
+                ActiveRecord::Base.connection.close
               end
               vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
               @auth_token = AuthToken.new( auth_token: vtoken,
