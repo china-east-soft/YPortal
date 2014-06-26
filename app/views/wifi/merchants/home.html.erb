@@ -43,3 +43,18 @@
   </div>
   </div>
 </div>
+
+<% content_for :script do %>
+   <%= javascript_tag do %>
+   <% if @auth_token && @auth_token.init? %>
+     $(document).ready(function() {
+       $.ajax({
+         type: "get",
+         dataType: "text",
+         url: '/wifi/test',
+         success: function (msg){ }
+       });
+     })
+   <% end %>
+   <% end %>
+ <% end %>

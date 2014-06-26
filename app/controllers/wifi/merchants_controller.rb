@@ -119,6 +119,9 @@ class Wifi::MerchantsController < WifiController
   def welcome
   end
 
+  def test
+  end
+
   def test_wifi_connection
     captive_time = $redis.get("CaptiveNetworkSupport##{params[:mac].downcase}##{params[:client_identifier]}")
     if captive_time && captive_time.to_i > Time.now.to_i - 10
