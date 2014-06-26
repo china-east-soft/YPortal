@@ -1,10 +1,8 @@
 /*
- *= require products.css
  *= require bootstrap.css
  *= require theme.css
  *= require bootstrap-reset-m.css
  *= require font-awesome.css
- *= require flexslider.css
  *= require jquery.bxslider.css
  *= require gritter
  *= require share.css
@@ -17,4 +15,5 @@
  *= require wifi/wifi_section.css
  *= require wifi/side-btn.css
  *= require wifi/users.css
+ *= require products.css
 */

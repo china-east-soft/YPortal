@@ -1,10 +1,7 @@
 //= require jquery
-//= require jquery_ujs
 //= require bootstrap.min.js
-//= require jquery.flexslider.js
 //= require jquery.bxslider.js
 //= require jquery.easing.min.js
-//= require common-scripts2
 //= require mform.js
 //= require gritter
 //= require validate.js

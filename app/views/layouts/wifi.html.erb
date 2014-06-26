@@ -42,7 +42,10 @@
   <%= javascript_include_tag 'wifi' %>
   <%= gflash %>
   <script type="text/javascript">
+    // gritter
+    <%= extend_gritter :time => 2000 %>
 
+    // scroll side button
     var showFloat = false;
     $('#float_section').css('opacity', 0);
     $('#float_section').show();
@@ -66,38 +69,22 @@
           }, 500, 'easeOutBack');
         }
       });
+
+      // flash title
+      /*
+      $('.carousel').carousel({
+        interval: 3000
+      })  
+      */
+
+      $('.bxslider').bxSlider({
+          auto: true,
+          captions: true,
+      });
+
     });
 
-  </script>
-
-
-  <script>
-    <%= extend_gritter :time => 2000 %>
-    $(window).load(function() {
-       $('.flexslider').flexslider({
-           animation: "slide",
-           start: function(slider) {
-               $('body').removeClass('loading');
-           }
-       });
-     });
-
-    $(document).ready(function(){
-        $('.bxslider').bxSlider({
-            auto: true,
-            captions: true,
-        });
-    });
-
-    //    bxslider
-
-    // $('.bxslider').show();
-    // $('.bxslider').bxSlider({
-    //     minSlides: 3,
-    //     maxSlides: 2,
-    //     slideWidth: 276,
-    //     slideMargin: 20
-    // });
+    // flash title
 
   </script>
 
