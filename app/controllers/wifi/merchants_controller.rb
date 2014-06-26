@@ -132,7 +132,7 @@ class Wifi::MerchantsController < WifiController
                                 merchant_id: terminal.merchant_id )
       @auth_token.save!
       terminal = @auth_token.terminal
-      duration = 10
+      duration = 15
       @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:test])
     end
   end
