@@ -2,7 +2,7 @@ require 'csv'
 
 class Terminal < ActiveRecord::Base
 
-  enum status: [ :init, :active, :expired ] 
+  enum status: [:init, :active, :expired, :cancelling, :cancelled, :repair, :trash]
 
   include PrivateKey
   include Communicate
@@ -13,6 +13,9 @@ class Terminal < ActiveRecord::Base
   has_many :auth_tokens, dependent: :destroy
 
   before_create :set_mid, :set_duration
+  after_create do
+    update_attribute :operate_log, "设备初始化;"
+  end
 
   validates :mac, format: { with: /\A([a-f0-9]{2}:){5}[a-f0-9]{2}\z/ }, uniqueness: true
 
@@ -81,10 +84,65 @@ class Terminal < ActiveRecord::Base
         end
       end
       true
-    rescue => e 
+    rescue => e
       raise e
     end
   end
+
+
+ #####增加库存功能################
+  scope :normal, -> { where status: [Terminal.statuses[:init], Terminal.statuses[:active]] }
+  scope :unnormal, -> { where status: [Terminal.statuses[:repair], Terminal.statuses[:cancel], Terminal.statuses[:trash]] }
+
+  def active(merchant_id)
+    operate_record = "#{operate_log}#{I18n.l Time.now }由商家(id:#{merchant_id})激活;"
+    update_attributes(merchant_id: merchant_id, status: AuthToken.statuses[:active], added_by_merchant_at: Time.now)
+  end
+
+  def init
+    #只能从退货或者维修状态转化为初始状态
+    unless repair? || cancel?
+      logger.debug "无法从其它状态改为初始状态"
+      return false
+    end
+
+    operate_record = "#{operate_log}#{I18n.l Time.now }由管理员改为初始状态;"
+    update_attributes status: Terminal.statuses[:init], operate_log: operate_record, merchant_id: nil
+  end
+
+  def cancelling
+    operate_record = "#{operate_log}#{I18n.l Time.now }由商户(id:#{merchant_id})发起退货请求;"
+    update_attributes status: Terminal.statuses[:cancelling], operate_log: operate_record
+  end
+
+  def uncancelling
+    operate_record = "#{operate_log}#{I18n.l Time.now }管理员不同意退货;"
+    update_attributes status: Terminal.statuses[:active], operate_log: operate_record
+  end
+
+  def cancelled
+    operate_record = "#{operate_log}#{I18n.l Time.now }由管理员同意发退货请求;"
+    update_attributes status: Terminal.statuses[:cancelled], operate_log: operate_record, merchant_id: nil
+  end
+
+  def repair
+    operate_record = "#{operate_log}#{I18n.l Time.now }由商户(id:#{merchant_id})改为维修状态;"
+    update_attributes status: Terminal.statuses[:repair], operate_log: operate_record
+  end
+
+  def trash
+    operate_record = "#{operate_log}#{I18n.l Time.now }由管理员改为报废状态;"
+    update_attributes status: Terminal.statuses[:trash], operate_log: operate_record, merchant_id: nil
+  end
+
+  def normal?
+    init? || active?
+  end
+
+  def unnormal?
+    !normal?
+  end
+  ################# end #############
 
   private
 
@@ -94,9 +152,9 @@ class Terminal < ActiveRecord::Base
       yield
 
       if duration_changed && self.active? && self.merchant_id.present?
-      
+
         actived_auth_tokens = self.auth_tokens.actived(self.merchant_id).where(mac: self.mac)
-        
+
         auth_token_sample = self.auth_tokens.last
 
         actived_auth_tokens.each do |auth_token|
@@ -127,5 +185,6 @@ class Terminal < ActiveRecord::Base
       #result.first(8).gsub(/[01IoO]/,sample_arr.sample)
       result
     end
+
 
 end

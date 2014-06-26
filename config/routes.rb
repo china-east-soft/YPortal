@@ -55,9 +55,18 @@ Rails.application.routes.draw do
     resources :merchants
     resources :terminals do
       collection do
+        get :group
         get :export
         post :import
+
+        get :normal
+        get :unnormal
       end
+
+      member do
+        get :update_status
+      end
+
     end
     resources :products
     resources :categories
@@ -81,7 +90,13 @@ Rails.application.routes.draw do
       end
     end
     resources :banners
-    resources :terminals
+
+    resources :terminals do
+      member do
+        post :cancelling
+      end
+    end
+
     resources :mboxes do
       member do
         post :enable

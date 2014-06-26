@@ -1,6 +1,6 @@
 class Merchant::TerminalsController < MerchantController
 
-  before_action :set_terminal, only: [:edit, :update]
+  before_action :set_terminal, only: [:edit, :update, :cancelling]
   set_tab :terminal
 
   def index
@@ -16,7 +16,7 @@ class Merchant::TerminalsController < MerchantController
 
   def create
     @terminal = Terminal.where(mid: terminal_params[:mid], status: AuthToken.statuses[:init]).first
-    if @terminal && @terminal.update(merchant_id: current_merchant.id, status: AuthToken.statuses[:active], added_by_merchant_at: Time.now)
+    if @terminal && @terminal.active(current_merchant.id)
       gflash :success => "The product has been created successfully!"
       redirect_to merchant_terminals_path
     else
@@ -40,11 +40,18 @@ class Merchant::TerminalsController < MerchantController
     end
   end
 
+  #退货
+  def cancelling
+    @terminal.cancelling
+    gflash success: "申请退货成功，请等待处理"
+    redirect_to merchant_terminals_url
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
     def set_terminal
-      @terminal = Terminal.find(params[:id])
+      @terminal = current_merchant.terminals.find params[:id]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

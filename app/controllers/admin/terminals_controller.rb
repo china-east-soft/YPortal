@@ -1,17 +1,37 @@
 class Admin::TerminalsController < AdminController
-  before_action :set_terminal, only: [:show, :edit, :update, :destroy]
+  before_action :set_terminal, only: [:show, :edit, :update, :destroy, :update_status]
 
   set_tab :terminals
 
   # GET /terminals
   # GET /terminals.json
   def index
-    @terminals = Terminal.all.page(params[:page])
+    if params[:show].present?
+      case params[:show]
+      when 'normal'
+        @terminals = Terminal.normal.page(params[:page])
+      when 'cancelling', 'cancelled',  'repair',  'trash'
+        @terminals = Terminal.where(status: Terminal.statuses[params[:show]]).page(params[:page])
+      else
+        @terminals = Terminal.all.page(params[:page])
+      end
+    else
+      @terminals = Terminal.all.page(params[:page])
+    end
+  end
+
+  def group
+    @agents = Agent.all
+    @indusrties_by_area = MerchantInfo.pluck(:province, :city, :industry).uniq.map {|ele| [ele[0,2].join('-'), ele[2]] }.sort
+
+    @citys = MerchantInfo.pluck(:province, :city).uniq.select {|pro, city| pro != nil && city != nil  }.map {|ele| ele.join '-' }
+
   end
 
   # GET /terminals/1
   # GET /terminals/1.json
   def show
+    @logs = @terminal.operate_log.split(";").reverse
   end
 
   # GET /terminals/new
@@ -65,8 +85,8 @@ class Admin::TerminalsController < AdminController
 
   def export
     respond_to do |format|
-      format.csv {   
-        send_data Terminal.to_csv,:type => "text/csv;charset=utf-8; header=present",  
+      format.csv {
+        send_data Terminal.to_csv,:type => "text/csv;charset=utf-8; header=present",
           :filename => "模板_#{Time.now.strftime("%Y%m%d")}.csv"
       }
     end
@@ -80,6 +100,20 @@ class Admin::TerminalsController < AdminController
       @error = e
     end
     redirect_to admin_terminals_url, :flash => { error: @error.to_s, success: @success }
+  end
+
+  def update_status
+    if Terminal::statuses.keys.include? params[:status]
+      if @terminal.public_send params[:status]
+        gflash success: "状态更新成功！"
+      else
+        gflash error: "状态更新失败!"
+      end
+    else
+      gflash error: "错误请求!"
+    end
+
+    redirect_to admin_terminal_url(@terminal)
   end
 
   private
