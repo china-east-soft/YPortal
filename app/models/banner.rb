@@ -8,7 +8,7 @@ class Banner < ActiveRecord::Base
   validates_attachment_content_type :cover, :content_type => /\Aimage/
 
   validates_attachment :cover, :presence => true,
-                        :size => { :in => 0..50.kilobytes }
+                        :size => { :in => 0..25.kilobytes }
 
   validates_presence_of :description
 
