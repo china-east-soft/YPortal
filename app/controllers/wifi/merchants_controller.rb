@@ -26,10 +26,8 @@ class Wifi::MerchantsController < WifiController
         if @auth_token.init?
           render :home
         elsif @auth_token.active?
-          gflash :success => "已经认证成功可以直接上网!"
           render :home
         elsif @auth_token.expired?
-          gflash :error => "认证已经过期，请重新认证!"
           redirect_to wifi_merchant_url(client_identifier: @auth_token.client_identifier, mac: @auth_token.mac)
         end
       else
@@ -61,7 +59,6 @@ class Wifi::MerchantsController < WifiController
                 recv_data = send_to_terminal remote_ip, port, @auth_token, 1
 
                 if recv_data.present?
-                  gflash :success => "已经认证成功可以直接上网!"
                   redirect_to wifi_welcome_url(vtoken: @auth_token.auth_token)
                 else
                   message = "can not recv data..."
