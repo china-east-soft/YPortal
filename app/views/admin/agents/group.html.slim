@@ -1,0 +1,28 @@
+.row
+  .col-lg-12
+    section.panel
+      header.panel-heading 列表
+      .panel-body
+        .clearfix
+        .space15
+        table.table.table-striped.table-advance.table-hover
+          thead
+            tr
+              th pro-city
+              th 行业
+              th agent
+              th merchant
+              th devices
+              th traffic-stragery
+              th advice
+              th reg/sign
+          tbody
+            - @agents.each do |agent|
+              tr
+                td = agent.agent_info.city
+                td = link_to agent.agent_info.industry, '#'
+                td = link_to agent.agent_info.name, admin_agents_path
+                td = link_to agent.merchants.count, merchants_admin_agent_path(agent)
+                td = link_to agent.terminals.count, terminals_admin_agent_path(agent)
+                td
+                td

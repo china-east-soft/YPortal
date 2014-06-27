@@ -1,5 +1,5 @@
 class Admin::AgentsController < AdminController
-  before_action :set_agent, only: [:show, :edit, :update, :destroy]
+  before_action :set_agent, only: [:show, :edit, :update, :destroy, :merchants, :terminals]
 
   set_tab :agents
 
@@ -7,6 +7,18 @@ class Admin::AgentsController < AdminController
   # GET /agents.json
   def index
     @agents = Agent.all.page params[:page]
+  end
+
+  def group
+    @agents = Agent.all.page params[:page]
+  end
+
+  def merchants
+    @merchants = @agent.merchants.page params[:page]
+  end
+
+  def terminals
+    @terminals = @agent.terminals.order(merchant_id: :asc).page params[:page]
   end
 
   # GET /agents/1

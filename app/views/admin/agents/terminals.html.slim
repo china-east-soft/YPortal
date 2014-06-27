@@ -1,0 +1,28 @@
+.row
+  .col-lg-12
+    section.panel
+      header.panel-heading  devices
+      .panel-body
+        table.table.table-striped.table-advance.table-hover
+          thead
+            tr
+              th
+              th Merchant
+              th Mac
+              th Mid
+              th Status
+            tbody
+              - if @terminals
+                - @terminals.each do |terminal|
+                  tr
+                    td = fa_icon("warning") if terminal.unnormal?
+                    td = terminal.merchant.merchant_info.name
+                    td = terminal.mac
+                    td = terminal.mid
+                    td = I18n.t "activerecord.attributes.terminal.#{terminal.status}"
+          .row
+            .col-lg-6
+              .dataTables_info 共有#{@terminals.total_count}条记录
+            .col-lg-6
+              .dataTables_paginate.paging_bootstrap.pagination = paginate @terminals
+

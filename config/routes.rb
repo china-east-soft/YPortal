@@ -51,11 +51,18 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :landings
-    resources :agents
+    resources :agents do
+      collection do
+        get :group
+      end
+      member do
+        get :merchants
+        get :terminals
+      end
+    end
     resources :merchants
     resources :terminals do
       collection do
-        get :group
         get :export
         post :import
 
@@ -71,10 +78,10 @@ Rails.application.routes.draw do
     resources :products
     resources :categories
     resource :auth_message, only: [:show, :update]
+    resources :message_warnings, only: :index
   end
 
   namespace :agent do
-
   end
 
   namespace :account do

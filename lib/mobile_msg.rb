@@ -27,7 +27,7 @@ module MobileMsg
     rescue
       result = 0
     end
-    #log sms_mob, sms_text, result
+    log sms_mob, sms_text, result
     result
   end
 
@@ -40,12 +40,12 @@ module MobileMsg
     def log sms_mob, sms_text, result
       if result <=0 && result != -4
         title = "短信发送失败"
-        body  = "警告信息： #{MessageWarnning::MSG_INFO[result]}." if MessageWarnning::MSG_INFO.keys.include?(result)
+        body  = "警告信息： #{MessageWarning::MSG_INFO[result]}." if MessageWarning::MSG_INFO.keys.include?(result)
         AdminMailer.warnning_notify(title, body, "").deliver
       end
 
       warnning_code = [result, 1].min
-      MessageWarnning.create(mobile_number: sms_mob, warnning_code: warnning_code, message: sms_text)
+      MessageWarning.create(mobile_number: sms_mob, warning_code: warnning_code, message: sms_text)
     end
 
 end
