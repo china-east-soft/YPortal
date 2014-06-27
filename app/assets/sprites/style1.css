@@ -1,0 +1,53 @@
+﻿/* glue: 0.9.4 hash: a31ec03742 */
+        .sprite-style1-tu_01_10,
+.sprite-style1-tu_01_07,
+.sprite-style1-tu_01_15,
+.sprite-style1-tu_01_22,
+.sprite-style1-tu_01_03 {
+            background-image: url('style1.png');
+            background-repeat: no-repeat;
+        }
+        
+        .sprite-style1-tu_01_10 {
+            background-position: 0 0;
+            width: 88px;
+            height: 67px;
+        }
+        
+        .sprite-style1-tu_01_07 {
+            background-position: 0 -67px;
+            width: 88px;
+            height: 86px;
+        }
+        
+        .sprite-style1-tu_01_15 {
+            background-position: -88px 0;
+            width: 74px;
+            height: 83px;
+        }
+        
+        .sprite-style1-tu_01_22 {
+            background-position: -162px 0;
+            width: 52px;
+            height: 72px;
+        }
+        
+        .sprite-style1-tu_01_03 {
+            background-position: -88px -83px;
+            width: 68px;
+            height: 50px;
+        }
+        
+        @media screen and (-webkit-min-device-pixel-ratio: 1.0), screen and (min--moz-device-pixel-ratio: 1.0), screen and (-o-min-device-pixel-ratio: 100/100), screen and (min-device-pixel-ratio: 1.0), screen and (min-resolution: 1.0dppx) {
+            .sprite-style1-tu_01_10,
+    .sprite-style1-tu_01_07,
+    .sprite-style1-tu_01_15,
+    .sprite-style1-tu_01_22,
+    .sprite-style1-tu_01_03 {
+                background-image: url('style1.png');
+                -webkit-background-size: 214px 153px;
+                -moz-background-size: 214px 153px;
+                background-size: 214px 153px;
+            }
+        }
+        

@@ -15,7 +15,11 @@
       云链智能路由
   <% end %>
   </title>
-  <%= stylesheet_link_tag    'wifi', media: 'all' %>
+  <% if params[:controller] == "wifi/merchants" && params[:action] == "home" %>
+    <%= stylesheet_link_tag    'wifi_home', media: 'all' %>
+  <% else %>
+    <%= stylesheet_link_tag    'wifi', media: 'all' %>
+  <% end %>
 
 
   <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -27,55 +31,30 @@
 <body class="portal_wraped">
 
 	<%= yield %>
-
-  <div class="side-btns" id="float_section" style="opacity: 1;">
-    <a href="javascript:void(0);" id="gotop" class="totop"></a>
-            <a href="<%= wifi_merchant_path(mid: params[:mid], vtoken: params[:vtoken]) %>" class="tohome" id="tohome">
-            <i style="display:none;"></i>
-        </a>
-  </div>
+  <% if params[:controller] == "wifi/merchants" && params[:action] == "home" %>
+  <% else %>
+    <div class="side-btns" id="float_section" style="opacity: 1;">
+      <a href="javascript:void(0);" id="gotop" class="totop"></a>
+              <a href="<%= wifi_merchant_path(mid: params[:mid], vtoken: params[:vtoken]) %>" class="tohome" id="tohome">
+              <i style="display:none;"></i>
+          </a>
+    </div>
+  <% end %>
 
 <style type="text/css">
 
 </style>
-
-  <%= javascript_include_tag 'wifi' %>
+  <% if params[:controller] == "wifi/merchants" && params[:action] == "home" %>
+    <%= javascript_include_tag 'wifi_home' %>
+  <% else %>
+    <%= javascript_include_tag 'wifi' %>
+  <% end %>
   <%= gflash %>
   <script type="text/javascript">
     // gritter
     <%= extend_gritter :time => 2000 %>
 
-    // scroll side button
-    var showFloat = false;
-    $('#float_section').css('opacity', 0);
-    $('#float_section').show();
-    $('#gotop').on('click', function(){
-      window.scrollTo(0, 0);
-    });
     $(function(){
-      $(window).on('scroll', function(){
-        if($(window).scrollTop() > 300){
-          if(showFloat) return;
-          showFloat = true;
-          $('#float_section').animate({
-            opacity: 1
-          }, 500, 'easeOutBack');
-        }
-        if($(window).scrollTop() <= 300){
-          if(!showFloat) return;
-          showFloat = false;
-          $('#float_section').animate({
-            opacity:0
-          }, 500, 'easeOutBack');
-        }
-      });
-
-      // flash title
-      /*
-      $('.carousel').carousel({
-        interval: 3000
-      })  
-      */
 
       $('.bxslider').bxSlider({
           auto: true,
