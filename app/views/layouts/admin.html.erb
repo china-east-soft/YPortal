@@ -282,6 +282,7 @@
                 <%= tab.landings   '广告', admin_landings_path %>
                 <%= tab.categories   '类别', admin_categories_path %>
                 <%= tab.auth_message '验证消息', admin_auth_message_path%>
+                <%= tab.group 'group', group_admin_agents_path%>
               <% end %>
               <!-- sidebar menu end-->
           </div>
@@ -290,7 +291,7 @@
       <!--main content start-->
       <section id="main-content">
         <section class="wrapper site-min-height">
-          
+
           <%= yield %>
         </section>
       </section>

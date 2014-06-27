@@ -10,6 +10,7 @@ class Admin::AgentsController < AdminController
   end
 
   def group
+    set_tab :group
     @agents = Agent.all.page params[:page]
   end
 
