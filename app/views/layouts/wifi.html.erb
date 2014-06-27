@@ -48,11 +48,14 @@
     <%= javascript_include_tag 'wifi_home' %>
   <% else %>
     <%= javascript_include_tag 'wifi' %>
+    <%= gflash %>
   <% end %>
-  <%= gflash %>
+  
   <script type="text/javascript">
-    // gritter
-    <%= extend_gritter :time => 2000 %>
+    <% unless params[:controller] == "wifi/merchants" && params[:action] == "home" %>
+      // gritter
+      <%= extend_gritter :time => 2000 %>
+    <% end %>
 
     $(function(){
 
