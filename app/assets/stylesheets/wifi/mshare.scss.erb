@@ -69,8 +69,25 @@
     }
   };
   h1,h2,h3,h4:hover {
-    color: #428bca;
+    color: #fff;
   };
+
+  .sprite-style1-tu_01_03 { position: relative; }
+
+  .sprite-style1-tu_01_03:before {
+    top: -5px;
+    content: "";
+    zoom:0.5;
+    -moz-transform:scale(0.5);
+    -moz-transform-origin: 0 0;
+    left: -30%;
+    background-image: url(<%= image_path 'style1.png' %>);
+    background-repeat: no-repeat;
+    background-position: -552px -428px;
+    width: 68px;
+    height: 50px;
+    position: absolute;
+  }
 }
 
 /* mf-box */
@@ -121,7 +138,7 @@
   left: 40%;
   background-image: url(<%= image_path 'style1.png' %>);
   background-repeat: no-repeat;
-  background-position: -500px -428px;
+  background-position: -500px -429px;
   width: 52px;
   height: 72px;
   top: 10px;
@@ -136,7 +153,7 @@
   left: 36%;
   background-image: url(<%= image_path 'style1.png' %>);
   background-repeat: no-repeat;
-  background-position: -500px -361px;
+  background-position: -500px -362px;
   width: 88px;
   height: 67px;
   top: 10px;
@@ -199,7 +216,6 @@
 
 /* footer */
 .reset_footer {
-  background: url("<%= image_path('portal_wraped.png') %>") repeat;
   margin: 0px;
   padding: 0px 0px;
 
