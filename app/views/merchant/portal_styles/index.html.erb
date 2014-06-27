@@ -112,8 +112,8 @@
                       <div class="col-lg-6 col-xs-6 thumbnail">
                         <section>
                           <div class="mf-box">
-                            <%= image_tag mbox.default_cover %>
-                            <h5><%= mbox.name %></h5>
+                            <div class="img sprite-style1-<%=mbox.default_cover%>"></div>
+                            <h5 style="margin-top:0"><%= mbox.name %></h5>
                           </div>
                         </section>
                         <div class="caption">
@@ -142,30 +142,9 @@
 <% content_for :script do %>
   <script type="text/javascript">
     window._token = '<%= form_authenticity_token %>'
-    // var i_max = 8;
-    // function add_mk(){
-    //    dialog=art.dialog({
-    //     title: '',
-    //       content: document.getElementById('add_mk'),
-    //     lock: true
-    //   });
-    // }//添加模块
-    // function zdy_mk(){
-    //    dialog=art.dialog({
-    //     title: '',
-    //       content: document.getElementById('zdy_mk'),
-    //     lock: true
-    //   });
-    // }
+
     //删除自定义模块
     function enable(appId,isEnable){
-      // if(isEnable && 5>=i_max){
-      //   alert('最多只能启用8个模块');
-      //   return;
-      // }
-      // ajaxPost("/biz/json/appModule_enable.htm",{"appId":appId,"enable":isEnable},function(resp){
-      //   location.reload();
-      // });
 
       $.ajax({
         type: "DELETE",

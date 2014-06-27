@@ -7,7 +7,7 @@ class Mbox < ActiveRecord::Base
   class << self
 
     def default_covers
-      (%w{ 店铺介绍 商品展示 店铺活动 搜周边 }.zip(%w{ tu_01_07.png tu_01_10.png tu_01_15.png tu_01_22.png})).to_h
+      (%w{ 店铺介绍 商品展示 店铺活动 搜周边 }.zip(%w{ tu_01_07 tu_01_10 tu_01_15 tu_01_22})).to_h
     end
 
   end

@@ -6,11 +6,19 @@
 </div>
 <div class="span5 about-carousel">
   <ul class="bxslider">
-    <li>
-      <%= image_tag "about_1.jpg", title: "Blanditiis praesentium voluptatum" %>
-    </li>
-    <li>
-      <%= image_tag "about_2.jpg", title: "Honest and amazing things that bring positive results" %>
-    </li>
+    <% if @banners.present? %>
+      <% @banners.each_with_index do |banner,bindex| %>
+        <li>
+          <%= image_tag banner.cover, title: banner.description %>
+        </li>
+      <% end %>
+    <% else %>
+      <li>
+        <%= image_tag "about_1.jpg", title: "Blanditiis praesentium voluptatum" %>
+      </li>
+      <li>
+        <%= image_tag "about_2.jpg", title: "Honest and amazing things that bring positive results" %>
+      </li>
+    <% end %>
   </ul>
 </div>

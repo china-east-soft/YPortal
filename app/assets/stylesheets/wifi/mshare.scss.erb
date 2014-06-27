@@ -29,11 +29,9 @@
 
   ul { list-style-type:none; }
 
-  img {
-    max-height: 50px;
-  }
 }
 
+/* shop title */
 .shop_title {
   margin-bottom: 5px;
   /* background-color: #409ce4; */
@@ -59,6 +57,7 @@
   }
 }
 
+/* free wifi */
 .free-wifi {
   background-color: #ec7b4c;
   letter-spacing: 0.3em;
@@ -74,34 +73,91 @@
   };
 }
 
+/* mf-box */
 .mf-box {
-    border: 1px solid #e2e2e2;
-    background: #f4f4f4;
-    padding: 0px;
-    padding-bottom: 10px;
-    text-align: center;
-    min-height: 80px;
-    margin-bottom: 0px;
-    transition-duration: 500ms;
-    transition-property: width, background;
-    transition-timing-function: ease;
-    -webkit-transition-duration: 500ms;
-    -webkit-transition-property: width, background;
-    -webkit-transition-timing-function: ease;
+  border: 1px solid #e2e2e2;
+  background: #f4f4f4;
+  padding: 0px;
+  padding-bottom: 10px;
+  text-align: center;
+  min-height: 80px;
+  margin-bottom: 0px;
+  transition-duration: 500ms;
+  transition-property: width, background;
+  transition-timing-function: ease;
+  -webkit-transition-duration: 500ms;
+  -webkit-transition-property: width, background;
+  -webkit-transition-timing-function: ease;
+
 }
 
-.mf-box i{
-    font-size: 50px;
-    line-height: normal;
-    margin-top: 0px;
-    padding-top: 10px;
-    display: block;
-    color: #f77b6f;
+.img.sprite-style1-tu_01_07,
+.img.sprite-style1-tu_01_22,
+.img.sprite-style1-tu_01_10,
+.img.sprite-style1-tu_01_15,
+ { position: relative; }
+
+.img.sprite-style1-tu_01_07:after{
+  content: "";
+  zoom:0.7;
+  -moz-transform:scale(0.7);
+  -moz-transform-origin: 0 0;
+  left: 35%;
+  background-image: url(<%= image_path 'style1.png' %>);
+  background-repeat: no-repeat;
+  background-position: 0 -500px;
+  width: 88px;
+  height: 86px;
+  top: 10px;
+  position: absolute;
+
 }
 
-.mf-box img {
-  padding-top: 10px;
+.img.sprite-style1-tu_01_22:after{
+  content: "";
+  zoom:0.7;
+  -moz-transform:scale(0.7);
+  -moz-transform-origin: 0 0;
+  left: 40%;
+  background-image: url(<%= image_path 'style1.png' %>);
+  background-repeat: no-repeat;
+  background-position: -500px -428px;
+  width: 52px;
+  height: 72px;
+  top: 10px;
+  position: absolute;
 }
+
+.img.sprite-style1-tu_01_10:after{
+  content: "";
+  zoom:0.7;
+  -moz-transform:scale(0.7);
+  -moz-transform-origin: 0 0;
+  left: 36%;
+  background-image: url(<%= image_path 'style1.png' %>);
+  background-repeat: no-repeat;
+  background-position: -500px -361px;
+  width: 88px;
+  height: 67px;
+  top: 10px;
+  position: absolute;
+}
+
+.img.sprite-style1-tu_01_15:after{
+  content: "";
+  zoom:0.7;
+  -moz-transform:scale(0.7);
+  -moz-transform-origin: 0 0;
+  left: 38%;
+  background-image: url(<%= image_path 'style1.png' %>);
+  background-repeat: no-repeat;
+  background-position: -88px -500px;
+  width: 74px;
+  height: 83px;
+  top: 10px;
+  position: absolute;
+}
+
 
 .mf-box:hover, .mf-box.active {
     background: #f77b6f;
@@ -128,21 +184,20 @@
 
 }
 
-.mf-box:hover img, .mf-box.active img{
-  padding-top: 10px;
-}
-
 .mf-box:hover h5, .mf-box.active h5{
-    color: #fff;
+  color: #fff;
+  margin-top:70px;
 }
 
 .mf-box h5{
-    font-size: 13px;
-    text-transform: uppercase;
-    font-weight: 400;
-    font-family: 'Helvetica','Fjalla One', "Hiragino Sans GB", "Microsoft YaHei","WenQuanYi Micro Hei", sans-serif;
+  margin-top:70px;
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-family: 'Helvetica','Fjalla One', "Hiragino Sans GB", "Microsoft YaHei","WenQuanYi Micro Hei", sans-serif;
 }
 
+/* footer */
 .reset_footer {
   background: url("<%= image_path('portal_wraped.png') %>") repeat;
   margin: 0px;
@@ -177,6 +232,7 @@
   }
 }
 
+/* checkbox */
 .checkboxes label, .radios label {
     display: block;
     cursor: pointer;
@@ -209,6 +265,7 @@
     background: url("<%= asset_path('checkbox/check-on.png') %>") no-repeat;
 }
 
+/* broadcast */
 .broadcast {
   color:#fa3906;
   margin-top:10px;
@@ -222,6 +279,7 @@
   }
 }
 
+/* merchant info */
 .merchant_info {
   padding:5px 20px;
   img {
@@ -233,6 +291,7 @@
   }
 }
 
+/* succ info */
 .succ-info {
   background-color: #5fb9e6;
   padding: 10px 0px;
