@@ -64,7 +64,7 @@
                     <% if @banners.present? %>
                       <% @banners.each_with_index do |banner,bindex| %>
                           <div class="<%= 'active' if bindex == 0 %> item">
-                            <%= image_tag banner.cover %>
+                            <%= image_tag banner.cover, width: "100%" %>
                             <div class="carousel-caption">
                                 <p><%= banner.description %></p>
                             </div>
