@@ -19,4 +19,15 @@ class PortalStyle < ActiveRecord::Base
 
   end
 
+  def partial_name
+    case self.layout
+    when "默认一"
+      "default1"
+    when "默认二"
+      "default2"
+    else
+      "default1"
+    end
+  end
+
 end

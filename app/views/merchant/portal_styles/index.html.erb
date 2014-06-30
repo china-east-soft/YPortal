@@ -38,93 +38,14 @@
       <% end %>
 
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-4" style="height:100%">
       <section class="panel">
       <header class="panel-heading">
          <%= link_to "预览", wifi_merchant_path(mid: @default_terminal.mid), :target => "_blank" %>
       </header>
-      <div class="panel-body">
-          <!-- config start -->
-          <div class="row">
-            <div class="col-lg-12 col-xs-12 col-centered">
-              <div class="row span5 col-centered shop_title">
-                <h5 class="text-center"><strong><span id="portal_style_conf_name"><%= @portal_style.name %></span></strong></h5>
-              </div>
-              <div class="span5 about-carousel" style="margin-bottom:-15px;">
-                <div id="myCarousel" class="carousel slide">
-                    <!-- Carousel items -->
-                    <div class="carousel-inner">
-                    <% if @banners.present? %>
-                      <% @banners.each_with_index do |banner,bindex| %>
-                          <div class="<%= 'active' if bindex == 0 %> item">
-                            <%= image_tag banner.cover, width: "100%" %>
-                            <div class="carousel-caption">
-                                <p><%= banner.description %></p>
-                            </div>
-                        </div>
-                      <% end %>
-                    <% else %>
-                        <div class="active item">
-                            <%= image_tag "about_1.jpg" %>
-                            <div class="carousel-caption">
-                                <p>Donec luctus ullamcorper nulla</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <%= image_tag "about_2.jpg" %>
-                            <div class="carousel-caption">
-                                <p>Blanditiis praesentium voluptatum</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <%= image_tag "about_1.jpg" %>
-                            <div class="carousel-caption">
-                                <p>Honest and amazing things that bring positive results</p>
-                            </div>
-                        </div>
-                    <% end %>
-                    </div>
-                    <!-- Carousel nav -->
-                    <a class="carousel-control left" href="#myCarousel" data-slide="prev">
-                      <%= fa_icon "angle-left" %>
-                    </a>
-                    <a class="carousel-control right" href="#myCarousel" data-slide="next">
-                      <%= fa_icon "angle-right" %>
-                    </a>
-                </div>
-              </div>
-              <div class="row span5 col-centered free-wifi">
-                <h4 class="text-center"><%= image_tag 'tu_01_03.png',height: '23' %>点击免费上网</h4>
-              </div>
-              <!-- portal images start -->
-              <div class="portal_images">
-              <div class="row span5 col-centered">
-                <ul class="dragsortBox" id="list1">
-                  <% @mboxes.each do |mbox| %>
-                    <li appid="<%=mbox.id%>">
-                      <div class="col-lg-6 col-xs-6 thumbnail">
-                        <section>
-                          <div class="mf-box">
-                            <div class="img sprite-style1-<%=mbox.default_cover%>"></div>
-                            <h5 style="margin-top:0"><%= mbox.name %></h5>
-                          </div>
-                        </section>
-                        <div class="caption">
-                          <a class="icon-remove" href="javascript:enable(<%=mbox.id%>,false);"><%= fa_icon("times 2x") %></a>
-                          <br />
-                          <%= link_to "设置", edit_merchant_mbox_path(mbox.id), class: "btn btn-primary col-centered" %>
-                          <p>可鼠标拖动模块进行排序</p>
-                          <p>也可以删除此模块</p>
-                        </div>
-                      </div>
-                    </li>
-                  <% end %>
-                </ul>
-              </div>
-              </div>
-              <!-- portal images end -->
-          </div>
-        </div>
+      <div class="panel-body" style="height:100%">
+        <!-- config start -->
+          <%= render partial: @portal_style.partial_name %>
         <!-- config end -->
       </div>
       </section>
