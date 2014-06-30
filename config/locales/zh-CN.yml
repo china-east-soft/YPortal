@@ -6,6 +6,15 @@ zh-CN:
         password: "密码"
         password_confirmation: "确认密码"
       terminal:
+        duration: "时长"
+
+        init: "新注册"
+        active: "激活"
+        cancelling: "退货中"
+        cancelled: "确认退货"
+        repair: "维修中"
+        trash: "已报废"
+
       category:
         name: "名称"
       agent:
@@ -42,8 +51,6 @@ zh-CN:
         end_at: "活动结束时间"
         description: "活动描述"
         hot: "热门活动"
-      terminal:
-        duration: "时长"
 
       merchant_info:
         name: "店铺全名"
@@ -130,7 +137,13 @@ zh-CN:
         form_elements: "表单"
       edit:
         editing_terminal: "修改终端"
-      show:
+      index:
+        normal: "正常设备"
+        cancelling: "申请退货设备"
+        cancelled: "已退货设备"
+        repair: "维修设备"
+        trash: "报废设备"
+
     categories:
       form:
         form_elements: "表单"

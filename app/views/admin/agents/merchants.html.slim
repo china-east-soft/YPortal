@@ -1,0 +1,43 @@
+.row
+  .col-lg-12
+    section.panel
+      header.panel-heading 代理商#{@agent.agent_info.name}的商家列表
+      .panel-body
+        table.table.table-striped.table-advance.table-hover
+          thead
+            tr
+              th = t(".email")
+              th = t(".name")
+              th = t(".industry")
+              th = t(".province")
+              th = t(".city")
+              th = t(".area")
+              th = t(".circle")
+              th = t(".address")
+              th = t(".contact_person_name")
+              th = t(".contact_way")
+              th = t(".secondary")
+              th colspan="3"
+            tbody
+              - @merchants.each do |merchant|
+                tr
+                  td = merchant.email
+                  td = merchant.merchant_info.try(:name)
+                  td = merchant.merchant_info.try(:industry)
+                  td = merchant.merchant_info.try(:province)
+                  td = merchant.merchant_info.try(:city)
+                  td = merchant.merchant_info.try(:area)
+                  td = merchant.merchant_info.try(:circle)
+                  td = merchant.merchant_info.try(:address)
+                  td = merchant.merchant_info.try(:contact_person_name)
+                  td = merchant.merchant_info.try(:contact_way)
+                  td = merchant.merchant_info.try(:secondary)
+                  td
+                    span.btn.btn-success.btn-xs = link_to fa_icon("check"), [:admin, merchant]
+                    span.btn.btn-primary.btn-xs = link_to fa_icon("pencil"), edit_admin_merchant_path(merchant)
+                    span.btn.btn-danger.btn-xs = link_to fa_icon("trash-o"), [:admin, merchant], method: :delete, data: { confirm: 'Are you sure?' }
+        .row
+          .col-lg-6
+            .dataTables_info 共有 #{@merchants.total_count} 条记录
+          .col-lg-6
+            .dataTables_paginate.paging_bootstrap.pagination = paginate @merchants
