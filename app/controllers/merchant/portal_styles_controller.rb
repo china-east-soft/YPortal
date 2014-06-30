@@ -7,7 +7,7 @@ class Merchant::PortalStylesController < MerchantController
   # GET /portal_styles.json
   def index
     @portal_style = PortalStyle.where(merchant_id: current_merchant.id).first_or_create
-    @banners = @portal_style.banners
+    @banners = current_merchant.banners
     @mboxes = @portal_style.valid_mboxes
     @deleted_mboxes = @portal_style.deleted_mboxes
     @default_terminal = current_merchant.terminals.where(status: AuthToken.statuses[:active]).first

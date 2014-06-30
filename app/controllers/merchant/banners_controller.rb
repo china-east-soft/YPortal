@@ -1,14 +1,13 @@
 class Merchant::BannersController < MerchantController
 
-  set_tab :portal_style
+  set_tab :banners
 
   before_action :set_banner, only: [:show, :edit, :update, :destroy]
-  before_action :set_portal_style, only: [:new, :index]
 
   # GET /banners
   # GET /banners.json
   def index
-    @banners = Banner.where(portal_style_id: params[:portal_style_id])
+    @banners = Banner.where(merchant_id: current_merchant.id)
   end
 
   # GET /banners/1
@@ -18,7 +17,7 @@ class Merchant::BannersController < MerchantController
 
   # GET /banners/new
   def new
-    @banner = Banner.new(portal_style_id: @portal_style.id)
+    @banner = Banner.new
   end
 
   # GET /banners/1/edit
@@ -90,12 +89,8 @@ class Merchant::BannersController < MerchantController
       @portal_style = @banner.portal_style
     end
 
-    def set_portal_style
-      @portal_style = PortalStyle.find(params[:portal_style_id])
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def banner_params
-      params.require(:banner).permit(:cover, :description, :url, :portal_style_id, :crop_x, :crop_y, :crop_w, :crop_h)
+      params.require(:banner).permit(:cover, :description, :url, :crop_x, :crop_y, :crop_w, :crop_h).merge!(merchant_id: current_merchant.id)
     end
 end

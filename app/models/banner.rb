@@ -1,6 +1,6 @@
 class Banner < ActiveRecord::Base
 
-  belongs_to :portal_style
+  belongs_to :merchant
 
   include ImgCrop
   # attached start

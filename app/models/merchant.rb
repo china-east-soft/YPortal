@@ -19,6 +19,7 @@ class Merchant < ActiveRecord::Base
   accepts_nested_attributes_for :merchant_info
 
   has_one :portal_style, dependent: :destroy
+  has_many :banners, dependent: :destroy
   has_many :activities, dependent: :destroy
 
   has_many :products, dependent: :destroy
