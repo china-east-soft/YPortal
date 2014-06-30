@@ -79,6 +79,7 @@ Rails.application.routes.draw do
       member do
         post :save_order
         post :save_name
+        post :change_layout
       end
     end
     resources :banners

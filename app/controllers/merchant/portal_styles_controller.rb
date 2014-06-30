@@ -1,12 +1,12 @@
 class Merchant::PortalStylesController < MerchantController
-  before_action :set_portal_style, only: [:show, :edit, :update, :destroy, :save_order, :save_name]
+  before_action :set_portal_style, only: [:show, :edit, :update, :destroy, :save_order, :save_name, :change_layout]
 
   set_tab :portal_style
 
   # GET /portal_styles
   # GET /portal_styles.json
   def index
-    @portal_style = PortalStyle.where(merchant_id: current_merchant.id).first_or_create
+    @portal_style = current_merchant.current_portal_style
     @banners = current_merchant.banners
     @mboxes = @portal_style.valid_mboxes
     @deleted_mboxes = @portal_style.deleted_mboxes
@@ -75,7 +75,15 @@ class Merchant::PortalStylesController < MerchantController
   end
 
   def save_name
-    @portal_style.update_column(:name, params[:name])
+    PortalStyle.where(merchant_id: @portal_style.merchant_id).update_all(name: params[:name])
+  end
+
+  def change_layout
+    layout = PortalStyle.where(merchant_id: @portal_style.merchant_id, layout: params[:layout]).first
+    if layout
+      @portal_style.update_column(:current, false)
+      layout.update_column(:current, true)
+    end
   end
 
   private

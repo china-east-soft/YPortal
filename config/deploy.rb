@@ -93,6 +93,7 @@ task :deploy => :environment do
       invoke :'whenever:update'
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
       invoke :'sidekiq:restart'
+      queue! "#{rake} data:default_portal_styles"
     end
   end
 end

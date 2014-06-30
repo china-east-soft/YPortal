@@ -18,7 +18,7 @@ class Merchant < ActiveRecord::Base
   has_one :merchant_info, dependent: :destroy
   accepts_nested_attributes_for :merchant_info
 
-  has_one :portal_style, dependent: :destroy
+  has_many :portal_styles, dependent: :destroy
   has_many :banners, dependent: :destroy
   has_many :activities, dependent: :destroy
 
@@ -37,6 +37,10 @@ class Merchant < ActiveRecord::Base
     errors.add(:mid, "无效的mid") unless Terminal.exists?(mid: mid, status: AuthToken.statuses[:init])
   end
 
+  def current_portal_style
+    self.portal_styles.where(current: true).first
+  end
+
   def verify_code_must_be_in_auth_messages
     errors.add(:verify_code, "无效的验证码") unless AuthMessage.exists?(verify_code: verify_code, category: 0)
   end
@@ -48,7 +52,11 @@ class Merchant < ActiveRecord::Base
   has_many :terminals, dependent: :nullify
 
   def get_portal_style
-    PortalStyle.where(merchant_id: self.id).first_or_create
+    foo = PortalStyle.where(merchant_id: self.id, layout: "默认一").first_or_create
+    bar = PortalStyle.where(merchant_id: self.id, layout: "默认二").first_or_create
+    unless merchant.current_portal_style
+      foo.update_column(:current, true)
+    end
   end
 
   protected

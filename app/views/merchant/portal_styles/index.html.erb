@@ -9,6 +9,7 @@
           <%= simple_form_for [:merchant, @portal_style], :defaults => { :input_html => { :class => "form-control" } }, html: { multipart: true, remote: true, class: 'form-horizontal tasi-form', id: "portal_config_form" } do |f| %>
 
               <%= f.input :name, label: "简称" %>
+              <%= f.input :layout, collection: ["默认一","默认二"], label: "模板", prompt: nil %>
               
           <% end %>
 
@@ -169,6 +170,16 @@
                     url:"/merchant/portal_styles/<%= @portal_style.id %>/save_name.js",
                     dateType:"json",
                     data: { name: title, authenticity_token: window._token }
+              });
+          });
+
+          $('#portal_style_layout').change(function(){
+            var layout=$('#portal_style_layout').val();
+            $.ajax({
+                    type : "POST",
+                    url:"/merchant/portal_styles/<%= @portal_style.id %>/change_layout.js",
+                    dateType:"json",
+                    data: { layout: layout, authenticity_token: window._token }
               });
           });
 
