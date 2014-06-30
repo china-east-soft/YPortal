@@ -20,13 +20,6 @@ class Admin::TerminalsController < AdminController
     end
   end
 
-  def group
-    @agents = Agent.all
-    @indusrties_by_area = MerchantInfo.pluck(:province, :city, :industry).uniq.map {|ele| [ele[0,2].join('-'), ele[2]] }.sort
-
-    @citys = MerchantInfo.pluck(:province, :city).uniq.select {|pro, city| pro != nil && city != nil  }.map {|ele| ele.join '-' }
-
-  end
 
   # GET /terminals/1
   # GET /terminals/1.json

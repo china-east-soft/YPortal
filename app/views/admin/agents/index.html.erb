@@ -38,7 +38,7 @@
                         <td><%= agent.agent_info.try(:contact) %></td>
                         <td><%= agent.agent_info.try(:telephone) %></td>
                         <td><%= agent.email %></td>
-                        <td><%= t(".#{agent.agent_info.try(:status)}") %></td>
+                        <td><%= t(".#{agent.agent_info.status}") if agent.agent_info.present? %></td>
                         <td>
                           <span class="btn btn-success btn-xs"><%= link_to fa_icon("check"), [:admin, agent] %></span>
                           <span class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_admin_agent_path(agent) %><i class="icon-pencil"></i></span>

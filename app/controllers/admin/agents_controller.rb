@@ -15,10 +15,12 @@ class Admin::AgentsController < AdminController
   end
 
   def merchants
+    set_tab :group
     @merchants = @agent.merchants.page params[:page]
   end
 
   def terminals
+    set_tab :group
     @terminals = @agent.terminals.order(merchant_id: :asc).page params[:page]
   end
 

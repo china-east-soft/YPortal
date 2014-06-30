@@ -1,16 +1,16 @@
 .row
   .col-lg-12
     section.panel
-      header.panel-heading  devices
+      header.panel-heading  代理商#{@agent.agent_info.name}的设备列表
       .panel-body
         table.table.table-striped.table-advance.table-hover
           thead
             tr
               th
-              th Merchant
+              th 代理商
               th Mac
               th Mid
-              th Status
+              th 状态
             tbody
               - if @terminals
                 - @terminals.each do |terminal|
@@ -20,9 +20,9 @@
                     td = terminal.mac
                     td = terminal.mid
                     td = I18n.t "activerecord.attributes.terminal.#{terminal.status}"
-          .row
-            .col-lg-6
-              .dataTables_info 共有#{@terminals.total_count}条记录
-            .col-lg-6
-              .dataTables_paginate.paging_bootstrap.pagination = paginate @terminals
+        .row
+          .col-lg-6
+            .dataTables_info 共有#{@terminals.total_count}条记录
+          .col-lg-6
+            .dataTables_paginate.paging_bootstrap.pagination = paginate @terminals
 

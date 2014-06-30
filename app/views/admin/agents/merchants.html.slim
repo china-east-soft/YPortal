@@ -1,7 +1,7 @@
 .row
   .col-lg-12
     section.panel
-      header.panel-heading 商家列表
+      header.panel-heading 代理商#{@agent.agent_info.name}的商家列表
       .panel-body
         table.table.table-striped.table-advance.table-hover
           thead
@@ -36,8 +36,8 @@
                     span.btn.btn-success.btn-xs = link_to fa_icon("check"), [:admin, merchant]
                     span.btn.btn-primary.btn-xs = link_to fa_icon("pencil"), edit_admin_merchant_path(merchant)
                     span.btn.btn-danger.btn-xs = link_to fa_icon("trash-o"), [:admin, merchant], method: :delete, data: { confirm: 'Are you sure?' }
-              .row
-                .col-lg-6
-                  .dataTables_info 共有 #{@merchants.total_count} 条记录
-                .col-lg-6
-                  .dataTables_paginate.paging_bootstrap.pagination = paginate @merchants
+        .row
+          .col-lg-6
+            .dataTables_info 共有 #{@merchants.total_count} 条记录
+          .col-lg-6
+            .dataTables_paginate.paging_bootstrap.pagination = paginate @merchants

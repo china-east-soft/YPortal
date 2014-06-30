@@ -1,4 +1,5 @@
 class Admin::MessageWarningsController < AdminController
+  set_tab :statistics
 
   def index
     @activity = Activity.new

@@ -8,21 +8,21 @@
         table.table.table-striped.table-advance.table-hover
           thead
             tr
-              th pro-city
+              th 地理区域
               th 行业
-              th agent
-              th merchant
-              th devices
-              th traffic-stragery
-              th advice
-              th reg/sign
+              th 代理商
+              th 商家
+              th 设备数量
+              th 流量策略
+              th 广告策略
+              th 注册/签到数
           tbody
             - @agents.each do |agent|
               tr
-                td = agent.agent_info.city
-                td = link_to agent.agent_info.industry, '#'
-                td = link_to agent.agent_info.name, admin_agents_path
-                td = link_to agent.merchants.count, merchants_admin_agent_path(agent)
-                td = link_to agent.terminals.count, terminals_admin_agent_path(agent)
+                td = agent.agent_info.try(:city)
+                td = link_to agent.agent_info.try(:industry), '#'
+                td = link_to agent.agent_info.try(:name), admin_agents_path
+                td = link_to agent.merchants.try(:count), merchants_admin_agent_path(agent)
+                td = link_to agent.terminals.try(:count), terminals_admin_agent_path(agent)
                 td
                 td

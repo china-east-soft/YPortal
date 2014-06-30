@@ -93,6 +93,9 @@ task :deploy => :environment do
       invoke :'whenever:update'
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
       invoke :'sidekiq:restart'
+
+      queue "cd #{deploy_to}/#{current_path}"
+      queue "bundle exec rake db:seed"
     end
   end
 end
