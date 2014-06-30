@@ -3,48 +3,23 @@
     <div class="row span5 col-centered shop_title">
       <h5 class="text-center"><strong><span id="portal_style_conf_name"><%= @portal_style.name %></span></strong></h5>
     </div>
-    <div class="span5 about-carousel" style="margin-bottom:-15px;">
-      <div id="myCarousel" class="carousel slide">
-          <!-- Carousel items -->
-          <div class="carousel-inner">
-          <% if @banners.present? %>
-            <% @banners.each_with_index do |banner,bindex| %>
-                <div class="<%= 'active' if bindex == 0 %> item">
-                  <%= image_tag banner.cover, width: "100%" %>
-                  <div class="carousel-caption">
-                      <p><%= banner.description %></p>
-                  </div>
-              </div>
-            <% end %>
-          <% else %>
-              <div class="active item">
-                  <%= image_tag "about_1.jpg" %>
-                  <div class="carousel-caption">
-                      <p>Donec luctus ullamcorper nulla</p>
-                  </div>
-              </div>
-              <div class="item">
-                  <%= image_tag "about_2.jpg" %>
-                  <div class="carousel-caption">
-                      <p>Blanditiis praesentium voluptatum</p>
-                  </div>
-              </div>
-              <div class="item">
-                  <%= image_tag "about_1.jpg" %>
-                  <div class="carousel-caption">
-                      <p>Honest and amazing things that bring positive results</p>
-                  </div>
-              </div>
+    <div class="span5 about-carousel" style="margin-bottom:30px;">
+      <ul class="bxslider">
+        <% if @banners.present? %>
+          <% @banners.each_with_index do |banner,bindex| %>
+            <li>
+              <%= image_tag banner.cover, width: "100%" %>
+            </li>
           <% end %>
-          </div>
-          <!-- Carousel nav -->
-          <a class="carousel-control left" href="#myCarousel" data-slide="prev">
-            <%= fa_icon "angle-left" %>
-          </a>
-          <a class="carousel-control right" href="#myCarousel" data-slide="next">
-            <%= fa_icon "angle-right" %>
-          </a>
-      </div>
+        <% else %>
+            <li>
+              <%= image_tag "about_1.jpg" %>
+            </li>
+            <li>
+              <%= image_tag "about_2.jpg" %>
+            </li>
+          <% end %>
+      </ul>
     </div>
     <div class="row span5 col-centered free-wifi">
       <h4 class="text-center"><%= image_tag 'tu_01_03.png',height: '23' %>点击免费上网</h4>

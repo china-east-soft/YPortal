@@ -18,3 +18,4 @@
 //= require jquery.placeholder.js
 //= require jquery.cityselect.js
 //= require city.min.js
+//= require jquery.bxslider.js
