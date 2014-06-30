@@ -25,6 +25,7 @@
                   <th>时长</th>
                   <th>添加时间</th>
                   <th></th>
+                  <td></th>
               </tr>
               </thead>
                 <tbody>
@@ -35,6 +36,13 @@
                     <td><%= humanize_second terminal.duration.to_i %></td>
                     <td><%= I18n.l(terminal.added_by_merchant_at).split(" ")[0..1].join(" ") if terminal.added_by_merchant_at %></td>
                     <td><span class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_merchant_terminal_path(terminal) %><i class="icon-pencil"></i></span></td>
+                    <td>
+                        <% if terminal.cancelling? %>
+                          <%= link_to "退货处理中", '#', class: "btn btn-xs", disabled: true%>
+                        <% else %>
+                          <%= link_to "退货", cancelling_merchant_terminal_path(terminal), class: "btn btn-xs btn-info", data: {confirm: "确定退货?"}, method: 'post' %>
+                        <% end %>
+                    </td>
                   </tr>
                 <% end %>
               </tbody>

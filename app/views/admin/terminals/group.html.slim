@@ -1,0 +1,19 @@
+table.table.table-striped.table-hover
+  thead
+    tr
+      th 地理区域
+      th 所属行业
+      th 代理商
+      th 商家
+      th 设备总量
+      th 流量策略
+      th 广告策略
+      th 注册
+      th 签到数
+      th 创建时间
+      th 操作
+  tbody
+    - @indusrties_by_area.each do |area_industry|
+      tr
+        td = area_industry[0]
+        td = area_industry[1]

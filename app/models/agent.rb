@@ -4,6 +4,8 @@ class Agent < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  default_scope {order "id"}
+
   attr_accessor :not_required_password
   def password_required?
     super unless self.not_required_password
@@ -14,5 +16,7 @@ class Agent < ActiveRecord::Base
 
   has_many :merchants, dependent: :nullify
   has_many :terminals, dependent: :nullify
+
+
 
 end

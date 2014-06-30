@@ -10,8 +10,6 @@
                       <span class="btn btn-primary" >
                         <%= link_to fa_icon("plus"), new_admin_terminal_path %>
                       </span>
-
-
                     </div>
                 </div>
 
@@ -52,27 +50,60 @@
                 <table class="table table-striped table-advance table-hover">
                   <thead>
                     <tr>
+                      <th></th>
                       <th>Mac</th>
                       <th>Mid</th>
                       <th>Imei</th>
                       <th>Sim iccid</th>
-                      <th>Status</th>
+                      <th>
+                          <div class="btn-group btn-group-sm" id="status">
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                              <% if params[:show].present? %>
+                                <%= I18n.t("admin.terminals.index.#{params[:show]}") %>
+                              <% else %>
+                                全部
+                              <% end %>
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><%= link_to "全部设备", admin_terminals_path %> </li>
+                              <li><%= link_to "正常设备", admin_terminals_path(show: 'normal') %></li>
+                              <li><%= link_to "申请退货设备", admin_terminals_path(show: 'cancelling') %></li>
+                              <li><%= link_to "已退货设备", admin_terminals_path(show: 'cancelled') %></li>
+                              <li><%= link_to "维修设备", admin_terminals_path(show: 'repair') %></li>
+                              <li><%= link_to "报废设备", admin_terminals_path(show: 'trash') %></li>
+                            </ul>
+                          </div>
+                      </th>
                       <th colspan="3"></th>
+                      <th colspan="4"></th>
                     </tr>
                   </thead>
 
                   <tbody>
                     <% @terminals.each do |terminal| %>
+                      <% cancelled = "disabled" if terminal.trash? || terminal.cancelled? || terminal.init? %>
+                      <% repair = "disabled" if terminal.trash? || terminal.repair? %>
+                      <% trash = "disabled" if terminal.trash?  %>
                       <tr>
+                        <td> <%= fa_icon("warning") if terminal.unnormal? %> </td>
                         <td><%= terminal.mac %></td>
                         <td><%= terminal.mid %></td>
                         <td><%= terminal.imei %></td>
                         <td><%= terminal.sim_iccid %></td>
-                        <td><%= terminal.status %></td>
+                        <td class="status-td"><%= I18n.t "activerecord.attributes.terminal.#{terminal.status}" %></td>
                         <td>
                           <span class="btn btn-success btn-xs"><%= link_to fa_icon("check"), [:admin, terminal] %></span>
                           <span class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_admin_terminal_path(terminal) %><i class="icon-pencil"></i></span>
                           <span class="btn btn-danger btn-xs"><%= link_to fa_icon("trash-o"), [:admin, terminal], method: :delete, data: { confirm: 'Are you sure?' } %></span>
+                        </td>
+                        <td>
+                          <span class="btn btn-info btn-xs <%= cancelled %>"><%= link_to "退货", update_status_admin_terminal_path(terminal, status: 'cancelled'), data: {confirm: "改为退货状态后会从商家设备列表移除，请检查商家是否请求退货。确定退货?"} %> </span>
+                          <span class="btn btn-info btn-xs <%= repair %>"><%= link_to "维修", update_status_admin_terminal_path(terminal, status: 'repair'), data: {confirm: "改为维修状态后会从商家的设备列表里移除。确定维修?"} %> </span>
+                          <span class="btn btn-info btn-xs <%= trash %>"><%= link_to "报废", update_status_admin_terminal_path(terminal, status: 'trash'), data: {confirm: "改为报废状态后会从商家列表移除。确定报废?"} %> </span>
+                          <% if terminal.cancelled? || terminal.repair? %>
+                            <span class="btn btn-info btn-xs <%= trash %>"><%= link_to "重新分配", update_status_admin_terminal_path(terminal, status: 'init'), data: {confirm: "确定重新分配?"} %> </span>
+                          <% end %>
                         </td>
                       </tr>
                     <% end %>

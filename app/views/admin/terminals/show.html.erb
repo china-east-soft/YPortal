@@ -15,10 +15,74 @@
   <%= @terminal.sim_iccid %>
 </p>
 
-<p>
+<div>
   <strong>Status:</strong>
-  <%= @terminal.status %>
-</p>
+  <%= I18n.t "activerecord.attributes.terminal.#{@terminal.status}" %>
+  <% if @terminal.unnormal? %>
+    <%= fa_icon("warning") %>
+    <% if @terminal.cancelling? %>
+      <p> 商家要求退货.</p>
+      <p>
+      <%= link_to "同意退货", update_status_admin_terminal_path(@terminal, status: 'cancelled'), class: "btn btn-xs btn-info", data: {confirm: "请确认."} %>后会去掉设备和商家信息联系信息, 把设备重新分配。
+      </p>
+      <p>
+      点击
+      <%= link_to "不同意退货", update_status_admin_terminal_path(@terminal, status: 'uncancelling'), class: "btn btn-xs btn-info", data: {confirm: "请确认."} %> 驳回商家的退货请求。
+      </p>
+    <% elsif @terminal.cancelled? %>
+      <p>商家已经退货。</p>
+      <p> 点击<%= link_to '维修', update_status_admin_terminal_path(@terminal, status: 'repair'), class: "btn btn-xs btn-info", data: {confirm: "请确认！"} %> 将设备移入维修仓库.</p>
+
+      <p> 点击<%= link_to '报废', update_status_admin_terminal_path(@terminal, status: ':trash'), class: "btn btn-xs btn-info", data: {confirm: "请确认！"} %>将设备移入报废仓库. </p>
+      <p> 点击<%= link_to '重新分配', update_status_admin_terminal_path(@terminal, status: ':init'), class: "btn btn-xs btn-info", data: {confirm: "请确认！"} %>将设备重新分配. </p>
+    <% elsif @terminal.repair? %>
+      <p> 设备正在维修. </p>
+      <p>
+        维修好后可以<%= link_to '重新分配', update_status_admin_terminal_path(@terminal, status: 'init'), class: 'btn btn-success btn-xs', data: {confirm: "确定要重新分配？"} %>,
+        若报废请点击<%= link_to '报废', update_status_admin_terminal_path(@terminal, status: 'trash'), class: 'btn btn-danger btn-xs', data: {confirm: "确定设备已经报废?" }%>按钮。
+      </p>
+    <% elsif @terminal.trash? %>
+      <p>设备已报废 </p>
+    <% end %>
+  <% end %>
+
+</div>
+<div id="operate_log">
+  <h6><strong> 操作日志 </strong></h6>
+  <div id="logs">
+    <% @logs.each do |log| %>
+      <p>
+        <%= log %>
+      </p>
+    <% end %>
+  </div>
+</div>
 
 <%= link_to t("views.edit"), edit_admin_terminal_path(@terminal) %> |
 <%= link_to t("views.back"), admin_terminals_path %>
+
+<%= content_for :script do %>
+<%= javascript_tag do %>
+  var show_log_num = 5;
+  if ($("#logs").children().length > show_log_num) {
+    $("#logs").children().slice(3, -1).hide();
+    var btn = $("<a>");
+    btn.text("显示更多日志...");
+    btn.attr("href", "###");
+    $("#logs").append(btn);
+
+    btn.click(function() {
+    if($(this).text() == "显示更多日志..."){
+      $("#logs").children().slice(3, -1).show();
+      $(this).text("收起");
+    }
+    else {
+      $("#logs").children().slice(3, -1).hide();
+      $(this).text("显示更多日志...");
+    }
+
+    });
+
+  }
+<% end %>
+<% end %>

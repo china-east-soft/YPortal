@@ -24,6 +24,8 @@ class Merchant < ActiveRecord::Base
 
   has_many :products, dependent: :destroy
 
+  belongs_to :agent
+
   validates_presence_of     :password, if: :password_required?
   validates_confirmation_of :password, if: :password_required?
   validates_length_of       :password, within: 8..18, allow_blank: true
@@ -69,6 +71,7 @@ class Merchant < ActiveRecord::Base
     end
 
 
+    #todo what that do?
     def get_terminal
       Terminal.where(mid: self.mid, status: AuthToken.statuses[:init], merchant_id: nil).update_all(merchant_id: self.id, status: AuthToken.statuses[:active], added_by_merchant_at: Time.now)
     end

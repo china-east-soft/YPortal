@@ -1,0 +1,17 @@
+.row {
+  .col-sm-12 {
+    .well {
+      background-color: white;
+
+      .form-inline {
+        label {
+          margin-right: 10px;
+        }
+        .form-control {
+          width: auto;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}

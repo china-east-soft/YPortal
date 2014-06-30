@@ -14,7 +14,7 @@ class MerchantInfo < ActiveRecord::Base
   validates_attachment_content_type :shop_photo, :content_type => /\Aimage/
 
   validates_attachment :shop_photo, :presence => true,
-                        :size => { :in => 0..100.kilobytes }, if: "validate_shop_info"
+                        :size => { :in => 0..500.kilobytes }, if: "validate_shop_info"
   validates_presence_of :shop_description, :shop_phone_one, :shop_longitude, :shop_latitude, :province, :city, :area, :address, if: :"validate_shop_info"
 
   imag_attr :shop_photo

@@ -61,6 +61,15 @@
                 <%= tab.landings   '广告', admin_landings_path %>
                 <%= tab.categories   '类别', admin_categories_path %>
                 <%= tab.auth_message '验证消息', admin_auth_message_path%>
+
+                <%= tab.group '<i class="fa fa-lg fa-fw fa-gears"></i>
+                    <span class="menu-item-parent">
+                     分组管理
+                    </span>'.html_safe, group_admin_agents_path%>
+
+                <%= tab.statistics '<i class="fa fa-lg fa-fw fa-pencil"></i> <span class="menu-item-parent"> 签到统计</span>'.html_safe, '#' %>
+
+
               <% end %>
               <!-- sidebar menu end-->
           </div>
@@ -69,7 +78,7 @@
       <!--main content start-->
       <section id="main-content">
         <section class="wrapper site-min-height">
-          
+
           <%= yield %>
         </section>
       </section>
