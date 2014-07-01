@@ -96,7 +96,7 @@ task :deploy => :environment do
       queue! "#{rake} data:default_portal_styles"
 
       queue! "cd #{deploy_to}/#{current_path}"
-      queue! "bundle exec rake db:seed"
+      queue! "#{rake} db:seed"
     end
   end
 end
