@@ -101,10 +101,11 @@ group :development do
   gem 'pry-nav'
   gem 'spring'
 
-  # Livereload
-  gem 'guard-livereload', require: false
-  gem 'rack-livereload'
 end
+
+# Livereload
+gem 'guard-livereload', require: false
+gem 'rack-livereload'
 
 # Slim template
 gem 'slim', '~> 2.0.2'
