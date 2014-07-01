@@ -1,0 +1,34 @@
+<div class="container" >
+  <div class="row mbot30">
+    <div class="col-lg-5 col-xs-12 col-centered" id="wifi_style2">
+      <div class="row span5 col-centered">
+        <h3 class="text-center"><%= current_portal_style.name %></h3>
+        <h4 class="text-center">魔力无限 视网精彩</h4>
+      </div>
+
+      <div id="free_wifi">
+        <div class="row span5 text-center" id="free_wifi_img">
+
+          <% if terminal_merchant %>
+            <% if (@auth_token && @auth_token.init?) || params[:mid] %>
+              <%= link_to wifi_login_url(vtoken: params[:vtoken], mid: params[:mid]) do %>
+                <%= image_tag "wifi2.png" %>
+              <% end %>
+            <% elsif @auth_token && @auth_token.actived? %>
+              <%= link_to login_success_wifi_users_url(vtoken: @auth_token.auth_token) do %>
+                <%= image_tag "wifi2.png" %>
+              <% end %>
+            <% end %>
+          <% end %>
+          
+        </div>
+        <div class="row span5 col-centered text-center" id="free_wifi_text">
+          <span class="pull-left">技术支持：杭州云链</span>
+          <span class="pull-right">电话：0571 85360738</span>
+        </div>
+      </div>
+      
+    </div>
+
+  </div>
+</div>

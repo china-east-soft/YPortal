@@ -5,7 +5,7 @@ class WifiController < ActionController::Base
 
   layout 'wifi'
 
-  helper_method :current_terminal, :terminal_merchant
+  helper_method :current_terminal, :terminal_merchant, :current_portal_style
 
   def current_terminal
     if params[:mid].present?
@@ -20,6 +20,10 @@ class WifiController < ActionController::Base
 
   def terminal_merchant
     current_merchant || current_terminal.merchant
+  end
+
+  def current_portal_style
+    terminal_merchant.current_portal_style
   end
 
 end
