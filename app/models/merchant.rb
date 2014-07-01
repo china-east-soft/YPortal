@@ -56,7 +56,7 @@ class Merchant < ActiveRecord::Base
   def get_portal_style
     foo = PortalStyle.where(merchant_id: self.id, layout: "默认一").first_or_create
     bar = PortalStyle.where(merchant_id: self.id, layout: "默认二").first_or_create
-    unless merchant.current_portal_style
+    unless self.current_portal_style
       foo.update_column(:current, true)
     end
   end
