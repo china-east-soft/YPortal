@@ -15,13 +15,16 @@
         <div class="success-Icon">
         </div>
         <div class="success-font">
-          <p >已成功连接免费WiFi</p>
-          <p >
+          <p >已成功连接免费WiFi,
             剩余 <span id='countdown' class="time_counter"><%= seconds_to_human_minutes(@auth_token.try(:left_duration) || 14400) %></span> 的免费上网时长
           </p>
           <p >
             当前 <%= AuthToken.actived(terminal_merchant.id).count %> 人同时在线
           </p>
+          <hr class='dotted' />
+          <div class="text-center">
+            <%= image_tag "anniiu_07.png", id: "app_download_img" %>
+          </div>
         </div>
       </div>
 

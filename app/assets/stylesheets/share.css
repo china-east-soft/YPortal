@@ -8,3 +8,10 @@
 }
 
 .placeholder { color: #aaa; }
+
+.dotted {
+  border: 1px;
+  border-style: none none dashed;
+  width: 90%;
+  margin: 0 auto;
+}
