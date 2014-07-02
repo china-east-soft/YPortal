@@ -7,43 +7,54 @@
     <div class="col-lg-5 col-xs-12 col-centered">
       <%= render partial: "partial/adv", locals: { title: "登录界面" } %>
       <%= render partial: "partial/portal_notification" %>
-      <div class="row span5 col-centered" style="padding:5px 15px;margin-top:5px;margin-bottom: 5px;background-color: #f1eddf;">
+
+      <div class="row span5 col-centered" style="padding:5px 25px;margin-top:5px;margin-bottom: 5px;">
+        <%= form_tag quick_login_wifi_users_path, method: 'post' do %>
+          <%= hidden_field_tag :mid, params[:mid] %>
+          <%= hidden_field_tag :vtoken, params[:vtoken] %>
+          <%= submit_tag '一键登录', class: "btn btn-lg btn-info col-sm-12 col-xs-12 col-lg-12 col-md-12", style: "letter-spacing: 1em;"%>
+        <% end %>
+      </div>
+
+      <div class="row span5 col-centered" style="padding:0 25px;margin-top:5px;">
+        <button class='btn btn-lg btn-success col-sm-12 col-xs-12 col-lg-12 col-md-12' id="mobile_login" style='letter-spacing: 1em;'>
+          <%= image_tag "mobile.png", style: "margin-right:10px;height: 30px;" %>手机号验证登录
+          <%= image_tag "angile_right.png", class: "pull-right", style: "height:25px;" %>
+        </button>
+      </div>
+      <div class="row span5 col-centered" id="mobile_login_modal" style="padding-top:0;padding-left:25px;padding-right:25px;padding-bottom:5px;margin-bottom: 5px;display: none;">
+        <div style="padding:10px 20px 15px 20px;margin-bottom: 5px;background-color: #f1eddf;">
+
         <%= simple_form_for :account, as: :post, url:  sign_in_wifi_users_path,:role => "form", html: { class: "form-signin" } do |f| %>
 
           <div class="form-group" style="margin-bottom:10px;">
           <%= f.input_field :mobile, :autofocus => true, class: "form-control input-lg", placeholder: "手机", value: params[:account][:mobile] %>
           </div>
 
-      <div class="form-group" id="verify_code_group" style="margin-bottom:10px;">
-        <div class="row">
-          <div class=" col-xs-7 col-sm-7 col-lg-7">
-            <%= f.input_field :verify_code, class: "form-control input-lg", placeholder: "验证码" %>
+          <div class="form-group" id="verify_code_group" style="margin-bottom:10px;">
+            <div class="row">
+              <div class=" col-xs-7 col-sm-7 col-lg-7">
+                <%= f.input_field :verify_code, class: "form-control input-lg", placeholder: "验证码" %>
+              </div>
+              <div class="col-xs-5 col-sm-5 col-lg-5" style="padding-left:0;padding-top:5px;">
+                <a class="btn btn-info pull-right col-xs-12 col-sm-12 col-lg-12 " style="letter-spacing: 0.15em;" id="send_message">获取验证码</a>
+              </div>
+            </div>
           </div>
-          <div class="col-xs-5 col-sm-5 col-lg-5" style="padding-left:0;padding-top:5px;">
-            <a class="btn btn-info pull-right col-xs-12 col-sm-12 col-lg-12 " style="letter-spacing: 0.15em;" id="send_message">获取验证码</a>
+          <div class="row span5 col-centered" style="font-weight:100;color:#797979;font-size:13px;letter-spacing: 0.2em;">
+            <div class="col-lg-offset-2 col-xs-offset-2">
+              <div class="checkboxes">
+                <label class="label_check" for="disclaimer_check">
+                <input name="disclaimer_check" id="disclaimer_check" value="1" type="checkbox"> 我已阅读<span data-toggle="modal" data-target="#myModal" style="color:#067EC0">免责声明</span>并同意。</label>
+              </div>
+            </div>
           </div>
-        </div>
+          <%= hidden_field_tag :mid, params[:mid] %>
+          <%= hidden_field_tag :vtoken, params[:vtoken] %>
+          <%= f.submit "&nbsp;登&nbsp;录&nbsp;".html_safe, class: "btn btn-info btn-lg col-sm-12 col-xs-12 col-lg-12 col-md-12 sign_in", style: "margin-top: 5px;letter-spacing: 1em;" %>
+
+        <% end %>
       </div>
-      <div class="row span5 col-centered" style="font-weight:100;color:#797979;font-size:13px;letter-spacing: 0.2em;">
-        <div class="col-lg-offset-2 col-xs-offset-2">
-          <div class="checkboxes">
-            <label class="label_check" for="disclaimer_check">
-            <input name="disclaimer_check" id="disclaimer_check" value="1" type="checkbox"> 我已阅读<span data-toggle="modal" data-target="#myModal" style="color:#067EC0">免责声明</span>并同意。</label>
-          </div>
-        </div>
-      </div>
-      <%= hidden_field_tag :mid, params[:mid] %>
-      <%= hidden_field_tag :vtoken, params[:vtoken] %>
-      <%= f.submit "&nbsp;登&nbsp;录&nbsp;".html_safe, class: "btn btn-info btn-lg col-sm-12 col-xs-12 col-lg-12 col-md-12 sign_in", style: "margin-top: 1%;letter-spacing: 1em;" %>
-
-    <% end %>
-
-    <%= form_tag quick_login_wifi_users_path, method: 'post' do %>
-      <%= hidden_field_tag :mid, params[:mid] %>
-      <%= hidden_field_tag :vtoken, params[:vtoken] %>
-      <%= submit_tag '直接登录', class: "btn btn-lg btn-success col-sm-12 col-xs-12 col-lg-12 col-md-12", style: "margin-top: 2%;letter-spacing: 1em;"%>
-    <% end %>
-
     </div>
 
     <div class="row span5 col-centered " style="color:#514625;background-color:#eecd77;padding:5px 10px;margin-top:15px;">
@@ -115,6 +126,9 @@
       };
     });
 
+    $("#mobile_login").click(function(){
+      $("#mobile_login_modal").toggle();
+    });
 
     $("#disclaimer_check").trigger("click");
 

@@ -1,4 +1,4 @@
-<div class="container" >
+<div class="container fill" >
   <div class="row mbot30">
     <div class="col-lg-5 col-xs-12 col-centered" id="wifi_style2">
       <div class="row span5 col-centered">
@@ -12,11 +12,11 @@
           <% if terminal_merchant %>
             <% if (@auth_token && @auth_token.init?) || params[:mid] %>
               <%= link_to wifi_login_url(vtoken: params[:vtoken], mid: params[:mid]) do %>
-                <%= image_tag "wifi2.png" %>
+                <%= image_tag "anniu_06.png" %>
               <% end %>
             <% elsif @auth_token && @auth_token.actived? %>
               <%= link_to login_success_wifi_users_url(vtoken: @auth_token.auth_token) do %>
-                <%= image_tag "wifi2.png" %>
+                <%= image_tag "anniu_06.png" %>
               <% end %>
             <% end %>
           <% end %>
