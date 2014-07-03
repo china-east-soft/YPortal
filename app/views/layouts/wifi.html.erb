@@ -72,17 +72,6 @@
 
   <%= yield :script %>
 
-  <footer class="reset_footer">
-    <div class="container" >
-      <div class="row mbot30">
-        <div class="col-lg-5 col-xs-12 col-centered">
-          <div class="row span5 col-centered">
-            杭州云链网络技术有限公司
-            <span class="pull-right">电话：0571 85360738<span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <%= render partial: "wifi/footer/#{current_portal_style.partial_name}" %>
 </body>
 </html>

@@ -15,13 +15,16 @@
         <div class="success-Icon">
         </div>
         <div class="success-font">
-          <p >已成功连接免费WiFi</p>
-          <p >
+          <p >已成功连接免费WiFi,
             剩余 <span id='countdown' class="time_counter"><%= seconds_to_human_minutes(@auth_token.try(:left_duration) || 14400) %></span> 的免费上网时长
           </p>
           <p >
             当前 <%= AuthToken.actived(terminal_merchant.id).count %> 人同时在线
           </p>
+          <hr class='dotted' />
+          <div class="text-center">
+            <%= image_tag "anniiu_07.png", id: "app_download_img" %>
+          </div>
         </div>
       </div>
 
@@ -109,5 +112,57 @@
 <% content_for :script do %>
   <%= javascript_tag do %>
     timeCountDown('countdown',<%= @auth_token.try(:left_duration) || 14400 %>)
+
+    /**  
+    浏览器版本信息
+    * @type {Object} 
+    * @return {Boolean}  返回布尔值     
+    */
+    function browser() {
+        var u = navigator.userAgent.toLowerCase();
+        var app = navigator.appVersion.toLowerCase();
+        return {
+            txt: u, // 浏览器版本信息
+            version: (u.match(/.+(?:rv|it|ra|ie)[\/: ]([\d.]+)/) || [])[1], // 版本号       
+            msie: /msie/.test(u) && !/opera/.test(u), // IE内核
+            mozilla: /mozilla/.test(u) && !/(compatible|webkit)/.test(u), // 火狐浏览器
+            safari: /safari/.test(u) && !/chrome/.test(u), //是否为safair
+            chrome: /chrome/.test(u), //是否为chrome
+            opera: /opera/.test(u), //是否为oprea
+            presto: u.indexOf('presto/') > -1, //opera内核
+            webKit: u.indexOf('applewebkit/') > -1, //苹果、谷歌内核
+            gecko: u.indexOf('gecko/') > -1 && u.indexOf('khtml') == -1, //火狐内核
+            mobile: !!u.match(/applewebkit.*mobile.*/), //是否为移动终端
+            ios: !!u.match(/\(i[^;]+;( u;)? cpu.+mac os x/), //ios终端
+            android: u.indexOf('android') > -1, //android终端
+            iPhone: u.indexOf('iphone') > -1, //是否为iPhone
+            iPad: u.indexOf('ipad') > -1, //是否iPad
+            webApp: !!u.match(/applewebkit.*mobile.*/) && u.indexOf('safari/') == -1 //是否web应该程序，没有头部与底部
+        };
+    }
+    var timeout;
+    function open_appstore() {
+      var b=browser();
+      if(b.ios||b.iPhone||b.iPad){
+        window.location="itms-apps://itunes.apple.com/cn/app/yun-maotv/id575111110?mt=8";
+      }else if(b.android){
+        // 
+      }
+    } 
+    function try_to_open_app() {
+      var b=browser();
+      if(b.ios||b.iPhone||b.iPad){
+        window.location="ybox://net.china-east.ymtv";
+      }else if(b.android){
+        // 
+      }
+      timeout = setTimeout('open_appstore()', 30);
+    }
+
+    $( document ).ready(function() {
+      $( "#app_download_img" ).click(function(event) {
+        try_to_open_app();
+      });
+    });
   <% end %>
 <% end %>

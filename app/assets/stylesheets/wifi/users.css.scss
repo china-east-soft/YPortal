@@ -26,24 +26,25 @@
 }
 
 .succ-info {
-   padding-left: 4%;
-
+   padding-right: 2%;
+   padding-left: 2%;
   .success-Icon {
-
     float: left;
-    width: 95px;
-    height: 95px;
-    margin-right: 8%;
-
-
+    width: 50px;
+    height: 50px;
+    margin-right: 2%;
+    background-size: 100% auto;
     background-image: url(image-path('right.png'));
-    -ms-transform: scale(0.7,0.7); /* IE 9 */
-    -webkit-transform: scale(0.7, 0.7); /* Chrome, Safari, Opera */
-    transform: scale(0.7, 0.7);
   }
 
 }
 
 #surrounding {
   margin-top: 1%;
+}
+
+#app_download_img {
+  margin-top: 10px;
+  width: 50%;
+  cursor: pointer;
 }
