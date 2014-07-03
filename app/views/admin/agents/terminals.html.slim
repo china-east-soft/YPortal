@@ -11,15 +11,30 @@
               th Mac
               th Mid
               th 状态
+              th
+              th
             tbody
               - if @terminals
                 - @terminals.each do |terminal|
+                  - cancelled = "disabled" if terminal.trash? || terminal.cancelled? || terminal.init?
+                  - repair = "disabled" if terminal.trash? || terminal.repair?
+                  - trash = "disabled" if terminal.trash?
                   tr
                     td = fa_icon("warning") if terminal.unnormal?
                     td = terminal.merchant.merchant_info.name
                     td = terminal.mac
                     td = terminal.mid
                     td = I18n.t "activerecord.attributes.terminal.#{terminal.status}"
+                    td
+                      span.btn.btn-success.btn-xs = link_to fa_icon("check"), [:admin, terminal]
+                      span.btn.btn-primary.btn-xs = link_to(fa_icon("pencil"), edit_admin_terminal_path(terminal))
+                      span.btn.btn-danger.btn-xs = link_to fa_icon("trash-o"), [:admin, terminal], method: :delete, data: { confirm: 'Are you sure?' }
+                    td
+                      span class="btn btn-info btn-xs #{cancelled}" = link_to "退货", update_status_admin_terminal_path(terminal, status: 'cancelled'), data: {confirm: "改为退货状态后会从商家设备列表移除，请检查商家是否请求退货。确定退货?"}
+                      span class="btn btn-info btn-xs #{repair}" = link_to "维修", update_status_admin_terminal_path(terminal, status: 'repair'), data: {confirm: "改为维修状态后会从商家的设备列表里移除。确定维修?"}
+                      span class="btn btn-info btn-xs #{trash}" = link_to "报废", update_status_admin_terminal_path(terminal, status: 'trash'), data: {confirm: "改为报废状态后会从商家列表移除。确定报废?"}
+                      - if terminal.cancelled? || terminal.repair?
+                        span class="btn btn-info btn-xs #{trash}" = link_to "重新分配", update_status_admin_terminal_path(terminal, status: 'init'), data: {confirm: "确定重新分配?"}
         .row
           .col-lg-6
             .dataTables_info 共有#{@terminals.total_count}条记录

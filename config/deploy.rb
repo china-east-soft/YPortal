@@ -13,6 +13,10 @@ environments = {
   'production' => {
     domain: 'portal.cloudchain.cn',
     branch: 'master'
+  },
+  'testing' => {
+    domain: "114.215.180.66",
+    branch: 'master'
   }
 }
 

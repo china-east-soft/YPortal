@@ -1,5 +1,5 @@
 <%
-  @portal_style = terminal_merchant.portal_styles.first
+  @portal_style = terminal_merchant.current_portal_style
   @banners = current_merchant.banners
   if @portal_style
     @mboxes = @portal_style.valid_mboxes

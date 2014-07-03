@@ -63,7 +63,7 @@ class Terminal < ActiveRecord::Base
     end
   end
 
-  def self.import(file)
+  def self.import(file, agent_id)
     begin
       Terminal.transaction do
         file = open_spreadsheet(file)
@@ -78,6 +78,7 @@ class Terminal < ActiveRecord::Base
                 terminal.imei = attr_value
               end
             end
+            terminal.agent_id = agent_id
 
             terminal.save!
           end
@@ -96,7 +97,8 @@ class Terminal < ActiveRecord::Base
 
   def active(merchant_id)
     operate_record = "#{operate_log}#{I18n.l Time.now }由商家(id:#{merchant_id})激活;"
-    update_attributes(merchant_id: merchant_id, status: AuthToken.statuses[:active], added_by_merchant_at: Time.now)
+    merchant = Merchant.find merchant_id
+    update_attributes(merchant_id: merchant_id, agent_id: merchant.agent_id, status: AuthToken.statuses[:active], added_by_merchant_at: Time.now)
   end
 
   def init
@@ -107,7 +109,7 @@ class Terminal < ActiveRecord::Base
     end
 
     operate_record = "#{operate_log}#{I18n.l Time.now }由管理员改为初始状态;"
-    update_attributes status: Terminal.statuses[:init], operate_log: operate_record, merchant_id: nil
+    update_attributes status: Terminal.statuses[:init], operate_log: operate_record, merchant_id: nil, agent_id: nil
   end
 
   def cancelling
@@ -122,7 +124,7 @@ class Terminal < ActiveRecord::Base
 
   def cancelled
     operate_record = "#{operate_log}#{I18n.l Time.now }由管理员同意发退货请求;"
-    update_attributes status: Terminal.statuses[:cancelled], operate_log: operate_record, merchant_id: nil
+    update_attributes status: Terminal.statuses[:cancelled], operate_log: operate_record, merchant_id: nil, agent_id: nil
   end
 
   def repair
@@ -132,7 +134,7 @@ class Terminal < ActiveRecord::Base
 
   def trash
     operate_record = "#{operate_log}#{I18n.l Time.now }由管理员改为报废状态;"
-    update_attributes status: Terminal.statuses[:trash], operate_log: operate_record, merchant_id: nil
+    update_attributes status: Terminal.statuses[:trash], operate_log: operate_record, merchant_id: nil, agent_id: nil
   end
 
   def normal?

@@ -17,6 +17,8 @@ class Agent < ActiveRecord::Base
   has_many :merchants, dependent: :nullify
   has_many :terminals, dependent: :nullify
 
-
+  def active
+    agent_info.update_column status: AgentInfo.statuses[:active]
+  end
 
 end

@@ -86,8 +86,10 @@ class Admin::TerminalsController < AdminController
   end
 
   def import
+    agent_id = params[:agent] || 0
+
     begin
-      Terminal.import(params[:file])
+      Terminal.import(params[:file], agent_id)
       @success = "导入成功."
     rescue => e
       @error = e

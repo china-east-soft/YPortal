@@ -13,5 +13,5 @@ class Banner < ActiveRecord::Base
   validates_presence_of :description
 
   imag_attr :cover
-  
+
 end

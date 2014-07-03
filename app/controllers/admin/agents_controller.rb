@@ -1,5 +1,5 @@
 class Admin::AgentsController < AdminController
-  before_action :set_agent, only: [:show, :edit, :update, :destroy, :merchants, :terminals]
+  before_action :set_agent, only: [:show, :edit, :update, :destroy, :merchants, :terminals, :active]
 
   set_tab :agents
 
@@ -9,9 +9,25 @@ class Admin::AgentsController < AdminController
     @agents = Agent.all.page params[:page]
   end
 
+  def active
+    @agent.active
+  end
+
   def group
     set_tab :group
     @agents = Agent.all.page params[:page]
+    @agents = @agents.map do |agent|
+      account = 0
+      login = 0
+      AuthToken.uniq(:client_identifier).all.each do |auth_token|
+        account += 1 if auth_token.account && auth_token.terminal.agent == agent
+      end
+      AuthToken.all.each do |auth_token|
+        login += 1 if auth_token.terminal.agent == agent
+      end
+
+      [agent, account, login]
+    end
   end
 
   def merchants

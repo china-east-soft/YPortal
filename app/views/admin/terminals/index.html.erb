@@ -20,6 +20,10 @@
                       <%= file_field_tag "file", class: "btn btn-default btn-sm form-control" %>
                     </div>
                   </div>
+                  <div class="form-group">
+                    <% agent_array = Agent.all.map {|agent| [agent.agent_info.try(:name), agent.id] } %>
+                    <%= select_tag :agent, options_for_select(agent_array), class: "form-control" %>
+                  </div>
                   <%= submit_tag "导入", class: "btn btn-success" %>
 
                   <span class="btn btn-primary" >

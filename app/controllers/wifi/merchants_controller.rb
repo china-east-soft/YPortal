@@ -107,7 +107,7 @@ class Wifi::MerchantsController < WifiController
         render :error
       end
 
-    end   
+    end
   end
 
   def show
