@@ -7,7 +7,7 @@ require 'mina/whenever'
 
 environments = {
   'develop' => {
-    domain: 'portal.cloudchain.co',
+    domain: 'dev.cloudchain.co',
     branch: 'develop'
   },
   'production' => {
@@ -15,8 +15,8 @@ environments = {
     branch: 'master'
   },
   'testing' => {
-    domain: "114.215.180.66",
-    branch: 'master'
+    domain: 'portal.cloudchain.co',
+    branch: 'develop'
   }
 }
 

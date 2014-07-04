@@ -16,8 +16,20 @@
 </p>
 
 <p>
-  <strong>Cover:</strong>
-  <%= image_tag @landing.cover.url(:original) %>
+  <strong>Cover iphone:</strong>
+  <%= image_tag @landing.cover_iphone.url(:original) %>
+</p>
+<p>
+  <strong>Cover iphone2x:</strong>
+  <%= image_tag @landing.cover_iphone2x.url(:original) %>
+</p>
+<p>
+  <strong>Cover iphone586:</strong>
+  <%= image_tag @landing.cover_iphone586.url(:original) %>
+</p>
+<p>
+  <strong>Cover andriod:</strong>
+  <%= image_tag @landing.cover_andriod.url(:original) %>
 </p>
 
 <%= link_to t("views.edit"), edit_admin_landing_path(@landing) %> |

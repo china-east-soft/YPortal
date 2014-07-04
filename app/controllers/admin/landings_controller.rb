@@ -69,6 +69,6 @@ class Admin::LandingsController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def landing_params
-      params.require(:landing).permit(:start_at, :end_at, :url, :cover)
+      params.require(:landing).permit(:start_at, :end_at, :url, :cover_iphone, :cover_iphone2x, :cover_iphone586, :cover_andriod)
     end
 end

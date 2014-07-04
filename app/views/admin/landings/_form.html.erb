@@ -10,7 +10,11 @@
           <%= f.input :start_at, class: "form-control datepicker", "data-dateformat" => "yy-mm-dd", as: :ui_date_picker %>
           <%= f.input :end_at, class: "form-control datepicker", "data-dateformat" => "yy-mm-dd", as: :ui_date_picker %>
           <%= f.input :url %>
-          <%= f.input :cover %>
+
+          <%= f.input :cover_iphone, as: :file, hint: "最佳分辨率是320x480" %>
+          <%= f.input :cover_iphone2x, as: :file, hint: "最佳分辨率为640x960" %>
+          <%= f.input :cover_iphone586, as: :file, hint: "最佳分辨率为640x1136" %>
+          <%= f.input :cover_andriod, as: :file, hint: "最佳分辨率为1280x720" %>
 
           <div class="form-actions">
             <%= f.button :submit %>

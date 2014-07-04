@@ -31,7 +31,12 @@
                         <td><%= landing.start_at %></td>
                         <td><%= landing.end_at %></td>
                         <td><%= landing.url %></td>
-                        <td><%= landing.cover %></td>
+                        <td>
+                          <%= landing.cover_iphone %>
+                          <%= landing.cover_iphone2x %>
+                          <%= landing.cover_iphone586 %>
+                          <%= landing.cover_andriod %>
+                        </td>
                         <td>
                           <span class="btn btn-success btn-xs"><%= link_to fa_icon("check"), [:admin, landing] %></span>
                           <span class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_admin_landing_path(landing) %><i class="icon-pencil"></i></span>
