@@ -16,9 +16,9 @@ class Landing < ActiveRecord::Base
   validates_attachment_content_type :cover_andriod, :content_type => /\Aimage/
 
   validates_attachment :cover_iphone, :presence => true, :size => { :in => 0..100.kilobytes }
-  validates_attachment :cover_iphone2x, :presence => true, :size => { :in => 0..100.kilobytes }
-  validates_attachment :cover_iphone586, :presence => true, :size => { :in => 0..100.kilobytes }
-  validates_attachment :cover_andriod, :presence => true, :size => { :in => 0..100.kilobytes }
+  validates_attachment :cover_iphone2x, :presence => true, :size => { :in => 0..200.kilobytes }
+  validates_attachment :cover_iphone586, :presence => true, :size => { :in => 0..200.kilobytes }
+  validates_attachment :cover_andriod, :presence => true, :size => { :in => 0..200.kilobytes }
 
   validates_presence_of :start_at, :end_at
 
