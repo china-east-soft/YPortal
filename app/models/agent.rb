@@ -19,6 +19,13 @@ class Agent < ActiveRecord::Base
 
   def active
     agent_info.update_column status: AgentInfo.statuses[:active]
+
+    password = SecureRandom.hex 4
+    self.password = password
+    self.password_confirmation = password
+    self.save
+
+    AgentMailer.delay.active_after_registration(self.id, password)
   end
 
 end

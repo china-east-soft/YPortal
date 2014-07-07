@@ -26,6 +26,7 @@
                       <th>电子邮箱</th>
                       <th>状态</th>
                       <th></th>
+                      <th></th>
                   </tr>
                   </thead>
                     <tbody>
@@ -43,6 +44,11 @@
                           <span class="btn btn-success btn-xs"><%= link_to fa_icon("check"), [:admin, agent] %></span>
                           <span class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_admin_agent_path(agent) %><i class="icon-pencil"></i></span>
                           <span class="btn btn-danger btn-xs"><%= link_to fa_icon("trash-o"), [:admin, agent], method: :delete, data: { confirm: 'Are you sure?' } %></span>
+                        </td>
+                        <td>
+                          <% if agent.agent_info && agent.agent_info.init? %>
+                            <%=  link_to '激活', active_admin_agent_path(agent), class: "btn btn-info btn-xs", data: {confirm: "激活之后会给申请人发送一封邮件, 确定激活？"}, method: :post %>
+                          <% end %>
                         </td>
                       </tr>
                     <% end %>

@@ -59,6 +59,7 @@ Rails.application.routes.draw do
       member do
         get :merchants
         get :terminals
+        post :active
       end
     end
     resources :merchants

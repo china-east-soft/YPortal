@@ -16,6 +16,6 @@ unless Agent.find_by_id(0)
   yunlian.password_confirmation = "12345678"
 
   if yunlian.save
-    yunlian.build_agent_info(category: 2, name: "云链", industry: "Test", city: "杭州", contact: "yunlian", telephone: "123456789").save
+    yunlian.build_agent_info(category: "公司", name: "云链", industry: "Test", city: "杭州", contact: "yunlian", telephone: "123456789", status: AgentInfo::statuses[:active]).save
   end
 end

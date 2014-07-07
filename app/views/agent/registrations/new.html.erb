@@ -11,7 +11,7 @@
           <% end %>
           </p>
         <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), :role => 'form', html: { multipart: true, class: 'form-horizontal tasi-form' } ) do |f| %>
-          <%= f.input :email, label: t(".email") %>
+          <%= f.input :email, label: t(".email"), required: true, hint: "非常重要！" %>
 
           <%= f.simple_fields_for :agent_info do |tf| %>
             <%= tf.input :name, label: t(".name"), required: true %>
