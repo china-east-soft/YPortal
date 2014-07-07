@@ -98,12 +98,12 @@ class Terminal < ActiveRecord::Base
   def active(merchant_id)
     operate_record = "#{operate_log}#{I18n.l Time.now }由商家(id:#{merchant_id})激活;"
     merchant = Merchant.find merchant_id
-    update_attributes(merchant_id: merchant_id, agent_id: merchant.agent_id, status: AuthToken.statuses[:active], added_by_merchant_at: Time.now)
+    update_attributes(merchant_id: merchant_id, agent_id: merchant.agent_id, status: AuthToken.statuses[:active], added_by_merchant_at: Time.now, operate_log: operate_record)
   end
 
   def init
     #只能从退货或者维修状态转化为初始状态
-    unless repair? || cancel?
+    unless repair? || cancelled?
       logger.debug "无法从其它状态改为初始状态"
       return false
     end

@@ -16,7 +16,7 @@
               th 时长策略
               th 注册/登录数
           tbody
-            - @agents.each do |agent, account, lonin|
+            - @agents.each do |agent, account, login|
               tr
                 td = agent.agent_info.try(:city)
                 td = agent.agent_info.try(:industry)

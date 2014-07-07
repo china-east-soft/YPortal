@@ -86,7 +86,7 @@ class Merchant::BannersController < MerchantController
     # Use callbacks to share common setup or constraints between actions.
     def set_banner
       @banner = Banner.find(params[:id])
-      @portal_style = @banner.portal_style
+      # @portal_style = @banner.portal_style
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

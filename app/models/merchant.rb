@@ -5,6 +5,13 @@ class Merchant < ActiveRecord::Base
          :recoverable, :rememberable, :trackable,
          :authentication_keys => [:mobile]
 
+  after_create do |merchant|
+    unless merchant.agent_id
+      merchant.agent_id = 0
+      merchant.save
+    end
+  end
+
   def email_required?
     false
   end
@@ -73,7 +80,11 @@ class Merchant < ActiveRecord::Base
 
     #todo what that do?
     def get_terminal
-      Terminal.where(mid: self.mid, status: AuthToken.statuses[:init], merchant_id: nil).update_all(merchant_id: self.id, status: AuthToken.statuses[:active], added_by_merchant_at: Time.now)
+      Terminal.where(mid: self.mid, status: AuthToken.statuses[:init], merchant_id: nil).
+        all.each do |terminal|
+          terminal.active self.id
+        end
+        # update_all(merchant_id: self.id, agent_id: agent_id, status: AuthToken.statuses[:active], added_by_merchant_at: Time.now)
     end
 
 

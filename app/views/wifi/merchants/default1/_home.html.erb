@@ -16,7 +16,7 @@
 	          <h4 class="text-center"><i class="sprite-style1-tu_01_03" style="display:inner-block">点击免费上网</i></h4>
 	          <% end %>
 	        </div>
-        <% elsif @auth_token && @auth_token.actived? %>
+        <% elsif @auth_token && @auth_token.active? %>
 	        <div class="row span5 col-centered free-wifi">
 	          <%= link_to login_success_wifi_users_url(vtoken: @auth_token.auth_token) do %>
           	<h4 class="text-center"><i class="sprite-style1-tu_01_03" style="display:inner-block">点击免费上网</i></h4>
