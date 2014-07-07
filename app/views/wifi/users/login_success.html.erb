@@ -113,17 +113,17 @@
   <%= javascript_tag do %>
     timeCountDown('countdown',<%= @auth_token.try(:left_duration) || 14400 %>)
 
-    /**  
+    /**
     浏览器版本信息
-    * @type {Object} 
-    * @return {Boolean}  返回布尔值     
+    * @type {Object}
+    * @return {Boolean}  返回布尔值
     */
     function browser() {
         var u = navigator.userAgent.toLowerCase();
         var app = navigator.appVersion.toLowerCase();
         return {
             txt: u, // 浏览器版本信息
-            version: (u.match(/.+(?:rv|it|ra|ie)[\/: ]([\d.]+)/) || [])[1], // 版本号       
+            version: (u.match(/.+(?:rv|it|ra|ie)[\/: ]([\d.]+)/) || [])[1], // 版本号
             msie: /msie/.test(u) && !/opera/.test(u), // IE内核
             mozilla: /mozilla/.test(u) && !/(compatible|webkit)/.test(u), // 火狐浏览器
             safari: /safari/.test(u) && !/chrome/.test(u), //是否为safair
@@ -146,15 +146,15 @@
       if(b.ios||b.iPhone||b.iPad){
         window.location="itms-apps://itunes.apple.com/cn/app/yun-maotv/id575111110?mt=8";
       }else if(b.android){
-        // 
+        //
       }
-    } 
+    }
     function try_to_open_app() {
       var b=browser();
       if(b.ios||b.iPhone||b.iPad){
         window.location="ybox://net.china-east.ymtv";
       }else if(b.android){
-        // 
+        window.locatioin = "ymtv://cn.cloudchain.shiwangmo"
       }
       timeout = setTimeout('open_appstore()', 30);
     }
