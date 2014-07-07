@@ -18,8 +18,17 @@ class AuthMessage < ActiveRecord::Base
 
   after_save do
     default_message = "注册验证码：#{verify_code}，欢迎使用WiFi上网帐号"
-    msg_from_file = YAML.load(File.read(Rails.root.join  "config/auth_message.yml"))["message"]
-    msg_from_file ||= default_message
+
+    begin
+      msg_from_file = YAML.load(File.read(Rails.root.join  "config/auth_message.yml"))["message"]
+    rescue
+      logger.debug "*****************************"
+      logger.debug "please check config/auth_message.yml!"
+      logger.debug "*****************************"
+    ensure
+      msg_from_file ||= default_message
+    end
+
     msg_from_file.gsub!(/{verify_code}/, verify_code.to_s)
 
     self.send_result = send_out(mobile, msg_from_file)
