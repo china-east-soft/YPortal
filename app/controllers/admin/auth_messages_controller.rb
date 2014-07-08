@@ -2,8 +2,15 @@
 class Admin::AuthMessagesController < AdminController
 
   def show
-    #文件必须存在且可读
-    msg = YAML.load(File.read(Rails.root.join  "config/auth_message.yml"))
+    begin
+      #文件必须存在且可读
+      msg = YAML.load(File.read(Rails.root.join  "config/auth_message.yml"))
+    rescue
+      gflash error: "读取配置文件错误， 请联系开发人员！"
+      logger.debug "***************************"
+      logger.debug "config/auth_message does not existed or can't open"
+      logger.debug "***************************"
+    end
     if msg
       @message = msg["message"]
     else
@@ -13,13 +20,15 @@ class Admin::AuthMessagesController < AdminController
 
   def update
     @message = params[:auth_message]
-    @old_msg = YAML.load(File.read(Rails.root.join  "config/auth_message.yml"))["message"]
 
     if @message.present?
       if @message.include? '{verify_code}'
-        origin_msg = File.read(Rails.root.join  "config/auth_message.yml")
-        msg = {"message" => "#{@message}"}
         begin
+          @old_msg = YAML.load(File.read(Rails.root.join  "config/auth_message.yml"))["message"]
+
+          origin_file_content = File.read(Rails.root.join  "config/auth_message.yml")
+          msg = {"message" => "#{@message}"}
+
           File.open(Rails.root.join("config/auth_message.yml"), 'w') do |f|
             f.write(YAML.dump msg)
           end
@@ -28,7 +37,7 @@ class Admin::AuthMessagesController < AdminController
           @error = "验证消息保存错误，请联系开发人员！"
           logger.debug "write file config/auth_message.yml failed!"
           File.open(Rails.root.join("config/auth_message.yml"), 'w') do |f|
-            f.write(YAML.dump old_msg)
+            f.write(YAML.dump origin_file_content)
           end
         end
       else
