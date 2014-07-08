@@ -101,14 +101,14 @@ class Terminal < ActiveRecord::Base
     update_attributes(merchant_id: merchant_id, agent_id: merchant.agent_id, status: AuthToken.statuses[:active], added_by_merchant_at: Time.now, operate_log: operate_record)
   end
 
-  def init
+  def init(admin_email)
     #只能从退货或者维修状态转化为初始状态
     unless repair? || cancelled?
       logger.debug "无法从其它状态改为初始状态"
       return false
     end
 
-    operate_record = "#{operate_log}#{I18n.l Time.now }由管理员改为初始状态;"
+    operate_record = "#{operate_log}#{I18n.l Time.now }由管理员(#{admin_email})改为初始状态;"
     update_attributes status: Terminal.statuses[:init], operate_log: operate_record, merchant_id: nil, agent_id: nil
   end
 
@@ -117,23 +117,23 @@ class Terminal < ActiveRecord::Base
     update_attributes status: Terminal.statuses[:cancelling], operate_log: operate_record
   end
 
-  def uncancelling
-    operate_record = "#{operate_log}#{I18n.l Time.now }管理员不同意退货;"
+  def uncancelling(admin_email)
+    operate_record = "#{operate_log}#{I18n.l Time.now }管理员(#{admin_email})不同意退货;"
     update_attributes status: Terminal.statuses[:active], operate_log: operate_record
   end
 
-  def cancelled
-    operate_record = "#{operate_log}#{I18n.l Time.now }由管理员同意发退货请求;"
+  def cancelled(admin_email)
+    operate_record = "#{operate_log}#{I18n.l Time.now }由管理员(#{admin_email})同意发退货请求;"
     update_attributes status: Terminal.statuses[:cancelled], operate_log: operate_record, merchant_id: nil, agent_id: nil
   end
 
-  def repair
-    operate_record = "#{operate_log}#{I18n.l Time.now }由商户(id:#{merchant_id})改为维修状态;"
+  def repair(admin_email)
+    operate_record = "#{operate_log}#{I18n.l Time.now }由管理员(#{admin_email})改为维修状态;"
     update_attributes status: Terminal.statuses[:repair], operate_log: operate_record
   end
 
-  def trash
-    operate_record = "#{operate_log}#{I18n.l Time.now }由管理员改为报废状态;"
+  def trash(admin_email)
+    operate_record = "#{operate_log}#{I18n.l Time.now }由管理员(#{admin_email})改为报废状态;"
     update_attributes status: Terminal.statuses[:trash], operate_log: operate_record, merchant_id: nil, agent_id: nil
   end
 

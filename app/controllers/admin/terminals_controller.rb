@@ -99,7 +99,7 @@ class Admin::TerminalsController < AdminController
 
   def update_status
     if Terminal::statuses.keys.include? params[:status]
-      if @terminal.public_send params[:status]
+      if @terminal.public_send params[:status], current_admin.email
         gflash success: "状态更新成功！"
       else
         gflash error: "状态更新失败!"
