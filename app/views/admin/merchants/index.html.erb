@@ -17,6 +17,7 @@
                 <table class="table table-striped table-advance table-hover">
                   <thead>
                     <tr>
+                      <th><%= t(".mobile") %></th>
                       <th><%= t(".email") %></th>
                       <th><%= t(".name") %></th>
                       <th><%= t(".industry") %></th>
@@ -35,6 +36,7 @@
                   <tbody>
                     <% @merchants.each do |merchant| %>
                       <tr>
+                        <td><%= merchant.mobile%></td>
                         <td><%= merchant.email %></td>
                         <td><%= merchant.merchant_info.try(:name) %></td>
                         <td><%= merchant.merchant_info.try(:industry) %></td>

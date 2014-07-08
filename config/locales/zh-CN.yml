@@ -59,8 +59,8 @@ zh-CN:
         city: "市"
         area: "区"
         address: "地址"
-        contact_way: "联系方式"
         contact_person_name: "联系人姓名"
+        contact_way: "联系方式"
         shop_photo: "店铺图片"
         shop_description: "店铺详细介绍"
     errors:
@@ -100,6 +100,7 @@ zh-CN:
         editing_agent: "修改代理商信息"
     merchants:
       index:
+        mobile: "手机号码(帐号)"
         email: "邮箱"
         status: "状态"
         name: "商家全称"

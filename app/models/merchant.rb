@@ -56,7 +56,7 @@ class Merchant < ActiveRecord::Base
 
   after_create :get_terminal, :get_portal_style
 
-  attr_accessor :verify_code, :mid
+  attr_accessor :verify_code, :mid, :add_by_admin
 
   has_many :terminals, dependent: :nullify
 

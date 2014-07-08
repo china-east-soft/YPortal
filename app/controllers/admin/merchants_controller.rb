@@ -17,6 +17,7 @@ class Admin::MerchantsController < AdminController
   # GET /merchants/new
   def new
     @merchant = Merchant.new
+    @merchant.build_merchant_info
   end
 
   # GET /merchants/1/edit
@@ -29,11 +30,19 @@ class Admin::MerchantsController < AdminController
     @merchant = Merchant.new(merchant_params)
 
     respond_to do |format|
-      if @merchant.save
-        format.html { redirect_to [:admin, @merchant], notice: 'Merchant was successfully created.' }
+      if @merchant.save(validate: false)
+        format.html {
+          gflash successs: "成功创建商户!"
+          redirect_to [:admin, @merchant]
+        }
+
         format.json { render action: 'show', status: :created, location: @merchant }
       else
-        format.html { render action: 'new' }
+        format.html {
+          gflash error: "创建商户错误!"
+          render action: 'new'
+        }
+
         format.json { render json: @merchant.errors, status: :unprocessable_entity }
       end
     end
@@ -72,8 +81,8 @@ class Admin::MerchantsController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def merchant_params
-      params.require(:merchant).permit(:email, :password, :password_confirmation, {
-          merchant_info_attributes: [:name, :industry, :province, :city, :area, :circle, :address, :contact, :mobile, :secondary]
+      params.require(:merchant).permit(:mobile, :email, :password, :password_confirmation, {
+          merchant_info_attributes: [:name, :industry, :province, :city, :area, :circle, :address, :contact_person_name, :mobile, :secondary]
         })
     end
 end

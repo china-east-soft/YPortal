@@ -15,6 +15,8 @@ class Merchant::SessionsController < Devise::SessionsController
     if !session[:return_to].blank?
       redirect_to session[:return_to]
       session[:return_to] = nil
+    elsif self.resource.merchant_info.try(:shop_phone_one).nil?
+      redirect_to  shop_info_merchant_merchant_infos_url
     else
       respond_with resource, :location => after_sign_in_path_for(resource)
     end
