@@ -11,6 +11,7 @@ class Admin::AgentsController < AdminController
 
   def active
     @agent.active
+    redirect_to admin_agents_url
   end
 
   def group

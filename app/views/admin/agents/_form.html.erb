@@ -19,7 +19,7 @@
             <%= tf.input :telephone %>
             <%= tf.input :known_from %>
             <%= tf.input :remark %>
-            <%= tf.input :status, collection: [[t(".init"), 'init'], [t(".active"), 'active'], [t(".locked"), 'locked']], selected: t(".#{@agent.agent_info.try(:status)}") %>
+            <%= tf.input :status, collection: [[t(".init"), 'init'], [t(".active"), 'active'], [t(".locked"), 'locked']], selected: @agent.agent_info.try(:status) %>
           <% end %>
           <div class="form-actions">
             <%= f.button :submit %>
