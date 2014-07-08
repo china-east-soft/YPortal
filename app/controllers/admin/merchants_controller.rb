@@ -27,10 +27,11 @@ class Admin::MerchantsController < AdminController
   # POST /merchants
   # POST /merchants.json
   def create
-    @merchant = Merchant.new(merchant_params)
+    @merchant = Merchant.new(merchant_params.merge({add_by_admin: true}))
 
     respond_to do |format|
-      if @merchant.save(validate: false)
+      if @merchant.save
+        binding.pry
         format.html {
           gflash successs: "成功创建商户!"
           redirect_to [:admin, @merchant]
@@ -38,6 +39,7 @@ class Admin::MerchantsController < AdminController
 
         format.json { render action: 'show', status: :created, location: @merchant }
       else
+        binding.pry
         format.html {
           gflash error: "创建商户错误!"
           render action: 'new'
@@ -81,7 +83,7 @@ class Admin::MerchantsController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def merchant_params
-      params.require(:merchant).permit(:mobile, :email, :password, :password_confirmation, {
+      params.require(:merchant).permit(:mobile, :mid, :email, :password, :password_confirmation, {
           merchant_info_attributes: [:name, :industry, :province, :city, :area, :circle, :address, :contact_person_name, :mobile, :secondary]
         })
     end

@@ -38,12 +38,14 @@ class Merchant < ActiveRecord::Base
   validates_length_of       :password, within: 8..18, allow_blank: true
   validates_uniqueness_of :mobile
 
-  validates_presence_of :mobile, :verify_code, :mid, on: :create
+  validates_presence_of :mobile, :verify_code, :mid, on: :create, unless: :add_by_admin
 
-  validate :mid_must_be_in_terminals, :verify_code_must_be_in_auth_messages, on: :create
+  validate :mid_must_be_in_terminals, on: :create
+  validate :verify_code_must_be_in_auth_messages, on: :create, unless: :add_by_admin
 
   def mid_must_be_in_terminals
-    errors.add(:mid, "无效的mid") unless Terminal.exists?(mid: mid, status: AuthToken.statuses[:init])
+    binding.pry
+    errors.add(:mid, "无效的mid") unless Terminal.exists?(mid: mid, status: Terminal.statuses[:init])
   end
 
   def current_portal_style

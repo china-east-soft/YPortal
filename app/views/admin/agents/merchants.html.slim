@@ -6,7 +6,7 @@
         table.table.table-striped.table-advance.table-hover
           thead
             tr
-              th = t(".email")
+              th = t(".mobile")
               th = t(".name")
               th = t(".industry")
               th = t(".province")
@@ -21,7 +21,7 @@
             tbody
               - @merchants.each do |merchant|
                 tr
-                  td = merchant.email
+                  td = merchant.mobile
                   td = merchant.merchant_info.try(:name)
                   td = merchant.merchant_info.try(:industry)
                   td = merchant.merchant_info.try(:province)
