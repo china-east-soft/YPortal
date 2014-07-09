@@ -16,8 +16,9 @@
                       = f.label :shop_photo
                     td
                       - unless @merchant_info.shop_photo.blank?
-                        = image_tag @merchant_info.shop_photo.url
+                        = image_tag @merchant_info.shop_photo.url(:small)
                       = f.file_field :shop_photo, class: "form-control"
+                      span 图像须小于100k, 最佳分辨率为458x257
                       - unless f.object.errors[:shop_photo].blank?
                         span class="error"
                           = f.object.errors[:shop_photo].join(",")

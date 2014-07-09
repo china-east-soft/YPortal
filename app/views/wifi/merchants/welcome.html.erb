@@ -1,8 +1,11 @@
+<%= @merchant_info = terminal_merchant.merchant_info %>
 <div class="container" >
   <%= javascript_include_tag "http://webapi.amap.com/maps?v=1.2&key=test" %>
   <div class="row mbot30">
     <div class="col-lg-5 col-xs-12 col-centered">
-      <%= render partial: "partial/adv", locals: { title: "店铺介绍" } %>
+      <div class="span5 about-carousel">
+        <%= image_tag @merchant_info.shop_photo.url(:small) %>
+      </div>
 
       <%= render partial: "partial/portal_notification", locals: { style: "border: 1px solid #696;"}  %>
 

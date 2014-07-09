@@ -1,0 +1,41 @@
+- content_for :main_content do
+  .row
+    .col-lg-12
+      section.panel
+        = image_tag @merchant_info.shop_photo.url(:large), :id => "cropbox"
+        h4 预览:
+        div style="width:458px; height:257px; overflow:hidden"
+          = image_tag @merchant_info.shop_photo.url(:large), :id => "preview"
+        br
+
+        = form_for @merchant_info, url: {action: :update_shop_info} do |f|
+          - [:crop_x, :crop_y, :crop_w, :crop_h].each do |attribute|
+            = f.hidden_field attribute, :id => attribute
+          p = f.submit "裁剪"
+
+- content_for :script do
+  javascript:
+    $(function() {
+      $('#cropbox').Jcrop({
+        onChange: update_crop,
+        onSelect: update_crop,
+        setSelect: [0, 0, 458, 257],
+        aspectRatio: 458/257
+      });
+    });
+
+    function update_crop(coords) {
+      var rx = 458/coords.w;
+      var ry = 257/coords.h;
+      $('#preview').css({
+        width: Math.round(rx * #{@merchant_info.shop_photo_geometry(:large).width}) + 'px',
+        height: Math.round(ry * #{@merchant_info.shop_photo_geometry(:large).height}) + 'px',
+        marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+        marginTop: '-' + Math.round(ry * coords.y) + 'px'
+      });
+      var ratio = #{@merchant_info.shop_photo_geometry(:original).width } / #{@merchant_info.shop_photo_geometry(:large).width };
+      $("#crop_x").val(Math.round(coords.x * ratio));
+      $("#crop_y").val(Math.round(coords.y * ratio));
+      $("#crop_w").val(Math.round(coords.w * ratio));
+      $("#crop_h").val(Math.round(coords.h * ratio));
+    }

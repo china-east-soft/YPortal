@@ -31,13 +31,20 @@ class Merchant::MerchantInfosController < MerchantController
 
   def update_shop_info
     if @merchant_info.update(shop_info_params.merge(validate_shop_info: true))
-      flash[:success] = "保存成功！"
-      redirect_to  shop_info_merchant_merchant_infos_url
+      if params[:merchant_info][:shop_photo].present?
+        render :crop
+      else
+        flash[:success] = "保存成功！"
+        redirect_to  shop_info_merchant_merchant_infos_url
+      end
     else
       flash.now[:warning] = "请正确填写信息"
       render :shop_info
     end
 
+  end
+
+  def crop
   end
 
   private
