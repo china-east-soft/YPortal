@@ -16,7 +16,7 @@ environments = {
   },
   'testing' => {
     domain: 'portal.cloudchain.co',
-    branch: 'develop'
+    branch: 'master'
   }
 }
 

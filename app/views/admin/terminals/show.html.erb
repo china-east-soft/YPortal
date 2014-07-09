@@ -6,6 +6,16 @@
 </p>
 
 <p>
+  <strong>mid:</strong>
+  <%= @terminal.mid %>
+</p>
+
+<p>
+  <strong>代理商:</strong>
+  <%= @terminal.agent.agent_info.name if @terminal.agent && @terminal.agent.agent_info %>
+</p>
+
+<p>
   <strong>Imei:</strong>
   <%= @terminal.imei %>
 </p>

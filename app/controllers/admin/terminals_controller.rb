@@ -1,5 +1,6 @@
 class Admin::TerminalsController < AdminController
   before_action :set_terminal, only: [:show, :edit, :update, :destroy, :update_status]
+  before_action :get_agent_array, only: [:index, :new, :edit, :show]
 
   set_tab :terminals
 
@@ -117,8 +118,12 @@ class Admin::TerminalsController < AdminController
       @terminal = Terminal.find(params[:id])
     end
 
+    def get_agent_array
+      @agent_array = Agent.all.map {|agent| [agent.agent_info.try(:name), agent.id] }
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def terminal_params
-      params.require(:terminal).permit(:admin, :mac, :imei, :sim_iccid)
+      params.require(:terminal).permit(:admin, :mac, :imei, :sim_iccid, :agent_id)
     end
 end

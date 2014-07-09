@@ -6,6 +6,7 @@ zh-CN:
         password: "密码"
         password_confirmation: "确认密码"
       terminal:
+        agent_id: "代理商"
         duration: "时长"
 
         init: "新注册"

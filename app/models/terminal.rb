@@ -19,7 +19,7 @@ class Terminal < ActiveRecord::Base
 
   validates :mac, format: { with: /\A([a-f0-9]{2}:){5}[a-f0-9]{2}\z/ }, uniqueness: true
 
-  validates_presence_of :mac
+  validates_presence_of :mac, :agent
 
   def set_mid
     self.mid = generate_mid mac, Time.now

@@ -21,7 +21,11 @@
                   - trash = "disabled" if terminal.trash?
                   tr
                     td = fa_icon("warning") if terminal.unnormal?
-                    td = terminal.merchant.merchant_info.name
+                    td
+                      - if terminal.merchant
+                        = terminal.merchant.merchant_info.try(:name)
+                      - else
+                        | 无
                     td = terminal.mac
                     td = terminal.mid
                     td = I18n.t "activerecord.attributes.terminal.#{terminal.status}"
