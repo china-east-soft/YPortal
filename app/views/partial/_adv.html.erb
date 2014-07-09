@@ -10,7 +10,7 @@
     <% if @banners.present? %>
       <% @banners.each_with_index do |banner,bindex| %>
         <li>
-          <%= image_tag banner.cover, title: banner.description %>
+          <%= image_tag banner.cover.url(:small), title: banner.description %>
         </li>
       <% end %>
     <% else %>

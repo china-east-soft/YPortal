@@ -8,7 +8,7 @@
         <% if @banners.present? %>
           <% @banners.each_with_index do |banner,bindex| %>
             <li>
-              <%= image_tag banner.cover, width: "100%" %>
+              <%= image_tag banner.cover.url(:small), width: "100%" %>
             </li>
           <% end %>
         <% else %>
