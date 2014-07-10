@@ -25,11 +25,15 @@
             header
               span.widget-icon
                 i.fa.fa-table
-                span 短信列表
+              h2 短信列表
             div
-              span 共有记录
-              span.col-md-offset.pull-right
-                a.btn.btn-default.btn-sm href="#{admin_message_warnings_path(format: :csv)}" 导出为CSV
+              div.alert
+                span.widget-icon
+                  i.fa-fw.fa.fa-info
+                  | 共有#{@message_warnings.size}条记录
+
+                span.pull-right
+                  a.btn.btn-default.btn-sm href="#{admin_message_warnings_path(format: :csv)}" 导出为CSV
               table.table.table-bordered.table-striped
                 thead
                   tr

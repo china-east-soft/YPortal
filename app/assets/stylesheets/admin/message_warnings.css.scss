@@ -2,16 +2,71 @@
   .col-sm-12 {
     .well {
       background-color: white;
-
-      .form-inline {
+      form.form-inline {
         label {
           margin-right: 10px;
+          font-weight: normal;
         }
         .form-control {
           width: auto;
           margin-right: 10px;
         }
+        input[type="text"].form-control {
+          width: 120px;
+          padding: 7px;
+        }
+        .btn-default {
+          color: black;
+          background-color: white;
+        }
       }
     }
+  }
+}
+
+header {
+  height: 34px;
+  background-color: #333;
+  .widget-icon {
+    display: block;
+    width: 30px;
+    height: 32px;
+    position: relative;
+    float: left;
+    font-size: 111%;
+    line-height: 32px;
+    text-align: center;
+    margin-right: -10px;
+  }
+
+  h2 {
+    margin: 0;
+    margin-left: 10px;
+
+    float: left;
+    height: 100%;
+    width: auto;
+    display: inline-block;
+    font-size: 14px;
+    position: relative;
+    line-height: 34px;
+    font-weight: normal;
+    letter-spacing: 0px;
+  }
+}
+
+article {
+  div.alert{
+    background-color: #ccc;
+    margin: 0;
+    padding: 0;
+    height: 35px;
+  }
+}
+span.pull-right {
+  margin-right: 30px;
+  a.btn.btn-default.btn-sm {
+    color: black;
+    background-color: white;
   }
 }

@@ -56,9 +56,9 @@ class Admin::MessageWarningsController < AdminController
       objs.each do |record|
         csv << [
           record.mobile_number,
-          record.warnning_code,
+          record.warning_code,
           record.display_name,
-          record.created_at.stamp("2013-03-12 22:01:01")
+          record.created_at.in_time_zone("Beijing").to_s[0..-6]
         ]
       end
     end
