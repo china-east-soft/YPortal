@@ -44,7 +44,7 @@
                       td = message_warnning.mobile_number
                       td = message_warnning.warning_code
                       td = message_warnning.display_name
-                      td = message_warnning.created_at
+                      td = message_warnning.created_at.in_time_zone("Beijing").to_s[0..-6]
                       td = message_warnning.message
               .dt-row.dt-bottom-row
                 .row
