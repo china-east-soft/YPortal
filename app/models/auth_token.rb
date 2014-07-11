@@ -9,7 +9,7 @@ class AuthToken < ActiveRecord::Base
   belongs_to :terminal
   belongs_to :merchant
 
-  validates_uniqueness_of :client_identifier, scope: :mac, 
+  validates_uniqueness_of :client_identifier, scope: :mac,
     conditions: -> { where(status: [AuthToken.statuses[:init], AuthToken.statuses[:active]]) },
     :if => Proc.new{ |auth_token| auth_token.init? || auth_token.active? }
   scope :actived, lambda { |merchant_id| where(status: AuthToken.statuses[:active], merchant_id: merchant_id) }
@@ -48,14 +48,14 @@ class AuthToken < ActiveRecord::Base
             message = "can not recv data..."
             Communicate.logger.add Logger::FATAL, message
 
-            #DeveloperMailer.system_error_email("[#{I18n.l Time.now}]: error occurs when server send data to terminal", message).deliver
+            DeveloperMailer.delay.system_error_email("[#{I18n.l Time.now}]: error occurs when server send data to terminal", message)
             false
           end
         else
           message = "no nat address..."
           Communicate.logger.add Logger::FATAL, message
 
-          #DeveloperMailer.system_error_email("[#{I18n.l Time.now}]: error occurs when server send data to terminal", message).deliver
+          DeveloperMailer.delay.system_error_email("[#{I18n.l Time.now}]: error occurs when server send data to terminal", message)
 
           false
         end

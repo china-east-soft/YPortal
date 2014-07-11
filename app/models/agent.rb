@@ -25,7 +25,7 @@ class Agent < ActiveRecord::Base
     self.password_confirmation = password
     self.save
 
-    AgentMailer.active_after_registration(self.id, password)
+    AgentMailer.delay.active_after_registration(self.id, password)
   end
 
 end
