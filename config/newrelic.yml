@@ -226,3 +226,8 @@ develop:
   <<: *default_settings
   monitor_mode: true
   app_name: YPortal (Staging)
+
+testing:
+  <<: *default_settings
+  monitor_mode: true
+  app_name: YPortal (Testing)
