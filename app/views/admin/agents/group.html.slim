@@ -18,7 +18,7 @@
           tbody
             - @agents.each do |agent, account, login|
               tr
-                td = agent.agent_info.try(:city)
+                td #{agent.agent_info.try(:province)}-#{agent.agent_info.try(:city)}
                 td = agent.agent_info.try(:industry)
                 td = link_to agent.agent_info.try(:name), admin_agents_path
                 td = link_to agent.merchants.try(:count), merchants_admin_agent_path(agent)

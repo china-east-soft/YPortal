@@ -16,6 +16,8 @@ class Admin::AgentsController < AdminController
 
   def group
     set_tab :group
+
+    #this code may be slow, 需要的话优化下， 不是瓶颈的话不要花时间优化
     @agents = Agent.all.page params[:page]
     @agents = @agents.map do |agent|
       account = 0
@@ -105,7 +107,7 @@ class Admin::AgentsController < AdminController
     # Never trust parameters from the scary internet, only allow the white list through.
     def agent_params
       params.require(:agent).permit(:email, :password, :password_confirmation, {
-          agent_info_attributes: [:category, :name, :industry, :city, :contact, :telephone, :known_from, :remark, :status ]
+          agent_info_attributes: [:category, :name, :industry, :province, :city, :contact, :telephone, :known_from, :remark, :status ]
         })
     end
 end

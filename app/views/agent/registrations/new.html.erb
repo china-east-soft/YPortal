@@ -16,8 +16,16 @@
           <%= f.simple_fields_for :agent_info do |tf| %>
             <%= tf.input :name, label: t(".name"), required: true %>
             <%= tf.input :category, as: :select, collection: [["个人", "个人"], ["公司", "公司"]], selected: "公司", label: t(".category"), required: true %>
+
+            <div class="form-group string required" >
+              <label class="string required col-sm-4 control-label" for=""><abbr title="required">*</abbr>您想代理的城市</label>
+              <div id="city" class="col-sm-8">
+                <%= tf.select :province, "", {}, class: "prov form-control" %>
+                <%= tf.select :city, "", {}, class: "city form-control" %>
+              </div>
+            </div>
+
             <%= tf.input :industry, label: t(".industry"), required: true %>
-            <%= tf.input :city, label: t(".city"), required: true%>
             <%= tf.input :contact, label: t(".contact"), required: true %>
             <%= tf.input :telephone, label: t(".telephone"), required: true %>
             <%= tf.input :known_from, label: t(".known_from") %>
@@ -31,3 +39,14 @@
     </section>
   </div>
 </div>
+
+<%= javascript_tag do %>
+  /********  省市地区下拉菜单 ******************/
+  $(function(){
+    $("#city").citySelect({
+        url: china,
+        prov: "浙江",
+        city: "杭州",
+      });
+  });
+<% end %>

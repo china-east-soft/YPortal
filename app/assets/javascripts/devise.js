@@ -5,3 +5,5 @@
 //= require validate.js
 //= require send_message.js
 //= require jquery.placeholder.js
+//= require jquery.cityselect.js
+//= require city.min.js

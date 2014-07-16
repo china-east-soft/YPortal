@@ -34,7 +34,7 @@ class Agent::RegistrationsController < Devise::RegistrationsController
 
   def agent_params
     params.require(:agent).permit(:email, {
-      agent_info_attributes: [:category, :name, :industry, :city, :contact, :telephone, :known_from, :remark, :status ]
+      agent_info_attributes: [:category, :name, :industry, :province, :city, :contact, :telephone, :known_from, :remark, :status ]
     })
   end
 

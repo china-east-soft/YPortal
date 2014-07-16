@@ -14,7 +14,13 @@
             <%= tf.input :category %>
             <%= tf.input :name %>
             <%= tf.input :industry %>
-            <%= tf.input :city %>
+            <div id="city" class="form-group string required" >
+              <label class="string required col-sm-4 control-label" for=""><abbr title="required">*</abbr>地理区域(省和市）</label>
+              <div class="col-sm-8">
+                <%= tf.select :province, "", {}, { class: "prov form-control" } %>
+                <%= tf.select :city, "", {}, {class: "city form-control"} %>
+              </div>
+            </div>
             <%= tf.input :contact %>
             <%= tf.input :telephone %>
             <%= tf.input :known_from %>
@@ -29,3 +35,13 @@
     </section>
   </div>
 </div>
+<%= javascript_tag do %>
+  /********  省市地区下拉菜单 ******************/
+  $(function(){
+    $("#city").citySelect({
+        url: china,
+        prov: "浙江",
+        city: "杭州",
+      });
+  });
+<% end %>
