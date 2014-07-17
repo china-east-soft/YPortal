@@ -10,6 +10,7 @@ class Terminal < ActiveRecord::Base
 
   belongs_to :merchant
   belongs_to :agent
+  belongs_to :terminal_version
   has_many :auth_tokens, dependent: :destroy
 
   before_create :set_mid, :set_duration
