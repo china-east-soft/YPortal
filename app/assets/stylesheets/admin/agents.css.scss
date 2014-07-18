@@ -1,0 +1,12 @@
+.panel#chart_attrs {
+  .panel-heading {
+    background-color: #ccc;
+    text-align: center;
+  }
+  #chart_container {
+    min-width: 200px;
+    height: 400px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}

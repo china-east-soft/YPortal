@@ -40,7 +40,11 @@ class Admin::AgentsController < AdminController
 
   def terminals
     set_tab :group
-    @terminals = @agent.terminals.order(merchant_id: :asc).page params[:page]
+
+    @terminals = @agent.terminals.includes(:terminal_version, :merchant).order(merchant_id: :asc)
+    get_pie_chart_attrs unless @terminals.all.empty?
+
+    @terminals = @terminals.page params[:page]
   end
 
   # GET /agents/1
@@ -109,5 +113,21 @@ class Admin::AgentsController < AdminController
       params.require(:agent).permit(:email, :password, :password_confirmation, {
           agent_info_attributes: [:category, :name, :industry, :province, :city, :contact, :telephone, :known_from, :remark, :status ]
         })
+    end
+
+    def get_pie_chart_attrs
+      @chart_attrs = {:type => 'pie'}
+      @chart_attrs[:title] = "版本比例"
+      @chart_attrs[:name] = "版本分析"
+
+      legends = Hash.new(0)
+      @terminals.each do |terminal|
+        legends["#{terminal.terminal_version.name} - #{terminal.terminal_version.version}"] += 1
+      end
+      pie_total = legends.values.sum
+      @chart_attrs[:legends] = {}
+      legends.each do |key, val|
+        @chart_attrs[:legends][key] = (val * 100.0/ pie_total).round(1)
+      end
     end
 end

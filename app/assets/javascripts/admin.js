@@ -19,3 +19,4 @@
 //= require jquery.cityselect.js
 //= require city.min.js
 //= require jquery.bxslider.js
+//= require highcharts.js

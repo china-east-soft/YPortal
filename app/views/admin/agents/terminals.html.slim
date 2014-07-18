@@ -8,7 +8,10 @@
             tr
               th
               th 代理商
+              th 设备型号
               th Mac
+              th 版本
+              th 最后更新时间
               th Mid
               th 状态
               th
@@ -26,7 +29,10 @@
                         = terminal.merchant.merchant_info.try(:name)
                       - else
                         | 无
+                    td = terminal.terminal_version.try(:name)
                     td = terminal.mac
+                    td = terminal.terminal_version.try(:version)
+                    td = terminal.version_updated_at.to_s[0..-4]
                     td = terminal.mid
                     td = I18n.t "activerecord.attributes.terminal.#{terminal.status}"
                     td
@@ -44,4 +50,57 @@
             .dataTables_info 共有#{@terminals.total_count}条记录
           .col-lg-6
             .dataTables_paginate.paging_bootstrap.pagination = paginate @terminals
+  - if @chart_attrs
+    .col-lg-12
+      .panel#chart_attrs
+        .panel-heading #{@chart_attrs[:name]}
+        .panel-body
+          #chart_container
+- if @chart_attrs
+  - pie_total = @chart_attrs[:legends].values.sum
+  - content_for :script do
+    javascript:
+      $(function() {
+        var data = #{raw(@chart_attrs[:legends].to_a.to_json)};
+        $('#chart_container').highcharts({
+            credits: false,
+            chart: {
+             type:'pie',
+             height: 400,
+             width: 600 ,
+            },
+            title: {
+              text: '#{@chart_attrs[:title]}'
+            },
+            plotOptions: {
+              pie: {
+                  allowPointSelect: true,
+                  cursor: 'pointer',
+                  showInLegend: true,
+                  dataLabels: {
+                    enabled: false,
+                    formatter: function() {
+                      return this.percentage.toFixed(2) + '%';
+                    },
+                  },
+              },
+            },
+            legend: {
+                enabled: true,
+                layout: 'vertical',
+                align: 'right',
+                width: 200,
+                verticalAlign: 'middle',
+                useHTML: true,
+                labelFormatter: function() {
+                    return '<div style="text-align: left; width:130px;float:left;">' + this.name + '</div><div style="width:40px; float:left;text-align:right;">' + this.y + '%</div>';
+        },
+        },
+            series: [{
+                type: 'pie',
+                name: 'test',
+                data: data,
+            }]
+        });
+      });
 
