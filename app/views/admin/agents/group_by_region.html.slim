@@ -1,0 +1,22 @@
+.row
+  .col-lg-12
+    section.panel
+      = render "admin/shared/group_nav"
+      .panel-body
+        .clearfix
+        .space15
+        table.table.table-striped.table-advance.table-hover
+          thead
+            tr
+              th 地理区域
+              th 代理商
+              th 商家
+              th 设备数量
+          tbody
+            - @region_infos.each do |region, count_info|
+              tr
+                td = link_to region, region_admin_agents_path(region: region)
+                td = count_info[:agent_count]
+                td = count_info[:merchant_count]
+                td = count_info[:terminal_count]
+

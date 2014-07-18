@@ -1,0 +1,24 @@
+.row
+  .col-lg-12
+    section.panel
+      header.panel-heading #{@region}代理商列表
+      .panel-body
+        .clearfix
+        .space15
+        table.table.table-striped.table-advance.table-hover
+          thead
+            tr
+              th 代理商
+              th 行业
+              th 商家
+              th 设备数量
+              th 时长策略
+          tbody
+            - @agent_infos.each do |agent_info|
+              tr
+                td = link_to agent_info.try(:name), admin_agents_path
+                td = agent_info.try(:industry)
+                td = link_to agent_info.agent.merchants.try(:count), merchants_admin_agent_path(agent_info.agent)
+                td = link_to "#{agent_info.agent.terminals.try(:count)} 台", terminals_admin_agent_path(agent_info.agent)
+                td 未配置
+

@@ -14,11 +14,11 @@ class Admin::AgentsController < AdminController
     redirect_to admin_agents_url
   end
 
-  def group
+  def group_by_agent
     set_tab :group
 
     #this code may be slow, 需要的话优化下， 不是瓶颈的话不要花时间优化
-    @agents = Agent.all.page params[:page]
+    @agents = Agent.page params[:page]
     @agents = @agents.map do |agent|
       account = 0
       login = 0
@@ -31,6 +31,37 @@ class Admin::AgentsController < AdminController
 
       [agent, account, login]
     end
+  end
+
+  def group_by_region
+    set_tab :group
+
+    @regions = AgentInfo.pluck(:province, :city).uniq.sort
+    @region_infos = {}
+    @regions.map do |region|
+      agent_count = AgentInfo.includes(:agent).where(province: region[0], city: region[1]).count
+      merchant_count = 0
+      terminal_count = 0
+      AgentInfo.includes(:agent).where(province: region[0], city: region[1]).
+      all.each do |agent_info|
+        merchant_count += agent_info.agent.merchants.count
+        terminal_count += agent_info.agent.terminals.count
+      end
+      @region_infos[region.join("-")] = {
+                                          agent_count: agent_count,
+                                          merchant_count: merchant_count,
+                                          terminal_count: terminal_count
+                                        }
+
+    end
+  end
+
+  def region
+    set_tab :group
+    province, city = params[:region].split("-")
+    @region = params[:region]
+
+    @agent_infos = AgentInfo.includes(:agent).where(city: city, province: province)
   end
 
   def merchants

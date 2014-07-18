@@ -1,0 +1,7 @@
+header
+  ul.nav.nav-pills
+    li class="#{'active' if params[:action] == 'group_by_agent'}"
+      = link_to "按代理商分组", group_by_agent_admin_agents_path
+    li class="#{'active' if params[:action] == 'group_by_region'}"
+      = link_to "按区域分组", group_by_region_admin_agents_path
+

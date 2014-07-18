@@ -54,7 +54,9 @@ Rails.application.routes.draw do
     resources :landings
     resources :agents do
       collection do
-        get :group
+        get :group_by_agent
+        get :group_by_region
+        get :region
       end
       member do
         get :merchants
