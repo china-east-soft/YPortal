@@ -1,7 +1,5 @@
-class TerminalVersion < ActiveRecord::Base
-  has_many :termnials
+class TerminalVersion < ExternalTable
 
-  validates :name, :version, :branch, :presence => true
-  validates :version, :uniqueness => {:scope => :name}
+  has_many :termnials
 
 end
