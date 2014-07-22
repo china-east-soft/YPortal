@@ -98,7 +98,6 @@ task :deploy => :environment do
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
       invoke :'sidekiq:restart'
       queue! "#{rake} data:default_portal_styles"
-      queue! "#{rake} data:get_terminal_version"
 
       queue! "cd #{deploy_to}/#{current_path}"
       queue! "#{rake} db:seed"
