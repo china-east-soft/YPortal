@@ -1,7 +1,7 @@
 ul.nav.nav-tabs role="tablist"
-  li
-    a href="#" 签到统计
-    li
-      a href="#"  下载统计
-    li class="#{"active" if controller_name == "message_warnings"}"
-      a href="#" 短信统计
+  /li
+  /  a href="#" 签到统计
+  li class="#{'active' if controller_name == 'downloads'}"
+    = link_to "下载统计", admin_downloads_path
+  li class="#{'active' if controller_name == 'message_warnings'}"
+    =  link_to "短信统计", admin_message_warnings_path

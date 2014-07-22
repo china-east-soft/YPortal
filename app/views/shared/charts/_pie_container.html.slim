@@ -1,0 +1,53 @@
+.col-lg-12
+  .panel#pie_chart_attrs
+    .panel-heading #{@pie_chart_attrs[:name]}
+    .panel-body
+      #pie_chart_container
+
+- pie_total = @pie_chart_attrs[:legends].values.sum
+- content_for :script do
+  javascript:
+    $(function() {
+      var data = #{raw(@pie_chart_attrs[:legends].to_a.to_json)};
+      $('#pie_chart_container').highcharts({
+        credits: false,
+          chart: {
+            type:'pie',
+            height: 400,
+            width: 600 ,
+          },
+          title: {
+            text: '#{@pie_chart_attrs[:title]}'
+          },
+          plotOptions: {
+            pie: {
+              allowPointSelect: true,
+                cursor: 'pointer',
+                showInLegend: true,
+                dataLabels: {
+                  enabled: false,
+                  formatter: function() {
+                    return this.percentage.toFixed(2) + '%';
+                  },
+                },
+            },
+          },
+          legend: {
+            enabled: true,
+              layout: 'vertical',
+              align: 'right',
+              width: 200,
+              verticalAlign: 'middle',
+              useHTML: true,
+              labelFormatter: function() {
+                return '<div style="text-align: left; width:130px;float:left;">' + this.name + '</div><div style="width:40px; float:left;text-align:right;">' + this.y + '%</div>';
+      },
+      },
+        series: [{
+          type: 'pie',
+            name: 'test',
+              data: data,
+          }]
+      });
+    });
+

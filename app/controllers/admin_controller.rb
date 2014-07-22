@@ -4,6 +4,7 @@ class AdminController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :authenticate_admin!
+  helper_method :date_parts, :app_names, :app_display_name
   layout 'admin'
 
   def require_admin
@@ -16,4 +17,21 @@ class AdminController < ActionController::Base
     return admin_root_path
   end
 
+
+  private
+    def date_parts
+      {"day" => '天',"week" => '周',"month" => '月',"year" => '年'}
+    end
+
+    def app_names
+      AppVersion::VERSION_DISPLAY_NAMES.merge({'all' => '全部'})
+    end
+
+    def app_display_name(name)
+      if AppVersion::VERSION_DISPLAY_NAMES[name]
+        AppVersion::VERSION_DISPLAY_NAMES[name]
+      else
+        '未知'
+      end
+    end
 end

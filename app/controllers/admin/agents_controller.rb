@@ -147,18 +147,18 @@ class Admin::AgentsController < AdminController
     end
 
     def get_pie_chart_attrs
-      @chart_attrs = {:type => 'pie'}
-      @chart_attrs[:title] = "版本比例"
-      @chart_attrs[:name] = "版本分析"
+      @pie_chart_attrs = {:type => 'pie'}
+      @pie_chart_attrs[:title] = "版本比例"
+      @pie_chart_attrs[:name] = "版本分析"
 
       legends = Hash.new(0)
       @terminals.each do |terminal|
         legends["#{terminal.terminal_version.name} - #{terminal.terminal_version.version}"] += 1
       end
       pie_total = legends.values.sum
-      @chart_attrs[:legends] = {}
+      @pie_chart_attrs[:legends] = {}
       legends.each do |key, val|
-        @chart_attrs[:legends][key] = (val * 100.0/ pie_total).round(1)
+        @pie_chart_attrs[:legends][key] = (val * 100.0/ pie_total).round(1)
       end
     end
 end

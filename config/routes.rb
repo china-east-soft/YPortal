@@ -83,6 +83,7 @@ Rails.application.routes.draw do
     resources :categories
     resource :auth_message, only: [:show, :update]
     resources :message_warnings, only: :index
+    resources :downloads, only: :index
   end
 
   namespace :agent do

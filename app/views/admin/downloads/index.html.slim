@@ -1,0 +1,56 @@
+.panel
+  = render "admin/shared/statistics"
+  .row
+    .col-sm-12
+      .well
+        = simple_form_for :download, url: admin_downloads_path, :defaults => { :input_html => { :class => "form-control" } }, method: 'get', html: { class: "form-inline" } do |f|
+            label 客户端类型
+            = f.input_field :app_name, collection: app_names.collect{|k,v|[v,k]}, selected: (params[:download][:app_name] || 'all')
+            label 日期类型
+            = f.input_field :date_part, collection: date_parts.collect{|k,v| [v,k]}, selected: (params[:download][:date_part] || 'month')
+            label 创建日期
+            .form-group.string
+              = f.text_field :start_date, class: 'form-control datepicker', "data-dateformat" => "yy-mm-dd",  value: params[:download][:start_date], placeholder: "From"
+            .form-group.string
+              = f.text_field :end_date, class: 'form-control datepicker', "data-dateformat" => "yy-mm-dd", value: params[:download][:end_date], placeholder: "To"
+            = f.submit "搜索", :class => "btn btn-default"
+
+    .row
+      article.col-xs-12.col-sm-12.col-md-12.col-lg-12
+        header#message
+          span.widget-icon
+            i.fa.fa-table
+          h2 下载记录
+        div
+          div.alert
+            span.widget-icon
+              i.fa-fw.fa.fa-info
+              | 共有#{@downloads.length}条记录,#{@downloads.inject(0){|s, i| s + i.total.to_i} }次下载
+            span.pull-right
+              a.btn.btn-default.btn-sm href="#{admin_message_warnings_path(format: :csv)}" 导出为CSV
+        table.table.table-bordered.table-striped
+          thead
+            tr
+              th 客户端类型
+              - if params[:download][:date_part] != 'year'
+                th 年
+                th = date_parts[(params[:download][:date_part] || 'month')]
+                th 次数
+          tbody
+            - if params[:download][:app_name] == 'all'
+              - @downloads.group_by{|download| [download.created_year,download.created_part] }.each do |created_attrs,downloads|
+                tr
+                  td = "全部"
+                  - if params[:download][:date_part] != 'year'
+                    td = created_attrs[0]
+                  td created_attrs[1]
+                  td = downloads.sum{|i| i.total.to_i}
+            - else
+              - @downloads.each do |download|
+                tr
+                  td = app_display_name download.app_name
+                  - if params[:download][:date_part] != 'year'
+                    td = download.created_year
+                  td = download.created_part
+                  td = download.total
+        = render "shared/charts/pie_container" if @chart_attrs
