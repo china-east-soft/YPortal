@@ -7,7 +7,8 @@ require 'mina/whenever'
 
 environments = {
   'develop' => {
-    domain: 'dev.cloudchain.co',
+    # domain: 'dev.cloudchain.co',
+    domain: '114.215.180.66',
     branch: 'develop'
   },
   'production' => {
@@ -26,7 +27,13 @@ domain = environments[rails_env][:domain]
 
 set :rails_env, rails_env
 set :domain, domain
-set :deploy_to, "/var/app/#{domain}"
+
+if rails_env == 'develop'
+  set :deploy_to, "/var/app/dev.cloudchain.co"
+else
+  set :deploy_to, "/var/app/#{domain}"
+end
+
 set :repository, 'git@github.com:china-east-soft/YPortal.git'
 set :branch, branch
 set :ssh_options, '-A'
