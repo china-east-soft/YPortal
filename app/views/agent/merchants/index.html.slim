@@ -1,0 +1,42 @@
+.row
+  .col-lg-12
+    section.panel
+      header.panel-heading 商家列表
+      .panel-body
+        .clearfix
+        .space15
+        table.table.table-striped.table-advance.table-hover
+          thead
+            tr
+              th = t(".mobile")
+              th = t(".email")
+              th = t(".name")
+              th = t(".industry")
+              th = t(".province")
+              th = t(".city")
+              th = t(".area")
+              th = t(".circle")
+              th = t(".address")
+              th = t(".contact_person_name")
+              th = t(".contact_way")
+              th = t(".secondary")
+          tbody
+            - @merchants.each do |merchant|
+              tr
+                td = merchant.mobile
+                td = merchant.email
+                td = merchant.merchant_info.try(:name)
+                td = merchant.merchant_info.try(:industry)
+                td = merchant.merchant_info.try(:province)
+                td = merchant.merchant_info.try(:city)
+                td = merchant.merchant_info.try(:area)
+                td = merchant.merchant_info.try(:circle)
+                td = merchant.merchant_info.try(:address)
+                td = merchant.merchant_info.try(:contact_person_name)
+                td = merchant.merchant_info.try(:contact_way)
+                td = merchant.merchant_info.try(:secondary)
+        .row
+          .col-lg-6
+            .dataTables_info 共有#{ @merchants.total_count }条记录
+          .col-lg-6
+            .dataTables_paginate.paging_bootstrap.pagination = paginate @merchants

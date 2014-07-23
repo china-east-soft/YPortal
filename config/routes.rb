@@ -87,6 +87,7 @@ Rails.application.routes.draw do
   end
 
   namespace :agent do
+    resources :merchants, only: :index
   end
 
   namespace :account do

@@ -281,6 +281,20 @@ zh-CN:
         product_photo: "产品图片"
         price: "价格"
         description: "产品描述"
+  agent:
+    merchants:
+      index:
+        mobile: "手机号码(帐号)"
+        email: "邮箱"
+        status: "状态"
+        name: "商家全称"
+        industry: "所属行业"
+        province: "省"
+        city: "市"
+        area: "区"
+        address: "地址"
+        contact_person_name: "联系人姓名"
+        contact_way: "联系方式"
 
 
 

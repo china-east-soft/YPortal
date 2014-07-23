@@ -4,6 +4,7 @@ class AgentController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :authenticate_agent!
+  before_action :require_agent
   layout 'agent'
 
   def require_agent

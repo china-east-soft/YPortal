@@ -54,7 +54,8 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <%= tabs_tag :builder => MenuTabBuilder, :open_tabs => { :id => "nav-accordion", :class => "sidebar-menu" } do |tab| %>
-                <%= tab.dashboard  fa_icon("dashboard")+content_tag(:span, '首页'), agent_root_path %>
+                <%= tab.dashboard  fa_icon("dashboard")+content_tag(:span, '主页'), agent_root_path %>
+                <%= tab.merchant fa_icon("user")+content_tag(:span, '商家'), agent_merchants_path%>
               <% end %>
               <!-- sidebar menu end-->
           </div>
@@ -63,7 +64,7 @@
       <!--main content start-->
       <section id="main-content">
         <section class="wrapper site-min-height">
-          
+
           <%= yield %>
         </section>
       </section>
