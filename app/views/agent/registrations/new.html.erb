@@ -11,11 +11,11 @@
           <% end %>
           </p>
         <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), :role => 'form', html: { multipart: true, class: 'form-horizontal tasi-form' } ) do |f| %>
-          <%= f.input :email, label: t(".email"), required: true, hint: "非常重要！" %>
+          <%= f.input :email, required: true, hint: "非常重要！" %>
 
           <%= f.simple_fields_for :agent_info do |tf| %>
-            <%= tf.input :name, label: t(".name"), required: true %>
-            <%= tf.input :category, as: :select, collection: [["个人", "个人"], ["公司", "公司"]], selected: "公司", label: t(".category"), required: true %>
+            <%= tf.input :name, required: true %>
+            <%= tf.input :category, as: :select, collection: [["个人", "个人"], ["公司", "公司"]], selected: "公司", required: true %>
 
             <div class="form-group string required" >
               <label class="string required col-sm-4 control-label" for=""><abbr title="required">*</abbr>您想代理的城市</label>
@@ -25,11 +25,11 @@
               </div>
             </div>
 
-            <%= tf.input :industry, label: t(".industry"), required: true %>
-            <%= tf.input :contact, label: t(".contact"), required: true %>
-            <%= tf.input :telephone, label: t(".telephone"), required: true %>
-            <%= tf.input :known_from, label: t(".known_from") %>
-            <%= tf.input :remark, as: :text, label: t(".remark"), :input_html => {cols: 30, :rows => 4 } %>
+            <%= tf.input :industry, required: true %>
+            <%= tf.input :contact, required: true %>
+            <%= tf.input :telephone, required: true %>
+            <%= tf.input :known_from %>
+            <%= tf.input :remark, as: :text, :input_html => {cols: 30, :rows => 4 } %>
           <% end %>
           <div class="form-actions">
             <%= f.button :submit, value: "提交" %>

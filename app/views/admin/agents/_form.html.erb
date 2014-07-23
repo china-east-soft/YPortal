@@ -35,13 +35,15 @@
     </section>
   </div>
 </div>
-<%= javascript_tag do %>
-  /********  省市地区下拉菜单 ******************/
-  $(function(){
-    $("#city").citySelect({
-        url: china,
-        prov: "浙江",
-        city: "杭州",
-      });
-  });
+<%= content_for :script do %>
+  <%= javascript_tag do %>
+    /********  省市地区下拉菜单 ******************/
+    $(function(){
+      $("#city").citySelect({
+          url: china,
+          prov: "浙江",
+          city: "杭州",
+        });
+    });
+  <% end %>
 <% end %>
