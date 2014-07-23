@@ -38,7 +38,7 @@ set :repository, 'git@github.com:china-east-soft/YPortal.git'
 set :branch, branch
 set :ssh_options, '-A'
 
-set :shared_paths, ['log', '.private_key', 'tmp/restart.txt', 'public/system', 'public/uploads', 'public/robots.txt', 'config/database.yml', 'config/nginx.conf', 'config/config.yml', 'config/auth_message.yml']
+set :shared_paths, ['log', '.private_key', 'tmp/restart.txt', 'public/system', 'public/uploads', 'public/robots.txt', 'config/database.yml', 'config/nginx.conf', 'config/config.yml', 'config/auth_message.yml', 'pids/sidekiq.pid']
 
 set :user, 'root'
 set :term_mode, :nil
@@ -86,6 +86,11 @@ task :setup => :environment do
   queue! %[touch "#{deploy_to}/shared/config/auth_message.yml"]
   queue! %[chmod g+rw,u+rw,o+rw "#{deploy_to}/shared/config/auth_message.yml"]
   queue  %[echo "-----> Be sure to edit '#{deploy_to}/shared/config/auth_message.yml'."]
+
+  queue! %[mkdir "#{deploy_to}/shared/pids]
+  queue! %[chmod g+rx, u+rwx " #{deploy_to}/shared/pids"]
+  queue! %[touch "#{deploy_to}/shared/pids/sidekiq.pid]
+  queue! %[chmod g+rw,u+rw,o+rw "#{deploy_to}/shared/pid/sidekiq.pid"]
 
 end
 
