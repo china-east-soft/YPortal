@@ -113,6 +113,8 @@ task :deploy => :environment do
 
       queue! "cd #{deploy_to}/#{current_path}"
       queue! "#{rake} db:seed"
+
+      queue! "#{rake} db:set_default_terminal_version"
     end
   end
 end

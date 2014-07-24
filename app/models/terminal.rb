@@ -13,7 +13,7 @@ class Terminal < ActiveRecord::Base
   belongs_to :terminal_version
   has_many :auth_tokens, dependent: :destroy
 
-  before_create :set_mid, :set_duration
+  before_create :set_mid, :set_duration, :set_terminal_version
   after_create do
     update_attribute :operate_log, "设备初始化;"
   end
@@ -187,6 +187,11 @@ class Terminal < ActiveRecord::Base
       end
       #result.first(8).gsub(/[01IoO]/,sample_arr.sample)
       result
+    end
+
+    def set_terminal_version
+      lastest_version = TerminalVersion.where(release: true).order('version desc').first
+      self.terminal_version = lastest_version
     end
 
 
