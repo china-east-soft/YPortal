@@ -27,30 +27,31 @@
               i.fa-fw.fa.fa-info
               | 共有#{@downloads.length}条记录,#{@downloads.inject(0){|s, i| s + i.total.to_i} }次下载
             span.pull-right
-              a.btn.btn-default.btn-sm href="#{admin_message_warnings_path(format: :csv)}" 导出为CSV
+              a.btn.btn-default.btn-sm href="#{admin_downloads_path(format: :csv)}" 导出为CSV
         table.table.table-bordered.table-striped
           thead
             tr
               th 客户端类型
               - if params[:download][:date_part] != 'year'
                 th 年
-                th = date_parts[(params[:download][:date_part] || 'month')]
-                th 次数
+              th = date_parts[(params[:download][:date_part] || 'month')]
+              th 次数
           tbody
             - if params[:download][:app_name] == 'all'
               - @downloads.group_by{|download| [download.created_year,download.created_part] }.each do |created_attrs,downloads|
                 tr
                   td = "全部"
                   - if params[:download][:date_part] != 'year'
-                    td = created_attrs[0]
-                  td created_attrs[1]
+                    td = created_attrs[0].to_i
+                  td = created_attrs[1].to_i
                   td = downloads.sum{|i| i.total.to_i}
             - else
               - @downloads.each do |download|
                 tr
                   td = app_display_name download.app_name
                   - if params[:download][:date_part] != 'year'
-                    td = download.created_year
-                  td = download.created_part
+                    td = download.created_year.to_i
+                  td = download.created_part.to_i
                   td = download.total
-        = render "shared/charts/pie_container" if @chart_attrs
+        = render :partial => 'shared/charts/line_container',:locals => {:chart_attrs => @line_chart_attrs} if @line_chart_attrs
+        = render "shared/charts/pie_container" if @pie_chart_attrs

@@ -8,19 +8,20 @@ class Admin::DownloadsController < AdminController
 
   def index
     params[:download] ||= {}
-    @downloads = Download.all
+    @downloads = Download
     @downloads = @downloads.by_app_name(params[:download][:app_name]) if params[:download][:app_name] and params[:download][:app_name] != 'all'
     @downloads = @downloads.before_date(params[:download][:end_date]) unless params[:download][:end_date].blank?
     @downloads = @downloads.after_date(params[:download][:start_date]) unless params[:download][:start_date].blank?
     params[:download][:date_part] = 'month' unless params[:download][:date_part]
     @downloads = @downloads.total_grouped_by(params[:download][:date_part])
+    # binding.pry
 
     respond_to do |format|
       format.html {
-        # if @downloads.all.size > 0
-        #   @chart_attrs = get_line_chart_attrs(@downloads)
-        #   @pie_chart_attrs = get_pie_chart_attrs(@downloads)
-        # end
+        if @downloads.to_a.size > 0
+          @line_chart_attrs = get_line_chart_attrs(@downloads)
+          @pie_chart_attrs = get_pie_chart_attrs(@downloads)
+        end
       }
       format.csv {
         send_data(csv_content_for(@downloads),
@@ -50,9 +51,16 @@ class Admin::DownloadsController < AdminController
     else
       ["#{downloads.last.created_year}-#{downloads.last.created_part}", "#{downloads.first.created_year}-#{downloads.first.created_part}#{date_parts[params[:download][:date_part]]}"]
     end
-    title = "iOS/Andriod 版本分布图 (#{from} 到 #{to})"
+    title = "iOS/Andriod 版本分布图 (#{from.to_i} 到 #{to.to_i})"
     chart_attrs[:name] = title
-    chart_attrs[:legends] = legends
+
+    pie_total = legends.values.sum
+    chart_attrs[:legends] = {}
+
+    legends.each do |key, val|
+      chart_attrs[:legends][key] = (val * 100.0/ pie_total).round(1)
+    end
+
     chart_attrs
   end
 
@@ -92,7 +100,7 @@ class Admin::DownloadsController < AdminController
     chart_attrs[:datas].each do |key,value|
       chart_attrs[:datas][key] = value.last(20)
     end
-    title = "APP下载 走势图 (#{chart_attrs[:xaxis].first} 到 #{chart_attrs[:xaxis].last})"
+    title = "APP下载 走势图 (#{chart_attrs[:xaxis].first.to_i} 到 #{chart_attrs[:xaxis].last.to_i})"
     title.insert -2, date_parts[params[:download][:date_part]] if !['day','year'].include?(params[:download][:date_part])
     chart_attrs[:name] = title
     chart_attrs

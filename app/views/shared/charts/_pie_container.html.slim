@@ -1,10 +1,9 @@
 .col-lg-12
   .panel#pie_chart_attrs
-    .panel-heading #{@pie_chart_attrs[:name]}
+    .panel-heading #{@pie_chart_attrs[:title]}
     .panel-body
       #pie_chart_container
 
-- pie_total = @pie_chart_attrs[:legends].values.sum
 - content_for :script do
   javascript:
     $(function() {
@@ -17,8 +16,13 @@
             width: 600 ,
           },
           title: {
-            text: '#{@pie_chart_attrs[:title]}'
+            text: '#{@pie_chart_attrs[:name]}'
           },
+            tooltip: {
+              formatter: function () {
+                return this.point.name + ' ' + this.point.y + '<%= chart_attrs[:uom] %>';
+              }
+            },
           plotOptions: {
             pie: {
               allowPointSelect: true,
@@ -45,8 +49,7 @@
       },
         series: [{
           type: 'pie',
-            name: 'test',
-              data: data,
+          data: data,
           }]
       });
     });

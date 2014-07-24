@@ -1,0 +1,63 @@
+<div class="col-lg-12">
+  <div class="panel" id = "line_chart_attrs">
+    <div class="panel-heading">
+      <%=@line_chart_attrs[:title]%>
+    </div>
+    <div class="panel-body">
+      <div id="line_chart_container">
+      </div>
+    </div>
+  </div>
+</div>
+<% content_for :script do %>
+<script type="text/javascript">
+  $(function () {
+      $('#line_chart_container').highcharts({
+        credits: false,
+          chart: {
+              type: 'line'
+          },
+          title: {
+              text: '<%= chart_attrs[:name] %>'
+          },
+          xAxis: {
+              categories: [
+                <% chart_attrs[:xaxis].each do |xax| %>
+                  '<%= xax %>',
+                <% end %>
+              ]
+          },
+          yAxis: {
+              title: {
+                  text: '<%= chart_attrs[:uom] %>'
+              },
+              min: 0
+          },
+          tooltip: {
+              enabled: false,
+              formatter: function() {
+                  return '<b>'+ this.series.name +'</b><br/>'+
+                      this.x +': '+ this.y +'°C';
+              }
+          },
+          plotOptions: {
+              line: {
+                  dataLabels: {
+                      enabled: true
+                  },
+                  enableMouseTracking: false
+              }
+          },
+          series: [
+            <% chart_attrs[:datas].each do |name,data| %>
+              {
+                name: '<%=name%>',
+                data:[<%=data.join(',')%>]
+              },
+            <% end %>
+          ]
+      });
+  });
+
+</script>
+<% end %>
