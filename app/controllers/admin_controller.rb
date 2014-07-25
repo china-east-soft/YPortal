@@ -4,7 +4,7 @@ class AdminController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :authenticate_admin!
-  helper_method :date_parts, :app_names, :app_display_name
+  helper_method :date_parts, :app_names, :app_display_name, :terminal_collections
   layout 'admin'
 
   def require_admin
@@ -32,6 +32,15 @@ class AdminController < ActionController::Base
         AppVersion::VERSION_DISPLAY_NAMES[name]
       else
         '未知'
+      end
+    end
+
+    def terminal_collections(terminal_id)
+      if terminal_id =~ /^\d+$/
+        terminal = Terminal.find terminal_id
+        [['全部', 'all'], [terminal.mac.to_s, terminal_id.to_s], ['', '']]
+      else
+        [['全部', 'all'], ['', '']]
       end
     end
 end

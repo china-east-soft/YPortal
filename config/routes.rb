@@ -84,6 +84,7 @@ Rails.application.routes.draw do
     resource :auth_message, only: [:show, :update]
     resources :message_warnings, only: :index
     resources :downloads, only: :index
+    resources :check_ins, only: :index
   end
 
   namespace :agent do

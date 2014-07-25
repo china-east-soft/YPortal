@@ -14,6 +14,31 @@ class AuthToken < ActiveRecord::Base
     :if => Proc.new{ |auth_token| auth_token.init? || auth_token.active? }
   scope :actived, lambda { |merchant_id| where(status: AuthToken.statuses[:active], merchant_id: merchant_id) }
 
+  #############签到##################
+  #用AuthToken 作为签到依据， 不再另加签到model
+
+  scope :by_terminal, lambda {|terminal_id| where(terminal_id: terminal_id) }
+  scope :before_date, lambda {|date| where(["created_at < ?", 1.days.since(Time.zone.parse(date)).strftime("%Y-%m-%d")])}
+  scope :after_date, lambda {|date| where(["created_at >= ?", date])}
+
+  def self.total_grouped_by(date_part)
+    case date_part
+    when 'day'
+      check_ins = self.group("EXTRACT(YEAR from auth_tokens.created_at),DATE(auth_tokens.created_at),auth_tokens.terminal_id")
+      check_ins = check_ins.order("max(EXTRACT(YEAR from auth_tokens.created_at)) desc,max(DATE(auth_tokens.created_at)) desc,max(auth_tokens.terminal_id)")
+      check_ins = check_ins.select("EXTRACT(YEAR from auth_tokens.created_at) as created_year,DATE(auth_tokens.created_at) as created_part, auth_tokens.terminal_id as terminal_id, count(auth_tokens.id) as total")
+    when 'week'
+      check_ins = self.group("EXTRACT(ISOYEAR from auth_tokens.created_at),EXTRACT(#{date_part} from auth_tokens.created_at),auth_tokens.terminal_id")
+      check_ins = check_ins.order("max(EXTRACT(ISOYEAR from auth_tokens.created_at)) desc,max(EXTRACT(#{date_part} from auth_tokens.created_at)) desc,max(auth_tokens.terminal_id)")
+      check_ins = check_ins.select("EXTRACT(ISOYEAR from auth_tokens.created_at) as created_year,EXTRACT(#{date_part} from auth_tokens.created_at) as created_part, auth_tokens.terminal_id as terminal_id, count(auth_tokens.id) as total")
+    when 'month','year'
+      check_ins = self.group("EXTRACT(YEAR from auth_tokens.created_at),EXTRACT(#{date_part} from auth_tokens.created_at),auth_tokens.terminal_id")
+      check_ins = check_ins.order("max(EXTRACT(YEAR from auth_tokens.created_at)) desc,max(EXTRACT(#{date_part} from auth_tokens.created_at)) desc,max(auth_tokens.terminal_id)")
+      check_ins = check_ins.select("EXTRACT(YEAR from auth_tokens.created_at) as created_year,EXTRACT(#{date_part} from auth_tokens.created_at) as created_part, auth_tokens.terminal_id as terminal_id, count(auth_tokens.id) as total")
+    end
+  end
+  ##############################end################
+
   class << self
     def update_expired_status(mac)
       AuthToken.where(mac: mac, status: 1).where(["expired_timestamp < :expired_timestamp", { expired_timestamp: Time.now.to_i }]).update_all(status: 2)

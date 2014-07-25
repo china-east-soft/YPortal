@@ -93,6 +93,7 @@ class Terminal < ActiveRecord::Base
 
 
  #####增加库存功能################
+  scope :active, -> { where status: Terminal.statuses[:active] }
   scope :normal, -> { where status: [Terminal.statuses[:init], Terminal.statuses[:active]] }
   scope :unnormal, -> { where status: [Terminal.statuses[:repair], Terminal.statuses[:cancel], Terminal.statuses[:trash]] }
 

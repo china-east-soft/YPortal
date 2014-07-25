@@ -1,0 +1,60 @@
+.panel
+  = render "admin/shared/statistics"
+  .row
+    .col-sm-12
+      .well
+        = simple_form_for :check_in, url: admin_check_ins_path, :defaults => { :input_html => { :class => "form-control" } },  method: 'get', html: { class: "form-inline" } do |f|
+          label 设备
+          = f.input_field :terminal, collection: terminal_collections(params[:check_in][:terminal]), selected: params[:check_in][:terminal]
+          label 日期类型
+          = f.input_field :date_part, collection: date_parts.collect{|k,v| [v,k]}, selected: (params[:check_in][:date_part] || 'month')
+          label 时间
+          .form-group.string
+            = f.text_field :start_date, class: "form-control datepicker", "data-dateformat" => "yy-mm-dd", value: params[:check_in][:start_date], placeholder: "From"
+          .form-group.string
+            = f.text_field :end_date, class: 'form-control datepicker', "data-dateformat" => "yy-mm-dd", value: params[:check_in][:end_date], placeholder: "To"
+          = f.submit "搜索", :class => "btn btn-default"
+
+  .row
+    article.col-xs-12.col-sm-12.col-md-12.col-lg-12
+      header#message
+        span.widget-icon
+          i.fa.fa-table
+        h2 签到列表
+      div
+        div.alert
+          span.widget-icon
+            i.fa-fw.fa.fa-info
+            | 共有#{@check_ins.inject(0){|s, i| s + i.total.to_i}}次签到
+          span.pull-right
+            a.btn.btn-default.btn-sm href="#{admin_downloads_path(format: :csv)}" 导出为CSV
+      table.table.table-bordered.table-striped
+        thead
+          tr
+            th 终端
+            - if params[:check_in][:date_part] != 'year'
+              th 年
+            th = date_parts[(params[:check_in][:date_part] || 'month')]
+            th 次数
+        tbody
+          - if params[:check_in][:terminal] == 'all'
+            - @check_ins.group_by{|check_in| [check_in.created_year,check_in.created_part] }.each do |created_attrs,check_ins|
+              tr
+                td = "全部"
+                - if params[:check_in][:date_part] != 'year'
+                  td = created_attrs[0].to_i
+                td = created_attrs[1]
+                td = check_ins.inject(0){|s, i| s + i.total.to_i}
+          - else
+            - @check_ins.each do |check_in|
+              tr
+                td
+                  - if check_in.terminal.present?
+                    = link_to check_in.terminal.mac, admin_check_ins_path(check_in: {terminal: check_in.terminal.id})
+                - if params[:check_in][:date_part] != 'year'
+                  td = check_in.created_year.to_i
+                td = check_in.created_part
+                td = check_in.total
+
+      = render :partial => 'shared/charts/line_container',:locals => {:chart_attrs => @line_chart_attrs} if @line_chart_attrs
+
