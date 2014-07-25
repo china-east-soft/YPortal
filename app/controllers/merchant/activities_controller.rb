@@ -32,7 +32,7 @@ class Merchant::ActivitiesController < MerchantController
         if params[:activity][:cover].present?
           format.html {
             render :action => "crop"
-          }  
+          }
         else
           format.html { redirect_to [:merchant, @activity], notice: 'Activity was successfully created.' }
           format.json { render action: 'show', status: :created, location: @activity }
@@ -57,7 +57,7 @@ class Merchant::ActivitiesController < MerchantController
         if params[:activity][:cover].present?
           format.html {
             render :action => "crop"
-          }  
+          }
         else
           format.html { redirect_to [:merchant, @activity], notice: 'Activity was successfully updated.' }
           format.json { head :no_content }

@@ -34,7 +34,7 @@ Rails.application.routes.draw do
         get :error
       end
     end
-    resources :users do
+    resources :users, only: [] do
       collection do
         post :sign_in
         post :quick_login
@@ -47,7 +47,7 @@ Rails.application.routes.draw do
         get :load
       end
     end
-    resources :activities
+    resources :activities, only: [:index]
   end
 
   namespace :admin do
@@ -106,7 +106,7 @@ Rails.application.routes.draw do
     end
     resources :banners
 
-    resources :terminals do
+    resources :terminals, except: [:show, :destroy] do
       member do
         post :cancelling
       end
@@ -117,7 +117,7 @@ Rails.application.routes.draw do
         post :enable
       end
     end
-    resource :merchant_infos do
+    resource :merchant_infos, only: [:show] do
       collection do
         get :shop_info
         patch :update_shop_info
@@ -126,7 +126,7 @@ Rails.application.routes.draw do
         patch :change_info
       end
     end
-    resources :auth_tokens do
+    resources :auth_tokens, only: :index do
       member do
         post :disable
       end

@@ -146,6 +146,14 @@ class Terminal < ActiveRecord::Base
   def unnormal?
     !normal?
   end
+
+  def disable_cancelled?
+    trash? || cancelled? || init?
+  end
+
+  def disabel_repair?
+    trash? || repair?
+  end
   ################# end #############
 
   private

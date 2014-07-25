@@ -85,8 +85,8 @@
 
                   <tbody>
                     <% @terminals.each do |terminal| %>
-                      <% cancelled = "disabled" if terminal.trash? || terminal.cancelled? || terminal.init? %>
-                      <% repair = "disabled" if terminal.trash? || terminal.repair? %>
+                      <% cancelled = "disabled" if terminal.disable_cancelled? %>
+                      <% repair = "disabled" if terminal.disabel_repair? %>
                       <% trash = "disabled" if terminal.trash?  %>
                       <tr>
                         <td> <%= fa_icon("warning") if terminal.unnormal? %> </td>
@@ -127,4 +127,3 @@
       </div>
   </div>
   <!-- page end-->
-
