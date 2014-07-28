@@ -21,14 +21,9 @@
                       <th><%= t(".email") %></th>
                       <th><%= t(".name") %></th>
                       <th><%= t(".industry") %></th>
-                      <th><%= t(".province") %></th>
-                      <th><%= t(".city") %></th>
-                      <th><%= t(".area") %></th>
-                      <th><%= t(".circle") %></th>
                       <th><%= t(".address") %></th>
                       <th><%= t(".contact_person_name") %></th>
                       <th><%= t(".contact_way") %></th>
-                      <th><%= t(".secondary") %></th>
                       <th colspan="3"></th>
                     </tr>
                   </thead>
@@ -40,14 +35,9 @@
                         <td><%= merchant.email %></td>
                         <td><%= merchant.merchant_info.try(:name) %></td>
                         <td><%= merchant.merchant_info.try(:industry) %></td>
-                        <td><%= merchant.merchant_info.try(:province) %></td>
-                        <td><%= merchant.merchant_info.try(:city) %></td>
-                        <td><%= merchant.merchant_info.try(:area) %></td>
-                        <td><%= merchant.merchant_info.try(:circle) %></td>
-                        <td><%= merchant.merchant_info.try(:address) %></td>
+                        <td><%= merchant.merchant_info.try(:full_address) %></td>
                         <td><%= merchant.merchant_info.try(:contact_person_name) %></td>
                         <td><%= merchant.merchant_info.try(:contact_way) %></td>
-                        <td><%= merchant.merchant_info.try(:secondary) %></td>
                         <td>
                           <span class="btn btn-success btn-xs"><%= link_to fa_icon("check"), [:admin, merchant] %></span>
                           <span class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_admin_merchant_path(merchant) %><i class="icon-pencil"></i></span>

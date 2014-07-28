@@ -111,7 +111,6 @@ class Terminal < ActiveRecord::Base
     end
 
     operate_record = "#{operate_log}#{I18n.l Time.now }由管理员(#{admin_email})改为初始状态;"
-    binding.pry
     update_attributes status: Terminal.statuses[:init], operate_log: operate_record, merchant_id: nil, agent_id: nil
   end
 

@@ -22,4 +22,8 @@ class MerchantInfo < ActiveRecord::Base
   # geocode
   geocoded_by :address, :latitude  => :shop_latitude, :longitude => :shop_longitude # ActiveRecord
 
+  def full_address
+    "#{province} #{city} #{area} #{address}"
+  end
+
 end
