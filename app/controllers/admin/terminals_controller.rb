@@ -17,7 +17,7 @@ class Admin::TerminalsController < AdminController
         @terminals = Terminal.all.page(params[:page])
       end
     else
-      @terminals = Terminal.all.page(params[:page])
+      @terminals = Terminal.includes(:merchant).page(params[:page])
     end
   end
 

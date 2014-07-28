@@ -6,7 +6,7 @@ class Admin::AgentsController < AdminController
   # GET /agents
   # GET /agents.json
   def index
-    @agents = Agent.all.page params[:page]
+    @agents = Agent.includes(:agent_info).page params[:page]
   end
 
   def active

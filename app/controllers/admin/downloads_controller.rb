@@ -14,7 +14,6 @@ class Admin::DownloadsController < AdminController
     @downloads = @downloads.after_date(params[:download][:start_date]) unless params[:download][:start_date].blank?
     params[:download][:date_part] = 'month' unless params[:download][:date_part]
     @downloads = @downloads.total_grouped_by(params[:download][:date_part])
-    # binding.pry
 
     respond_to do |format|
       format.html {

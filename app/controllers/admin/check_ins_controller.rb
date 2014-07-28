@@ -22,9 +22,9 @@ class Admin::CheckInsController < AdminController
       }
 
       format.csv {
-        send_data(csv_content_for(@account_signins),
+        send_data(csv_content_for(@check_ins),
                   :type => "text/csv;charset=utf-8; header=present",
-                  :filename => "下载统计_#{Time.now.strftime("%Y%m%d")}.csv")
+                  :filename => "签到统计_#{Time.now.strftime("%Y%m%d")}.csv")
       }
     end
   end
@@ -197,11 +197,11 @@ class Admin::CheckInsController < AdminController
 
   def csv_content_for(objs)
     CSV.generate do |csv|
-      csv_th = ["\xEF\xBB\xBF终端组", "年", "次数"]
+      csv_th = ["\xEF\xBB\xBF终端", "年", "次数"]
       csv_th.insert(2,date_parts[params[:check_in][:date_part]]) if params[:check_in][:date_part] != 'year'
       csv << csv_th
 
-      if params[:check_in][:group_name] == 'all'
+      if params[:check_in][:terminal] == 'all'
         objs.group_by{|check_in| [check_in.created_year,check_in.created_part] }.each do |created_attrs,check_ins|
           csv_td = [
             "全部",

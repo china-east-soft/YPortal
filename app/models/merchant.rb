@@ -28,7 +28,6 @@ class Merchant < ActiveRecord::Base
   has_many :portal_styles, dependent: :destroy
   has_many :banners, dependent: :destroy
   has_many :activities, dependent: :destroy
-
   has_many :products, dependent: :destroy
 
   belongs_to :agent
@@ -44,7 +43,6 @@ class Merchant < ActiveRecord::Base
   validate :verify_code_must_be_in_auth_messages, on: :create, unless: :add_by_admin
 
   def mid_must_be_in_terminals
-    binding.pry
     errors.add(:mid, "无效的mid") unless Terminal.exists?(mid: mid, status: Terminal.statuses[:init])
   end
 

@@ -31,7 +31,6 @@ class Admin::MerchantsController < AdminController
 
     respond_to do |format|
       if @merchant.save
-        binding.pry
         format.html {
           gflash successs: "成功创建商户!"
           redirect_to [:admin, @merchant]
@@ -39,7 +38,6 @@ class Admin::MerchantsController < AdminController
 
         format.json { render action: 'show', status: :created, location: @merchant }
       else
-        binding.pry
         format.html {
           gflash error: "创建商户错误!"
           render action: 'new'
