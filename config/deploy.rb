@@ -87,9 +87,9 @@ task :setup => :environment do
   queue! %[chmod g+rw,u+rw,o+rw "#{deploy_to}/shared/config/auth_message.yml"]
   queue  %[echo "-----> Be sure to edit '#{deploy_to}/shared/config/auth_message.yml'."]
 
-  queue! %[mkdir "#{deploy_to}/shared/pids]
-  queue! %[chmod g+rx, u+rwx " #{deploy_to}/shared/pids"]
-  queue! %[touch "#{deploy_to}/shared/pids/sidekiq.pid]
+  queue! %[mkdir "#{deploy_to}/shared/pids"]
+  queue! %[chmod g+rx, u+rwx "#{deploy_to}/shared/pids"]
+  queue! %[touch "#{deploy_to}/shared/pids/sidekiq.pid"]
   queue! %[chmod g+rw,u+rw,o+rw "#{deploy_to}/shared/pids/sidekiq.pid"]
 
 end
@@ -110,11 +110,11 @@ task :deploy => :environment do
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
       invoke :'sidekiq:restart'
       queue! "#{rake} data:default_portal_styles"
+      queue! "#{rake} data:set_default_terminal_version"
 
       queue! "cd #{deploy_to}/#{current_path}"
       queue! "#{rake} db:seed"
 
-      queue! "#{rake} db:set_default_terminal_version"
     end
   end
 end
