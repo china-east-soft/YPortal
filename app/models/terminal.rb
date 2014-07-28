@@ -20,7 +20,7 @@ class Terminal < ActiveRecord::Base
 
   validates :mac, format: { with: /\A([a-f0-9]{2}:){5}[a-f0-9]{2}\z/ }, uniqueness: true
 
-  validates_presence_of :mac, :agent
+  validates_presence_of :mac, :agent, on: :create
 
   def set_mid
     self.mid = generate_mid mac, Time.now
@@ -111,6 +111,7 @@ class Terminal < ActiveRecord::Base
     end
 
     operate_record = "#{operate_log}#{I18n.l Time.now }由管理员(#{admin_email})改为初始状态;"
+    binding.pry
     update_attributes status: Terminal.statuses[:init], operate_log: operate_record, merchant_id: nil, agent_id: nil
   end
 
