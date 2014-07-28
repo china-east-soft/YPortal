@@ -54,6 +54,7 @@
                   <thead>
                     <tr>
                       <th></th>
+                      <th>所属商家</th>
                       <th>Mac</th>
                       <th>Mid</th>
                       <th>Imei</th>
@@ -89,7 +90,12 @@
                       <% repair = "disabled" if terminal.disabel_repair? %>
                       <% trash = "disabled" if terminal.trash?  %>
                       <tr>
-                        <td> <%= fa_icon("warning") if terminal.unnormal? %> </td>
+                        <td>
+                          <% if terminal.unnormal? || (terminal.merchant.nil? && terminal.active?) %>
+                            <%= fa_icon("warning") %>
+                          <% end %>
+                        </td>
+                        <td><%= terminal.merchant.try(:merchant_info).try(:name)%></td>
                         <td><%= terminal.mac %></td>
                         <td><%= terminal.mid %></td>
                         <td><%= terminal.imei %></td>
