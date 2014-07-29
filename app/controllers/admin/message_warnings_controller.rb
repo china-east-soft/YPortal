@@ -2,8 +2,9 @@ class Admin::MessageWarningsController < AdminController
   set_tab :statistics
 
   def index
-    @activity = Activity.new
-    params[:message_warning] ||= {}
+    if params[:message_warning].nil? || params[:message_warning].empty?
+      params[:message_warning] = {}
+    end
 
     @message_warnings = MessageWarning.order('created_at DESC')
 

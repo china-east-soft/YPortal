@@ -6,7 +6,7 @@
         = simple_form_for :message_warning, url: admin_message_warnings_path, :defaults => { :input_html => { :class => "form-control" } }, method: 'get', html: {class: "form-inline" } do |f|
           .form-group
             label 信息类型
-            = f.input_field :warning_code, collection: [["全部","all"], *MessageWarning::MSG_INFO.collect{|k,v| [v,k] }, ["发送失败", "error"]], selected: ( params[:message_warning][:warning_code].nil? ? 'all' : params[:message_warning][:warning_code])
+            = f.input_field :warning_code, collection: [["全部","all"], *MessageWarning::MSG_INFO.collect{|k,v| [v,k] }, ["发送失败", "error"]], selected: (params[:message_warning][:warning_code].nil? ? 'all' : params[:message_warning][:warning_code])
             | &nbsp;&nbsp;
           .form-group
             label 手机号
@@ -52,6 +52,8 @@
                       td = message_warnning.message
               .dt-row.dt-bottom-row
                 .row
-                  .col-sm-6
-                    .dataTables_info id="datatable_fixed_column_info"
-                  .col-sm-6.text-right = paginate @message_warnings
+                  .col-lg-6
+                    .dataTables_info 共有#{@message_warnings.size}条记录
+                  .col-lg-6
+                    .dataTables_paginate.paging_bootstrap.pagination
+                      = paginate @message_warnings
