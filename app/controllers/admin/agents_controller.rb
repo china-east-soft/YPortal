@@ -136,7 +136,7 @@ class Admin::AgentsController < AdminController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_agent
-      @agent = Agent.find(params[:id])
+      @agent = Agent.includes(:agent_info).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

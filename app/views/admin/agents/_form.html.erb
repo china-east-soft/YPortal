@@ -41,8 +41,8 @@
     $(function(){
       $("#city").citySelect({
           url: china,
-          prov: "浙江",
-          city: "杭州",
+          prov: "<%= @agent.agent_info.province || '浙江'%>",
+          city: "<%= @agent.agent_info.city || '杭州'%>",
         });
     });
   <% end %>

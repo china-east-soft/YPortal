@@ -90,7 +90,7 @@ task :setup => :environment do
   queue! %[mkdir "#{deploy_to}/shared/pids"]
   queue! %[chmod g+rx, u+rwx "#{deploy_to}/shared/pids"]
   queue! %[touch "#{deploy_to}/shared/pids/sidekiq.pid"]
-  queue! %[chmod g+rw,u+rw,o+rw "#{deploy_to}/shared/pids/sidekiq.pid"]
+  queue! %[chmod g+rw, u+rw, o+rw "#{deploy_to}/shared/pids/sidekiq.pid"]
 
 end
 
