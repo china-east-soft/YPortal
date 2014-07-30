@@ -27,7 +27,7 @@
             i.fa-fw.fa.fa-info
             | 共有#{@check_ins.inject(0){|s, i| s + i.total.to_i}}次签到
           span.pull-right
-            a.btn.btn-default.btn-sm href="#{admin_check_ins_path(format: :csv)}" 导出为CSV
+            a.btn.btn-default.btn-sm href="#{admin_check_ins_path({format: :csv}.merge!(params))}" 导出为CSV
       table.table.table-bordered.table-striped
         thead
           tr

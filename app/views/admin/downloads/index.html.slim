@@ -27,7 +27,7 @@
               i.fa-fw.fa.fa-info
               | 共有#{@downloads.length}条记录,#{@downloads.inject(0){|s, i| s + i.total.to_i} }次下载
             span.pull-right
-              a.btn.btn-default.btn-sm href="#{admin_downloads_path(format: :csv)}" 导出为CSV
+              a.btn.btn-default.btn-sm href="#{admin_downloads_path({format: :csv}.merge!(params))}" 导出为CSV
         table.table.table-bordered.table-striped
           thead
             tr

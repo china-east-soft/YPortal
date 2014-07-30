@@ -201,6 +201,7 @@ class Admin::CheckInsController < AdminController
       csv_th.insert(2,date_parts[params[:check_in][:date_part]]) if params[:check_in][:date_part] != 'year'
       csv << csv_th
 
+      binding.pry
       if params[:check_in][:terminal] == 'all'
         objs.group_by{|check_in| [check_in.created_year,check_in.created_part] }.each do |created_attrs,check_ins|
           csv_td = [
@@ -214,7 +215,7 @@ class Admin::CheckInsController < AdminController
       else
         objs.each do |record|
           csv_td = [
-            (record.terminal_id.present? ? Terminal.where(id: record.terminal_id).first.try(:terminal_group).try(:group_name) : ""),
+            (record.terminal_id.present? ? record.terminal.mac : ""),
             record.created_year,
             record.total
           ]
