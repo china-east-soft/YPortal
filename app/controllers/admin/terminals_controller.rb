@@ -10,14 +10,14 @@ class Admin::TerminalsController < AdminController
     if params[:show].present?
       case params[:show]
       when 'normal'
-        @terminals = Terminal.includes({merchant: :merchant_info}).normal.page(params[:page])
+        @terminals = Terminal.includes({merchant: :merchant_info}, {agent: :agent_info}).normal.page(params[:page])
       when 'cancelling', 'cancelled',  'repair',  'trash'
-        @terminals = Terminal.includes({merchant: :merchant_info}).where(status: Terminal.statuses[params[:show]]).page(params[:page])
+        @terminals = Terminal.includes({merchant: :merchant_info}, {agent: :agent_info}).where(status: Terminal.statuses[params[:show]]).page(params[:page])
       else
-        @terminals = Terminal.all.page(params[:page])
+        @terminals = Terminal.includes({agent: :agent_info}, {merchant: :merchant_info}).page(params[:page])
       end
     else
-      @terminals = Terminal.includes({merchant: :merchant_info}).page(params[:page])
+      @terminals = Terminal.includes({agent: :agent_info}, {merchant: :merchant_info}).page(params[:page])
     end
   end
 

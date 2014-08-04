@@ -54,7 +54,7 @@
                   <thead>
                     <tr>
                       <th></th>
-                      <th>所属商家</th>
+                      <th>所属代理商-商家</th>
                       <th>Mac</th>
                       <th>Mid</th>
                       <th>Imei</th>
@@ -95,7 +95,7 @@
                             <%= fa_icon("warning") %>
                           <% end %>
                         </td>
-                        <td><%= terminal.merchant.try(:merchant_info).try(:name)%></td>
+                        <td><%= "#{terminal.agent.try(:agent_info).try(:name)||"无"}-#{terminal.merchant.try(:merchant_info).try(:name)||"无"}" %></td>
                         <td><%= terminal.mac %></td>
                         <td><%= terminal.mid %></td>
                         <td><%= terminal.imei %></td>
