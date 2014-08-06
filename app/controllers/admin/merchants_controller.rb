@@ -6,7 +6,7 @@ class Admin::MerchantsController < AdminController
   # GET /merchants
   # GET /merchants.json
   def index
-    @merchants = Merchant.includes(:merchant_info).page(params[:page])
+    @merchants = Merchant.includes(:merchant_info, {agent: :agent_info}).page(params[:page])
   end
 
   # GET /merchants/1
@@ -18,10 +18,12 @@ class Admin::MerchantsController < AdminController
   def new
     @merchant = Merchant.new
     @merchant.build_merchant_info
+    @agent_collection = AgentInfo.pluck(:name, :agent_id)
   end
 
   # GET /merchants/1/edit
   def edit
+    @agent_collection = AgentInfo.pluck(:name, :agent_id)
   end
 
   # POST /merchants
@@ -81,7 +83,7 @@ class Admin::MerchantsController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def merchant_params
-      params.require(:merchant).permit(:mobile, :mid, :email, :password, :password_confirmation, {
+      params.require(:merchant).permit(:mobile, :mid, :email, :password, :password_confirmation, :agent_id, {
           merchant_info_attributes: [:name, :industry, :province, :city, :area, :circle, :address, :contact_person_name, :mobile, :secondary]
         })
     end

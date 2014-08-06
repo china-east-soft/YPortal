@@ -6,6 +6,11 @@
 </p>
 
 <p>
+  <strong>所属代理商:</strong>
+  <%= @merchant.agent.try(:agent_info).try(:name) %>
+</p>
+
+<p>
   <strong><%= t(".industry") %>:</strong>
   <%= @merchant_info.industry %>
 </p>

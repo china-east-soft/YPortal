@@ -12,6 +12,7 @@
             <%= f.input :email %>
             <%= f.input :password %>
             <%= f.input :password_confirmation %>
+            <%= f.input :agent_id, label: "代理商", collection: @agent_collection, selected: @merchant.agent_id || 0  %>
             <%= f.simple_fields_for :merchant_info do |tf| %>
               <%= tf.input :name %>
               <%= tf.input :industry %>

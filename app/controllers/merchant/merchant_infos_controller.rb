@@ -56,6 +56,7 @@ class Merchant::MerchantInfosController < MerchantController
   def merchant_params
     params.require(:merchant).permit :password, :password_confirmation, :current_password
   end
+
   def merchant_info_params
     params.require(:merchant_info).permit :name, :industry, :contact_person_name, :contact_way
   end

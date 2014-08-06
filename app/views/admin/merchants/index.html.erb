@@ -20,6 +20,7 @@
                       <th><%= t(".mobile") %></th>
                       <th><%= t(".email") %></th>
                       <th><%= t(".name") %></th>
+                      <th>所属代理商</th>
                       <th><%= t(".industry") %></th>
                       <th><%= t(".address") %></th>
                       <th><%= t(".contact_person_name") %></th>
@@ -34,6 +35,7 @@
                         <td><%= merchant.mobile%></td>
                         <td><%= merchant.email %></td>
                         <td><%= merchant.merchant_info.try(:name) %></td>
+                        <td><%= merchant.agent.try(:agent_info).try(:name) %></td>
                         <td><%= merchant.merchant_info.try(:industry) %></td>
                         <td><%= merchant.merchant_info.try(:full_address) %></td>
                         <td><%= merchant.merchant_info.try(:contact_person_name) %></td>
