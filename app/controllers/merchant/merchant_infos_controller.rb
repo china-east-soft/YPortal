@@ -17,11 +17,21 @@ class Merchant::MerchantInfosController < MerchantController
   end
 
   def update_password
-    if @merchant.update_with_password  merchant_params
+    if @merchant.update_with_password  merchant_password_params
       flash.now[:success] = I18n.t("merchant.merchant_infos.flashes.passwd_success_updated")
     else
       flash.now[:warning] = I18n.t("merchant.merchant_infos.flashes.passwd_fail_updated")
     end
+    render :show
+  end
+
+  def update_other_base_info
+    if @merchant.update merchant_other_params
+      flash.now[:success] = "修改成功！"
+    else
+      flash.now[:error] = "修改失败！"
+    end
+
     render :show
   end
 
@@ -53,7 +63,7 @@ class Merchant::MerchantInfosController < MerchantController
     @merchant_info = @merchant.merchant_info || @merchant.build_merchant_info
   end
 
-  def merchant_params
+  def merchant_password_params
     params.require(:merchant).permit :password, :password_confirmation, :current_password
   end
 
@@ -67,6 +77,10 @@ class Merchant::MerchantInfosController < MerchantController
 
   def set_locale
      I18n.locale = params[:locale] || I18n.default_locale
+  end
+
+  def merchant_other_params
+    params.require(:merchant).permit(:agent_id, :email)
   end
 
 end

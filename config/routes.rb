@@ -124,6 +124,7 @@ Rails.application.routes.draw do
 
         patch :update_password
         patch :change_info
+        patch :update_other_base_info
       end
     end
     resources :auth_tokens, only: :index do

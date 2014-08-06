@@ -137,6 +137,49 @@
             </div>
           <% end %>
           </div>
+
+          <div class="list-group-item">
+            <div class="list-group-item-heading">
+              <i class="fa fa-file"></i>
+              <b>其它信息</b>
+            </div>
+            <%= form_for @merchant, url: update_other_base_info_merchant_merchant_infos_path, method: :patch do |f| %>
+              <table class="table table-bordered">
+              <tbody>
+              <tr>
+                <td>
+                  邮箱
+                </td>
+                <td>
+                  <%= f.text_field :email, class: "form-control" %>
+                  <% unless f.object.errors[:email].blank? %>
+                    <span class="error">
+                      <%= f.object.errors[:email].join(",")%>
+                    </span>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  所属代理商
+                </td>
+                <td>
+                  <%= f.select :agent_id, AgentInfo.pluck(:name, :agent_id), {}, class: "form-control" %>
+                  <% unless f.object.errors[:agent_id].blank? %>
+                    <span class="error">
+                    <%= f.object.errors[:agent_id].join(",")%>
+                  </span>
+                <% end %>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="form-group col-md-offset-3" >
+              <%= f.submit "更新", class: "btn btn-lg btn-primary" %>
+            </div>
+          <% end %>
+          </div>
+
         </div> <!-- list-group -->
       </div> <!-- panel-body -->
     </section>
