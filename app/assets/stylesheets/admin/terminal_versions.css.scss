@@ -1,0 +1,46 @@
+.terminal-version {
+  .control-label {
+    text-align: right;
+  }
+
+  input {
+    width: 50%;
+  }
+  input[type="checkbox"] {
+    width: auto;
+  }
+
+  input[type="submit"] {
+  }
+
+  select {
+    width: 50%;
+  }
+
+  textarea {
+    width: 80%;
+  }
+
+  .terminal_version_note {
+      margin-bottom: 0;
+      height: 100px;
+   }
+
+  textarea.form-control#terminal_version_note {
+    height: 100px;
+  }
+
+  textarea.form-control#terminal_version_warning {
+    height: 60px;
+  }
+
+}
+
+.terminal_version {
+  display: none;
+  .version-dropdown {
+    display: none;
+  }
+}
+
+

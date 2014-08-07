@@ -13,6 +13,5 @@
  *= require share.css
  *= require map.css
  *= require wifi/style2
- *= require admin/message_warnings
- *= require admin/agents
+ *= require_tree ./admin/
 */

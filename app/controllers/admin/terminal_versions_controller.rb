@@ -17,12 +17,12 @@ class Admin::TerminalVersionsController < AdminController
     end
 
     @terminal_versions = TerminalVersion.where(branch: branch).order('created_at desc')
-    # @terminal_names = TerminalVersion.where(branch: branch).pluck(:name).uniq
-    @terminal_names = ["A-101", "A-102"]
+    @terminal_names = TerminalVersion.where(branch: branch).pluck(:name).uniq
   end
 
   def edit
     @terminal_version = TerminalVersion.find params[:id]
+    render :new
   end
 
   def new
@@ -30,20 +30,19 @@ class Admin::TerminalVersionsController < AdminController
   end
 
   def create
-    @terminal_version = TerminalVersion.new params[:terminal_version]
+    @terminal_version = TerminalVersion.new terminal_version_params
     if @terminal_version.save
       respond_to do |format|
-        format.js {  }
         format.html {
+          gflash success: "成功创建版本!"
           redirect_to admin_terminal_versions_path(branch: params[:terminal_version][:branch])
         }
       end
     else
       respond_to do |format|
-        format.js { render :action => :new  }
         format.html {
-          setup
-          render :action => :new
+          gflash error: "错误请求!"
+          render :new
         }
       end
     end
@@ -52,19 +51,18 @@ class Admin::TerminalVersionsController < AdminController
   def update
     @terminal_version = TerminalVersion.find params[:id]
 
-    if @terminal_version.update_attributes(params[:terminal_version])
+    if @terminal_version.update terminal_version_params
       respond_to do |format|
-        format.js {  }
         format.html {
+          gflash success: "更新成功!"
           redirect_to admin_terminal_versions_path(branch: params[:terminal_version][:branch])
         }
       end
     else
       respond_to do |format|
-        format.js { render :action => :edit  }
         format.html {
-          setup
-          render :action => :edit
+          gflash error: "更新失败!"
+          render :edit
         }
       end
     end
@@ -80,6 +78,10 @@ class Admin::TerminalVersionsController < AdminController
   def setup
     @ways = ["发布管理","终端"]
     @left_panel = "admin/app_versions/left_panel"
+  end
+
+  def terminal_version_params
+    params.require(:terminal_version).permit(:name, :file, :branch, :version, :release, :note, :warning)
   end
 
 end
