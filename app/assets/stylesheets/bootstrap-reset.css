@@ -138,18 +138,19 @@ ul {
 }
 
 /*button*/
-
-.btn-default {
-    background-color: #bec3c7;
-    border-color: #bec3c7;
-    color: #fff;
-}
-
-.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
-    background-color: #b0b5b9;
-    border-color: #b0b5b9;
-    color: #fff;
-}
+/* comment by kailaichao */
+/*  don't know why reset, for the original is looks better */
+/* .btn-default { */
+/*   background-color: #bec3c7; */
+/*   border-color: #bec3c7; */
+/*   color: #fff; */
+/* } */
+/*  */
+/* .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default { */
+/*     background-color: #b0b5b9; */
+/*     border-color: #b0b5b9; */
+/*     color: #fff; */
+/* } */
 
 .btn-primary {
     background-color: #41cac0;

@@ -85,6 +85,8 @@ Rails.application.routes.draw do
     resources :message_warnings, only: :index
     resources :downloads, only: :index
     resources :check_ins, only: :index
+
+    resources :terminal_versions
   end
 
   namespace :agent do
