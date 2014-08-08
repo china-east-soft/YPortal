@@ -21,7 +21,7 @@
 
   <section id="container" >
       <!--header start-->
-      <header class="header white-bg">
+      <header id="header" class="header white-bg">
             <div class="sidebar-toggle-box">
                 <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder fa fa-bars tooltips"></div>
             </div>
@@ -46,11 +46,32 @@
                     <!-- user login dropdown end -->
                 </ul>
                 <!--search & user info end-->
+
+              <!-- top menu -->
+              <div class="pull-left" id="global_menu">
+                <%= tabs_tag builder: MenuTabBuilder, :open_tabs => { :class => "nav navbar-nav global_menu" } do |tab| %>
+                  <%= tab.business '业务', '#' %>
+                  <%= tab.statistics '统计', '#'%>
+                  <%= tab.reports '报表', '#' %>
+                  <li class="dropdown">
+                  <span href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-list"></i> <span> 其它 </span> <i class="fa fa-angle-down"></i> </span>
+                  <ul class="dropdown-menu">
+                    <%= tab.release '发布管理', admin_app_versions_path %>
+                    <%= tab.developers '日志管理', '#'%>
+                  </ul>
+                  </li>
+                <% end %>
+              </div>
+
             </div>
+
         </header>
       <!--header end-->
       <!--sidebar start-->
-      <aside>
+      <aside id="left-panel">
+      <% if @left_panel.present? %>
+        <%= render partial: @left_panel %>
+      <% else %>
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <%= tabs_tag :builder => MenuTabBuilder, :open_tabs => { :id => "nav-accordion", :class => "sidebar-menu" } do |tab| %>
@@ -69,46 +90,10 @@
 
                 <%= tab.statistics '<i class="fa fa-lg fa-fw fa-pencil"></i> <span class="menu-item-parent"> 统计</span>'.html_safe, admin_message_warnings_path %>
 
-                    <li>
-                    <a herf="<%= admin_terminal_versions_path %>">
-                      <i class="fa fa-lg fa-fw fa-sitemap"></i>
-                      <span class="menu-item-parent">
-                        公众版
-                      </span>
-                    </a>
-                    <ul>
-                      <%= tab.app_version_public '<i class="fa fa-lg fa-fw fa-mobile"></i>
-                    <span class="menu-item-parent">
-                      客户端
-                    </span>'.html_safe, admin_app_versions_path %>
-                    <%= tab.terminal_version_public '<i class="fa fa-lg fa-fw fa-cloud"></i>
-                    <span class="menu-item-parent">
-                      终端
-                    </span>'.html_safe, admin_terminal_versions_path  %>
-                  </ul>
-                  </li>
-
-                      <li>
-                      <a herf="#">
-                        <i class="fa fa-lg fa-fw fa-sitemap"></i>
-                        <span class="menu-item-parent">
-                          个人版
-                        </span>
-                      </a>
-                      <ul>
-                      <%= tab.app_version_personal '<i class="fa fa-lg fa-fw fa-mobile"></i>
-                          <span class="menu-item-parent">
-                            客户端
-                          </span>'.html_safe, admin_app_versions_path(branch: "personal") %>
-                      <%= tab.terminal_version_personal '<i class="fa fa-lg fa-fw fa-cloud"></i>
-                          <span class="menu-item-parent">
-                            终端
-                          </span>'.html_safe, admin_terminal_versions_path(branch: "personal") %>
-                        </ul>
-                     </li>
               <% end %>
               <!-- sidebar menu end-->
           </div>
+        <% end %>
       </aside>
       <!--sidebar end-->
       <!--main content start-->

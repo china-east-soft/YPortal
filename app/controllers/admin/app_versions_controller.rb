@@ -1,8 +1,9 @@
 # coding:utf-8
 class Admin::AppVersionsController < AdminController
 
+  set_tab :release
   set_tab :app_version_public, :sub_nav, except: :idnex
-  # before_filter :setup, only: [:index]
+  before_filter :setup
 
   #default branch is public
   def index

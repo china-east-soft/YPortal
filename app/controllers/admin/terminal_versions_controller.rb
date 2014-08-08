@@ -1,10 +1,10 @@
 # coding:utf-8
 class Admin::TerminalVersionsController < AdminController
 
-  # set_tab :release
+  set_tab :release
   set_tab :terminal_version_public, :sub_nav, except: :index
 
-  # before_filter :setup, only: [:index]
+  before_filter :setup
 
   def index
 

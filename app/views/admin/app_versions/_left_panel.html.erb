@@ -1,0 +1,25 @@
+<nav id="sidebar"  class="nav-collapse ">
+  <%= tabs_tag :namespace => :sub_nav, :builder => MenuTabBuilder, :open_tabs => { :id => "nav-accordion", :class => "sidebar-menu" } do |tab| %>
+    <li class="sub-menu">
+      <a href="javascript:;" class="active">
+          <i class="icon-book"></i>
+          <span>公众版</span>
+      </a>
+      <ul class="sub">
+        <%= tab.app_version_public fa_icon("puzzle-piece")+content_tag(:span, '客户端'), admin_app_versions_path %>
+        <%= tab.terminal_version_public  fa_icon("cog")+content_tag(:span, '终端'), admin_terminal_versions_path%>
+      </ul>
+    </li>
+    <li class="sub-menu">
+      <a href="javascript:;" class="active">
+          <i class="icon-book"></i>
+          <span>个人版</span>
+      </a>
+      <ul class="sub">
+        <%= tab.app_version_personal fa_icon("puzzle-piece")+content_tag(:span, '客户端'), admin_app_versions_path(branch: 'personal') %>
+        <%= tab.terminal_version_personal fa_icon("cog")+content_tag(:span, '终端'), admin_terminal_versions_path(brnach: 'personal')%>
+      </ul>
+    </li>
+
+  <% end %>
+</nav>
