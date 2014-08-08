@@ -50,16 +50,8 @@
               <!-- top menu -->
               <div class="pull-left" id="global_menu">
                 <%= tabs_tag builder: MenuTabBuilder, :open_tabs => { :class => "nav navbar-nav global_menu" } do |tab| %>
-                  <%= tab.business '业务', '#' %>
-                  <%= tab.statistics '统计', '#'%>
-                  <%= tab.reports '报表', '#' %>
-                  <li class="dropdown">
-                  <span href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-list"></i> <span> 其它 </span> <i class="fa fa-angle-down"></i> </span>
-                  <ul class="dropdown-menu">
-                    <%= tab.release '发布管理', admin_app_versions_path %>
-                    <%= tab.developers '日志管理', '#'%>
-                  </ul>
-                  </li>
+                  <%= tab.business '业务', admin_root_path %>
+                  <%= tab.release '发布管理', admin_app_versions_path %>
                 <% end %>
               </div>
 
