@@ -69,7 +69,43 @@
 
                 <%= tab.statistics '<i class="fa fa-lg fa-fw fa-pencil"></i> <span class="menu-item-parent"> 统计</span>'.html_safe, admin_message_warnings_path %>
 
+                    <li>
+                    <a herf="<%= admin_terminal_versions_path %>">
+                      <i class="fa fa-lg fa-fw fa-sitemap"></i>
+                      <span class="menu-item-parent">
+                        公众版
+                      </span>
+                    </a>
+                    <ul>
+                      <%= tab.app_version_public '<i class="fa fa-lg fa-fw fa-mobile"></i>
+                    <span class="menu-item-parent">
+                      客户端
+                    </span>'.html_safe, '#'%>
+                    <%= tab.terminal_version_public '<i class="fa fa-lg fa-fw fa-cloud"></i>
+                    <span class="menu-item-parent">
+                      终端
+                    </span>'.html_safe, admin_terminal_versions_path  %>
+                  </ul>
+                  </li>
 
+                      <li>
+                      <a herf="#">
+                        <i class="fa fa-lg fa-fw fa-sitemap"></i>
+                        <span class="menu-item-parent">
+                          个人版
+                        </span>
+                      </a>
+                      <ul>
+                      <%= tab.app_version_personal '<i class="fa fa-lg fa-fw fa-mobile"></i>
+                          <span class="menu-item-parent">
+                            客户端
+                          </span>'.html_safe, 'admin_app_versions_path(branch: "personal")' %>
+                      <%= tab.terminal_version_personal '<i class="fa fa-lg fa-fw fa-cloud"></i>
+                          <span class="menu-item-parent">
+                            终端
+                          </span>'.html_safe, admin_terminal_versions_path(branch: "personal") %>
+                        </ul>
+                     </li>
               <% end %>
               <!-- sidebar menu end-->
           </div>

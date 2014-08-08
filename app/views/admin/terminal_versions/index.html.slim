@@ -42,11 +42,11 @@
                         | 显示所有版本
                         span.caret
                 td = number_to_human_size(i.file_size, precision: 2)
-                td = time_ago_in_words(i.created_at)
-                td = time_ago_in_words(i.updated_at)
+                td = i.created_at.to_s.split(" ")[0]
+                td = i.updated_at.to_s.split(" ")[0]
                 td
                   = link_to '编辑', edit_admin_terminal_version_path(i)
-                  = link_to "删除", admin_terminal_version_path(i), method: :delete, remote: true, confirm: '是否确定删除?'
+                  = link_to "删除", admin_terminal_version_path(i), method: :delete, remote: true, data: {confirm: '是否确定删除?'}
 
 = content_for :script do
   javascript:
