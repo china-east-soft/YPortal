@@ -87,6 +87,7 @@ Rails.application.routes.draw do
     resources :check_ins, only: :index
 
     resources :terminal_versions
+    resources :app_versions
   end
 
   namespace :agent do

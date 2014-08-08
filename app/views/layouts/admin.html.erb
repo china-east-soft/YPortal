@@ -80,7 +80,7 @@
                       <%= tab.app_version_public '<i class="fa fa-lg fa-fw fa-mobile"></i>
                     <span class="menu-item-parent">
                       客户端
-                    </span>'.html_safe, '#'%>
+                    </span>'.html_safe, admin_app_versions_path %>
                     <%= tab.terminal_version_public '<i class="fa fa-lg fa-fw fa-cloud"></i>
                     <span class="menu-item-parent">
                       终端
@@ -99,7 +99,7 @@
                       <%= tab.app_version_personal '<i class="fa fa-lg fa-fw fa-mobile"></i>
                           <span class="menu-item-parent">
                             客户端
-                          </span>'.html_safe, 'admin_app_versions_path(branch: "personal")' %>
+                          </span>'.html_safe, admin_app_versions_path(branch: "personal") %>
                       <%= tab.terminal_version_personal '<i class="fa fa-lg fa-fw fa-cloud"></i>
                           <span class="menu-item-parent">
                             终端

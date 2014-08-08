@@ -1,0 +1,49 @@
+<%= simple_form_for [:admin, @app_version], :defaults => { :input_html => { :class => "form-control" } }, html: { multipart: true, class: 'form-horizontal app-version' }  do |f| %>
+  <fieldset>
+    <legend>
+      <% if @app_version.new_record? %>
+        添加终端版本
+      <% else %>
+        编辑终端版本
+      <% end %>
+    </legend>
+    <%= f.input :name, label: '名称', collection: [['iOS客户端', 'ymtv_ios'], ['Android客户端', 'ymtv_android'],] %>
+    <% if @app_version.new_record? %>
+      <%= f.input :branch, label: '类型', collection: [['公众版', 'public'], ['个人版', 'personal']], selected: params[:branch] || 'public' %>
+    <% else %>
+      <%= f.input :branch, label: '类型', collection: [['公众版', 'public'], ['个人版', 'personal']]%>
+    <% end %>
+    <%= f.input :version, label: '版本' %>
+    <%= f.input :release, label: '是否发布', input_html: { :class => "" }  %>
+    <%= f.input :file, label: 'APK包', :input_html => { :class => "btn btn-default btn-sm form-control" } %>
+    <%= f.input :itunes_url, label: 'itunes地址' %>
+    <%= f.input :note, label: '升级说明' %>
+    <div class="col-md-4 col-md-offset-4">
+      <%= f.submit '提 交', class: "btn btn-primary " %>
+    </div>
+  </fieldset>
+<% end %>
+
+<%= content_for :script do %>
+<%= javascript_tag do %>
+  $(function() {
+    function ios_android_show_diff() {
+      var app_version_name = $("#app_version_name").val();
+      if (app_version_name == "ymtv_ios") {
+        $(".app_version_file").hide();
+        $(".app_version_itunes_url").show();
+      }
+      else if (app_version_name == "ymtv_android"){
+        $(".app_version_file").show();
+        $(".app_version_itunes_url").hide();
+      }
+      else {
+        $(".app_version_file").hide();
+        $(".app_version_itunes_url").hide();
+      }
+    }
+    ios_android_show_diff();
+    $("#app_version_name").change(ios_android_show_diff);
+    });
+<% end %>
+<% end %>

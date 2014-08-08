@@ -1,4 +1,4 @@
-.app-version {
+.terminal-version {
   .control-label {
     text-align: right;
   }
@@ -21,9 +21,22 @@
     width: 80%;
   }
 
+  .terminal_version_note {
+      margin-bottom: 0;
+      height: 100px;
+   }
+
+  textarea.form-control#terminal_version_note {
+    height: 100px;
+  }
+
+  textarea.form-control#terminal_version_warning {
+    height: 60px;
+  }
+
 }
 
-.terminal_version {
+#app_versions {
   display: none;
   .version-dropdown {
     display: none;
