@@ -1,6 +1,13 @@
 #feed_back_form {
   textarea {
     height: 20%;
-    margin-bottom: 20px;
+  }
+
+  input[type="text"] {
+    margin-top: 20px;
+  }
+
+  #submit {
+    margin-top: 20px;
   }
 }
