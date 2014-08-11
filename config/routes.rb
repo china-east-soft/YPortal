@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   get "/welcome/generate_verify_code" => "welcome#generate_verify_code"
   get "/merchant/link_from_terminal" => "merchant#link_from_terminal"
 
+  get "/feed_backs/new" => "admin/feed_backs#new"
+
   namespace :wifi do
     get 'test' => "merchants#test"
     get 'merchant' => "merchants#home"
@@ -85,6 +87,8 @@ Rails.application.routes.draw do
     resources :message_warnings, only: :index
     resources :downloads, only: :index
     resources :check_ins, only: :index
+
+    resources :feed_backs
   end
 
   namespace :agent do
