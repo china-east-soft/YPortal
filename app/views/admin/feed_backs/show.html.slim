@@ -1,0 +1,39 @@
+.container
+  .row
+    .col-md-9
+      .panel
+        .panel-body
+          .list-group.list-group-feed-back
+            .list-group-item-content
+              p
+                span<>     联系方式:
+                span<>     = @feed_back.contact
+              p 反馈内容:
+              p = @feed_back.content
+              p
+                span<>  手机型号:
+                span<> = @feed_back.phone_type
+              p
+                span<>  APP版本:
+                span<> = @feed_back.client_version
+              p
+                span<>  手机MAC:
+                span<> = @feed_back.client_mac
+              p
+                span<>  终端版本名:
+                span<> #{@feed_back.terminal_version_name}
+              p
+                span<>  终端版本:
+                span<> #{@feed_back.terminal_version}
+              p
+                span<>  终端MAC:
+                span<> = @feed_back.terminal_mac
+            .list-group-item-actions.clearfix
+              .pull-right
+                a.btn href=admin_feed_back_path(@feed_back)
+                  i.fa.fa-check
+                a.btn href=edit_admin_feed_back_path(@feed_back)
+                  i.fa.fa-pencil
+                a.btn href=admin_feed_back_path(@feed_back) data-remote="true" data-method="delete" data-confirm="确定删除?"
+                  i.fa.fa-trash-o
+

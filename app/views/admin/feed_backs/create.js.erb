@@ -1,0 +1,4 @@
+<% if @feed_back.errors.empty? %>
+  Turbolinks.visit('<%= admin_feed_back_path(@feed_back)%>');
+<% end %>
+

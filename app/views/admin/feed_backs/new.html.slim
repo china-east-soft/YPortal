@@ -5,11 +5,17 @@
         .panel-heading
           p 如果您在使用过程中, 有任何问题或者建议，请给我们留言。也请留下您的联系方式。
         .panel-body
-          = form_for @feed_back, url: admin_feed_backs_path, method: :post do |f|
+          = form_for @feed_back, url: admin_feed_backs_path, method: :post, remote: true do |f|
             = f.text_area :content, class: "form-control", placeholder: "反馈内容", data: { behaviors: 'autosize' }
             = f.text_field :contact, class: "form-control", placeholder: "联系方式: 手机号、QQ、邮箱"
-            .col-xs-6.col-xs-offset-4#submit
-              = f.submit "提交反馈", class: "btn btn-lg btn-primary"
+            = f.hidden_field :phone_type
+            = f.hidden_field :client_version
+            = f.hidden_field :client_mac
+            = f.hidden_field :terminal_version_name
+            = f.hidden_field :terminal_version
+            = f.hidden_field :terminal_mac
+            #submit
+              = f.submit "提交反馈", class: "btn btn-success"
 
 javascript:
   $("#new_feed_back").validate({

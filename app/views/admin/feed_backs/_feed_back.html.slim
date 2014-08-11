@@ -1,0 +1,29 @@
+.list-group-item.feed-back
+  .list-group-item-content
+    .list-group-item-heading href=admin_feed_back_path(feed_back)
+      b = feed_back.content
+    .text-muted
+      = feed_back.contact
+      = ' ·'
+      = (I18n.l feed_back.created_at).to_s[0..-4]
+    .text-muted
+      = feed_back.phone_type
+      = ' · '
+      = feed_back.client_version
+      = ' · '
+      = feed_back.client_mac
+    .text-muted
+      = feed_back.terminal_version_name
+      = ' · '
+      = feed_back.terminal_version
+      = ' · '
+      = feed_back.terminal_mac
+    .list-group-item-actions.clearfix
+      .pull-right
+        a.btn href=admin_feed_back_path(feed_back)
+          i.fa.fa-check
+        a.btn href=edit_admin_feed_back_path(feed_back)
+          i.fa.fa-pencil
+        a.btn href=admin_feed_back_path(feed_back) data-remote="true" data-method="delete" data-confirm="确定删除?"
+          i.fa.fa-trash-o
+

@@ -1,0 +1,32 @@
+.container
+  .row
+    .col-md-9
+      .panel#feed_back_form
+        .panel-heading 编辑反馈
+        .panel-body
+          = form_for @feed_back, url: admin_feed_backs_path, remote: true do |f|
+            = f.text_area :content, class: "form-control", placeholder: "反馈内容", data: { behaviors: 'autosize' }
+            = f.text_field :contact, class: "form-control", placeholder: "联系方式: 手机号、QQ、邮箱"
+            = f.text_field :phone_type, class: "form-control", placeholder: "手机型号（android/ios)"
+            = f.text_field :client_version, class: "form-control", placeholder: "App版本"
+            = f.text_field :client_mac, class: "form-control", placeholder: "手机mac"
+            = f.text_field :terminal_version_name, class: "form-control", placeholder: "终端版本名"
+            = f.text_field :terminal_version, class: "form-control", placeholder: "终端版本(如1.0)"
+            = f.text_field :terminal_mac, class: "form-control", placeholder: "终端mac"
+            #submit
+              = f.submit "修改反馈", class: "btn btn-success"
+
+javascript:
+  $("#new_feed_back").validate({
+      rules: {
+        'feed_back[content]': {
+          required: true
+        }
+      },
+      messages: {
+        'feed_back[content]': {
+          required: '#{FeedBack.new.errors.generate_message :content, :blank}'
+        }
+      }
+  })
+

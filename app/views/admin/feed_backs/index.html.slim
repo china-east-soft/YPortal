@@ -1,1 +1,16 @@
-p new
+.row
+  .col-lg-9
+    section.panel
+      header.panel-heading 反馈列表
+      .panel-body#feed_backs
+        .list-group.list-group-feed-back
+          - if @feed_backs.any?
+            = render @feed_backs
+          - else
+            .list-grounp-item.text-center.text-muted.empty-message
+              | 还没有反馈
+        .row
+          .col-lg-6
+            .dataTables_info 共有#{@feed_backs.total_count}条记录
+          .col-lg-6
+            .dataTables_paginate.paging_bootstrap.pagination = paginate @feed_backs
