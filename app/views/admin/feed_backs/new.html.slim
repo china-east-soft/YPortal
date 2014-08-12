@@ -3,7 +3,7 @@
     .col-xs-10.col-xs-offset-1
       .panel#feed_back_form
         .panel-heading
-          p 如果您在使用过程中, 有任何问题或者建议，请给我们留言。也请留下您的联系方式。
+          p.text-info 如果您在使用过程中, 有任何问题或者建议，请给我们留言。也请留下您的联系方式。
         .panel-body
           = form_for @feed_back, url: admin_feed_backs_path, method: :post, remote: true do |f|
             = f.text_area :content, class: "form-control", placeholder: "反馈内容", data: { behaviors: 'autosize' }
