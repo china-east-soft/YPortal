@@ -6,6 +6,8 @@ class Agent < ActiveRecord::Base
 
   default_scope {order "id"}
 
+  before_destroy :re_allcoate_merchants_to_yunlian
+
   attr_accessor :not_required_password
   def password_required?
     super unless self.not_required_password
@@ -14,8 +16,8 @@ class Agent < ActiveRecord::Base
   has_one :agent_info, dependent: :destroy
   accepts_nested_attributes_for :agent_info
 
-  has_many :merchants, dependent: :nullify
-  has_many :terminals, dependent: :nullify
+  has_many :merchants
+  has_many :terminals
 
   def active
     agent_info.update_column :status, AgentInfo.statuses[:active]
@@ -26,6 +28,13 @@ class Agent < ActiveRecord::Base
     self.save
 
     AgentMailer.delay.active_after_registration(self.id, password)
+  end
+
+
+  private
+  def re_allcoate_merchants_to_yunlian
+    self.merchants.update_all(agent_id: 0)
+    self.terminals.update_all(agent_id: 0)
   end
 
 end

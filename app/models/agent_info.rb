@@ -1,6 +1,6 @@
 class AgentInfo < ActiveRecord::Base
 
-  enum status: [ :init, :active, :locked ]
+  enum status: [ :init, :active]
 
   validates_presence_of :name, :category, :industry, :city, :contact, :telephone
 

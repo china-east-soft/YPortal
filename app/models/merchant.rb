@@ -12,6 +12,12 @@ class Merchant < ActiveRecord::Base
     end
   end
 
+  after_save do |merchant|
+    if merchant.agent_id
+      merchant.terminals.update_all agent_id: merchant.agent_id
+    end
+  end
+
   def email_required?
     false
   end
