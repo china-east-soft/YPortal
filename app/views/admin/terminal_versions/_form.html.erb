@@ -1,0 +1,84 @@
+<%= simple_form_for [:admin, @terminal_version], :defaults => { :input_html => { :class => "form-control" } }, html: { multipart: true, class: 'form-horizontal terminal-version' }  do |f| %>
+  <fieldset>
+    <legend>
+      <% if @terminal_version.new_record? %>
+        添加终端版本
+      <% else %>
+        编辑终端版本
+      <% end %>
+    </legend>
+    <div class="form-group select required terminal_version_name">
+      <label class="select required col-md-4 control-label" for="terminal_version_name">
+        <abbr title="required">*</abbr> 名称
+      </label>
+      <div class="col-md-8">
+        <input list="versions" name="terminal_version[name]" id="terminal_version_name" class="form-control">
+        <datalist id="versions">
+          <option value="YBOX-CMMB-RTL8197D-TP3213">YBOX-CMMB-RTL8197D-TP3213</option>
+          <option value="YBOX-CMMBTV-RTL8197D-TP3213">YBOX-CMMBTV-RTL8197D-TP3213</option>
+          <option value="wasu_ap_rt3352_dvbc_ce0401a">wasu_ap_rt3352_dvbc_ce0401a</option>
+          <option value="wasu_ap_rt3352_dvbc_ce0401b">wasu_ap_rt3352_dvbc_ce0401b</option>
+          <option value="wasu_ap_rt3352_dtmb_ce0401a">wasu_ap_rt3352_dtmb_ce0401a</option>
+          <option value="wasu_ap_rt3352_dtmb_ce0401b">wasu_ap_rt3352_dtmb_ce0401b</option>
+          <option value="wasu_ap_rtl8197d_dvbc_ce0401b">wasu_ap_rtl8197d_dvbc_ce0401b</option>
+          <option value="wasu_ap_rtl8197d_dtmb_ce0401b">wasu_ap_rtl8197d_dtmb_ce0401b</option>
+      </datalist>
+    </div>
+  </div>
+  <% if @terminal_version.new_record? %>
+    <%= f.input :branch, label: '类型', collection: [['公众版', 'public'], ['个人版', 'personal'],], selected: params[:branch] || 'public' %>
+  <% else %>
+    <%= f.input :branch, label: '类型', collection: [['公众版', 'public'], ['个人版', 'personal'],]%>
+  <% end %>
+    <%= f.input :version, label: '版本' %>
+    <%= f.input :release, label: '是否发布', :input_html => { :class => "" } %>
+    <%= f.input :file, label: '安装包', :input_html => { :class => "btn btn-default" } %>
+    <%= f.input :note, label: '升级说明' %>
+
+    <% if @terminal_version.new_record? %>
+      <%= f.input :warning, label: "升级警告", :input_html => {:rows => 10}  %>
+    <% end %>
+
+    <div class="preview-wrap row">
+      <div class="col-md-4 text-right">
+        预览
+      </div>
+      <div id="preview" class="col-md-8">
+        <p></p>
+      </div>
+    </div>
+    <div class="col-md-4 col-md-offset-4">
+      <%= f.submit '提 交', class: "btn btn-primary " %>
+    </div>
+  </fieldset>
+<% end %>
+<%= content_for :script do %>
+<%= javascript_tag do %>
+    $(function() {
+      <% if @terminal_version.new_record? %>
+        $("#terminal_version_note").val("新版本特性\r\n1、\r\n2、\r\n3、\r\n");
+        $("#terminal_version_warning").val("升级过程可能会消耗10MB的3G网卡流量\r\n升级过程持续2分钟，升级完成后，视网魔盒将重启");
+        $("#terminal_version_version").change(function() {
+          var original_val = $("#terminal_version_note").val();
+          var version = $(this).val();
+          var new_val = original_val.replace(/新版本.*特性/, "新版本" + version + "特性");
+          $("#terminal_version_note").val(new_val);
+        });
+      <% else %>
+        $("#terminal_version_name").val("<%= @terminal_version.name %>");
+      <% end %>
+
+      $("#terminal_version_warning").parent().parent().find("label").css("visibility", "hidden");
+
+      //预览
+      function preview_note() {
+        var text = $("#terminal_version_note").val() + $("#terminal_version_warning").val();
+        text = text.split(/\r\n|\n|\r/).join("<br/>");
+        $("#preview p").html(text);
+      }
+      preview_note();
+      $("#terminal_version_note").change(preview_note);
+      $("#terminal_version_warning").change(preview_note);
+    });
+<% end %>
+<% end %>

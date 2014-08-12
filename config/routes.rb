@@ -88,6 +88,9 @@ Rails.application.routes.draw do
     resources :downloads, only: :index
     resources :check_ins, only: :index
 
+    resources :terminal_versions
+    resources :app_versions
+
     resources :feed_backs
   end
 

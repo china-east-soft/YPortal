@@ -1,0 +1,33 @@
+.app-version {
+  .control-label {
+    text-align: right;
+  }
+
+  input {
+    width: 50%;
+  }
+  input[type="checkbox"] {
+    width: auto;
+  }
+
+  input[type="submit"] {
+  }
+
+  select {
+    width: 50%;
+  }
+
+  textarea {
+    width: 80%;
+  }
+
+}
+
+.terminal_version {
+  display: none;
+  .version-dropdown {
+    display: none;
+  }
+}
+
+

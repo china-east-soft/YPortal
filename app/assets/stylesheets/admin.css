@@ -13,7 +13,29 @@
  *= require share.css
  *= require map.css
  *= require wifi/style2
- *= require admin/message_warnings
- *= require admin/agents
- *= require admin/feed_backs
+ *= require_tree ./admin/
 */
+
+#header {
+  display: block;
+  height: 49px;
+  position: fixed;
+  margin: 0;
+  padding: 0 13px 0 0;
+  background-color: #f3f3f3;
+  background-image: -moz-linear-gradient(top, #f3f3f3, #e2e2e2);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f3f3f3), to(#e2e2e2));
+  background-image: -webkit-linear-gradient(top, #f3f3f3, #e2e2e2);
+  background-image: -o-linear-gradient(top, #f3f3f3, #e2e2e2);
+  background-image: linear-gradient(to bottom, #f3f3f3, #e2e2e2);
+  background-repeat: repeat-x;
+}
+
+#global_menu {
+  margin-left: 100px;
+}
+
+#main-content .wrapper {
+  margin-top: 55px;
+}
+

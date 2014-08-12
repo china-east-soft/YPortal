@@ -34,7 +34,7 @@ class Admin::DownloadsController < AdminController
 
   def setup
     @ways = ["统计", "下载统计"]
-    @left_panel = "layouts/statistics_left_panel"
+    # @left_panel = "layouts/statistics_left_panel"
   end
 
   def get_pie_chart_attrs(downloads)

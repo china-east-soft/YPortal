@@ -4,7 +4,8 @@ class AdminController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :authenticate_admin!
-  helper_method :date_parts, :app_names, :app_display_name, :terminal_collections
+  helper_method :date_parts, :app_names, :app_display_name, :terminal_collections, :personal?, :public?
+
   layout 'admin'
 
   def require_admin
@@ -43,4 +44,13 @@ class AdminController < ActionController::Base
         [['全部', 'all'], ['', '']]
       end
     end
+
+    def personal?
+      params[:branch].present? && params[:branch] == 'personal'
+    end
+
+    def public?
+      !personal?
+    end
+
 end

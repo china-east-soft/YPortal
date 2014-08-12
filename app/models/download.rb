@@ -1,6 +1,5 @@
 # encoding: utf-8
-
-class Download < ExternalTable
+class Download < ActiveRecord::Base
   default_scope { where("app_version_id is not null") }
 
   belongs_to :app_version

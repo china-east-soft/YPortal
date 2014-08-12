@@ -21,7 +21,7 @@
 
   <section id="container" >
       <!--header start-->
-      <header class="header white-bg">
+      <header id="header" class="header white-bg">
             <div class="sidebar-toggle-box">
                 <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder fa fa-bars tooltips"></div>
             </div>
@@ -46,11 +46,24 @@
                     <!-- user login dropdown end -->
                 </ul>
                 <!--search & user info end-->
+
+              <!-- top menu -->
+              <div class="pull-left" id="global_menu">
+                <%= tabs_tag builder: MenuTabBuilder, :open_tabs => { :class => "nav navbar-nav global_menu" } do |tab| %>
+                  <%= tab.business '业务', admin_root_path %>
+                  <%= tab.release '发布管理', admin_app_versions_path %>
+                <% end %>
+              </div>
+
             </div>
+
         </header>
       <!--header end-->
       <!--sidebar start-->
-      <aside>
+      <aside id="left-panel">
+      <% if @left_panel.present? %>
+        <%= render partial: @left_panel %>
+      <% else %>
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <%= tabs_tag :builder => MenuTabBuilder, :open_tabs => { :id => "nav-accordion", :class => "sidebar-menu" } do |tab| %>
@@ -69,10 +82,10 @@
 
                 <%= tab.statistics '<i class="fa fa-lg fa-fw fa-pencil"></i> <span class="menu-item-parent"> 统计</span>'.html_safe, admin_message_warnings_path %>
 
-
               <% end %>
               <!-- sidebar menu end-->
           </div>
+        <% end %>
       </aside>
       <!--sidebar end-->
       <!--main content start-->

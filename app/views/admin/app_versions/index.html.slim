@@ -1,0 +1,92 @@
+.panel
+  .row
+    article.col-xs-12.col-sm-12.col-md-12.col-lg-12
+      header#message
+        span.widget-icon
+          i.fa.fa-table
+        h2 终端版本列表
+      div
+        .btn-group.pull-right
+          = link_to "添加客户端版本", new_admin_app_version_path(branch: params[:branch]), class: "btn btn-default"
+        table.table.table-striped.table-advance.table-hover.vertical-align-middle
+          thead
+            tr
+              th style="width: 20px;" 当前
+              th 发布
+              th 名称
+              th 版本
+              th 文件大小
+              th 提交时间
+              th 更新时间
+              th 操作
+          tbody#app_versions
+            - @app_versions.each do |app|
+              tr id="app-#{app.id}" class="#{app.name}"
+                td
+                  - if app.current_release?
+                    i.fa.fa-check
+                td
+                  - if app.release
+                    i.fa.fa-check
+                td = link_to app_display_name(app.name), '#', class: "hint  hint--bottom", 'data-hint' => "备注: #{raw app.note}"
+                td.version
+                  div.btn-group
+                    button type="button" class="btn btn-default"
+                      - if app.link.present?
+                        = link_to app.version.to_s, app.link
+                      - else
+                        = app.version.to_s
+                    div.btn-group.version-dropdown
+                      button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                        | 显示所有版本
+                        span.caret
+                td = number_to_human_size(app.file_size, precision: 2)
+                td = app.created_at.to_s.split(" ")[0]
+                td = app.updated_at.to_s.split(" ")[0]
+                td
+                  = link_to '编辑', edit_admin_app_version_path(app)
+                  = link_to "删除", admin_app_version_path(app), method: :delete, remote: true, data: {confirm: '是否确定删除?'}
+
+= content_for :script do
+  javascript:
+    $(document).ready(function() {
+
+      var first_child_array = [];
+      ["ymtv_ios", "ymtv_android"].forEach(function(name){
+        (function(){
+          var trs_by_name = $("." + name);
+          if (trs_by_name.length > 1)
+          {
+            trs_by_name.hide();
+            var first_child = trs_by_name.first();
+
+            first_child_array.push(first_child);
+
+            var other_children = trs_by_name.slice(1, trs_by_name.length);
+
+            first_child.show();
+
+            var dropdown = first_child.find(".version-dropdown");
+            dropdown.show();
+
+            var dropdown_button = trs_by_name.find(".dropdown-toggle");
+            dropdown_button.click(function(){
+              first_child_array.forEach(function(el) {
+                if (first_child  != el){
+                  el.toggle();
+                }
+              });
+              other_children.each(function() {
+                  $(this).toggle();
+                });
+              });
+          }
+        else
+        {
+          first_child_array.push(trs_by_name);
+        }
+        }()
+        );
+      });
+      $("#app_versions").show();
+    })
