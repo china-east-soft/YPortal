@@ -93,6 +93,4 @@ class Merchant < ActiveRecord::Base
         # update_all(merchant_id: self.id, agent_id: agent_id, status: AuthToken.statuses[:active], added_by_merchant_at: Time.now)
     end
 
-
-
 end

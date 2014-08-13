@@ -8,12 +8,12 @@
           = form_for @feed_back, url: admin_feed_backs_path, method: :post, remote: true do |f|
             = f.text_area :content, class: "form-control", placeholder: "反馈内容", data: { behaviors: 'autosize' }
             = f.text_field :contact, class: "form-control", placeholder: "联系方式: 手机号、QQ、邮箱"
-            = f.hidden_field :phone_type
-            = f.hidden_field :client_version
-            = f.hidden_field :client_mac
-            = f.hidden_field :terminal_version_name
-            = f.hidden_field :terminal_version
-            = f.hidden_field :terminal_mac
+            = f.text_field :phone_type, class: "form-control hidden-xs hidden-sm", placeholder: "手机类型"
+            = f.text_field :client_version, class: "form-control hidden-xs hidden-sm", placeholder: "APP版本"
+            = f.text_field :client_mac, class: "form-control hidden-xs hidden-sm", placeholder: "手机MAC"
+            = f.text_field :terminal_version_name, class: "form-control hidden-xs hidden-sm", placeholder: "终端版本名"
+            = f.text_field :terminal_version, class: "form-control hidden-xs hidden-sm", placeholder: "终端版本号"
+            = f.text_field :terminal_mac, class: "form-control hidden-xs hidden-sm", placeholder: "终端MAC"
             #submit
               = f.submit "提交反馈", class: "btn btn-success"
 
