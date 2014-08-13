@@ -4,7 +4,7 @@ class Admin::FeedBacksController < AdminController
   before_action  :find_feed_back, only: [:show, :edit, :destroy, :update]
 
   def new
-    @feed_back = FeedBack.new
+    @feed_back = FeedBack.new(phone_type: params[:phone_type], client_version: params[:client_version], client_mac: params[:client_mac], terminal_version_name: params[:terminal_version_name], terminal_version: params[:terminal_version], terminal_mac: params[:terminal_mac])
     render layout: 'mobile'
   end
 
@@ -13,9 +13,7 @@ class Admin::FeedBacksController < AdminController
     if @feed_back.save
       respond_to do |format|
         format.html {
-          redirect_to admin_feed_backs_url
-        }
-        format.js {
+          render text: "ok"
         }
       end
     else
@@ -52,7 +50,7 @@ class Admin::FeedBacksController < AdminController
 
   private
   def feed_back_prams
-    params.require(:feed_back).permit(:content, :contact, :phone_type, :client_version, :terminal_name, :terminal_version)
+    params.require(:feed_back).permit(:content, :contact, :phone_type, :client_version, :client_mac, :terminal_version_name, :terminal_version, :terminal_mac)
   end
 
   def find_feed_back
