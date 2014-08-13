@@ -20,7 +20,7 @@ p
   p
     strong = t(".description")
     |:
-    = @activity.description
+    == @activity.description.gsub(/\r\n|\r|\n/, "<br/>")
   p
     strong = t(".hot")
     |?:

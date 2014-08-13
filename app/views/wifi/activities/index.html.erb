@@ -23,10 +23,10 @@
             </header>
             <div id="collapse<%= activity.id %>" class="panel-collapse collapse">
               <div class="panel-body">
-                <% if activity.cover %>  
+                <% if activity.cover %>
                   <%= image_tag activity.cover.url(:small) %>
                 <% end %>
-                <%= activity.description %>
+                <%= raw(activity.description.gsub(/\r\n|\r|\n/, "<br/>")) %>
               </div>
             </div>
           </section>
