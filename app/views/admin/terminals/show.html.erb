@@ -14,6 +14,15 @@
   <strong>代理商:</strong>
   <%= @terminal.agent.agent_info.name if @terminal.agent && @terminal.agent.agent_info %>
 </p>
+<% if @terminal.terminal_version.present? %>
+  <p>
+    <strong>终端版本:</strong>
+    <%= @terminal.terminal_version.name %>
+    :
+    <%= @terminal.terminal_version.version %>
+  </p>
+<% end %>
+<p>
 
 <p>
   <strong>Imei:</strong>

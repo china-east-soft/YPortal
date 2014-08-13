@@ -1,4 +1,4 @@
-class TerminalVersion < ExternalTable #ActiveRecord::Base
+class TerminalVersion < ActiveRecord::Base
 
   has_many :termnials
 

@@ -58,7 +58,7 @@
                       <th>Mac</th>
                       <th>Mid</th>
                       <th>Imei</th>
-                      <th>Sim iccid</th>
+                      <th>终端版本</th>
                       <th>
                           <div class="btn-group btn-group-sm" id="status">
                             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -99,7 +99,9 @@
                         <td><%= terminal.mac %></td>
                         <td><%= terminal.mid %></td>
                         <td><%= terminal.imei %></td>
-                        <td><%= terminal.sim_iccid %></td>
+                        <td>
+                          <%= "#{terminal.terminal_version.name} : #{terminal.terminal_version.version}" if terminal.terminal_version.present? %>
+                        </td>
                         <td class="status-td"><%= I18n.t "activerecord.attributes.terminal.#{terminal.status}" %></td>
                         <td>
                           <span class="btn btn-success btn-xs"><%= link_to fa_icon("check"), [:admin, terminal] %></span>
