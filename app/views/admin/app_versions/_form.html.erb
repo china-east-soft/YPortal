@@ -44,6 +44,16 @@
     }
     ios_android_show_diff();
     $("#app_version_name").change(ios_android_show_diff);
+        <% if @app_version.new_record? %>
+      $("#app_version_note").val("新版本特性\r\n·\r\n·\r\n·");
+      $("#app_version_version").change(function() {
+        var original_val = $("#app_version_note").val();
+        var version = $(this).val();
+        var new_val = original_val.replace(/新版本.*特性/, "新版本" + version + "特性");
+        $("#app_version_note").val(new_val);
+      });
+    <% end %>
+
     });
 <% end %>
 <% end %>

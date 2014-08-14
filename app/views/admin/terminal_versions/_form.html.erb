@@ -70,9 +70,19 @@
 
       $("#terminal_version_warning").parent().parent().find("label").css("visibility", "hidden");
 
-      //预览
+            //预览
       function preview_note() {
-        var text = $("#terminal_version_note").val() + $("#terminal_version_warning").val();
+        var note_elm = $("#terminal_version_note");
+        var warn_elm = $("#terminal_version_warning");
+        var text = "";
+        if (note_elm.length > 0)
+        {
+          text += note_elm.val();
+        }
+        if (warn_elm.length > 0)
+        {
+          text += warn_elm.val();
+        }
         text = text.split(/\r\n|\n|\r/).join("<br/>");
         $("#preview p").html(text);
       }

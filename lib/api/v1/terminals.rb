@@ -70,6 +70,7 @@ module API::V1
             link = request.scheme + '://' + request.host_with_port + latest_terminalversion.file.url.to_s
             present :link, link
             present :enforce, enforce
+            present :file_size, latest_terminalversion.file_size
           end
         end
       end

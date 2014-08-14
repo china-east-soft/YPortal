@@ -2,7 +2,8 @@ class TerminalVersion < ActiveRecord::Base
 
   has_many :termnials
 
-  before_save :update_asset_attributes, :update_upgrade_note
+  before_save :update_asset_attributes
+  before_create :update_upgrade_note
 
   validates :name, :version, :branch, :presence => true
 
