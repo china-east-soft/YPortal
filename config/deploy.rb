@@ -111,6 +111,7 @@ task :deploy => :environment do
       invoke :'sidekiq:restart'
       queue! "#{rake} data:default_portal_styles"
       # queue! "#{rake} data:set_default_terminal_version"
+      queue! "#{rake} data:terminals_without_version_set_to_latest"
 
       queue! "cd #{deploy_to}/#{current_path}"
       queue! "#{rake} db:seed"

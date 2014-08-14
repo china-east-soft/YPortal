@@ -21,6 +21,16 @@ namespace :data do
     Terminal.where(terminal_version_id: nil).update_all(terminal_version_id: lastest_version.id)
   end
 
+
+  desc 'set terminal to latest version'
+  task :terminals_without_version_set_to_latest => :environment do
+    latest_version = TerminalVersion.where(release: true).order("created_at desc").first
+    if latest_version
+      Terminal.where(terminal_version_id: nil).update_all(terminal_version_id: latest_version.id)
+    end
+  end
+
+
   #comment by kailaichao
   #connect to external database instead not copy
   #
