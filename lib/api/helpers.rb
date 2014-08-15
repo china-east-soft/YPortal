@@ -65,5 +65,45 @@ module API
       request.url.to_s.gsub "http://#{request.host_with_port}", ''
     end
 
+    def log_api_visit message = nil, status = nil
+      begin
+        api_version = env['api.version']
+        request_type = env['REQUEST_METHOD']
+        request = env['PATH_INFO'].sub("/#{api_version}/", '').sub('.json', '')
+        # delete path and format, and attachment will be replaced as `file`
+        request_data = params.reject { |k, v| k == 'route_info' || k == 'format' }.to_hash
+        request_data.each do |k, v|
+          if v.respond_to?(:has_key?) && v.has_key?('filename') && v.has_key?('type')
+            request_data[k] = 'file'
+          end
+        end
+        response_status = status ? status : env['api.endpoint'].status
+        remote_ip = env['REMOTE_ADDR']
+        response = message ? message : env['api.endpoint'].body
+
+        # may response will be nil or sth like this which can't parse as JSON
+        begin
+          response = JSON.pretty_generate(response)
+        rescue Exception => e
+          response = response.inspect
+        end
+
+        debug = DebugLog.log_message
+        duration = ((Time.now.to_f - @start) * 1000).to_i # ms
+        warned = response.blank? || response == 'nil'
+
+        ApiVisitLog.create!(api_version: api_version, request_type: request_type,
+          request: request, request_data: JSON.pretty_generate(request_data),
+          client_id: params[:client_id], remote_ip: remote_ip, warned: warned,
+          response: response, response_status: response_status,
+          debug: JSON.pretty_generate(debug), duration: duration)
+      rescue Exception => e
+        DebugLog.add_to_log exception: "写入访问日志出错#{e.message}" + e.backtrace.join("\n")
+      ensure
+        DebugLog.write_log
+      end
+    end
+
+
   end
 end

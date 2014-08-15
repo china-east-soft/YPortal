@@ -1,0 +1,86 @@
+.panel
+  .row
+    .col-md-12
+      .well
+        = simple_form_for :api_visit_log, url: admin_api_visit_logs_path, :defaults => { :input_html => { :class => "form-control" } }, method: 'get', html: { class: "form-inline" } do |f|
+          label IP地址
+          = f.input_field :remote_ip, selected: params[:api_visit_log][:remote_ip], collection: ApiVisitLog.select(:remote_ip).uniq.map(&:remote_ip).sort, label: false, prompt: '全部'
+          label 客户端编号
+          = f.input_field :client_id, selected: params[:api_visit_log][:client_id], collection: ApiVisitLog.select(:client_id).uniq.map(&:client_id).reject {|i| !i }.sort, label: false, prompt: '全部'
+          label 请求
+          = f.input_field :request, selected: params[:api_visit_log][:request], collection: ApiVisitLog.select(:request).uniq.map(&:request).sort, label: false, prompt: '全部'
+          label 请求异常
+          = f.input_field :warned, selected: params[:api_visit_log][:warned], collection: [['异常', true], ['正常', false]], label: false, prompt: '全部'
+          br
+          br
+          label 参数
+          = f.input_field :request_data, value: params[:api_visit_log][:request_data], label: false
+          label HTTP
+          = f.input_field :response_status, selected: params[:api_visit_log][:response_status], collection: ApiVisitLog.select(:response_status).uniq.map(&:response_status).reject {|i| !i }.sort, label: false, prompt: '全部'
+          label 请求时间
+          .form-group.string
+            = f.text_field :start_date, class: "form-control datepicker", "data-dateformat" => "yy-mm-dd", value: params[:api_visit_log][:start_date]
+          .form-group.string
+            = f.text_field :end_date, class: "form-control datepicker", "data-dateformat" => "yy-mm-dd", value: params[:api_visit_log][:end_date]
+          = f.submit "搜索", :class => "btn btn-default"
+
+  .row
+    article.col-xs-12.col-sm-12.col-md-12.col-lg-12
+      header#message
+        span.widget-icon
+          i.fa.fa-table
+        h2 api访问日志
+      div
+        table.table.table-striped.table-advance.table-hover.vertical-align-middle.table-bordered
+          thead
+            tr
+              th 时间
+              th 耗时
+              th IP地址
+              th 客户端编号
+              th 版本
+              th 类型
+              th 请求
+              th 请求参数
+              th HTTP
+              th 结果
+              th 调试信息
+          tbody
+            - @api_visit_logs.each do |r|
+              tr id="order-#{r.id}" class="#{'danger'.html_safe if r.warned}"
+                td = r.created_at.strftime('%H:%M:%S %Y-%m-%d')
+                td = r.duration
+                td = r.remote_ip
+                td = r.client_id
+                td = r.api_version
+                td = r.request_type
+                td = r.request
+                td
+                  .accordion-group
+                    .accordion-heading
+                      a.accordion-toggle.collapsed data-toggle="collapse" href="#request-data-#{r.id }" 请求参数详情
+                    div id="request-data-#{r.id}" class="accordion-body collapse" style="height: 0px;"
+                      .accordion-inner
+                        pre = r.request_data
+                td = r.response_status
+                td
+                  .accordion-group
+                    .accordion-heading
+                      a.accordion-toggle.collapsed data-toggle="collapse" href="#response-#{r.id}" 结果详情
+                    div id="response-#{r.id}" class="accordion-body collapse" style="height: 0px;"
+                      .accordion-inner
+                        pre = r.response
+                td
+                  .accordion-group
+                    .accordion-heading
+                      a.accordion-toggle.collapsed data-toggle="collapse" href="#debug-#{ r.id }" 调试信息详情
+                    div id="debug-#{r.id}" class="accordion-body collapse" style="height: 0px;"
+                      .accordion-inner
+                        pre = r.debug
+        .dt-row.dt-bottom-row
+          .row
+            .col-lg-6
+              .dataTables_info 共有#{@api_visit_logs.size}条记录
+            .col-lg-6
+              .dataTables_paginate.paging_bootstrap.pagination
+                = paginate @api_visit_logs

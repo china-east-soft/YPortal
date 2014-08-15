@@ -2,12 +2,10 @@
 module API::V1
   class Terminals < Grape::API
 
-    params do
-      requires :mac, type: String, regexp: /\A([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}\z/
-    end
-
     resource :terminals do
-
+      params do
+        requires :mac, type: String, regexp: /\A([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}\z/
+      end
       get :mid do
         terminal = Terminal.where(mac: params[:mac]).first
         if terminal
@@ -35,7 +33,7 @@ module API::V1
         present result: result
       end
 
-      desc "update: get termianl latest version"
+      desc "update: get latest version"
       params do
         requires :name, type: String
         requires :current_version, type: String
