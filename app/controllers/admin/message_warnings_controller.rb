@@ -53,13 +53,14 @@ class Admin::MessageWarningsController < AdminController
 
   def csv_content_for(objs)
     CSV.generate do |csv|
-      csv << ["\xEF\xBB\xBF手机","代码", "信息", "创建时间"]
+      csv << ["\xEF\xBB\xBF手机","代码", "信息", "创建时间", "短信内容"]
       objs.each do |record|
         csv << [
           record.mobile_number,
           record.warning_code,
           record.display_name,
-          record.created_at.in_time_zone("Beijing").to_s[0..-6]
+          record.created_at.in_time_zone("Beijing").to_s[0..-6],
+          record.message
         ]
       end
     end
