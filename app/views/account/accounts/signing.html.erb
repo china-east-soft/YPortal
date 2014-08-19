@@ -1,6 +1,6 @@
 <%
-  @portal_style = terminal_merchant.portal_style
-  @banners = @portal_style.banners
+  @portal_style = terminal_merchant.current_portal_style
+  @banners = terminal_merchant.banners
   params[:vtoken] = @auth_token.auth_token if params[:vtoken].blank?
 %>
 
