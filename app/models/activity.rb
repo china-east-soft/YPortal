@@ -7,15 +7,14 @@ class Activity < ActiveRecord::Base
   has_attached_file :cover, :styles => { :small => "458x257#", :large => "800x800>" }, :processors => [:cropper]
   validates_attachment_content_type :cover, :content_type => /\Aimage/
 
-  validates_attachment :cover,
-                        :size => { :in => 0..500.kilobytes }
+  validates_attachment :cover, :size => { :in => 0..500.kilobytes, message: "图片不要超过500k" }
 
   validates_presence_of :description
 
   imag_attr :cover
   # attached end
 
-  enum status: [ :init, :active, :expired ] 
+  enum status: [ :init, :active, :expired ]
 
   validates_presence_of :merchant_id, :title, :started_at, :end_at, :description
   validates_date :started_at, :end_at
@@ -27,7 +26,7 @@ class Activity < ActiveRecord::Base
   before_save :before_save_callback
 
   private
-  
+
     def before_save_callback
       if Date.today < self.started_at
         self.status = Activity.statuses[:init]
