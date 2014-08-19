@@ -72,6 +72,8 @@
 
   <%= yield :script %>
 
-  <%= render partial: "wifi/footer/#{current_portal_style.partial_name}" %>
+  <% @partial_name =  current_portal_style.partial_name %>
+  <%= render partial: "wifi/footer/#{@partial_name}" %>
+
 </body>
 </html>

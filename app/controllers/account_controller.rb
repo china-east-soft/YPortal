@@ -7,7 +7,7 @@ class AccountController < ActionController::Base
   before_filter :required_terminal, :required_client_identifier
   layout 'account'
 
-  helper_method :current_terminal, :terminal_merchant
+  helper_method :current_terminal, :terminal_merchant, :current_portal_style
 
   def require_account
     unless current_account
@@ -41,6 +41,10 @@ class AccountController < ActionController::Base
 
   def terminal_merchant
     current_terminal.merchant
+  end
+
+  def current_portal_style
+    terminal_merchant.current_portal_style
   end
 
 end
