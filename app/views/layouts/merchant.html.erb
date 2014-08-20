@@ -57,7 +57,7 @@
               <%= tabs_tag :builder => MenuTabBuilder, :open_tabs => { :id => "nav-accordion", :class => "sidebar-menu" } do |tab| %>
                 <%= tab.dashboard  fa_icon("dashboard")+content_tag(:span, '首页'), merchant_root_path %>
 
-                <li class="sub-menu">
+                <li class="sub-menu" id="set_function">
                   <a href="javascript:;" class="active">
                       <i class="icon-book"></i>
                       <span>功能设置</span>
@@ -68,8 +68,16 @@
                   </ul>
                 </li>
 
-                <%= tab.activity  fa_icon("star")+content_tag(:span, '广告'), merchant_banners_path %>
-                <%= tab.activity  fa_icon("star")+content_tag(:span, '活动'), merchant_activities_path %>
+                <li class="sub-menu" id="banner">
+                  <a href="javascript:;" class="active">
+                      <i class="fa fa-asterisk"></i>
+                      <span>广告营销</span>
+                  </a>
+                  <ul class="sub">
+                    <%= tab.banners fa_icon("star")+content_tag(:span, '首页广告'), merchant_banners_path %>
+                    <%= tab.activity  fa_icon("star")+content_tag(:span, '热门活动'), merchant_activities_path %>
+                  </ul>
+                </li>
                 <%= tab.merchant_info  fa_icon("user")+content_tag(:span, '资料管理'), merchant_merchant_infos_path %>
                 <%= tab.shop_info  fa_icon("cloud")+content_tag(:span, '店铺介绍'), shop_info_merchant_merchant_infos_path %>
                 <%= tab.auth_token  fa_icon("group")+content_tag(:span, '在线用户'), merchant_auth_tokens_path %>
@@ -82,7 +90,7 @@
       <!--main content start-->
       <section id="main-content">
         <section class="wrapper site-min-height">
-          
+
           <%= yield :main_content %>
         </section>
       </section>
@@ -98,7 +106,7 @@
       </footer>
       <!--footer end-->
   </section>
-  
+
   <%= javascript_include_tag 'admin' %>
   <%= gflash %>
   <%= yield :script %>

@@ -26,6 +26,20 @@ var Script = function () {
             $("#sidebar").scrollTo("+="+Math.abs(diff),500);
     });
 
+    // don't understand the dcAccordion code, os add dirty code only test to work
+    $(function(){
+        if($("#set_function li").hasClass("active") == false) {
+          $("#set_function > ul").hide();
+          $("#set_function > a ").removeClass("active");
+        }
+
+        if($("#banner li").hasClass("active") == false) {
+          $("#banner > ul").hide();
+          $("#banner > a").removeClass("active");
+        }
+      }
+    );
+
 //    sidebar toggle
 
     $(function() {
