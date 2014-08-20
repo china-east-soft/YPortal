@@ -16,6 +16,13 @@
               </div>
               <div class="panel-body">
                 <%= render '/merchant/products/form' %>
+                <div id="show_all_products">
+                  <% if @product_count > 0 %>
+                    <%= link_to "显示所有商品", merchant_products_path, class: "btn btn-info col-md-12" %>
+                  <% else %>
+                    <%= link_to "还未添加商品", merchant_products_path, class: "btn btn-info col-md-12" %>
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>

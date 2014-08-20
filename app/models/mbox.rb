@@ -28,7 +28,7 @@ class Mbox < ActiveRecord::Base
   end
 
   def default_cover
-    Mbox.default_covers[self.name]
+    Mbox.default_covers[self.category]
   end
 
 end

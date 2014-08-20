@@ -23,6 +23,7 @@ class Merchant::MboxesController < MerchantController
   def edit
     if @mbox.category == "商品展示"
       @product = current_merchant.products.build
+      @product_count = current_merchant.products.count
       @show_product_form = true
     end
   end

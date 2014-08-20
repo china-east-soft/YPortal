@@ -13,7 +13,8 @@
  *= require share.css
  *= require map.css
  *= require wifi/style2
- *= require_tree ./admin/
+ *= require_tree ./admin
+ *= require_tree ./merchant/
 */
 
 #header {
