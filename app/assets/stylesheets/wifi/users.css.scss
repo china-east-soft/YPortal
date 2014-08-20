@@ -5,6 +5,11 @@
   color: #fff;
 }
 
+/* /wifi/users/login page */
+input::-webkit-input-placeholder { font-size: 14px; color: #555; }
+input::-moz-placeholder { font-size: 14px; color: #555; }
+input:-ms-input-placeholder { font-size: 14px; color: #555; }
+input:-moz-placeholder { font-size: 14px; color: #555; }
 
 /* /wifi/users/login_success page */
 #login_success figure {
