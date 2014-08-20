@@ -20,10 +20,12 @@
             当前 <%= AuthToken.actived(terminal_merchant.id).count %> 人同时在线
           </span>
           </p>
-          <hr class='dotted' />
-          <div class="text-center">
-            <%= image_tag "anniiu_07.png", id: "app_download_img" %>
-          </div>
+          <% unless @from_app %>
+            <hr class='dotted' />
+            <div class="text-center">
+              <%= image_tag "anniiu_07.png", id: "app_download_img" %>
+            </div>
+          <% end %>
         </div>
       </div>
 
