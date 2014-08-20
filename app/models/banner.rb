@@ -8,7 +8,7 @@ class Banner < ActiveRecord::Base
   validates_attachment_content_type :cover, :content_type => /\Aimage/
 
   validates_attachment :cover, :presence => true,
-                        :size => { :in => 0..25.kilobytes, message: "请选择小于25k的文件" }
+                        :size => { :in => 0..100.kilobytes, message: "请选择小于100k的图片" }
 
   validates_presence_of :description
 
