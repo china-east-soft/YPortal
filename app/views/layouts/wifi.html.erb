@@ -50,7 +50,7 @@
     <%= javascript_include_tag 'wifi' %>
     <%= gflash %>
   <% end %>
-  
+
   <script type="text/javascript">
     <% unless params[:controller] == "wifi/merchants" && params[:action] == "home" %>
       // gritter
@@ -72,8 +72,7 @@
 
   <%= yield :script %>
 
-  <% @partial_name =  current_portal_style.partial_name %>
-  <%= render partial: "wifi/footer/#{@partial_name}" %>
+  <%= render partial: "wifi/footer/#{current_portal_style.partial_name}" %>
 
 </body>
 </html>
