@@ -1,40 +1,40 @@
 <div class="container">
   <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :role => 'form', html: { class: "form-signin" }) do |f| %>
-  	<h2 class="form-signin-heading">欢迎使用免费WiFi</h2>
-		<% flash.each do |key, value| %>
-		   <div class="alert alert-block alert-danger fade in">
-		    <button data-dismiss="alert" class="close close-sm" type="button">
-		    	<%= fa_icon "times" %>
-	      </button>
-		    <center><strong><%= value %></strong></center>
-		  </div>
-		<% end %>
-  	<div class="login-wrap">
-  		<div class="form-group">
-			  <%= f.input_field :mobile, :autofocus => true, class: "form-control", placeholder: "手机号" %>
-		  </div>
-  		<div class="form-group" style="margin-bottom:0;">
-			  <div class="row">
-			  	<div class="col-xs-7 col-sm-7 col-lg-7">
-			  		<%= f.password_field :password, class: "form-control", placeholder: "密码" %>
-	      	</div>
-		  		<div class="col-xs-5 col-sm-5 col-lg-5" style="padding-left:0;">
-		  			<button class="btn btn-info pull-right col-xs-12 col-sm-12 col-lg-12 " id="send_message">忘记密码</button>
-		  		</div>	
-	      </div>
-		  </div>
+    <h2 class="form-signin-heading">欢迎使用免费WiFi</h2>
+    <% flash.each do |key, value| %>
+       <div class="alert alert-block alert-danger fade in">
+        <button data-dismiss="alert" class="close close-sm" type="button">
+          <%= fa_icon "times" %>
+        </button>
+        <center><strong><%= value %></strong></center>
+      </div>
+    <% end %>
+    <div class="login-wrap">
+      <div class="form-group">
+        <%= f.input_field :mobile, :autofocus => true, class: "form-control", placeholder: "手机号" %>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <div class="row">
+          <div class="col-xs-7 col-sm-7 col-lg-7">
+            <%= f.password_field :password, class: "form-control", placeholder: "密码" %>
+          </div>
+          <div class="col-xs-5 col-sm-5 col-lg-5" style="padding-left:0;">
+            <button class="btn btn-info pull-right col-xs-12 col-sm-12 col-lg-12 " id="send_message">忘记密码</button>
+          </div>
+        </div>
+      </div>
       <%= hidden_field_tag :mac, params[:mac] %>
       <%= hidden_field_tag :client_identifier, params[:client_identifier] %>
 
-		  <label class="checkbox" style="margin-top:0;">
-		    <%= f.check_box :remember_me %> 记住我
+      <label class="checkbox" style="margin-top:0;">
+        <%= f.check_box :remember_me %> 记住我
       </label>
-		  <%= f.submit "开通上网", class: "btn btn-lg btn-login btn-block" %>
+      <%= f.submit "开通上网", class: "btn btn-lg btn-login btn-block" %>
       <div class="registration">
           还没有帐号？
           <%= link_to "立即注册", new_account_registration_path(mac: params[:mac], client_identifier: params[:client_identifier]) %>
       </div>
-  	</div>
-	<% end %>
-	<%= hidden_field_tag 'controller_name', params[:controller] %>
+    </div>
+  <% end %>
+  <%= hidden_field_tag 'controller_name', params[:controller] %>
 </div>
