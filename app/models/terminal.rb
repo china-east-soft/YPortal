@@ -201,7 +201,9 @@ class Terminal < ActiveRecord::Base
 
     def set_terminal_version
       lastest_version = TerminalVersion.where(release: true).order('created_at desc').first
-      self.terminal_version_id = lastest_version.id
+      if lastest_version
+        self.terminal_version_id = lastest_version.id
+      end
     end
 
 
