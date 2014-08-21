@@ -36,7 +36,6 @@ class Wifi::UsersController < WifiController
           case auth_token.status
           when "init"
             if auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active], account_id: account.id)
-              gflash :success => "已经认证成功可以直接上网!"
               redirect_to login_success_wifi_users_url(vtoken: auth_token.auth_token)
             else
               message = "认证失败!"
@@ -44,7 +43,6 @@ class Wifi::UsersController < WifiController
               render action: :login
             end
           when "active"
-            gflash :success => "已经认证成功可以直接上网!"
             redirect_to login_success_wifi_users_url(vtoken: auth_token.auth_token)
           when "expired"
             gflash :error => "认证已经过期，请重新认证!"
@@ -80,7 +78,10 @@ class Wifi::UsersController < WifiController
     @merchant = terminal_merchant
     @products = @merchant.products.hot.take 2
     @activities = terminal_merchant.activities.actived.where(hot: true).take 2
-    @from_app = request.referer =~ /signing|sign_on|accounts\/sign_in|accounts\/sign_up/
+
+    # @from_app = request.referer =~ /signing|sign_on|accounts\/sign_in|accounts\/sign_up/
+    # set true unless  find a way detect from app
+    @from_app = true
   end
 
   private
@@ -96,7 +97,6 @@ class Wifi::UsersController < WifiController
       if @auth_token.init?
         process_init_update_token_and_communicate_with_terminal
       elsif @auth_token.active?
-        gflash :success => "已经认证成功可以直接上网!"
         redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
       elsif @auth_token.expired?
         gflash :error => "认证已经过期，请重新认证!"
@@ -113,7 +113,6 @@ class Wifi::UsersController < WifiController
     duration = terminal.duration || 14400
 
     if @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
-      gflash :success => "已经认证成功可以直接上网!"
       redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
     else
       message = "认证失败!"

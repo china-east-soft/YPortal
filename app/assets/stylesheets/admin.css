@@ -40,3 +40,7 @@
   margin-top: 55px;
 }
 
+li.sub-menu a span {
+  margin-left: -3px;
+}
+

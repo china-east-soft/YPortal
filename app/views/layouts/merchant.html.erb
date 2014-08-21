@@ -55,11 +55,11 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <%= tabs_tag :builder => MenuTabBuilder, :open_tabs => { :id => "nav-accordion", :class => "sidebar-menu" } do |tab| %>
-                <%= tab.dashboard  fa_icon("dashboard")+content_tag(:span, '首页'), merchant_root_path %>
+                <%= tab.dashboard fa_icon("dashboard")+content_tag(:span, '首页'), merchant_root_path %>
 
                 <li class="sub-menu" id="set_function">
                   <a href="javascript:;" class="active">
-                      <i class="icon-book"></i>
+                      <i class="fa fa-book"></i>
                       <span>功能设置</span>
                   </a>
                   <ul class="sub">
