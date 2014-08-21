@@ -30,6 +30,10 @@ class Agent < ActiveRecord::Base
     AgentMailer.delay.active_after_registration(self.id, password)
   end
 
+  def yunlian?
+    id == 0
+  end
+
 
   private
   def re_allcoate_merchants_to_yunlian

@@ -41,9 +41,11 @@
                         <td><%= agent.email %></td>
                         <td><%= t(".#{agent.agent_info.status}") if agent.agent_info.present? %></td>
                         <td>
-                          <span class="btn btn-success btn-xs"><%= link_to fa_icon("check"), [:admin, agent] %></span>
-                          <span class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_admin_agent_path(agent) %><i class="icon-pencil"></i></span>
-                          <span class="btn btn-danger btn-xs"><%= link_to fa_icon("trash-o"), [:admin, agent], method: :delete, data: { confirm: 'Are you sure?' } %></span>
+                            <span class="btn btn-success btn-xs"><%= link_to fa_icon("check"), [:admin, agent] %></span>
+                            <span class="btn btn-primary btn-xs"><%= link_to fa_icon("pencil"), edit_admin_agent_path(agent) %><i class="icon-pencil"></i></span>
+                          <% unless agent.yunlian? %>
+                            <span class="btn btn-danger btn-xs"><%= link_to fa_icon("trash-o"), [:admin, agent], method: :delete, data: { confirm: 'Are you sure?' } %></span>
+                          <% end %>
                         </td>
                         <td>
                           <% if agent.agent_info && agent.agent_info.init? %>
