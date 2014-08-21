@@ -1,6 +1,6 @@
 class Admin::TerminalsController < AdminController
   before_action :set_terminal, only: [:show, :edit, :update, :destroy, :update_status]
-  before_action :get_agent_array, only: [:index, :new, :edit, :show]
+  before_action :get_agent_array, only: [:index, :new, :create, :edit, :show]
 
   set_tab :terminals
 
