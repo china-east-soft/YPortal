@@ -3,6 +3,8 @@ class Admin::FeedBacksController < AdminController
 
   before_action  :find_feed_back, only: [:show, :edit, :destroy, :update]
 
+  set_tab :feed_backs, except: :new
+
   def new
     @feed_back = FeedBack.new(phone_type: params[:phone_type], client_version: params[:client_version], client_mac: params[:client_mac], terminal_version_name: params[:terminal_version_name], terminal_version: params[:terminal_version], terminal_mac: params[:terminal_mac])
     render layout: 'mobile'
@@ -13,12 +15,14 @@ class Admin::FeedBacksController < AdminController
     if @feed_back.save
       respond_to do |format|
         format.html {
-          render text: "ok"
+          flash[:success] = "非常感谢您的反馈！"
+          redirect_to feed_backs_new_url
         }
       end
     else
       respond_to do |format|
         format.html {
+          flash.now[:success] = "抱歉，反馈不成功！"
           render :new
         }
       end

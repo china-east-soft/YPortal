@@ -5,8 +5,12 @@
         .panel-heading
           p.text-info 如果您在使用过程中, 有任何问题或者建议，请给我们留言。也请留下您的联系方式。
         .panel-body
+          = render 'shared/flash_messages'
           = form_for @feed_back, url: admin_feed_backs_path, method: :post do |f|
             = f.text_area :content, class: "form-control", placeholder: "反馈内容", data: { behaviors: 'autosize' }
+            - unless f.object.errors[:content].blank?
+              span.error
+                = f.object.errors[:content].join(",")
             = f.text_field :contact, class: "form-control", placeholder: "联系方式: 手机号、QQ、邮箱"
             = f.text_field :phone_type, class: "form-control hidden-xs hidden-sm", placeholder: "手机类型"
             = f.text_field :client_version, class: "form-control hidden-xs hidden-sm", placeholder: "APP版本"
