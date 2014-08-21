@@ -23,3 +23,12 @@
     </div>
   </div>
 </div>
+<%= content_for :script do %>
+  <% if @from_app %>
+    <%= javascript_tag do %>
+      $(function() {
+        $("form").submit();
+      });
+    <% end %>
+  <% end %>
+<% end %>

@@ -8,6 +8,8 @@ class Account::AccountsController < AccountController
   before_filter :check_account
 
   def signing
+    @from_app = request.referer =~ /sign_in|sign_up/
+
     @auth_token = AuthToken.where(mac: params[:mac],
                                   client_identifier: params[:client_identifier],
                                   status: [AuthToken.statuses[:init],AuthToken.statuses[:active]]
@@ -53,13 +55,13 @@ class Account::AccountsController < AccountController
       end
     end
 
-
   end
 
   def sign_on
     @auth_token = AuthToken.where(mac: params[:mac],
-      client_identifier: params[:client_identifier],
-      auth_token: params[:vtoken]).first
+                                  client_identifier: params[:client_identifier],
+                                  auth_token: params[:vtoken]
+                                 ).first
     @auth_token.update_status
     case @auth_token.status
     when "init"

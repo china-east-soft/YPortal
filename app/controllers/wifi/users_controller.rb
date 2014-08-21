@@ -80,7 +80,7 @@ class Wifi::UsersController < WifiController
     @merchant = terminal_merchant
     @products = @merchant.products.hot.take 2
     @activities = terminal_merchant.activities.actived.where(hot: true).take 2
-    @from_app = request.referer =~ /signing|sign_on/
+    @from_app = request.referer =~ /signing|sign_on|accounts\/sign_in|accounts\/sign_up/
   end
 
   private
