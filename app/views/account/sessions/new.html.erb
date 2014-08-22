@@ -36,3 +36,9 @@
   <% end %>
   <%= hidden_field_tag 'controller_name', params[:controller] %>
 </div>
+<%= javascript_tag do %>
+  $(function() {
+    var err_text = $(".alert-danger strong").text();
+    $(".alert-danger strong").text(err_text.replace("邮箱", "手机号"));
+  });
+<% end %>
