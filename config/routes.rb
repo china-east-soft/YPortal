@@ -100,6 +100,8 @@ Rails.application.routes.draw do
 
   namespace :account do
     get 'signing' => "accounts#signing"
+    get 'sign_on_from_signin_or_signup' => "accounts#sign_on_from_signin_or_signup"
+
     post 'sign_on' => "accounts#sign_on"
   end
 

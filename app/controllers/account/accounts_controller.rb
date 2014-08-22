@@ -8,8 +8,6 @@ class Account::AccountsController < AccountController
   before_filter :check_account
 
   def signing
-    @from_app = request.referer =~ /sign_in|sign_up/
-
     @auth_token = AuthToken.where(mac: params[:mac],
                                   client_identifier: params[:client_identifier],
                                   status: [AuthToken.statuses[:init],AuthToken.statuses[:active]]
@@ -24,6 +22,7 @@ class Account::AccountsController < AccountController
       end
     else
       vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
+
       if current_account.current_sign_in_at <= Time.now + 5.minutes || current_account.created_at <= Time.now + 5.minutes
         @auth_token = AuthToken.create(auth_token: vtoken,
               mac: params[:mac],
@@ -79,6 +78,49 @@ class Account::AccountsController < AccountController
 
     when "active"
       gflash :success => "已经签到成功可以直接上网!"
+      redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
+    end
+  end
+
+  def sign_on_from_signin_or_signup
+    @auth_token = AuthToken.where(mac: params[:mac],
+                                  client_identifier: params[:client_identifier],
+                                  status: [AuthToken.statuses[:init],AuthToken.statuses[:active]]
+                                 ).first
+    if @auth_token
+      @auth_token.update_status
+      if @auth_token.status == "init"
+        account = @auth_token.account
+        duration = current_terminal.duration || 14400
+
+        @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
+      end
+
+      redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
+    else
+      vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
+      if current_account.current_sign_in_at <= Time.now + 5.minutes || current_account.created_at <= Time.now + 5.minutes
+        @auth_token = AuthToken.create(auth_token: vtoken,
+              mac: params[:mac],
+              client_identifier: params[:client_identifier],
+              status: AuthToken.statuses[:active],
+              terminal_id: current_terminal.id,
+              account_id: current_account.id ,
+              merchant_id: current_terminal.merchant_id)
+
+        account = @auth_token.account
+        duration = current_terminal.duration || 14400
+        @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
+      else
+        @auth_token = AuthToken.create(auth_token: vtoken,
+              mac: params[:mac],
+              client_identifier: params[:client_identifier],
+              status: AuthToken.statuses[:active],
+              terminal_id: current_terminal.id,
+              account_id: current_account.id ,
+              merchant_id: current_terminal.merchant_id)
+      end
+
       redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
     end
   end
