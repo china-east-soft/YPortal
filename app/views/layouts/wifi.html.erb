@@ -62,6 +62,9 @@
       $('.bxslider').bxSlider({
           auto: true,
           captions: true,
+          onSliderLoad: function(){
+            $(".bxslider").css("visibility", "visible");
+          }
       });
 
     });
