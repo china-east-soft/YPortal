@@ -3,6 +3,12 @@
   <%= javascript_include_tag "http://webapi.amap.com/maps?v=1.2&key=test" %>
   <div class="row mbot30">
     <div class="col-lg-5 col-xs-12 col-centered">
+      <div class="row span5 col-centered shop_title">
+        <%= link_to fa_icon(["angle-left", "2x"]), wifi_merchant_path(mid: params[:mid], vtoken: params[:vtoken]) %>
+        <h5 class="text-center" %>
+          <strong> 店铺详细介绍</strong>
+        </h5>
+      </div>
       <div class="span5 about-carousel">
         <%= image_tag @merchant_info.shop_photo.url(:small) %>
       </div>
