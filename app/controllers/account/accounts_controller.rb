@@ -35,7 +35,6 @@ class Account::AccountsController < AccountController
         account = @auth_token.account
         duration = current_terminal.duration || 14400
         if @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
-          gflash :success => "已经签到成功可以直接上网!"
           redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
         else
           message = "签到失败!"
@@ -68,7 +67,6 @@ class Account::AccountsController < AccountController
       duration = current_terminal.duration || 14400
 
       if @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
-        gflash :success => "已经签到成功可以直接上网!"
         redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
       else
         message = "签到失败!"
@@ -77,7 +75,6 @@ class Account::AccountsController < AccountController
       end
 
     when "active"
-      gflash :success => "已经签到成功可以直接上网!"
       redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
     end
   end
