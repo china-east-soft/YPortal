@@ -41,6 +41,10 @@ class Merchant::MerchantInfosController < MerchantController
 
   def update_shop_info
     if @merchant_info.update(shop_info_params.merge(validate_shop_info: true))
+      if @merchant_info.cropping?
+        @merchant_info.shop_photo.reprocess!
+      end
+
       if params[:merchant_info][:shop_photo].present?
         render :crop
       else
@@ -72,7 +76,12 @@ class Merchant::MerchantInfosController < MerchantController
   end
 
   def shop_info_params
-    params.require(:merchant_info).permit :shop_photo, :shop_description, :shop_phone_one, :shop_phone_two, :shop_longitude, :shop_latitude, :province, :city, :area, :address
+    params.require(:merchant_info).
+      permit(
+            :shop_photo, :shop_description, :shop_phone_one, :shop_phone_two, :shop_longitude,
+            :shop_latitude, :province, :city, :area, :address, :crop_x, :crop_y, :crop_w,
+            :crop_h
+           )
   end
 
   def set_locale
