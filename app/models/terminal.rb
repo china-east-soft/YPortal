@@ -175,9 +175,17 @@ class Terminal < ActiveRecord::Base
         end
 
         if auth_token_sample
+          logger.debug "duration changed, and notify terminal"
+
           address = NatAddress.address(self.mac.downcase)
           remote_ip, port, time = address.split("#")
           recv_data = send_to_terminal remote_ip, port, auth_token_sample, 7, duration: self.duration
+          if recv_data.nil?
+            logger.debug "can't notify terminal for duration changed"
+          else
+            logger.debug "notify termianl for duration change success"
+          end
+
         end
       end
 
