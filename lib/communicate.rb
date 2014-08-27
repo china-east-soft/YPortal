@@ -8,7 +8,7 @@ module Communicate
     end
   end
 
-  #type: 
+  #type:
   # 7 : update duration
   # 1 : account sign in
   # 3 : offline
@@ -31,7 +31,7 @@ module Communicate
     vtoken = auth_token.auth_token.force_encoding('UTF-8')
     mac = [auth_token.mac.gsub(/:/,'')].pack('H*').force_encoding('UTF-8')
     client_identifier = [auth_token.client_identifier.gsub(/:/,'')].pack('H*').force_encoding('UTF-8')
-    
+
     if duration
       expired_timestamp = [0].pack("S*")+[duration].pack("S*").reverse.force_encoding('UTF-8')
     else
@@ -42,7 +42,9 @@ module Communicate
 
     send_data = "#{version}#{type}#{flag1}#{flag2}#{expired_timestamp}#{attrnum}#{errcode}#{vtoken}#{mac}#{client_identifier}\x00\x00"
 
-    logger.info send_data
+    logger.debug "*******************send data to terminal:************* "
+    logger.debug "ip: #{remote_ip}, port: #{port}, data: #{send_data}"
+
 
     max_delay, step = 4000, 1000
 
@@ -50,9 +52,15 @@ module Communicate
 
     recv_data = nil
 
-    max_retry.times do 
+    max_retry.times do
       recv_data = no_block_recvfrom send_data, remote_ip, port, max_delay, step
-      break if recv_data    
+      break if recv_data
+    end
+
+    if recv_data.nil?
+      logger.debug "error: can nor recv data from terminal"
+    else
+      logger.debug "ok: recv data from terminal"
     end
 
     recv_data
