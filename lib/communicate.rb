@@ -45,10 +45,9 @@ module Communicate
     logger.debug "*******************send data to terminal:************* "
     logger.debug "terminal info-- ip: #{remote_ip}, port: #{port}, data: #{send_data}"
 
-
     max_delay, step = 4000, 1000
 
-    max_retry = 1
+    max_retry = 2
 
     recv_data = nil
 
@@ -58,9 +57,9 @@ module Communicate
     end
 
     if recv_data.nil?
-      logger.debug "error: can nor recv data from terminal"
+      logger.debug "error: can not recv data from terminal"
     else
-      logger.debug "ok: recv data from terminal"
+      logger.debug "ok: recv data(#{recv_data}) from terminal"
     end
 
     recv_data
