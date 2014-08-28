@@ -57,7 +57,7 @@ module Communicate
     end
 
     if recv_data.nil?
-      logger.debug "error: can not recv data from terminal"
+      logger.fatal "error: can not recv data from terminal"
     else
       logger.debug "ok: recv data(#{recv_data}) from terminal"
     end

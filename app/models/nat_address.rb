@@ -11,7 +11,7 @@ class NatAddress
 
       remote_ip, port, time.to_i = address.split("#")
       if Time.now.to_i - time > 180
-        logger.debug "nataddress #{remote_ip}:#{port} form redis is outtime(#{time}), please check the hiredis-example program or the terminal is not connect to this server."
+        logger.fatal "nataddress #{remote_ip}:#{port} form redis is outtime(#{time}), please check the hiredis-example program or the terminal is not connect to this server."
       end
 
       address

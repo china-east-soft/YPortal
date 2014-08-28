@@ -84,7 +84,6 @@ class AuthToken < ActiveRecord::Base
           message = "no nat address for terminal: #{self.mac.downcase}"
           logger.debug message
           Communicate.logger.add Logger::FATAL, message
-
           DeveloperMailer.delay.system_error_email("[#{I18n.l Time.now}]: #{Rails.env} error occurs when server send data to terminal", message)
           false
         end
