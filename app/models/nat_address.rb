@@ -12,10 +12,10 @@ class NatAddress
       begin
         remote_ip, port, time = address.split("#")
         if Time.now.to_i - time.to_i > 180
-          logger.fatal "nataddress #{remote_ip}:#{port} form redis is outtime(#{time}), please check the hiredis-example program or the terminal is not connect to this server."
+          Rails.logger.fatal "nataddress #{remote_ip}:#{port} form redis is outtime(#{time}), please check the hiredis-example program or the terminal is not connect to this server."
         end
       rescue
-        logger.fatal "can not find address for #{mac}"
+        Rails.logger.fatal "can not find address for #{mac}"
       end
 
       address
