@@ -23,7 +23,9 @@
           <% unless @from_app %>
             <hr class='dotted' />
             <div class="text-center">
+              <a href="http://cloudchain.cn/uploads/app_version/file/33/ShiWangMoJHTV.apk">
               <%= image_tag "anniiu_07.png", id: "app_download_img" %>
+            </a>
             </div>
           <% end %>
         </div>
@@ -161,8 +163,8 @@
     }
 
     $( document ).ready(function() {
-      $( "#app_download_img" ).click(function(event) {
-        try_to_open_app();
+      $( "#app_download_img").click(function(event) {
+        //try_to_open_app();
       });
     });
   <% end %>

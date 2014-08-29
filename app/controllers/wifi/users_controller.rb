@@ -81,7 +81,11 @@ class Wifi::UsersController < WifiController
 
     # @from_app = request.referer =~ /signing|sign_on|accounts\/sign_in|accounts\/sign_up/
     # set true unless  find a way detect from app
-    @from_app = true
+    if request.referer =~ /quick_login|sign_in|login/
+      @from_app = false
+    else
+      @from_app = true
+    end
   end
 
   private

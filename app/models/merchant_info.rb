@@ -1,6 +1,7 @@
 class MerchantInfo < ActiveRecord::Base
 
   belongs_to :merchant
+
   attr_accessor :validate_base_info
   attr_accessor :validate_shop_info
 
