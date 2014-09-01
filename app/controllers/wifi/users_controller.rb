@@ -114,14 +114,16 @@ class Wifi::UsersController < WifiController
             logger.fatal message
 
             gflash :error => "认证失败！ 服务器无法和终端通信."
-            render :login
+            # render :login
+            redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
           end
         else
           message = "no nat address for terminal: #{@auth_token.mac.downcase}"
           logger.fatal message
 
           gflash :error => "认证失败！服务器找不到终端nat地址."
-          render :login
+          # render :login
+          redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
         end
       elsif @auth_token.expired?
         gflash :error => "认证已经过期，请重新认证!"
@@ -129,7 +131,8 @@ class Wifi::UsersController < WifiController
       end
     else
       gflash :error => "请连接wifi!"
-      render :login
+      # render :login
+      redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
     end
   end
 
@@ -142,7 +145,8 @@ class Wifi::UsersController < WifiController
     else
       message = "认证失败!"
       gflash :error => message
-      render action: :login
+      # render action: :login
+      redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
     end
   end
 
