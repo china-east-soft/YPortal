@@ -13,6 +13,16 @@ module Communicate
   # 1 : account sign in
   # 3 : offline
   def send_to_terminal remote_ip, port, auth_token, type, duration: nil
+    ##log debug
+    if duration
+      log_duration = duration
+    else
+      log_duration = auth_token.expired_timestamp - Time.now.to_i
+    end
+    logger.debug "data info-- type:#{type}, duration:#{log_duration}, vtoken:#{auth_token.auth_token}, mac:#{auth_token.mac}, clienditifier:#{auth_token.client_identifier}."
+    ###
+
+
     version = "\x00".force_encoding('UTF-8')
     case type
     when 1
@@ -46,7 +56,6 @@ module Communicate
 
     logger.debug "*******************send data to terminal:************* "
     logger.debug "terminal info-- ip: #{remote_ip}, port: #{port}:"
-    logger.debug "data info-- type:#{type}, duration: #{log_duration}, vtoken: #{vtoken}, mac:#{mac}, clienditifier: #{client_identifier}."
 
     max_delay, step = 4000, 1000
 
