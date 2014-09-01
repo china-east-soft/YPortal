@@ -63,9 +63,7 @@ class AuthToken < ActiveRecord::Base
     transaction do
       account_id = account_id || self.account_id
       if self.update_columns(expired_timestamp: expired_timestamp, duration: duration, status: status, account_id: account_id)
-
         logger.debug "update auth_token and send to terminal..."
-
         if address = NatAddress.address(self.mac.downcase)
           remote_ip, port, time = address.split("#")
           recv_data = send_to_terminal remote_ip, port, self, 1
@@ -73,6 +71,7 @@ class AuthToken < ActiveRecord::Base
           if recv_data.present?
             self.update_columns(status: status)
             logger.debug "update auth_token and send to terminal success."
+            true
           else
             message = "can not recv data from terminal: #{self.mac.downcase}"
             Communicate.logger.add Logger::FATAL, message

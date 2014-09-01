@@ -101,7 +101,28 @@ class Wifi::UsersController < WifiController
       if @auth_token.init?
         process_init_update_token_and_communicate_with_terminal
       elsif @auth_token.active?
-        redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
+        logger.debug "auth token is active and send data to terminal..."
+        if address = NatAddress.address(@auth_token.mac.downcase)
+          remote_ip, port, time = address.split("#")
+          recv_data = send_to_terminal remote_ip, port, self, 1
+
+          if recv_data.present?
+            logger.debug "send to terminal success."
+            redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
+          else
+            message = "can not recv data from terminal: #{@auth_token.mac.downcase}"
+            logger.fatal message
+
+            gflash :error => "认证失败！ 服务器无法和终端通信."
+            render :login
+          end
+        else
+          message = "no nat address for terminal: #{@auth_token.mac.downcase}"
+          logger.fatal message
+
+          gflash :error => "认证失败！服务器找不到终端nat地址."
+          render :login
+        end
       elsif @auth_token.expired?
         gflash :error => "认证已经过期，请重新认证!"
         redirect_to wifi_merchant_url(client_identifier: @auth_token.client_identifier, mac: @auth_token.mac)

@@ -59,17 +59,18 @@ class Wifi::MerchantsController < WifiController
                 recv_data = send_to_terminal remote_ip, port, @auth_token, 1
 
                 if recv_data.present?
-                  redirect_to wifi_welcome_url(vtoken: @auth_token.auth_token)
+                  redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token, userAgent: params[:userAgent])
                 else
                   message = "can not recv data..."
                   Communicate.logger.add Logger::FATAL, message
                   gflash :error => message
                   # to do
-                  redirect_to wifi_welcome_url(vtoken: @auth_token.auth_token)
+                  redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
                 end
               else
                 message = "no nat address..."
                 Communicate.logger.add Logger::FATAL, message
+                logger.fatal "can not find nat address for #{params[:mac]}"
                 gflash :error => message
                 render :error
               end
