@@ -11,6 +11,7 @@ class Admin::AuthMessagesController < AdminController
       logger.debug "config/auth_message does not existed or can't open"
       logger.debug "***************************"
     end
+
     if msg
       @message = msg["message"]
     else
@@ -24,8 +25,6 @@ class Admin::AuthMessagesController < AdminController
     if @message.present?
       if @message.include? '{verify_code}'
         begin
-          @old_msg = YAML.load(File.read(Rails.root.join  "config/auth_message.yml"))["message"]
-
           origin_file_content = File.read(Rails.root.join  "config/auth_message.yml")
           msg = {"message" => "#{@message}"}
 
