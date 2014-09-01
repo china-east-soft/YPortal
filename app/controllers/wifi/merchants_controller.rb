@@ -57,7 +57,7 @@ class Wifi::MerchantsController < WifiController
 
                 remote_ip, port, time = address.split("#")
 
-                recv_data = send_to_terminal remote_ip, port, @auth_token, duration: @auth_token.duration
+                recv_data = send_to_terminal remote_ip, port, @auth_token, 1
 
                 if recv_data.present?
                   redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token, userAgent: params[:userAgent])
