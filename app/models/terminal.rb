@@ -175,7 +175,7 @@ class Terminal < ActiveRecord::Base
         end
 
         if auth_token_sample
-          logger.debug "duration changed, and notify terminal"
+          logger.debug "duration changed, and notify terminal:#{self.mac}"
 
           address = NatAddress.address(self.mac.downcase)
           remote_ip, port, time = address.split("#")

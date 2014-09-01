@@ -52,6 +52,7 @@ class Wifi::MerchantsController < WifiController
               end
               redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token, userAgent: params[:userAgent])
             when "active"
+              logger.debug "auth token is active and send to terminal:#{params[:mac]}
               if address = NatAddress.address(params[:mac].downcase)
 
                 remote_ip, port, time = address.split("#")

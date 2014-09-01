@@ -101,10 +101,10 @@ class Wifi::UsersController < WifiController
       if @auth_token.init?
         process_init_update_token_and_communicate_with_terminal
       elsif @auth_token.active?
-        logger.debug "auth token is active and send data to terminal..."
+        logger.debug "auth token is active and send data to terminal#{@auth_token.mac}..."
         if address = NatAddress.address(@auth_token.mac.downcase)
           remote_ip, port, time = address.split("#")
-          recv_data = send_to_terminal remote_ip, port, self, 1
+          recv_data = send_to_terminal remote_ip, port, @auth_token, 1
 
           if recv_data.present?
             logger.debug "send to terminal success."
@@ -132,7 +132,7 @@ class Wifi::UsersController < WifiController
     else
       gflash :error => "请连接wifi!"
       # render :login
-      redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
+      redirect_to wifi_merchant_url
     end
   end
 
