@@ -83,8 +83,8 @@ class Admin::MerchantsController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def merchant_params
-      params.require(:merchant).permit(:mobile, :mid, :email, :password, :password_confirmation, :agent_id, {
-          merchant_info_attributes: [:name, :industry, :province, :city, :area, :circle, :address, :contact_person_name, :mobile, :secondary]
-        })
+      params.require(:merchant)
+            .permit(:mobile, :mid, :email, :password, :password_confirmation, :agent_id,
+                    {merchant_info_attributes: [:id, :name, :contact_way, :industry, :province, :city, :area, :circle, :address, :contact_person_name, :mobile, :secondary]})
     end
 end
