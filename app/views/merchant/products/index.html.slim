@@ -8,7 +8,7 @@
           .clearfix
             .btn-group
               span.btn.btn-primary
-                = link_to fa_icon("plus"), edit_merchant_mbox_path(2)
+                = link_to fa_icon("plus"), edit_merchant_mbox_path(current_merchant.current_portal_style.mboxes.find_by(category: "商品展示"))
           .space15
             table.table.table-striped.table-advance.table-hover
               thead

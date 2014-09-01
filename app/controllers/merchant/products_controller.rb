@@ -4,6 +4,8 @@ class Merchant::ProductsController < MerchantController
   before_action :require_merchant
   before_action :find_product, only: [:show, :edit, :update, :destroy, :set_hot, :unset_hot]
 
+  set_tab :products
+
 
   def create
      @product = current_merchant.products.create product_params
