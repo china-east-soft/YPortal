@@ -85,7 +85,7 @@ class Wifi::MerchantsController < WifiController
                 ActiveRecord::Base.connection.close
               end
               vtoken = generate_vtoken params[:mac], params[:client_identifier], Time.now.to_i
-              @auth_token = AuthToken.new( auth_token: vtoken,
+              @auth_token = AuthToken.new(auth_token: vtoken,
                                           mac: params[:mac].downcase,
                                           client_identifier: params[:client_identifier],
                                           status: AuthToken.statuses[:init],
