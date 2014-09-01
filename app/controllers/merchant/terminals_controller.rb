@@ -16,13 +16,15 @@ class Merchant::TerminalsController < MerchantController
 
   def create
     @terminal = Terminal.where(mid: terminal_params[:mid], status: AuthToken.statuses[:init]).first
+
     if @terminal && @terminal.active(current_merchant.id)
       gflash :success => "The product has been created successfully!"
       redirect_to merchant_terminals_path
     else
       @terminal = Terminal.new
-      gflash :now, :error => "Something went wrong."
-      render("new")
+      gflash error: "fail to add terminal, please ensure mid is right or contace custom service."
+      # render :new
+      redirect_to new_merchant_terminal_path
     end
   end
 

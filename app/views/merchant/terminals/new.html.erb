@@ -1,7 +1,10 @@
 <% content_for :main_content do %>
-	<%= gflash %>
 	<%= render 'form' %>
 
 	<%= link_to t("views.show"), [:merchant, @terminal] %> |
 	<%= link_to t("views.back"), merchant_terminals_path() %>
+<% end %>
+
+<% content_for :script do %>
+	<%= gflash %>
 <% end %>
