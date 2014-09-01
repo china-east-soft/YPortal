@@ -88,8 +88,8 @@ class AuthToken < ActiveRecord::Base
         end
       end
     end
-
   end
+
   # return expired if left duration less than 1 min
   def update_status
     if self.expired_timestamp.present? && self.active? && self.expired_timestamp.to_i < Time.now.to_i + 60

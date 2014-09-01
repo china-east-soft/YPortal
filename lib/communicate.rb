@@ -43,10 +43,8 @@ module Communicate
     client_identifier = [auth_token.client_identifier.gsub(/:/,'')].pack('H*').force_encoding('UTF-8')
 
     if duration
-      log_duration = duration
       expired_timestamp = [0].pack("S*")+[duration].pack("S*").reverse.force_encoding('UTF-8')
     else
-      log_duration = auth_token.expired_timestamp - Time.now.to_i
       expired_timestamp = [0].pack("S*")+[auth_token.expired_timestamp - Time.now.to_i].pack("S*").reverse.force_encoding('UTF-8')
     end
     errcode = "\x00".force_encoding('UTF-8')
