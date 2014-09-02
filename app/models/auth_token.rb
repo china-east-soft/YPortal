@@ -59,31 +59,33 @@ class AuthToken < ActiveRecord::Base
     self.update_columns(duration: terminal_duration, expired_timestamp: start_at + terminal_duration, status: auth_token_status)
   end
 
-  def update_and_send_to_terminal(expired_timestamp: expired_timestamp,duration: duration, status: status, account_id: account_id)
+  #return true or false for the caller
+  def update_and_send_to_terminal(expired_timestamp: expired_timestamp, duration: duration, status: status, account_id: account_id)
     transaction do
-      account_id = account_id || self.account_id
-      if self.update_columns(expired_timestamp: expired_timestamp, duration: duration, status: status, account_id: account_id)
-        logger.debug "update auth_token and send to terminal:#{self.mac}..."
-        if address = NatAddress.address(self.mac.downcase)
+      account_id ||= self.account_id
+
+      #因为要发送给终端duration（用户上网时间）, 所以要先update再和终端通信, 通信成功后更新status
+      if update_columns(expired_timestamp: expired_timestamp, duration: duration, account_id: account_id)
+        logger.debug "update auth_token and send to terminal:#{mac}."
+        if address = NatAddress.address(mac.downcase)
           remote_ip, port, time = address.split("#")
           recv_data = send_to_terminal remote_ip, port, self, 1
 
           if recv_data.present?
-            self.update_columns(status: status)
+            update_columns(status: status)
             logger.debug "update auth_token and send to terminal success."
+
             true
           else
-            message = "can not recv data from terminal: #{self.mac.downcase}"
-            Communicate.logger.add Logger::FATAL, message
-            logger.debug message
-            DeveloperMailer.delay.system_error_email("[#{I18n.l Time.now}]: server-#{Rails.env} error occurs when server send data to terminal", message)
+            message = "can not recv data from terminal: #{mac}"
+            log_error_message_and_send_email_to_developer message
+
             false
           end
         else
-          message = "no nat address for terminal: #{self.mac.downcase}"
-          logger.debug message
-          Communicate.logger.add Logger::FATAL, message
-          DeveloperMailer.delay.system_error_email("[#{I18n.l Time.now}]: #{Rails.env} error occurs when server send data to terminal", message)
+          message = "no nat address for terminal: #{mac}"
+          log_error_message_and_send_email_to_developer message
+
           false
         end
       end
@@ -95,6 +97,13 @@ class AuthToken < ActiveRecord::Base
     if self.expired_timestamp.present? && self.active? && self.expired_timestamp.to_i < Time.now.to_i + 60
       self.update_columns(status: AuthToken.statuses[:expired])
     end
+  end
+
+  private
+  def log_error_message_and_send_email_to_developer(message)
+    Communicate.logger.add Logger::FATAL, message
+    logger.debug message
+    DeveloperMailer.delay.system_error_email("[#{I18n.l Time.now}]: server-#{Rails.env}, error occurs when server send data to terminal",  message)
   end
 
 end

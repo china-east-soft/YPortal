@@ -178,15 +178,18 @@ class Terminal < ActiveRecord::Base
           logger.debug "duration changed, and notify terminal:#{self.mac}"
 
           address = NatAddress.address(self.mac.downcase)
-          remote_ip, port, time = address.split("#")
+          if address
+            remote_ip, port, time = address.split("#")
 
-          recv_data = send_to_terminal remote_ip, port, auth_token_sample, 7, duration: self.duration
-          if recv_data.nil?
-            logger.debug "can't notify terminal for duration changed"
+            recv_data = send_to_terminal remote_ip, port, auth_token_sample, 7, duration: self.duration
+            if recv_data.nil?
+              logger.debug "can't notify terminal for duration change"
+            else
+              logger.debug "notify termianl for duration change success"
+            end
           else
-            logger.debug "notify termianl for duration change success"
+            logger.debug "can not find nat address for terminal #{self.mac}"
           end
-
         end
       end
 

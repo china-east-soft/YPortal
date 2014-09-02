@@ -53,11 +53,11 @@ module Communicate
     send_data = "#{version}#{type}#{flag1}#{flag2}#{expired_timestamp}#{attrnum}#{errcode}#{vtoken}#{mac}#{client_identifier}\x00\x00"
 
     logger.debug "*******************send data to terminal:************* "
-    logger.debug "terminal info-- ip: #{remote_ip}, port: #{port}:"
+    logger.debug "terminal info-- ip: #{remote_ip}, port: #{port}"
 
     max_delay, step = 4000, 1000
 
-    max_retry = 2
+    max_retry = 1
 
     recv_data = nil
 
