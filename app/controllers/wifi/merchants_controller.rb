@@ -71,7 +71,7 @@ class Wifi::MerchantsController < WifiController
                 message = "can not find nat address for #{params[:mac]}"
                 log_error_mmessage message
 
-                gflash :error => message
+                gflash :error => "路由器并未联网！"
                 render :error
               end
             end
