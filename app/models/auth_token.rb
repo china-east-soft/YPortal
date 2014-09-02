@@ -64,7 +64,7 @@ class AuthToken < ActiveRecord::Base
     transaction do
       account_id ||= self.account_id
 
-      #因为要发送给终端duration（用户上网时间）, 所以要先update再和终端通信, 通信成功后更新status
+      #因为要发送给终端 duration（用户上网时间）, 所以要先update再和终端通信(而不是通信成功之后再update), 通信成功后更新status
       if update_columns(expired_timestamp: expired_timestamp, duration: duration, account_id: account_id)
         logger.debug "update auth_token and send to terminal:#{mac}."
         if address = NatAddress.address(mac.downcase)

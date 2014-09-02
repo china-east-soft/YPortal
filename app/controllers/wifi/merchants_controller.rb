@@ -52,26 +52,25 @@ class Wifi::MerchantsController < WifiController
               end
               redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token, userAgent: params[:userAgent])
             when "active"
-              logger.debug "auth token is active and send to terminal:#{params[:mac]}"
+              logger.debug "termianl has been rebooting, auth token is active and send to terminal:#{params[:mac]}"
               if address = NatAddress.address(params[:mac].downcase)
-
                 remote_ip, port, time = address.split("#")
 
                 recv_data = send_to_terminal remote_ip, port, @auth_token, 1
-
                 if recv_data.present?
                   redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token, userAgent: params[:userAgent])
                 else
                   message = "can not recv data..."
-                  Communicate.logger.add Logger::FATAL, message
-                  gflash :error => message
-                  # to do
-                  redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
+                  log_error_mmessage message
+
+                  gflash :error => "认证失败，请重试。"
+
+                  redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token, notconnected: true)
                 end
               else
-                message = "no nat address..."
-                Communicate.logger.add Logger::FATAL, message
-                logger.fatal "can not find nat address for #{params[:mac]}"
+                message = "can not find nat address for #{params[:mac]}"
+                log_error_mmessage message
+
                 gflash :error => message
                 render :error
               end
@@ -137,6 +136,12 @@ class Wifi::MerchantsController < WifiController
     #   duration = 15
     #   @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:test])
     # end
+  end
+
+  private
+  def log_error_mmessage(message)
+    Communicate.logger.add Logger::FATAL, message
+    logger.fatal message
   end
 
 end

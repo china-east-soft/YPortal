@@ -160,35 +160,33 @@ class Terminal < ActiveRecord::Base
   private
 
     def notify_terminal_if_duration_is_changed
-      duration_changed = self.duration_changed?
-
       yield
 
-      if duration_changed && self.active? && self.merchant_id.present?
+      if duration_changed? && active? && merchant_id
 
-        actived_auth_tokens = self.auth_tokens.actived(self.merchant_id).where(mac: self.mac)
+        actived_auth_tokens = auth_tokens.actived(merchant_id).where(mac: mac)
 
-        auth_token_sample = self.auth_tokens.last
+        auth_token_sample = auth_tokens.last
 
         actived_auth_tokens.each do |auth_token|
-          auth_token.update_terminal_duration(self.duration)
+          auth_token.update_terminal_duration(duration)
         end
 
         if auth_token_sample
-          logger.debug "duration changed, and notify terminal:#{self.mac}"
+          logger.debug "duration changed, and notify terminal:#{mac}"
 
-          address = NatAddress.address(self.mac.downcase)
+          address = NatAddress.address(mac.downcase)
           if address
             remote_ip, port, time = address.split("#")
 
-            recv_data = send_to_terminal remote_ip, port, auth_token_sample, 7, duration: self.duration
+            recv_data = send_to_terminal remote_ip, port, auth_token_sample, 7, duration: duration
             if recv_data.nil?
               logger.debug "can't notify terminal for duration change"
             else
               logger.debug "notify termianl for duration change success"
             end
           else
-            logger.debug "can not find nat address for terminal #{self.mac}"
+            logger.debug "can not find nat address for terminal #{mac}"
           end
         end
       end

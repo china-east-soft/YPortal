@@ -114,16 +114,14 @@ class Wifi::UsersController < WifiController
             logger.fatal message
 
             gflash :error => "认证失败！ 服务器无法和终端通信."
-            # render :login
-            redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
+            redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token, notconnected: true)
           end
         else
           message = "no nat address for terminal: #{@auth_token.mac.downcase}"
           logger.fatal message
 
           gflash :error => "认证失败！服务器找不到终端nat地址."
-          # render :login
-          redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
+          redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token, notconnected: true)
         end
       elsif @auth_token.expired?
         gflash :error => "认证已经过期，请重新认证!"
@@ -140,13 +138,15 @@ class Wifi::UsersController < WifiController
     terminal = @auth_token.terminal
     duration = terminal.duration || 14400
 
+
+    logger.debug "auth token is init, and connect terminal"
     if @auth_token.update_and_send_to_terminal(expired_timestamp: Time.now.to_i + duration, duration: duration, status: AuthToken.statuses[:active])
       redirect_to login_success_wifi_users_url(vtoken: @auth_token.auth_token)
     else
-      message = "认证失败!"
-      gflash :error => message
-      # render action: :login
-      redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token)
+      logger.fatal "can not connect to terminal."
+
+      gflash :error => "认证失败, 轻重新认证!"
+      redirect_to wifi_merchant_url(vtoken: @auth_token.auth_token, notconnected: true)
     end
   end
 
