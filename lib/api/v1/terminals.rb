@@ -20,13 +20,20 @@ module API::V1
         requires :mac, type: String, regexp: CommonRegex::MAC
         requires :name, type: String
         requires :version, type: String
+        optional :branch, type: String
       end
       post 'version' do
         terminal = Terminal.find_by_mac(params[:mac])
-        terminal_version = TerminalVersion.where(name: params[:name], version: params[:version]).first
-        if terminal && terminal_version
-          terminal.terminal_version = terminal_version
-          result = terminal.save
+
+        branch = params[:branch] || 'public'
+        terminal_version = TerminalVersion.where(name: params[:name], version: params[:version], branch: branch).first
+
+        if terminal.present? && terminal_version.present?
+          result = if terminal.terminal_version_id != terminal_version.id
+                     terminal.update_column :terminal_version_id, terminal_version.id
+                   else
+                     true
+                   end
         else
           result = false
         end
