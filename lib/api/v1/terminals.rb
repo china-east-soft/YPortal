@@ -61,7 +61,7 @@ module API::V1
           present :result, true
           latest_terminalversion = client_terminalversion
           enforce = false
-          TerminalVersion.where(release: true, name: params[:name]).each do |terminalversion|
+          TerminalVersion.where(release: true, name: params[:name], branch: branch).each do |terminalversion|
             latest_terminalversion = terminalversion if terminalversion.is_greater?(latest_terminalversion)
             enforce ||= terminalversion.enforce if terminalversion.is_greater?(client_terminalversion)
           end
