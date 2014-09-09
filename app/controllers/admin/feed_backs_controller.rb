@@ -16,7 +16,11 @@ class Admin::FeedBacksController < AdminController
       respond_to do |format|
         format.html {
           flash[:success] = "非常感谢您的反馈！"
-          redirect_to feed_backs_new_url
+
+          request_params  = params[:feed_back]
+          request_params.delete(:content)
+
+          redirect_to feed_backs_new_url request_params
         }
       end
     else
