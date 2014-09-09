@@ -13,15 +13,10 @@ module Communicate
   # 1 : account sign in
   # 3 : offline
   def send_to_terminal remote_ip, port, auth_token, type, duration: nil
-    ##log debug
-    if duration
-      log_duration = duration
-    else
-      log_duration = auth_token.expired_timestamp - Time.now.to_i
-    end
+    ##debug
+    log_duration =  duration || auth_token.expired_timestamp - Time.now.to_i
     logger.debug "data info-- type:#{type}, duration:#{log_duration}, vtoken:#{auth_token.auth_token}, mac:#{auth_token.mac}, clienditifier:#{auth_token.client_identifier}."
     ###
-
 
     version = "\x00".force_encoding('UTF-8')
     case type
