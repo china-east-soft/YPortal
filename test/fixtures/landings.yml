@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+#
+# one:
+#   start_at: 2014-06-17
+#   end_at: 2014-06-17
+#   url: MyString
+#   cover: MyString
+#
+# two:
+#   start_at: 2014-06-17
+#   end_at: 2014-06-17
+#   url: MyString
+#   cover: MyString
