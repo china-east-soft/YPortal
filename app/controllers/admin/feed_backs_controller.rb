@@ -20,7 +20,7 @@ class Admin::FeedBacksController < AdminController
           request_params  = params[:feed_back]
           request_params.delete(:content)
 
-          redirect_to feed_backs_new_url request_params
+          redirect_to feed_backs_new_url(request_params)
         }
       end
     else
