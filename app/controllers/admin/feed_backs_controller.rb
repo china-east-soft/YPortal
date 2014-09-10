@@ -53,7 +53,6 @@ class Admin::FeedBacksController < AdminController
 
   def destroy
     @feed_back.destroy
-    redirect_to admin_feed_backs_url
   end
 
   private
