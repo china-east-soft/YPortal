@@ -10,4 +10,7 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  ActiveRecord::Migration.check_pending!
+  include FactoryGirl::Syntax::Methods
+
 end

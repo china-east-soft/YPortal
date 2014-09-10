@@ -44,6 +44,7 @@ group :test do
   gem "rspec"
   gem 'rspec-rails'
   gem "minitest"
+  gem 'factory_girl_rails', '~> 4.3.0'
 end
 
 group :assets do
