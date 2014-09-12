@@ -30,7 +30,7 @@ module API::V3
         requires :mac, type: String
         requires :channel, type: String
 
-        requires :id, type: Integer
+        optional :id, type: Integer
         requires :limit , type: Integer
       end
 
@@ -42,7 +42,9 @@ module API::V3
         comments = Comment.comments_for_app(channel: channel, id: id, limit: limit)
 
         present :result, true
-        present :comments, comments.pluck(:id, :body)
+        # present :comments, comments.pluck(:id, :body, :created_at)
+
+        present :comments, comments.map {|c| {id: c.id, body: c.body, created_at: c.created_at.to_i} }
       end
     end
 
