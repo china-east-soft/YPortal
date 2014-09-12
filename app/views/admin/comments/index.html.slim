@@ -1,0 +1,23 @@
+.row
+  .col-lg-9
+    section.panel
+      header.panel-heading
+        | 反馈列表
+        = form_tag("/admin/comments", method: "get") do
+          = text_field_tag(:channel, nil, placeholder: "节目名称")
+          = submit_tag("查询")
+      .panel-body#comments
+        .list-group.list-group-feed-back
+          - if @comments.any?
+            = render @comments
+          - else
+            .list-grounp-item.text-center.text-muted.empty-message
+              | 暂时没有评论
+        .row
+          .col-lg-6
+            .dataTables_info
+              | 共有
+              span#count #{@comments.total_count}
+              | 条记录
+          .col-lg-6
+            .dataTables_paginate.paging_bootstrap.pagination = paginate @comments

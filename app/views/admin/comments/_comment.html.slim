@@ -1,0 +1,15 @@
+.list-group-item.feed-back id="comment-#{comment.id}"
+  .list-group-item-content
+    .list-group-item-heading
+      b = comment.body
+    .text-muted
+      = comment.channel
+      = ' ·'
+      = (I18n.l comment.created_at).to_s[0..-4]
+      = ' ·'
+      = comment.mac
+    .list-group-item-actions.clearfix
+      .pull-right
+        a.btn href=admin_comment_path(comment) data-remote="true" data-method="delete" data-confirm="确定删除?"
+          i.fa.fa-trash-o
+
