@@ -1,4 +1,4 @@
-FactoryGirl.define do
-  factory :activity
-  end
-end
+# FactoryGirl.define do
+#   # factory :activity
+#   # end
+# end
