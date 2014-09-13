@@ -7,18 +7,30 @@ class Landing < ActiveRecord::Base
   has_attached_file :cover_iphone586, styles: {original: "640x1136>"},  :default_url => "/images/:style/missing.png", :use_timestamp => false
   has_attached_file :cover_andriod, styles: {original: "1280x720>"},  :default_url => "/images/:style/missing.png", :use_timestamp => false
 
-  imag_attr :cover_iphone, :cover_iphone2x, :cover_iphone586, :cover_andriod
+  #pad
+  has_attached_file :cover_ipad, styles: {original: "1024x768>"},  :default_url => "/images/:style/missing.png", :use_timestamp => false
+  has_attached_file :cover_ipad_retina, styles: {original: "2048x1536>"},  :default_url => "/images/:style/missing.png", :use_timestamp => false
+
+  imag_attr :cover_iphone, :cover_iphone2x, :cover_iphone586, :cover_andriod, :cover_ipad, :cover_ipad_retina
 
 
+  #phone
   validates_attachment_content_type :cover_iphone, :content_type => /\Aimage/
   validates_attachment_content_type :cover_iphone2x, :content_type => /\Aimage/
   validates_attachment_content_type :cover_iphone586, :content_type => /\Aimage/
   validates_attachment_content_type :cover_andriod, :content_type => /\Aimage/
 
+  #ipad
+  validates_attachment_content_type :cover_ipad, :content_type => /\Aimage/
+  validates_attachment_content_type :cover_ipad_retina, :content_type => /\Aimage/
+
   validates_attachment :cover_iphone, :presence => true, :size => { :in => 0..200.kilobytes }
   validates_attachment :cover_iphone2x, :presence => true, :size => { :in => 0..200.kilobytes }
   validates_attachment :cover_iphone586, :presence => true, :size => { :in => 0..200.kilobytes }
   validates_attachment :cover_andriod, :presence => true, :size => { :in => 0..200.kilobytes }
+
+  validates_attachment :cover_ipad, :presence => true, :size => { :in => 0..200.kilobytes }
+  validates_attachment :cover_ipad_retina, :presence => true, :size => { :in => 0..200.kilobytes }
 
   validates_presence_of :start_at, :end_at
 

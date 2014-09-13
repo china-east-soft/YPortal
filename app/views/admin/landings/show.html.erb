@@ -31,6 +31,14 @@
   <strong>Cover andriod:</strong>
   <%= image_tag @landing.cover_andriod.url(:original) %>
 </p>
+<p>
+  <strong>Cover ipad:</strong>
+  <%= image_tag @landing.cover_ipad.url(:original) %>
+</p>
+<p>
+  <strong>Cover ipad retina:</strong>
+  <%= image_tag @landing.cover_ipad_retina.url(:original) %>
+</p>
 
 <%= link_to t("views.edit"), edit_admin_landing_path(@landing) %> |
 <%= link_to t("views.back"), admin_landings_path %>
