@@ -11,6 +11,8 @@
           <%= f.input :end_at, class: "form-control datepicker", "data-dateformat" => "yy-mm-dd", as: :ui_date_picker %>
           <%= f.input :url %>
 
+          <p class="text-warning text-center">请上传小于200k的图片</p>
+
           <%= f.input :cover_iphone, as: :file, hint: "最佳分辨率是320x480" %>
           <%= f.input :cover_iphone2x, as: :file, hint: "最佳分辨率为640x960" %>
           <%= f.input :cover_iphone586, as: :file, hint: "最佳分辨率为640x1136" %>
