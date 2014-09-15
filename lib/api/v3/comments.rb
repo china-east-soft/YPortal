@@ -27,7 +27,7 @@ module API::V3
 
       desc "get comments"
       params do
-        requires :mac, type: String
+        optional :mac, type: String
         requires :channel, type: String
 
         optional :id, type: Integer

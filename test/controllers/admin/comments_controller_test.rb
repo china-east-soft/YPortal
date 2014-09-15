@@ -22,6 +22,4 @@ class Admin::CommentsControllerTest < ActionController::TestCase
     end
   end
 
-
-
 end
