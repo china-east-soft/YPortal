@@ -1,4 +1,5 @@
 class Admin::ProgramsController < AdminController
+  before_action :find_program, only: [:show, :edit, :update, :destroy]
 
   def new
     @program = Program.new
@@ -24,6 +25,7 @@ class Admin::ProgramsController < AdminController
   end
 
   def show
+
   end
 
   def edit
@@ -33,6 +35,7 @@ class Admin::ProgramsController < AdminController
   end
 
   def index
+    @programs = Program.page(params[:page])
   end
 
   def destroy
@@ -41,6 +44,10 @@ class Admin::ProgramsController < AdminController
   private
   def program_params
     params.require(:program).permit(:name, :channel, :mode, :location, :feq, :sid)
+  end
+
+  def find_program
+    @program = Program.find(params[:id])
   end
 
 end

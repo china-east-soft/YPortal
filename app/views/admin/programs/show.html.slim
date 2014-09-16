@@ -1,0 +1,12 @@
+.panel
+  .panel-body
+    p
+      strong 节目名称
+      = @program.name
+    p
+      strong 节目标志
+      = @program.channel
+
+= link_to "编辑", edit_admin_program_path(@program)
+| |
+= link_to "返回", admin_program_path

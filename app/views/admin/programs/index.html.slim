@@ -1,0 +1,35 @@
+.row
+  .col-md-12
+    .panel
+      .panel-heading
+        h3 节目列表
+      .panel-body
+        .clearfix
+          .btn-group
+            span.btn.btn-primary
+              = link_to fa_icon("plus"), new_admin_program_path
+        table.table.table-stripped.table-bordered.table-hover
+          thead
+            tr
+              th 节目名称
+              th 节目标志
+              th
+          tbody
+            - @programs.each do |program|
+              tr
+                td = program.name
+                td = program.channel
+                td
+                  span.btn.btn-success.btn-xs
+                    = link_to fa_icon("check"), [:admin, program]
+                  span.btn.btn-primary.btn-xs
+                    = link_to fa_icon("pencil"), edit_admin_program_path(program)
+                  span.btn.btn-danger.btn-xs
+                    = link_to fa_icon("trash-o"), edit_admin_program_path(program), method: :delete, data: {confirm: "Are you sure"}
+
+        .row
+          .col-md-6
+            .dataTables_info 共有#{@programs.total_count}条记录
+          .col-md-6
+            .dataTables_paginate.paging_bootstrap.pagination = paginate @programs
+
