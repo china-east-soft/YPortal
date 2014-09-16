@@ -1,4 +1,4 @@
-= form_for [:admin, @program] do |f|
+= form_for [:admin, @program], html: {id: "program-form"} do |f|
   .form-group
     = f.label :name, "节目名称", class: "control-lable col-md-4"
     .col-md-8
@@ -15,4 +15,28 @@
       - else
         = f.submit "修改节目", class: "btn btn-primary"
 
+= content_for :script do
+  javascript:
+    $("#program-form").validate({
+      rules: {
+        'program[name]': {
+          required: true,
+        },
+        'program[channel]': {
+          required: true,
+          format: /^\w+#(\d+#){2}.+$/,
+          remote: '/admin/programs/check_channel'
+        },
+      },
+      messages: {
+        'program[name]': {
+          required: '#{@program.errors.generate_message :name, :blank}'
+        },
 
+        'program[channel]': {
+          required: '#{@program.errors.generate_message :channel, :blank}',
+          format: '#{@program.errors.generate_message :channel, :format}',
+          remote: '#{@program.errors.generate_message :channel, :taken}'
+        },
+      },
+    })

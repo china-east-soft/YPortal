@@ -7,3 +7,7 @@ $.validator.setDefaults
   errorElement: "span"
   errorClass: "helo-block"
 
+jQuery.validator.addMethod "format", ((value, element, param) ->
+    @optional(element) or param.test(value)
+), "Please fix this field."
+

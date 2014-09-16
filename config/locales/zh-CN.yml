@@ -66,8 +66,12 @@ zh-CN:
         shop_description: "店铺详细介绍"
     errors:
       models:
-        merchant_infos:
+        merchant_info:
           attributes:
+        program:
+          attributes:
+            channel:
+              format: "格式错误"
 
   admin:
     agents:

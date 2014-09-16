@@ -97,7 +97,11 @@ Rails.application.routes.draw do
 
     get 'comments/index'
 
-    resources :programs
+    resources :programs do
+      collection do
+        get :check_channel
+      end
+    end
   end
 
   namespace :agent do
