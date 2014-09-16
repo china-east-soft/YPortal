@@ -19,4 +19,6 @@
 //= require jquery.cityselect.js
 //= require city.min.js
 //= require jquery.bxslider.js
+//= require jquery.validate.js
 //= require highcharts.js
+//= require_tree ./plugins

@@ -1,0 +1,18 @@
+= form_for [:admin, @program] do |f|
+  .form-group
+    = f.label :name, "节目名称", class: "control-lable col-md-4"
+    .col-md-8
+      = f.text_field :name, class: "form-control"
+  .form-group
+    = f.label :channel, "节目唯一标识", class: "control-label  col-md-4"
+    .col-md-8
+      = f.text_field :channel, class: "form-control", placeholder: "CMMB#12#34#杭州"
+
+  .form-group
+    .col-md-4.col-md-offset-2
+      - if @program.new_record?
+        = f.submit "创建节目", class: "btn btn-primary"
+      - else
+        = f.submit "修改节目", class: "btn btn-primary"
+
+

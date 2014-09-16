@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-  get 'comments/index'
-  end
 
   devise_for :accounts, :controllers => {:registrations => "account/registrations",
    :sessions => "account/sessions" }
@@ -97,6 +94,10 @@ Rails.application.routes.draw do
     resources :feed_backs
     resources :comments, only: [:index, :destroy]
     resources :api_visit_logs, only: :index
+
+    get 'comments/index'
+
+    resources :programs
   end
 
   namespace :agent do
