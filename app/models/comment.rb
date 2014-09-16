@@ -1,5 +1,7 @@
 class Comment < ActiveRecord::Base
 
+  belongs_to :program, counter_cache: true
+
   validates_presence_of :mac, :channel, :body, alloc_blank: false
 
   default_scope { order(id: :desc) }
