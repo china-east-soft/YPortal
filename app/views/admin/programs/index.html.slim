@@ -13,12 +13,14 @@
             tr
               th 节目名称
               th 节目标志
+              th 评论数
               th
           tbody
             - @programs.each do |program|
               tr
                 td = program.name
                 td = program.channel
+                td = link_to program.comments_count, admin_comments_path(program_id: program.id)
                 td
                   span.btn.btn-success.btn-xs
                     = link_to fa_icon("check"), [:admin, program]
