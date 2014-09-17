@@ -6,7 +6,7 @@
   .form-group
     = f.label :channel, "节目唯一标识", class: "control-label  col-md-4"
     .col-md-8
-      = f.text_field :channel, class: "form-control", placeholder: "CMMB#12#34#杭州"
+      = f.text_field :channel, class: "form-control", placeholder: "CMMB-12-34-杭州"
 
   .form-group
     .col-md-4.col-md-offset-2
@@ -24,7 +24,7 @@
         },
         'program[channel]': {
           required: true,
-          format: /^\w+#(\d+#){2}.+$/,
+          format: /^\w+\-(\d+\-){2}.+$/,
           remote: '/admin/programs/check_channel'
         },
       },
