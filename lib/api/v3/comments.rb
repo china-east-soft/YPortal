@@ -15,7 +15,13 @@ module API::V3
         channel = params[:channel]
         body = params[:body]
 
+        program = Program.find_by(channel: params[:channle])
         comment = Comment.new mac: mac, channel: channel, body: body
+
+        if program.present?
+          comment.program = program
+        end
+
         if comment.save
           present :result, true
         else
@@ -33,7 +39,6 @@ module API::V3
         optional :id, type: Integer
         requires :limit , type: Integer
       end
-
       get :select do
         channel = params[:channel]
         id = params[:id] || 0
@@ -45,6 +50,20 @@ module API::V3
         # present :comments, comments.pluck(:id, :body, :created_at)
 
         present :comments, comments.map {|c| {id: c.id, body: c.body, created_at: c.created_at.to_i} }
+      end
+
+      desc "query program name by channel"
+      params do
+        requires :channel, type: String
+      end
+      get :program_name do
+        if program = Program.find_by(channel: params[:channel])
+          present :result, true
+          present :name, program.name
+        else
+          present :result, false
+          present :message, "无法找到对应节目"
+        end
       end
     end
 

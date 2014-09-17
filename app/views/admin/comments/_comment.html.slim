@@ -5,6 +5,11 @@
     .text-muted
       = comment.channel
       = ' ·'
+      - if @program.present?
+        = @program.name
+      - else
+        = comment.program.name
+      = ' ·'
       = (I18n.l comment.created_at).to_s[0..-4]
       = ' ·'
       = comment.mac
