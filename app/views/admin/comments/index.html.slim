@@ -4,7 +4,7 @@
       header.panel-heading
         | 反馈列表
         = form_tag("/admin/comments", method: "get") do
-          = text_field_tag(:channel, nil, placeholder: "节目名称")
+          = text_field_tag(:channel, nil, placeholder: "节目标识")
           = submit_tag("查询")
       .panel-body#comments
         .list-group.list-group-feed-back

@@ -15,7 +15,7 @@ module API::V3
         channel = params[:channel]
         body = params[:body]
 
-        program = Program.find_by(channel: params[:channle])
+        program = Program.find_by(channel: params[:channel])
         comment = Comment.new mac: mac, channel: channel, body: body
 
         if program.present?
