@@ -8,10 +8,10 @@ class Admin::ProgramsController < AdminController
   def create
     @program = Program.new program_params
     if @program.save
-      gflash :error, "创建失败, 请检查您的输入！"
+      gflash success: "创建成功！"
       redirect_to admin_programs_url
     else
-      gflash :success, "创建成功！"
+      gflash error: "创建失败, 请检查您的输入！"
       render :new
     end
   end
@@ -39,6 +39,9 @@ class Admin::ProgramsController < AdminController
   end
 
   def destroy
+    @program.destroy
+    gflash success: "删除成功"
+    redirect_to admin_programs_url
   end
 
   private

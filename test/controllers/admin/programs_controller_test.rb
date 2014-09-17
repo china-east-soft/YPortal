@@ -55,4 +55,15 @@ class Admin::ProgramsControllerTest < ActionController::TestCase
   end
 
 
+  test "should delete program" do
+    p = create(:program)
+
+    assert_difference("Program.count", -1) do
+      # xhr :delete, :destroy, id: p.id
+      delete :destroy, id: p.id
+    end
+
+    assert_redirected_to admin_programs_url
+  end
+
 end
