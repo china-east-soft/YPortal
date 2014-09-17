@@ -36,6 +36,14 @@
   margin-left: 100px;
 }
 
+#global_menu li a{
+  color: #555;
+}
+
+#global_menu li.active a{
+  color: #3276b1;
+}
+
 #main-content .wrapper {
   margin-top: 55px;
 }

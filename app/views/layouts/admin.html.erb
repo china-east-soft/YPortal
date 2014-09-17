@@ -51,7 +51,8 @@
               <div class="pull-left" id="global_menu">
                 <%= tabs_tag builder: MenuTabBuilder, :open_tabs => { :class => "nav navbar-nav global_menu" } do |tab| %>
                   <%= tab.business '业务', admin_root_path %>
-                  <%= tab.release '发布管理', admin_app_versions_path %>
+                  <%= tab.apis '其他', admin_programs_path%>
+                  <% #= tab.release '发布管理', admin_app_versions_path %>
                 <% end %>
               </div>
 

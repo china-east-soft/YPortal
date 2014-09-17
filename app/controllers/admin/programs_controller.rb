@@ -1,5 +1,9 @@
 class Admin::ProgramsController < AdminController
+  before_action :setup
   before_action :find_program, only: [:show, :edit, :update, :destroy]
+
+  set_tab :apis
+  set_tab :programs, :sub_nav
 
   def new
     @program = Program.new
@@ -51,6 +55,10 @@ class Admin::ProgramsController < AdminController
 
   def find_program
     @program = Program.find(params[:id])
+  end
+
+  def setup
+    @left_panel = "admin/programs/left_panel"
   end
 
 end
