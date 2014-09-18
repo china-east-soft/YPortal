@@ -6,8 +6,8 @@ module API::V3
 
       desc "create a comment"
       params do
-        requires :mac, type: String
-        requires :channel, type: String
+        requires :mac, type: String, regexp: /\A([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}\z/
+        requires :channel, type: String, regexp: Program::CHANNEL_FORMAT
         requires :body, type: String
       end
       post :create do
@@ -15,7 +15,7 @@ module API::V3
         channel = params[:channel]
         body = params[:body]
 
-        program = Program.find_by(channel: params[:channel])
+        program = Program.find_or_create_by_channel(params[:channel])
         comment = Comment.new mac: mac, channel: channel, body: body
 
         if program.present?
@@ -34,7 +34,7 @@ module API::V3
       desc "get comments"
       params do
         optional :mac, type: String
-        requires :channel, type: String
+        requires :channel, type: String, regexp: Program::CHANNEL_FORMAT
 
         optional :id, type: Integer
         requires :limit , type: Integer
@@ -44,20 +44,25 @@ module API::V3
         id = params[:id] || 0
         limit = params[:limit] || 20
 
-        comments = Comment.comments_for_app(channel: channel, id: id, limit: limit)
+        program = Program.find_or_create_by_channel(channel)
+        if program
+          comments = program.comments_for_app(channel: channel, id: id, limit: limit)
 
-        present :result, true
-        # present :comments, comments.pluck(:id, :body, :created_at)
+          present :result, true
+          present :comments, comments.map {|c| {id: c.id, body: c.body, created_at: c.created_at.to_i} }
+        else
+          present :result, false
+          present :message, "找不到节目"
+        end
 
-        present :comments, comments.map {|c| {id: c.id, body: c.body, created_at: c.created_at.to_i} }
       end
 
       desc "query program name by channel"
       params do
-        requires :channel, type: String
+        requires :channel, type: String, regexp: Program::CHANNEL_FORMAT
       end
       get :program_name do
-        if program = Program.find_by(channel: params[:channel])
+        if program = Program.find_or_create_by_channel(channel)
           present :result, true
           present :name, program.name
         else

@@ -31,6 +31,17 @@ namespace :data do
   end
 
 
+  desc "generate fixed five television programs"
+  task :generate_programs => :environment do
+    Program::CMMB_SID_GLOBAL_PROGRAMS.each do |sid, name|
+      p = Program.new(channel: "CMMB-00-#{sid}-*", name: name)
+      unless p.save
+        puts p.errors.full_messages
+      end
+    end
+  end
+
+
   #comment by kailaichao
   #connect to external database instead not copy
   #
