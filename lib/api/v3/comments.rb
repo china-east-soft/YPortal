@@ -46,7 +46,7 @@ module API::V3
 
         program = Program.find_or_create_by_channel(channel)
         if program
-          comments = program.comments_for_app(channel: channel, id: id, limit: limit)
+          comments = program.comments_in_4_hour_for_app(id: id, limit: limit)
 
           present :result, true
           present :comments, comments.map {|c| {id: c.id, body: c.body, created_at: c.created_at.to_i} }
@@ -62,6 +62,7 @@ module API::V3
         requires :channel, type: String, regexp: Program::CHANNEL_FORMAT
       end
       get :program_name do
+        channel = params[:channel]
         if program = Program.find_or_create_by_channel(channel)
           present :result, true
           present :name, program.name
