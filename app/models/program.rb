@@ -53,14 +53,12 @@ class Program < ActiveRecord::Base
     program
   end
 
-  def self.comments_for_app(channel:, id: 0, limit: 20)
+  def comments_in_4_hour_for_app(id: 0, limit: 20)
     #id == 0 present request for the newest record
     if id == 0
-      comments.where("created_at >= ?", Time.now - 4.hour).
-        where(channel: channel).limit(limit)
+      comments.where("created_at >= ?", Time.now - 4.hour).order(id: :desc).limit(limit)
     else
-      comments.where("created_at >= ?", Time.now - 4.hour).
-        where("channel = :channel AND id < :id", {channel: channel, id: id}).limit(limit)
+      comments.where("created_at >= ?", Time.now - 4.hour).order(id: :desc).where("id < :id", {id: id}).limit(limit)
     end
   end
 
@@ -77,4 +75,5 @@ class Program < ActiveRecord::Base
     self.sid = sid
     self.location = location
   end
+
 end
