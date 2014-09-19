@@ -8,21 +8,21 @@ class Program < ActiveRecord::Base
   CHANNEL_FORMAT = /\A\w+\-(\d+\-){2}(\p{Word}|\*)+\Z/u
 
   CMMB_SID_GLOBAL_PROGRAMS = { "601" => "cctv-1", "602" => "晴彩电影", "603" => "cctv-5",
-                             "604" => "晴彩天下", "605" => "cctv-13"}
+                               "604" => "晴彩天下", "605" => "cctv-13"}
 
   validates :channel, presence: true, uniqueness: true, format: {with: CHANNEL_FORMAT,
                                                                   message: "格式错误！"}
-  validates_presence_of :name, :mode, :freq, :sid, :location
+  validates_presence_of :name, :mode, :freq, :sid, :location, allow_blank: false
 
   #step1: 首先根据channel查找节目， 若存在则返回节目
   #step2: 根据mode和sid查找CMMB的固定节目, 不存在则新建CMMB的固定节目
   #setp3: 创建新节目
-  def find_or_create_by_channel(channel)
+  def self.find_or_create_by_channel(channel)
 
     program = Program.find_by(channel: channel)
 
     if program.nil?
-      mode, freq, sid, location = channel.split('#')
+      mode, freq, sid, location = channel.split('-')
       #601-602表示固定节目
       if mode == 'CMMB' && sid =~ /^60[0-6]$/
         program = Program.where(mode: 'CMMB', sid: sid).first
@@ -40,10 +40,10 @@ class Program < ActiveRecord::Base
     program
   end
 
-  def find_by_channel(channel)
+  def self.find_by_channel(channel)
     program = Program.find_by(channel: channel)
     if program.nil?
-      mode, freq, sid, location = channel.split('#')
+      mode, freq, sid, location = channel.split('-')
       #601-602表示固定节目
       if mode == 'CMMB' && sid =~ /^60[0-6]$/
         program = Program.where(mode: 'CMMB', sid: sid).first
