@@ -9,14 +9,16 @@ module API::V3
         requires :mac, type: String, regexp: /\A([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}\z/
         requires :channel, type: String, regexp: Program::CHANNEL_FORMAT
         requires :body, type: String
+        optional :parent_id, type: Integer
       end
       post :create do
         mac = params[:mac]
         channel = params[:channel]
         body = params[:body]
+        parent_id = params[:parent_id]
 
         program = Program.find_or_create_by_channel(params[:channel])
-        comment = Comment.new mac: mac, channel: channel, body: body
+        comment = Comment.new mac: mac, channel: channel, body: body, parent_id: parent_id
 
         if program.present?
           comment.program = program
@@ -49,7 +51,12 @@ module API::V3
           comments = program.comments_in_4_hour_for_app(id: id, limit: limit)
 
           present :result, true
-          present :comments, comments.map {|c| {id: c.id, body: c.body, created_at: c.created_at.to_i} }
+
+          comments_and_ancestors = comments.map do |c|
+            ancestor = c.ancestor.map {|a| {id: a.id, body: a.body, created_at: a.created_at}}
+            {id: c.id, body: c.body, created_at: c.created_at.to_i, ancestor: ancestor}
+          end
+          present :comments, comments_and_ancestors
         else
           present :result, false
           present :message, "找不到节目"

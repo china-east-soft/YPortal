@@ -49,9 +49,9 @@ module API
       @start = Time.now.to_f
     end
 
-    after do
-      log_api_visit
-    end
+    # after do
+    #   log_api_visit
+    # end
 
 
     mount API::V1::Root
