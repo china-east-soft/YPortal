@@ -1,7 +1,10 @@
 .list-group-item.feed-back id="comment-#{comment.id}"
   .list-group-item-content
     .list-group-item-heading
-      b = comment.body
+      - if comment.text?
+        b = comment.body
+      - else
+        b = link_to "声音",  comment.audio.url
     .text-muted
       = comment.channel
       = ' ·'
