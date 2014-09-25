@@ -92,7 +92,7 @@ Rails.application.routes.draw do
     resources :terminal_versions
     resources :app_versions
     resources :feed_backs
-    resources :comments, only: [:index, :destroy]
+    resources :comments, only: [:create, :index, :destroy]
     resources :api_visit_logs, only: :index
 
     get 'comments/index'

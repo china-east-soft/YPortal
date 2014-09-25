@@ -4,21 +4,35 @@ module API::V3
 
     resource :comments do
 
-      desc "create a comment"
+      desc "create a comment, can be text or audio"
       params do
         requires :mac, type: String, regexp: /\A([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}\z/
         requires :channel, type: String, regexp: Program::CHANNEL_FORMAT
-        requires :body, type: String
         optional :parent_id, type: Integer
+
+        #text or audio comment
+        requires :body
+
+        #audio comment
+        optional :type, default: "text"
       end
       post :create do
         mac = params[:mac]
         channel = params[:channel]
-        body = params[:body]
         parent_id = params[:parent_id]
 
+        type = params[:type]
+        body = params[:body]
+
         program = Program.find_or_create_by_channel(params[:channel])
-        comment = Comment.new mac: mac, channel: channel, body: body, parent_id: parent_id
+        if type == "audio"
+          comment = Comment.new mac: mac, channel: channel, parent_id: parent_id
+          comment.audio = ActionDispatch::Http::UploadedFile.new(body)
+          comment.content_type = "audio"
+          # link = request.scheme + '://' + request.host_with_port + c.audio.url.to_s
+        else
+          comment = Comment.new mac: mac, channel: channel, body: body, parent_id: parent_id
+        end
 
         if program.present?
           comment.program = program
@@ -51,10 +65,21 @@ module API::V3
           comments = program.comments_in_4_hour_for_app(id: id, limit: limit)
 
           present :result, true
-
           comments_and_ancestors = comments.map do |c|
-            ancestor = c.ancestor.map {|a| {id: a.id, body: a.body, created_at: a.created_at}}
-            {id: c.id, body: c.body, created_at: c.created_at.to_i, ancestor: ancestor}
+            ancestor = c.ancestor.map {|a|
+              if a.audio?
+                body = request.scheme + '://' + request.host_with_port + a.audio.url.to_s
+              else
+                body = a.body
+              end
+              {id: a.id, type: a.content_type, body: body, created_at: a.created_at}
+            }
+            if c.audio?
+              body = request.scheme + '://' + request.host_with_port + c.audio.url.to_s
+            else
+              body = c.body
+            end
+            {id: c.id, type: c.content_type, body: body, created_at: c.created_at.to_i, ancestor: ancestor}
           end
           present :comments, comments_and_ancestors
         else

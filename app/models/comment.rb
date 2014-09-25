@@ -2,7 +2,8 @@ class Comment < ActiveRecord::Base
 
   belongs_to :program, counter_cache: true
 
-  validates_presence_of :mac, :channel, :body, alloc_blank: false
+  validates_presence_of :mac, :channel, alloc_blank: false
+  validates_presence_of :body, if: :text?
 
   default_scope { order(id: :desc) }
 
@@ -16,6 +17,12 @@ class Comment < ActiveRecord::Base
         where("channel = :channel AND id < :id", {channel: channel, id: id}).limit(limit)
     end
   end
+
+  #audio attachment
+  has_attached_file :audio
+  validates_attachment_content_type :audio, :content_type => /.*/
+  validates :content_type, inclusion: {in: %w{text audio}, message: "%{value} is not a valid type"}, presence: true
+  validates_presence_of :audio, if: :audio?
 
 
   #tree structrue(parent-child relationship)
@@ -46,4 +53,11 @@ class Comment < ActiveRecord::Base
 
 
 
+  def audio?
+    content_type == "audio"
+  end
+
+  def text?
+    content_type == "text"
+  end
 end

@@ -3,6 +3,21 @@ class Admin::CommentsController < AdminController
   set_tab :apis
   set_tab :comments, :sub_nav
 
+  #test perclip parameters for grape use
+  # skip_before_filter :verify_authenticity_token
+  # def create
+  #   # binding.pry
+  #   c = Comment.new(params.permit(:audio))
+  #   c.mac = "11:22:33:44:ff:ee"
+  #   c.channel = "22-33-44-ff"
+  #   c.content_type = "audio"
+  #   if c.save
+  #     render json: true
+  #   else
+  #     render json: c.errors.full_messages
+  #   end
+  # end
+
   def index
     if params[:program_id].present?
       @program = Program.find(params[:program_id])
