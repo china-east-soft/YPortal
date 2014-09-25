@@ -10,5 +10,7 @@ module API::V3
 
     mount API::V3::Landings
     mount API::V3::Comments
+    mount API::V3::Users
+    mount API::V3::Messages
   end
 end

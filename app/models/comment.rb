@@ -1,6 +1,7 @@
 class Comment < ActiveRecord::Base
 
   belongs_to :program, counter_cache: true
+  belongs_to :user
 
   validates_presence_of :mac, :channel, alloc_blank: false
   validates_presence_of :body, if: :text?
