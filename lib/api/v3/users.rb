@@ -54,16 +54,27 @@ module API::V3
                else
                  User.where(mobile_number: signin).first
                end
-
-        if user && user.authenticate(params[:password])
-          present :result, true
-          present :user_id, user.id
-          present :name, user.name
-          present :mobile_number, user.mobile_number
-          present :avatar, user.avatar
+        error_code = 0
+        if user
+          if user.authenticate(params[:password])
+            present :result, true
+            present :user_id, user.id
+            present :name, user.name
+            present :mobile_number, user.mobile_number
+            present :avatar, user.avatar
+          else
+            error_code = 2
+            message = "incorrect password"
+          end
         else
+          error_code = 1
+          message= "use not exist"
+        end
+
+        if error_code != 0
           present :result, false
-          present :message, "incorrect username or password"
+          present :message, message
+          present :error_code, error_code
         end
       end
 
@@ -181,7 +192,6 @@ module API::V3
         requires :user_id, type: String
         requires :name, type: String
       end
-
       post :change_name do
         user = User.find(params[:user_id])
         error_code = 0
