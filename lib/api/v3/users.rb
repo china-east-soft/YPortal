@@ -177,6 +177,34 @@ module API::V3
         end
       end
 
+      params do
+        requires :user_id, type: String
+        requires :name, type: String
+      end
+
+      post :change_name do
+        user = User.find(params[:user_id])
+        error_code = 0
+        if user
+          user.name = params[:name]
+          if user.save
+            present :result, true
+            present :name, user.name
+          else
+            error_code = 2
+            message = user.errors.full_messages.join(",")
+          end
+        else
+          error_code = 1
+          message = "user not exit"
+        end
+
+        if error_code != 1
+          present :result, false
+          present :message, message
+        end
+      end
+
     end
   end
 end
