@@ -1,5 +1,9 @@
 class Admin::UsersController < AdminController
+  before_action :setup
   before_action :find_user, except: :index
+
+  set_tab :apis
+  set_tab :users, :sub_nav
 
   def index
     @users = User.all.page(params[:page])
@@ -28,6 +32,10 @@ class Admin::UsersController < AdminController
   private
   def find_user
     @user = User.find(params[:id])
+  end
+
+  def setup
+    @left_panel = "admin/programs/left_panel"
   end
 
 end
