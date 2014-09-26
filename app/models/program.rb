@@ -56,9 +56,9 @@ class Program < ActiveRecord::Base
   def comments_in_4_hour_for_app(id: 0, limit: 20)
     #id == 0 present request for the newest record
     if id == 0
-      comments.where("created_at >= ?", Time.now - 4.hour).order(id: :desc).limit(limit)
+      comments.includes(:user).where("created_at >= ?", Time.now - 4.hour).order(id: :desc).limit(limit)
     else
-      comments.where("created_at >= ?", Time.now - 4.hour).order(id: :desc).where("id < :id", {id: id}).limit(limit)
+      comments.includes(:user).where("created_at >= ?", Time.now - 4.hour).order(id: :desc).where("id < :id", {id: id}).limit(limit)
     end
   end
 

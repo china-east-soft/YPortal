@@ -9,6 +9,7 @@ module API::V3
         requires :mac, type: String, regexp: /\A([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}\z/
         requires :channel, type: String, regexp: Program::CHANNEL_FORMAT
         optional :parent_id, type: Integer
+        optional :user_id, type: Integer
 
         #text or audio comment
         requires :body
@@ -20,18 +21,19 @@ module API::V3
         mac = params[:mac]
         channel = params[:channel]
         parent_id = params[:parent_id]
+        user_id = params[:user_id]
 
         type = params[:type]
         body = params[:body]
 
         program = Program.find_or_create_by_channel(params[:channel])
         if type == "audio"
-          comment = Comment.new mac: mac, channel: channel, parent_id: parent_id
+          comment = Comment.new(mac: mac, channel: channel, parent_id: parent_id, user_id: user_id)
           comment.audio = ActionDispatch::Http::UploadedFile.new(body)
           comment.content_type = "audio"
           # link = request.scheme + '://' + request.host_with_port + c.audio.url.to_s
         else
-          comment = Comment.new mac: mac, channel: channel, body: body, parent_id: parent_id
+          comment = Comment.new(mac: mac, channel: channel, body: body, parent_id: parent_id, user_id: user_id)
         end
 
         if program.present?
@@ -72,14 +74,20 @@ module API::V3
               else
                 body = a.body
               end
-              {id: a.id, type: a.content_type, body: body, created_at: a.created_at}
+              user_id = a.user_id
+              user_name = a.user.try(:name)
+              user_avatar = a.user.try(:avatar)
+              {id: a.id, type: a.content_type, body: body, user_id: user_id, user_name: user_name, user_avatar: user_avatar, created_at: a.created_at}
             }
             if c.audio?
               body = request.scheme + '://' + request.host_with_port + c.audio.url.to_s
             else
               body = c.body
             end
-            {id: c.id, type: c.content_type, body: body, created_at: c.created_at.to_i, ancestor: ancestor}
+            user_id = c.user_id
+            user_name = c.user.try(:name)
+            user_avatar = c.user.try(:avatar)
+            {id: c.id, type: c.content_type, body: body, user_id: user_id, user_name: user_name, user_avatar: user_avatar, created_at: c.created_at.to_i, ancestor: ancestor}
           end
           present :comments, comments_and_ancestors
         else
