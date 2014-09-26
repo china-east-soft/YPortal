@@ -102,6 +102,8 @@ Rails.application.routes.draw do
         get :check_channel
       end
     end
+
+    resources :users, except: [:new, :create, :edit]
   end
 
   namespace :agent do

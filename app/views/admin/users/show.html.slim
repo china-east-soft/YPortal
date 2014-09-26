@@ -1,0 +1,24 @@
+.row
+  .col-md-8
+    .panel
+      .panel-heading
+        h3.panel-title = @user.name
+      .panel-body
+        = form_for [:admin, @user], html: {multipart: true, calss: 'user-form'} do |f|
+          .form-group
+            = f.label :avatar, "头像",  class: "control-label"
+            = f.text_field :avatar, class: "form-control"
+          .form-group
+            = f.label :name, "昵称", class: "control-label"
+            = f.text_field :name, class: "form-control"
+          .form-group
+            = f.label :mobile_number, "手机", class: 'control-label'
+            = f.text_field :mobile_number, class: "form-control", disabled: true
+          .form-group
+            = f.label :created_at, "创建时间", class: "control-label"
+            = f.text_field :created_at, class: "form-control", disabled: true
+          .clearfix
+            = f.submit "保存修改", class: 'btn btn-md btn-success'
+            .pull-right
+              a.btn.btn-danger href=admin_user_path(@user) data-method='delete' data-confirm="确定删除？"  删除用户
+
