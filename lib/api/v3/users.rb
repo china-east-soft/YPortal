@@ -44,12 +44,16 @@ module API::V3
       end
 
       params do
-        requires :mobile_number, type: String, regexp: /\A\d{11}\z/
+        requires :signin, type: String, regexp: /\A(\d{11})|(([^@\s]+)@((?:[a-z0-9-]+\.)+[a-z]{2,}))\z/
         requires :password
       end
       post :signin do
-        user = User.find_by(mobile_number: params[:mobile_number])
-
+        signin = params[:signin]
+        user = if signin.include?("@")
+                 User.where(email: signin).first
+               else
+                 User.where(mobile_number: signin).first
+               end
 
         if user && user.authenticate(params[:password])
           present :result, true
@@ -64,11 +68,11 @@ module API::V3
       end
 
       params do
-        requires :mobile_number, type: String, regexp: /\A\d{11}\z/
+        requires :user_id, type: String
         requires :avatar, type: String
       end
       post :change_avatar do
-        user = User.find_by(mobile_number: params[:mobile_number])
+        user = User.find(params[:user_id])
         if user
           user.avatar = params[:avatar]
           if user.save
@@ -133,7 +137,7 @@ module API::V3
       end
 
       params do
-        requires :mobile_number, type: String, regexp: /\A\d{11}\z/
+        requires :user_id, type: String
 
         requires :old_password, type: String
 
@@ -142,8 +146,7 @@ module API::V3
       end
       post :reset_password_with_old_password do
 
-        mobile_number = params[:mobile_number]
-        user = User.find_by(mobile_number: params[:mobile_number])
+        user = User.find(params[:user_id])
 
         error_code = 0
 
