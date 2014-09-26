@@ -13,6 +13,7 @@ module API::V3
       post :signup do
         mobile_number = params[:mobile_number]
         auth_message = AuthMessage.where(mobile: mobile_number).first
+
         if !auth_message || auth_message.verify_code != params[:verify_code]
           message = "verify code does not match"
           error_code = 2
@@ -37,6 +38,7 @@ module API::V3
           present :user_id, user.id
         else
           present :result, false
+          present :error_code, error_code
           present :message, message
         end
       end
@@ -96,19 +98,22 @@ module API::V3
         if user.present?
           auth_message = AuthMessage.where(mobile: mobile_number).first
 
-
           if auth_message.nil? || auth_message.verify_code != params[:verify_code]
             message = "verify code does not match"
-            error_code = 2
+            error_code = 1
           elsif auth_message.activated_at < Time.now
             message = "verify code is out of time"
-            error_code = 1
+            error_code = 2
           else
             user.password = params[:password]
             user.password_confirmation = params[:password_confirmation]
             if user.save
               error_code = 0
               present :result, true
+              present :user_id, user.id
+              present :name, user.name
+              present :mobile_number, user.mobile_number
+              present :avatar, user.avatar
             else
               error_code = 3
               message = user.errors.full_messages.join(",")
@@ -150,7 +155,7 @@ module API::V3
               error_code = 0
               present :result, true
             else
-              error_code = 1
+              error_code = 3
               message = user.errors.full_messages.join(",")
             end
           else
@@ -158,7 +163,7 @@ module API::V3
             message = "incorrect password"
           end
         else
-          error_code = 3
+          error_code = 1
           message = "user not exist"
         end
 
