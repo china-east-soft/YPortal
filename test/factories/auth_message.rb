@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :auth_message do
-    mobile "13738091353"
+    mobile "12345678901"
     category 0
   end
 end
