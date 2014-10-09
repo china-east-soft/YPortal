@@ -16,10 +16,10 @@ module API::V3
 
         if !auth_message || auth_message.verify_code != params[:verify_code]
           message = "verify code does not match"
-          error_code = 2
+          error_code = 1
         elsif auth_message.activated_at < Time.now
           message = "verify code is out of time"
-          error_code = 1
+          error_code = 2
         else
           user = User.new(name: params[:name],
                           mobile_number: mobile_number,
