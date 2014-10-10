@@ -4,7 +4,7 @@ class Program < ActiveRecord::Base
   before_validation :generate_mod_freq_sid_and_location_accord_to_channel
   after_save :update_comments_channel
 
-  #channel 四个字段唯一确定一个节目, 形式如： CMMB#12#28#杭州(mod#feq#sid#location)
+  #channel 四个字段唯一确定一个节目, 形式如： CMMB-12-28-杭州(mod-feq-sid-location)
   CHANNEL_FORMAT = /\A\w+\-(\d+\-){2}(\p{Word}|\*)+\Z/u
 
   CMMB_SID_GLOBAL_PROGRAMS = { "601" => "cctv-1", "602" => "晴彩电影", "603" => "cctv-5",

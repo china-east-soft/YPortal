@@ -209,7 +209,7 @@ module API::V3
           message = "user not exit"
         end
 
-        if error_code != 1
+        if error_code != 0
           present :result, false
           present :message, message
         end
