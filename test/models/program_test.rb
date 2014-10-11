@@ -163,13 +163,13 @@ class ProgramTest < ActiveSupport::TestCase
     assert_equal p.comments.count, 15
 
     1.upto(10) do |limit|
-      assert_equal p.comments_in_4_hour_for_app(limit: limit).count, limit
+      assert_equal p.parent_comments_in_4_hour_for_app(limit: limit).count, limit
     end
 
-    assert_equal p.comments_in_4_hour_for_app.count, 10
+    assert_equal p.parent_comments_in_4_hour_for_app.count, 10
 
 
-    comments = p.comments_in_4_hour_for_app(limit: 5)
+    comments = p.parent_comments_in_4_hour_for_app(limit: 5)
     id_largest_comment = comments.first
     id_smallest_comment = comments.last
     comments.each do |c|
@@ -177,13 +177,13 @@ class ProgramTest < ActiveSupport::TestCase
       assert c.id >= id_smallest_comment.id
     end
 
-    second_comments = p.comments_in_4_hour_for_app(id: id_smallest_comment.id, limit: 5)
+    second_comments = p.parent_comments_in_4_hour_for_app(id: id_smallest_comment.id, limit: 5)
     second_comments.each do |c|
       assert c.id < id_smallest_comment.id
     end
   end
 
-  test "comments_in_4_hour_for_app return comments in order" do
+  test "parent_comments_in_4_hour_for_app return comments in order" do
     p = create(:program)
 
     c1 = create(:comment)
@@ -195,6 +195,27 @@ class ProgramTest < ActiveSupport::TestCase
     c3 = create(:comment)
     p.comments << c3
 
-    assert_equal p.comments_in_4_hour_for_app.to_a, [c3, c2, c1]
+    assert_equal p.parent_comments_in_4_hour_for_app.to_a, [c3, c2, c1]
+  end
+
+  test "parent_comments_in_4_hour_for_app return comment and children comment" do
+    p = create(:program)
+
+    c1 = create(:comment)
+    p.comments << c1
+
+    c2 = create(:comment)
+    c2.parent_id = c1.id
+    c2.save
+
+    p.comments << c2
+
+    c3 = create(:comment)
+    c3.parent_id = c1.id
+    c3.save
+    p.comments << c3
+
+    assert_equal p.parent_comments_in_4_hour_for_app, [c1]
+    assert_equal p.parent_comments_in_4_hour_for_app.first.children, [c3, c2]
   end
 end

@@ -3,6 +3,9 @@ class Comment < ActiveRecord::Base
   belongs_to :program, counter_cache: true
   belongs_to :user
 
+  has_many :children, class_name: "Comment"
+  belongs_to :parent, class_name: "Comment", foreign_key: :parent_id
+
   validates_presence_of :mac, :channel, allow_blank: false
   validates_presence_of :body, if: :text?
 
@@ -39,6 +42,7 @@ class Comment < ActiveRecord::Base
   end
 
   #use postgresql with recursive for performace
+  #不使用网易盖楼的方式，所以这个方法不用了，留在这边以备后面用吧
   def self.ancestor_sql_for(instance)
     ancestors_sql = <<-SQL
    WITH RECURSIVE search_ancestor_tree(id, parent_id, path) as (
@@ -51,8 +55,6 @@ class Comment < ActiveRecord::Base
    select parent_id from search_ancestor_tree order by path
    SQL
   end
-
-
 
   def audio?
     content_type == "audio"

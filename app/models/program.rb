@@ -58,12 +58,12 @@ class Program < ActiveRecord::Base
     program
   end
 
-  def comments_in_4_hour_for_app(id: 0, limit: 20)
+  def parent_comments_in_4_hour_for_app(id: 0, limit: 20)
     #id == 0 present request for the newest record
     if id == 0
-      comments.includes(:user).where("created_at >= ?", Time.now - 4.hour).order(id: :desc).limit(limit)
+      comments.includes(:user, :children).where(parent_id: nil).where("created_at >= ?", Time.now - 4.hour).order(id: :desc).limit(limit)
     else
-      comments.includes(:user).where("created_at >= ?", Time.now - 4.hour).order(id: :desc).where("id < :id", {id: id}).limit(limit)
+      comments.includes(:user, :children).where(parent_id: nil).where("created_at >= ?", Time.now - 4.hour).order(id: :desc).where("id < :id", {id: id}).limit(limit)
     end
   end
 

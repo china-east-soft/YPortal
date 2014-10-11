@@ -55,7 +55,7 @@ module API::V3
         requires :channel, type: String, regexp: Program::CHANNEL_FORMAT
 
         optional :id, type: Integer
-        requires :limit , type: Integer
+        optional :limit , type: Integer
       end
       get :select do
         channel = params[:channel]
@@ -64,20 +64,20 @@ module API::V3
 
         program = Program.find_or_create_by_channel(channel)
         if program
-          comments = program.comments_in_4_hour_for_app(id: id, limit: limit)
+          comments = program.parent_comments_in_4_hour_for_app(id: id, limit: limit)
 
           present :result, true
-          comments_and_ancestors = comments.map do |c|
-            ancestor = c.ancestor.map {|a|
-              if a.audio?
-                body = request.scheme + '://' + request.host_with_port + a.audio.url.to_s
+          comments_and_children = comments.map do |c|
+            children = c.children.map {|child|
+              if child.audio?
+                body = request.scheme + '://' + request.host_with_port + child.audio.url.to_s
               else
-                body = a.body
+                body = child.body
               end
-              user_id = a.user_id
-              user_name = a.user.try(:name)
-              user_avatar = a.user.try(:avatar)
-              {id: a.id, type: a.content_type, body: body, user_id: user_id, user_name: user_name, user_avatar: user_avatar, created_at: a.created_at}
+              user_id = child.user_id
+              user_name = child.user.try(:name)
+              user_avatar = child.user.try(:avatar)
+              {id: child.id, type: child.content_type, body: body, user_id: user_id, user_name: user_name, user_avatar: user_avatar, created_at: child.created_at}
             }
             if c.audio?
               body = request.scheme + '://' + request.host_with_port + c.audio.url.to_s
@@ -87,9 +87,9 @@ module API::V3
             user_id = c.user_id
             user_name = c.user.try(:name)
             user_avatar = c.user.try(:avatar)
-            {id: c.id, type: c.content_type, body: body, user_id: user_id, user_name: user_name, user_avatar: user_avatar, created_at: c.created_at.to_i, ancestor: ancestor}
+            {id: c.id, type: c.content_type, body: body, user_id: user_id, user_name: user_name, user_avatar: user_avatar, created_at: c.created_at.to_i, children: children}
           end
-          present :comments, comments_and_ancestors
+          present :comments, comments_and_children
         else
           present :result, false
           present :message, "找不到节目"
