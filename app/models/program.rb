@@ -4,6 +4,11 @@ class Program < ActiveRecord::Base
   before_validation :generate_mod_freq_sid_and_location_accord_to_channel
   after_save :update_comments_channel
 
+
+  scope :global_programs, lambda { where(mode: "CMMB", sid: CMMB_SID_GLOBAL_PROGRAMS.keys) }
+  scope :local_programs, lambda { where("mode != 'CMMB' or (mode = 'CMMB' and sid NOT IN (601, 602, 603, 604, 605))") }
+  # scope :local_programs, lambda { where("SELECT * FROM programs WHERE mode != 'CMMB' or (mode = 'CMMB' and sid NOT IN (601, 602, 603, 604, 605))") }
+
   #channel 四个字段唯一确定一个节目, 形式如： CMMB-12-28-杭州(mod-feq-sid-location)
   CHANNEL_FORMAT = /\A\w+\-(\d+\-){2}(\p{Word}|\*)+\Z/u
 

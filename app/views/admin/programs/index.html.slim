@@ -16,6 +16,24 @@
               th 评论数
               th
           tbody
+            - if @global_programs.present?
+              - @global_programs.each do |program|
+                tr
+                  td = program.name
+                  td = program.channel
+                  td = link_to program.comments_count, admin_comments_path(program_id: program.id)
+                  td
+                    span.btn.btn-success.btn-xs
+                      = link_to fa_icon("check"), [:admin, program]
+                    span.btn.btn-primary.btn-xs
+                      = link_to fa_icon("pencil"), edit_admin_program_path(program)
+                    span.btn.btn-danger.btn-xs
+                      = link_to fa_icon("trash-o"), edit_admin_program_path(program), method: :delete, data: {confirm: "Are you sure"}
+            tr
+              td
+              td
+              td
+              td
             - @programs.each do |program|
               tr
                 td = program.name
@@ -31,7 +49,7 @@
 
         .row
           .col-md-6
-            .dataTables_info 共有#{@programs.total_count}条记录
+            .dataTables_info 共有#{Program.count}条记录
           .col-md-6
             .dataTables_paginate.paging_bootstrap.pagination = paginate @programs
 
