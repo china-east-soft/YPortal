@@ -18,6 +18,7 @@ module API::V3
 
         #audio comment
         optional :type, default: "text"
+        optional :duration, type: Integer
       end
       post :create do
         mac = params[:mac]
@@ -30,7 +31,11 @@ module API::V3
 
         program = Program.find_or_create_by_channel(params[:channel])
         if type == "audio"
-          comment = Comment.new(mac: mac, channel: channel, parent_id: parent_id, user_id: user_id)
+          comment = Comment.new(mac: mac,
+                                channel: channel,
+                                parent_id: parent_id,
+                                user_id: user_id,
+                                duration: params[:duration])
           comment.audio = ActionDispatch::Http::UploadedFile.new(body)
           comment.content_type = "audio"
           # link = request.scheme + '://' + request.host_with_port + c.audio.url.to_s
@@ -79,7 +84,11 @@ module API::V3
               user_id = child.user_id
               user_name = child.user.try(:name)
               user_avatar = child.user.try(:avatar)
-              {id: child.id, type: child.content_type, body: body, user_id: user_id, user_name: user_name, user_avatar: user_avatar, created_at: child.created_at}
+              {
+               id: child.id, type: child.content_type, body: body,
+               duration: child.duration, user_id: user_id, user_name: user_name,
+               user_avatar: user_avatar, created_at: child.created_at
+              }
             }
             if c.audio?
               body = request.scheme + '://' + request.host_with_port + c.audio.url.to_s
@@ -89,7 +98,12 @@ module API::V3
             user_id = c.user_id
             user_name = c.user.try(:name)
             user_avatar = c.user.try(:avatar)
-            {id: c.id, type: c.content_type, body: body, user_id: user_id, user_name: user_name, user_avatar: user_avatar, created_at: c.created_at.to_i, children: children}
+            {
+              id: c.id, type: c.content_type, body: body,
+              duration: c.duration,
+              user_id: user_id, user_name: user_name, user_avatar: user_avatar,
+              created_at: c.created_at.to_i, children: children
+            }
           end
           present :comments, comments_and_children
         else
