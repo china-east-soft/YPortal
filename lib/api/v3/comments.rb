@@ -1,6 +1,7 @@
 # coding:utf-8
 module API::V3
   class Comments < Grape::API
+    # use ApiLogger
 
     resource :comments do
 
@@ -8,7 +9,7 @@ module API::V3
       params do
         #ios can't get mac, so the mac is only an identify
         requires :mac, type: String#, regexp: /\A([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}\z/
-        requires :channel, type: String, regexp: Program::CHANNEL_FORMAT
+        requires :channel, type: String#, regexp: Program::CHANNEL_FORMAT
         optional :parent_id, type: Integer
         optional :user_id, type: Integer
 
@@ -53,7 +54,7 @@ module API::V3
       desc "get comments"
       params do
         optional :mac, type: String
-        requires :channel, type: String, regexp: Program::CHANNEL_FORMAT
+        requires :channel, type: String#, regexp: Program::CHANNEL_FORMAT
 
         optional :id, type: Integer
         optional :limit , type: Integer
@@ -100,7 +101,7 @@ module API::V3
 
       desc "query program name by channel"
       params do
-        requires :channel, type: String, regexp: Program::CHANNEL_FORMAT
+        requires :channel, type: String#, regexp: Program::CHANNEL_FORMAT
       end
       get :program_name do
         channel = params[:channel]

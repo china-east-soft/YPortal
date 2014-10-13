@@ -70,6 +70,11 @@ module API
         api_version = env['api.version']
         request_type = env['REQUEST_METHOD']
         request = env['PATH_INFO'].sub("/#{api_version}/", '').sub('.json', '')
+
+        #debug purpose for filter landing api
+        return if request =~ /landing/
+
+
         # delete path and format, and attachment will be replaced as `file`
         request_data = params.reject { |k, v| k == 'route_info' || k == 'format' }.to_hash
         request_data.each do |k, v|
