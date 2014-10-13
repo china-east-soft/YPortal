@@ -49,12 +49,12 @@ module API
       @start = Time.now.to_f
 
       #for debug paramter from app, for if parammeter is invalid, server can not see
-      # log_api_visit
+      log_api_visit
     end
 
-    # after do
-    #   log_api_visit
-    # end
+    after do
+      log_api_visit
+    end
 
 
     mount API::V1::Root

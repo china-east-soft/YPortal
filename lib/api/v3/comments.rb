@@ -6,7 +6,8 @@ module API::V3
 
       desc "create a comment, can be text or audio"
       params do
-        requires :mac, type: String, regexp: /\A([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}\z/
+        #ios can't get mac, so the mac is only an identify
+        requires :mac, type: String#, regexp: /\A([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}\z/
         requires :channel, type: String, regexp: Program::CHANNEL_FORMAT
         optional :parent_id, type: Integer
         optional :user_id, type: Integer
