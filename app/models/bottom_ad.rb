@@ -10,4 +10,13 @@ class BottomAd < ActiveRecord::Base
 
   imag_attr :cover
 
+  validates_presence_of :start_at, :end_at
+
+  validate :end_at_must_be_bigger_than_start_at
+
+  def end_at_must_be_bigger_than_start_at
+    errors.add(:start_at, "结束日期必须大于开始日期") if
+      start_at && end_at and end_at < start_at
+  end
+
 end

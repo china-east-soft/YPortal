@@ -4,6 +4,9 @@ module API::V3
 
     resource :landings do
 
+      params do
+        optional :type, type: String
+      end
       get :current do
         landings = Landing.where("(start_at <= ? and end_at >= ?) or start_at >= ?", Date.today.beginning_of_day, Date.today.end_of_day, Date.today.end_of_day).all
         present :result, true
