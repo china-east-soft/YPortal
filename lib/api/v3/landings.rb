@@ -9,7 +9,6 @@ module API::V3
       get :current do
 
         present :result, true
-
         if params[:type] == "bottom_ad"
           landing = BottomAd.current_ad.first
           if landing
@@ -22,7 +21,7 @@ module API::V3
 
             present :message, [msg]
           else
-            present :message, nil
+            present :message, []
           end
         else
           landing = Landing.current_landing.first
@@ -37,7 +36,7 @@ module API::V3
                               url: landing.url, start_at: landing.start_at, end_at: landing.end_at
                             }]
           else
-            present :message, nil
+            present :message, []
           end
         end
 
