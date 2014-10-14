@@ -1,0 +1,16 @@
+p#notice = notice
+p
+  strong Start at:
+  = @bottom_ad.start_at
+p
+  strong End at:
+  = @bottom_ad.end_at
+p
+  strong Url:
+  = @bottom_ad.url
+p
+  strong Cover :
+  = image_tag @bottom_ad.cover.url(:original)
+= link_to t("views.edit"), edit_admin_bottom_ad_path(@bottom_ad)
+span |
+= link_to t("views.back"), admin_bottom_ads_path

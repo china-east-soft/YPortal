@@ -1,0 +1,28 @@
+.row
+  .col-lg-12
+    section.panel
+      header.panel-heading 广告列表
+      .panel-body
+        .clearfix
+          .btn-group
+            span.btn.btn-primary = link_to fa_icon("plus"), new_admin_bottom_ad_path
+        .space15
+        table.table.table-striped.table-advance.table-hover
+          thead
+            tr
+              th Start at
+              th End at
+              th Url
+              th Cover
+              th colspan="3"
+          tbody
+            - @bottom_ads.each do |landing|
+              tr
+                td = landing.start_at
+                td = landing.end_at
+                td = landing.url
+                td = landing.cover
+                td
+                  span.btn.btn-success.btn-xs = link_to fa_icon("check"), [:admin, landing]
+                  span.btn.btn-primary.btn-xs = link_to fa_icon("pencil"), edit_admin_bottom_ad_path(landing)
+                  span.btn.btn-danger.btn-xs = link_to fa_icon("trash-o"), [:admin, landing], method: :delete, data: {confirm: 'Are you sure?'}

@@ -1,0 +1,16 @@
+.row
+  .col-md-12
+    .panel
+      .panel-heading
+        = title
+      .panel-body
+        = simple_form_for [:admin, @bottom_ad], :defaults => { :input_html => { :class => "form-control" } }, html: { multipart: true, class: 'form-horizontal tasi-form' } do |f|
+          = f.input :start_at, class: "form-control datepicker", "data-dateformat" => "yy-mm-dd", as: :ui_date_picker
+          = f.input :end_at, class: "form-control datepicker", "data-dateformat" => "yy-mm-dd", as: :ui_date_picker
+          = f.input :url
+
+          p.text-warning.text-center 请上传小于200k的图片
+          = f.input :cover, as: :file, hint: "最佳分辨率是320x480"
+
+          .form-actions
+            = f.button :submit, "新增广告"

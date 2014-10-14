@@ -1,4 +1,4 @@
-class Admin::BottomAdsController < ApplicationController
+class Admin::BottomAdsController < AdminController
   before_action :set_bottom_ad, only: [:show, :edit, :update, :destroy]
 
   # GET /bottom_ads
