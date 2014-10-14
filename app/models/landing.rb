@@ -1,4 +1,5 @@
 class Landing < ActiveRecord::Base
+  scope :current_landing, -> {where("(start_at <= ? and end_at >= ?) or start_at >= ?", Date.today.beginning_of_day, Date.today.end_of_day, Date.today.end_of_day).order("start_at desc") }
 
   include ImgCrop
   #为了适配不同机型 一个广告有多个不同分辨率的附件图像

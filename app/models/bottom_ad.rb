@@ -1,5 +1,7 @@
 class BottomAd < ActiveRecord::Base
 
+  scope :current_ad, -> { where("(start_at <= ? and end_at >= ?) or start_at >= ?", Date.today.beginning_of_day, Date.today.end_of_day, Date.today.end_of_day).order("start_at desc") }
+
   include ImgCrop
   # attached start
   has_attached_file :cover, :styles => { :small => "458x257#", :large => "800x800>" }, :processors => [:cropper]
