@@ -55,6 +55,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :landings
+    resources :bottom_ads
+
     resources :agents do
       collection do
         get :group_by_agent
