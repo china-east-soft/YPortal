@@ -1,5 +1,7 @@
 class Admin::BottomAdsController < AdminController
   before_action :set_bottom_ad, only: [:show, :edit, :update, :destroy]
+  set_tab :business
+  set_tab :bottom_ads, :sub_nav
 
   # GET /bottom_ads
   # GET /bottom_ads.json

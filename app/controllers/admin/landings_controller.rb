@@ -1,6 +1,9 @@
 class Admin::LandingsController < AdminController
   before_action :set_landing, only: [:show, :edit, :update, :destroy]
 
+  set_tab :business
+  set_tab :landings, :sub_nav
+
   # GET /landings
   # GET /landings.json
   def index
