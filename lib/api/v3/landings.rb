@@ -10,34 +10,14 @@ module API::V3
 
         present :result, true
         if params[:type] == "bottom_ad"
-          landing = BottomAd.current_ad.first
-          if landing
-            msg = {
-                    cover: landing.cover.url,
-                    url: landing.url,
-                    start_at: landing.start_at,
-                    end_at: landing.end_at
-                  }
+          landings = BottomAd.current_ad
 
-            present :message, [msg]
-          else
-            present :message, []
-          end
+          present :message, landings.map{|i| {cover: i.cover.url, url: i.url, start_at: i.start_at, end_at: i.end_at } }
         else
-          landing = Landing.current_landing.first
-          if landing
-            present :message, [{
-                              cover_iphone: landing.cover_iphone.url,
-                              cover_iphone2x: landing.cover_iphone2x.url,
-                              cover_iphone586: landing.cover_iphone586.url,
-                              cover_andriod: landing.cover_andriod.url,
-                              cover_ipad: landing.cover_ipad.url,
-                              cover_ipad_retina: landing.cover_ipad_retina.url,
-                              url: landing.url, start_at: landing.start_at, end_at: landing.end_at
-                            }]
-          else
-            present :message, []
-          end
+          landings = Landing.current_landing
+
+          present :message, landings.map{|i| {cover_iphone: i.cover_iphone.url, cover_iphone2x: i.cover_iphone2x.url, cover_iphone586: i.cover_iphone586.url, cover_andriod: i.cover_andriod.url, cover_ipad: i.cover_ipad.url, cover_ipad_retina: i.cover_ipad_retina.url, url: i.url, start_at: i.start_at, end_at: i.end_at } }
+
         end
 
       end
