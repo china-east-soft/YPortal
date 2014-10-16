@@ -11,6 +11,16 @@ module API::V3
         requires :password_confirmation, type: String
       end
       post :signup do
+        user = User.find_by(mobile_number: params[:mobile_number])
+        if user.present?
+          error_code = 3
+
+          present :result, false
+          present :error_code, error_code
+          present :message, "User already exist"
+          return
+        end
+
         mobile_number = params[:mobile_number]
         auth_message = AuthMessage.where(mobile: mobile_number).first
 
