@@ -1,6 +1,3 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
 $screen-md:                  1px;
 $screen-md-min:              $screen-md;
 $screen-desktop:             $screen-md-min;
@@ -30,11 +27,13 @@ $bid-color: rgba(211, 84, 0,0.7);
 $ask-color: rgba(39, 174, 96,0.7);
 $state-warning-text: #CC0000;
 
-/*
- *= require font-awesome
- */
 
 @import "bootstrap";
+
+/*
+ *= require font-awesome
+ *= require ./home/swmboxm.css
+*/
 
 body {
   font-family: "Helvetica Neue", Arial, "Hiragino Sans GB", sans-serif;
@@ -44,7 +43,9 @@ body {
   background-color: white;
 }
 
-header {
+header#home {
+  margin-bottom: 0;
+
   a.logo {
     background: image-url('logo.png') center center no-repeat;
     background-size: 107px 28px;
@@ -61,7 +62,17 @@ header {
   }
 }
 
-.navbar-default {
-  background-color: #394a5c;
-  border-color: #2c3a48;
+
+// m
+#introduction-m {
+  background: image-url("bg_M.jpg") center center no-repeat;
+  background-size: cover;
+  min-height: 481px;
+
+  a {
+    position: absolute;
+    left: 240px;
+    bottom: 200px;
+  }
 }
+
