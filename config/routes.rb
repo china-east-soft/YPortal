@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   # root 'welcome#index'
   root 'home#index'
+  get '/swmboxa' => "home#swmboxa"
   get '/swmboxm' => "home#swmboxm"
   get '/swmboxapp' => "home#swmboxapp"
 

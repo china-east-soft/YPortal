@@ -70,3 +70,20 @@ img {
     }
   }
 }
+
+//a
+#introduction-a {
+  background: image-url("bg_A.png") center center no-repeat;
+  background-size: cover;
+  min-height: 481px;
+
+  #downloads {
+    padding-top: 12%;
+    figure {
+      margin-bottom: 2%;
+      img {
+        width: 80%;
+      }
+    }
+  }
+}
