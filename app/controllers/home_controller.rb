@@ -7,5 +7,8 @@ class HomeController < ApplicationController
   def swmboxm
   end
 
+  def swmboxapp
+  end
+
 
 end

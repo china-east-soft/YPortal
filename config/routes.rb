@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   # root 'welcome#index'
   root 'home#index'
   get '/swmboxm' => "home#swmboxm"
+  get '/swmboxapp' => "home#swmboxapp"
 
 
   get 'admin' => "admin/dashboard#home", as: :admin_root
