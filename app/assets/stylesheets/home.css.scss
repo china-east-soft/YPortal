@@ -1,6 +1,34 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$screen-md:                  1px;
+$screen-md-min:              $screen-md;
+$screen-desktop:             $screen-md-min;
+
+$screen-lg:                  9999px;
+$screen-lg-min:              $screen-lg;
+$screen-lg-desktop:          $screen-lg-min;
+
+$main-color: rgba(83,102,120, 1.0);
+$main-dark-color: darken($main-color, 10%);
+$body-bg: rgba(242, 242, 242, 1.0);
+$btn-primary-bg: $main-dark-color;
+
+$navbar-default-bg: $main-dark-color;
+$navbar-default-link-color: #DCDCDC;
+$navbar-default-link-hover-color: #EFEFEF;
+$navbar-default-link-active-color: #EFEFEF;
+$navbar-default-link-hover-bg: darken($navbar-default-bg, 10%);
+
+$btn-default-bg: #428bca;
+$btn-default-color: #fff;
+
+$btn-info-bg: #fff;
+$btn-info-color: #333;
+
+$bid-color: rgba(211, 84, 0,0.7);
+$ask-color: rgba(39, 174, 96,0.7);
+$state-warning-text: #CC0000;
 
 /*
  *= require font-awesome
@@ -17,11 +45,18 @@ body {
 }
 
 header {
-  span.logo {
-    background-image: url(logo.png) center center no-repeat;
+  a.logo {
+    background: image-url('logo.png') center center no-repeat;
+    background-size: 107px 28px;
+    background-position: 0 12px;
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
     display: block;
     height: 70px;
-    width: 110px;
+    width: 248px;
     margin-left: 100px
   }
 }

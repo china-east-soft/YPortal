@@ -23,9 +23,9 @@
   <![endif]-->
 
 </head>
-<body>
+<body id='<%= "#{controller_name}-#{action_name}"%>'>
   <%= render "home/header" %>
-  <section>
+  <section id="main-section main-section-lighter">
     <%= yield %>
   </section>
   <footer class="footer">
