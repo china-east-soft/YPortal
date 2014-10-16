@@ -1,3 +1,32 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*
+ *= require font-awesome
+ */
+
+@import "bootstrap";
+
+body {
+  font-family: "Helvetica Neue", Arial, "Hiragino Sans GB", sans-serif;
+  font-size: 16px;
+  line-height: 1.428571429;
+  color: #333333;
+  background-color: white;
+}
+
+header {
+  span.logo {
+    background-image: url(logo.png) center center no-repeat;
+    display: block;
+    height: 70px;
+    width: 110px;
+    margin-left: 100px
+  }
+}
+
+.navbar-default {
+  background-color: #394a5c;
+  border-color: #2c3a48;
+}

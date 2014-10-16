@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   devise_for :merchants, :controllers => {:registrations => "merchant/registrations",
    :sessions => "merchant/sessions" }
 
-  root 'welcome#index'
+  # root 'welcome#index'
+  root 'home#index'
 
   get 'admin' => "admin/dashboard#home", as: :admin_root
   get 'account' => "welcome#index", as: :account_root
