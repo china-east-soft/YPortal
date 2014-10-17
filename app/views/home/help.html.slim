@@ -1,0 +1,83 @@
+.container.help-service
+  .row#help
+    .cold-xs-12#contact
+      .fuwu
+        h2 服务与支持
+        .panel.panel-default
+          .panel-body
+            .fuwuTxt.clear
+              ul.row
+                li.col-md-8
+                  = image_tag "service_email.png"
+                  span
+                    h1 邮件
+                    a href="mailto:service@cloudchain.cn" service@cloudchain.cn
+                li.col-md-8
+                  = image_tag "service_qq.png"
+                  span
+                    h1 QQ
+                    a href="tencent://message/?uin=2079165197" 2079165197
+                li.col-md-8
+                  = image_tag "service_phone.png"
+                  span
+                    h1 客服电话
+                    span 0571-85238786
+                li.col-md-8
+                  = image_tag "service_sina.png"
+                  span
+                    h1 微博互动
+                    a href="http://weibo.com/yunlianybox" target="_blank" @视网魔盒
+                li.col-md-8
+                  = image_tag "service_weixin.png"
+                  span
+                    h1 微信关注
+                    p swmbox
+                li.col-md-8
+                  = image_tag "service_bbs.png"
+                  span
+                    h1 社区交流
+                    a href="#" 魔盒社区
+    .col-md-24
+      .changjianwenti
+        h2 常见问题
+        .panel.panel-default
+          .panel-body
+            dl.serverStep
+              dt
+                a href="javascript:void(0)" 如何查找SWM-BOX WiFi？
+              dd
+                p 安卓手机：打开『视网魔』APP，APP自动搜索SWM-BOX WiFi并连接；如附近有多个SWM-BOX WiFi，在列表中选择其中一个Wi-Fi即可。
+                p 苹果手机：在手机『设置』的『无线局域网』中先选择SWM-BOX Wi-Fi。再打开『视网魔』APP即可。
+                .close
+              dt
+                a href="javascript:void(0)" CMMB直播电视节目无法播放？
+              dd
+                p 视网魔盒接收CMMB无线信号，当终端处于信号覆盖盲区时，信号质量达不到要求，从而导致节目无法播放、画面马赛克或卡顿。建议在信号覆盖良好的区域收看，或尝试将接收天线放置在开阔、无障碍的地方，以提高信号接收质量。
+                .close
+              dt
+                a href="javascript:void(0)" 观看直播电视偶尔轻微卡顿、闪退出现
+              dd
+                p 视网魔盒接收CMMB无线信号，当信号质量稍差；或者无线电视信号受环境影响而强弱不同。当出现轻微卡顿、闪退，请尝试重新点播节目。
+                .close
+              dt
+                a href="javascript:void(0)" 视网魔盒如何升级？
+              dd
+                p 『视网魔』 APP查找Wi-Fi并连接到终端后，可通过固件升级功能升级视网魔盒；如手机未安装APP，可通过手机/PC浏览器登录视网魔盒完成固件升级。升级前请确保视网魔盒已连接到互联网。
+                .close
+    .col-md-24
+      .fuwu
+        h2 售后政策
+        .panel.panel-default
+          .panel-body
+            p
+              = link_to "点击了解更多售后信息", service_policy_path
+javascript:
+  $(function(){
+      $(".serverStep").find("dt").click(function(){
+        $(this).next("dd").slideToggle(200).siblings("dd").slideUp(200);
+      })
+  });
+
+  $(".close").click(function(){
+      $(this).parent().hide();
+  });
