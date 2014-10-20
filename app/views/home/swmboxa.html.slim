@@ -12,33 +12,25 @@ header.navbar#local-nav role="navigation"
         = link_to "应用场景", '#production-usage'
       li
         = link_to "技术规格", '#production-specification'
-.row#production-function
-  .col-xs-24
-    figure
-      = image_tag "a_02.jpg"
-    figure
-      = image_tag "a_03.jpg"
-    figure
-      = image_tag "a_04.jpg"
-    figure
-      = image_tag "a_05.jpg"
-    figure
-      = image_tag "a_06.jpg"
-    figure
-      = image_tag "a_07.jpg"
-    figure
-      = image_tag "a_08.jpg"
+#production-function
+  figure
+    = image_tag "a_02.jpg"
+  figure
+    = image_tag "a_03.jpg"
+  figure
+    = image_tag "a_04.jpg"
+  figure
+    = image_tag "a_05.jpg"
+  figure
+    = image_tag "a_06.jpg"
+  figure
+    = image_tag "a_07.jpg"
+  figure
+    = image_tag "a_08.jpg"
 
-.row#production-usage
-  .col-xs-24
-    figure
-      = image_tag "a104c_situation_1.jpg"
-    figure
-      = image_tag "a104c_situation_2.jpg"
-    figure
-      = image_tag "a104c_situation_3.jpg"
-    figure
-      = image_tag "a104c_situation_4.jpg"
+#production-usage
+  figure
+    = image_tag "a104c_situation_1.jpg"
 
 .container#production-specification
   .panel.panle-default
@@ -136,5 +128,14 @@ javascript:
     $("#local-nav a").click(function() {
       $("#local-nav a").removeClass("text-muted");
       $(this).addClass("text-muted");
+      var show_id = $(this).attr("href");
+      ["#production-function", "#production-usage",
+       "#production-specification"].forEach(function(id) {
+         if (id == show_id) {
+           $(id).show();
+         } else {
+           $(id).hide();
+         }
+      });
     });
   });

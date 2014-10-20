@@ -71,7 +71,6 @@ img {
     figure {
       margin-bottom: 2%;
       img {
-        width: 80%;
       }
     }
   }
@@ -81,7 +80,7 @@ img {
 #introduction-a {
   background: image-url("bg_A.png") center center no-repeat;
   background-size: cover;
-  min-height: 500px;
+  min-height: 584px;
 
   #downloads {
     padding-top: 12%;
@@ -130,6 +129,11 @@ img {
     }
   }
 }
+
+#production-specification, #production-usage {
+  display: none;
+}
+
 #production-specification{
   table#top-level > tbody > tr > td
   {
