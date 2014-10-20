@@ -57,6 +57,10 @@ GEM
     bootstrap-sass (3.1.1.1)
       sass (~> 3.2)
     builder (3.2.2)
+    byebug (3.5.1)
+      columnize (~> 0.8)
+      debugger-linecache (~> 1.2)
+      slop (~> 3.6)
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -79,7 +83,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    columnize (0.8.9)
     connection_pool (2.0.0)
+    debugger-linecache (1.2.0)
     descendants_tracker (0.0.3)
     devise (3.2.4)
       bcrypt (~> 3.0)
@@ -201,6 +207,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (2.0.0)
+      byebug (~> 3.4)
+      pry (~> 0.10)
     pry-nav (0.2.4)
       pry (>= 0.9.10, < 0.11.0)
     pry-rails (0.3.2)
@@ -341,6 +350,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass (~> 3.1.0)
+  byebug
   carrierwave
   coffee-rails (~> 4.0.0)
   devise (= 3.2.4)
@@ -368,6 +378,7 @@ DEPENDENCIES
   paperclip (~> 4.1)
   pg
   pry
+  pry-byebug
   pry-nav
   pry-rails
   rack-livereload

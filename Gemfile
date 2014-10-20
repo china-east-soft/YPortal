@@ -110,6 +110,9 @@ group :development do
   # Livereload
   gem 'guard-livereload', require: false
   gem 'rack-livereload'
+
+  gem 'byebug'
+  gem 'pry-byebug'
 end
 
 

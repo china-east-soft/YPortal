@@ -17,6 +17,13 @@ body {
 }
 
 header#home {
+  position: relative;
+  // z-index: 9999;
+  min-width: 1010px;
+  // margin: 0 auto 1em;
+  // background: #444;
+  // background: rgba(0,0,0,0.6);
+  font-size: 18px;
   margin-bottom: 0;
 
   a.logo {
@@ -74,7 +81,7 @@ img {
 #introduction-a {
   background: image-url("bg_A.png") center center no-repeat;
   background-size: cover;
-  min-height: 481px;
+  min-height: 500px;
 
   #downloads {
     padding-top: 12%;
@@ -82,6 +89,58 @@ img {
       margin-bottom: 2%;
       img {
         width: 80%;
+      }
+    }
+  }
+}
+
+#local-nav {
+  background: #f3f5f0;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: none;
+  min-height: 20px;
+
+  overflow: visible;
+  margin-bottom: 0;
+  z-index: 11;
+  font-size: 14px;
+
+
+  &.lock {
+    position: fixed;
+  }
+
+  .container {
+    border-bottom: 1px solid #d6d6d6;
+    padding-bottom: 10px;
+    margin-bottom: 0;
+
+    ul.nav {
+      margin-right: 100px;
+      li {
+        a {
+          padding-top: 10px;
+          padding-bottom: 0;
+          display: block;
+        }
+      }
+    }
+  }
+}
+#production-specification{
+  table#top-level > tbody > tr > td
+  {
+    &:first-child {
+      text-align: center;
+      vertical-align: middle;
+    }
+    &:nth-child(2) {
+      padding: 0;
+      table {
+        margin:0;
       }
     }
   }
