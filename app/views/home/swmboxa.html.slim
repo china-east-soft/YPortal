@@ -29,8 +29,11 @@ header.navbar#local-nav role="navigation"
     = image_tag "a_08.jpg"
 
 #production-usage
-  figure
-    = image_tag "a104c_situation_1.jpg"
+  ul.bxslider
+    li = image_tag "a104c_situation_1.jpg"
+    li = image_tag "a104c_situation_2.jpg"
+    li = image_tag "a104c_situation_3.jpg"
+    li = image_tag "a104c_situation_4.jpg"
 
 .container#production-specification
   .panel.panle-default
@@ -125,7 +128,11 @@ javascript:
       };
     });
 
+
+    var bxslider = $(".bxslider");
+
     $("#local-nav a").click(function() {
+
       $("#local-nav a").removeClass("text-muted");
       $(this).addClass("text-muted");
       var show_id = $(this).attr("href");
@@ -137,5 +144,18 @@ javascript:
            $(id).hide();
          }
       });
+
+      if (show_id == "#production-usage")
+      {
+        bxslider.bxSlider({
+          auto: true,
+          controls: false,
+        });
+      } else {
+        bxslider.destroySlider();
+      }
+
     });
+
+
   });
