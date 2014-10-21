@@ -6,14 +6,14 @@ class Program < ActiveRecord::Base
 
 
   scope :global_programs, lambda { where(mode: "CMMB", sid: CMMB_SID_GLOBAL_PROGRAMS.keys) }
-  scope :local_programs, lambda { where("mode != 'CMMB' or (mode = 'CMMB' and sid NOT IN (601, 602, 603, 604, 605))") }
+  scope :local_programs, lambda { where("mode != 'CMMB' or (mode = 'CMMB' and sid NOT IN (#{CMMB_SID_GLOBAL_PROGRAMS.keys.join(",")}))") }
   # scope :local_programs, lambda { where("SELECT * FROM programs WHERE mode != 'CMMB' or (mode = 'CMMB' and sid NOT IN (601, 602, 603, 604, 605))") }
 
   #channel 四个字段唯一确定一个节目, 形式如： CMMB-12-28-杭州(mod-feq-sid-location)
   CHANNEL_FORMAT = /\A\w+\-(\d+\-){2}(\p{Word}|\*)+\Z/u
 
-  CMMB_SID_GLOBAL_PROGRAMS = { "601" => "cctv-1", "602" => "晴彩电影", "603" => "cctv-5",
-                               "604" => "晴彩天下", "605" => "cctv-13"}
+  CMMB_SID_GLOBAL_PROGRAMS = { "2" => "cctv-1", "3" => "晴彩电影", "4" => "cctv-5",
+                               "5" => "晴彩天下", "8" => "cctv-13"}
 
   validates :channel, presence: true, uniqueness: true, format: {with: CHANNEL_FORMAT,
                                                                   message: "格式错误！"}
@@ -28,8 +28,8 @@ class Program < ActiveRecord::Base
 
     if program.nil?
       mode, freq, sid, location = channel.split('-')
-      #601-602表示固定节目
-      if mode == 'CMMB' && sid =~ /^60[0-6]$/
+      #601-606表示固定节目
+      if mode == 'CMMB' && CMMB_SID_GLOBAL_PROGRAMS.keys.include?(sid)
         program = Program.where(mode: 'CMMB', sid: sid).first
         if program.nil?
           program = Program.create(
@@ -50,7 +50,7 @@ class Program < ActiveRecord::Base
     if program.nil?
       mode, freq, sid, location = channel.split('-')
       #601-602表示固定节目
-      if mode == 'CMMB' && sid =~ /^60[0-6]$/
+      if mode == 'CMMB' && CMMB_SID_GLOBAL_PROGRAMS.keys.include?(sid)
         program = Program.where(mode: 'CMMB', sid: sid).first
       end
     end
