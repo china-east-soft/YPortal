@@ -1,10 +1,9 @@
 .introduction-header#introduction-a
-  .container#downloads
-    .row
-      .col-xs-4.col-xs-offset-1
+  .container-fluid
+    = link_to "点击购买", "http://swmbox.taobao.com", class: "btn btn-lg btn-primary", target: "_blank"
 
 header.navbar#local-nav role="navigation"
-  .container
+  .container-fluid
     ul.nav.navbar-nav.navbar-right
       li
         = link_to "产品功能", '#production-function', class: "text-muted"
@@ -35,7 +34,7 @@ header.navbar#local-nav role="navigation"
     li = image_tag "a104c_situation_3.jpg"
     li = image_tag "a104c_situation_4.jpg"
 
-.container#production-specification
+.container-fluid#production-specification
   .panel.panle-default
     .panel-body
       table.table.table-bordered#top-level

@@ -1,0 +1,143 @@
+//help and sercice
+.help-service {
+  .fuwu h2 {
+    font-family: "微软雅黑";
+    font-size: 18px;
+    color: #218fdc;
+    background: image-url('line2.jpg') no-repeat left;
+    padding-left: 27px;
+
+    a {
+      color: red;
+    }
+  }
+
+  .fuwuTxt {
+    width: 960px;
+    height: 70px;
+    margin-top: 38px;
+    margin-left: 48px;
+  }
+
+  #contact ul {
+    list-style: none outside none;
+  }
+
+  .fuwuTxt ul li {
+    height: 70px;
+    line-height: 20px;
+    float: left;
+    margin-bottom: 20px;
+  }
+
+  .fuwuTxt ul li h1 {
+    font-family: "微软雅黑";
+    font-size: 18px;
+    color: #000;
+    font-weight: bold;
+    line-height: 40px;
+    margin: 0;
+  }
+
+  .fuwuTxt ul li img {
+    width: 20%;
+    float: left;
+    margin-right: 15px;
+    min-height: 52px;
+  }
+
+  .changjianwenti{
+  }
+  .changjianwenti h2{
+    font-family:"微软雅黑";
+    font-size:18px;
+    color:#218fdc;
+    background: image-url("line2.jpg") no-repeat left; padding-left:27px;
+  }
+
+  .changjianwenti ul{
+    width:95%;
+    margin-top:20px;
+  }
+  .changjianwenti dl dt{
+    width:95%;
+    line-height:36px;
+    background:url(./images/line3.jpg) no-repeat left;
+    border-bottom:#c7c7c7 1px dashed;
+    padding-left:14px;
+  }
+  .changjianwenti dl dt a{
+    font-family:"微软雅黑";
+    font-size:16px;
+    color:#000;
+  }
+  .changjianwenti dl dd{
+    padding:30px 22px 50px 22px;
+    width:88%;
+    background:image-url('showTop.jpg') no-repeat scroll center top #ffffff;
+    margin:2px;
+    position:relative;
+    display:none;
+  }
+  .close {
+    position:absolute;
+    width:24px;
+    height:24px;
+    bottom:2px;
+    right:-24px;
+    background:image-url('close.jpg') no-repeat;
+  }
+  .changjianwenti dl dd p{
+    font-family:"微软雅黑";
+    font-size:15px;
+    color:#0092d7;
+    line-height:27px;
+  }
+
+
+  img#service_flow {
+    margin-left: 80px;
+  }
+
+  table {
+    text-align: center;
+    line-height: 3em;
+  }
+  table th {
+    text-align: center;
+  }
+  th:first-child {
+    width: 20%;
+  }
+
+  ol {
+    list-style-type: decimal;
+    line-height: 2em;
+  }
+
+  #note {
+    margin-top: 10px;
+    margin-left: 40px;
+  }
+  #navbar li.active > a {
+    background-color: inherit;
+    color: #aaa;
+  }
+}
+
+
+//footer
+footer.footer {
+  color: #777777;
+  background-color: #364450;
+
+  height: 120px;
+  box-sizing: 'border-box';
+  padding-top: 20px;
+  border-top: 2px solid #364450;
+  text-align: center;
+
+  a {
+    color: #2692EE;
+  }
+}
