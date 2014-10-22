@@ -9,23 +9,30 @@
 @import 'home/swmboxm';
 @import 'home/swmboxapp';
 @import 'home/help';
+@import 'home/about';
 
+html {
+  height: 100%;
+}
 body {
   font-family: "Helvetica Neue", Arial, "Hiragino Sans GB", sans-serif;
   font-size: 16px;
   line-height: 1.428571429;
   color: #333333;
   background-color: white;
+
+  height: 100%;
+}
+#wrap {
+  height: auto !important;
+  min-height: 100%;
+  margin: 0 auto -2px;
 }
 
 header#home {
   position: relative;
   font-size: 18px;
   margin-bottom: 0;
-
-  .navbar-header {
-    margin-left: 10%;
-  }
 
   a.logo {
     background: image-url('logo.png') center center no-repeat;
@@ -48,4 +55,22 @@ header#home {
 
 img {
   width: 100%;
+}
+
+//footer
+footer.footer {
+  color: #777777;
+  // background-color: #364450;
+  background-color: white;
+
+  height: 120px;
+  box-sizing: 'border-box';
+  padding-top: 20px;
+  // border-top: 2px solid #364450;
+  border-top: 1px solid #dddddd;
+  text-align: center;
+
+  a {
+    color: #2692EE;
+  }
 }

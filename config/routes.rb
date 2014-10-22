@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get '/swmboxapp' => "home#swmboxapp"
   get '/help'     => "home#help"
   get 'service_policy' => "home#service_policy"
+  get 'about' => "home#about"
 
 
   get 'admin' => "admin/dashboard#home", as: :admin_root
