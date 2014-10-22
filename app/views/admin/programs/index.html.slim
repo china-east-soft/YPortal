@@ -28,7 +28,7 @@
                     span.btn.btn-primary.btn-xs
                       = link_to fa_icon("pencil"), edit_admin_program_path(program)
                     span.btn.btn-danger.btn-xs
-                      = link_to fa_icon("trash-o"), edit_admin_program_path(program), method: :delete, data: {confirm: "Are you sure"}
+                      = link_to fa_icon("trash-o"), admin_program_path(program), method: :delete, data: {confirm: "Are you sure"}
             tr
               td
               td
@@ -45,7 +45,7 @@
                   span.btn.btn-primary.btn-xs
                     = link_to fa_icon("pencil"), edit_admin_program_path(program)
                   span.btn.btn-danger.btn-xs
-                    = link_to fa_icon("trash-o"), edit_admin_program_path(program), method: :delete, data: {confirm: "Are you sure"}
+                    = link_to fa_icon("trash-o"), admin_program_path(program), method: :delete, data: {confirm: "Are you sure"}
 
         .row
           .col-md-6

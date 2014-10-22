@@ -1,7 +1,7 @@
 class Program < ActiveRecord::Base
   has_many :comments, dependent: :destroy
 
-  before_validation :channle_to_upper_and_generate_mod_freq_sid_and_location
+  before_validation :channel_to_upper_and_generate_mod_freq_sid_and_location
   after_save :update_comments_channel
 
 
@@ -76,7 +76,7 @@ class Program < ActiveRecord::Base
     comments.update_all channel: channel
   end
 
-  def channle_to_upper_and_generate_mod_freq_sid_and_location
+  def channel_to_upper_and_generate_mod_freq_sid_and_location
     channel.upcase!
 
     mode, freq, sid, location = channel.split('-')

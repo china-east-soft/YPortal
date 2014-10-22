@@ -36,6 +36,11 @@ class Admin::ProgramsController < AdminController
   end
 
   def update
+    if @program.update_attributes program_params
+      redirect_to [:admin, @program], notice: 'program was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def index
