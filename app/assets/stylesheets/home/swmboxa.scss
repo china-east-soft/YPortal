@@ -2,7 +2,7 @@
 #introduction-a {
   background: image-url("bg_A.png") center center no-repeat;
   background-size: cover;
-  min-height: 584px;
+  min-height: 684px;
   a.btn {
     background-color: #f15a29;
     border-color: #f15a29;
@@ -65,6 +65,14 @@
       table {
         margin:0;
       }
+    }
+  }
+
+  figure#A104C-spec {
+    margin-left: 20%;
+    img {
+      width: 465px;
+      height: 308px;
     }
   }
 }

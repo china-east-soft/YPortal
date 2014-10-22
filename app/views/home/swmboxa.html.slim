@@ -104,7 +104,9 @@ header.navbar#local-nav role="navigation"
                     td WPA2-PSK加密
           tr
             td 外观尺寸
-            td 外观规格
+            td
+              figure#A104C-spec
+                = image_tag "A104C_spec_param.jpg"
           tr
             td 包装内容
             td
@@ -137,7 +139,9 @@ javascript:
       var show_id = $(this).attr("href");
       ["#production-function", "#production-usage",
        "#production-specification"].forEach(function(id) {
+         var local_nav_height = $("#local-nav").height();
          if (id == show_id) {
+           $(id).css("margin-top", local_nav_height + "px");
            $(id).show();
          } else {
            $(id).hide();
