@@ -1,7 +1,7 @@
 class Program < ActiveRecord::Base
   has_many :comments, dependent: :destroy
 
-  before_validation :generate_mod_freq_sid_and_location_accord_to_channel
+  before_validation :channle_to_upper_and_generate_mod_freq_sid_and_location
   after_save :update_comments_channel
 
 
@@ -23,6 +23,7 @@ class Program < ActiveRecord::Base
   #step2: 根据mode和sid查找CMMB的固定节目, 不存在则新建CMMB的固定节目
   #setp3: 创建新节目
   def self.find_or_create_by_channel(channel)
+    channel.upcase!
 
     program = Program.find_by(channel: channel)
 
@@ -46,6 +47,8 @@ class Program < ActiveRecord::Base
   end
 
   def self.find_by_channel(channel)
+    channel.upcase!
+
     program = Program.find_by(channel: channel)
     if program.nil?
       mode, freq, sid, location = channel.split('-')
@@ -73,7 +76,9 @@ class Program < ActiveRecord::Base
     comments.update_all channel: channel
   end
 
-  def generate_mod_freq_sid_and_location_accord_to_channel
+  def channle_to_upper_and_generate_mod_freq_sid_and_location
+    channel.upcase!
+
     mode, freq, sid, location = channel.split('-')
     self.mode = mode
     self.freq = freq
