@@ -1,0 +1,82 @@
+@import 'var/bootstrap';
+@import 'bootstrap';
+@import 'var/basic';
+
+@import 'font-awesome';
+@import 'jquery.bxslider';
+
+@import 'home/swmboxa';
+@import 'home/swmboxm';
+@import 'home/swmboxapp';
+@import 'home/help';
+@import 'home/about';
+@import 'home/contact_us';
+
+
+html {
+  height: 100%;
+}
+body {
+  font-family: "Helvetica Neue", Arial, "Hiragino Sans GB", sans-serif;
+  font-size: 16px;
+  line-height: 1.428571429;
+  color: #333333;
+  background-color: white;
+
+  height: 100%;
+}
+#wrap {
+  height: auto !important;
+  min-height: 100%;
+  margin: 0 auto -120px;
+}
+
+header#home {
+  position: relative;
+  font-size: 18px;
+  margin-bottom: 0;
+
+  a.logo {
+    background: image-url('logo.png') center center no-repeat;
+    // background-size: 107px 28px;
+    // background-position: 0 12px;
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+    display: block;
+    height: 65px;
+    width: 248px;
+  }
+
+  li > a{
+    padding-top: 22px;
+  }
+}
+
+img {
+  width: 100%;
+}
+
+.push {
+  height: 120px;
+}
+
+//footer
+footer.footer {
+  color: #777777;
+  // background-color: #364450;
+  background-color: white;
+
+  height: 120px;
+  box-sizing: 'border-box';
+  padding-top: 20px;
+  // border-top: 2px solid #364450;
+  border-top: 1px solid #dddddd;
+  text-align: center;
+
+  a {
+    color: #2692EE;
+  }
+}

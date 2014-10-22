@@ -15,7 +15,16 @@ Rails.application.routes.draw do
   devise_for :merchants, :controllers => {:registrations => "merchant/registrations",
    :sessions => "merchant/sessions" }
 
-  root 'welcome#index'
+  # root 'welcome#index'
+  root 'home#index'
+  get '/swmboxa' => "home#swmboxa"
+  get '/swmboxm' => "home#swmboxm"
+  get '/swmboxapp' => "home#swmboxapp"
+  get '/help'     => "home#help"
+  get 'service_policy' => "home#service_policy"
+  get 'about' => "home#about"
+  get 'contact_us' => "home#contact_us"
+
 
   get 'admin' => "admin/dashboard#home", as: :admin_root
   get 'account' => "welcome#index", as: :account_root

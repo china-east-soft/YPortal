@@ -1,0 +1,18 @@
+//app
+#introduction-app {
+  background: image-url("bg_APP.jpg") center center no-repeat;
+  background-size: cover;
+  min-height: 585px;
+
+  #downloads {
+    padding-top: 18%;
+    #content {
+      margin-left: 14%;
+      figure {
+        margin-bottom: 2%;
+      }
+    }
+  }
+}
+
+
