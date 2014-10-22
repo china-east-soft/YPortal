@@ -10,6 +10,8 @@
 @import 'home/swmboxapp';
 @import 'home/help';
 @import 'home/about';
+@import 'home/contact_us';
+
 
 html {
   height: 100%;
@@ -26,7 +28,7 @@ body {
 #wrap {
   height: auto !important;
   min-height: 100%;
-  margin: 0 auto -2px;
+  margin: 0 auto -120px;
 }
 
 header#home {
@@ -55,6 +57,10 @@ header#home {
 
 img {
   width: 100%;
+}
+
+.push {
+  height: 120px;
 }
 
 //footer

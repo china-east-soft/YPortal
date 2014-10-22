@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get '/help'     => "home#help"
   get 'service_policy' => "home#service_policy"
   get 'about' => "home#about"
+  get 'contact_us' => "home#contact_us"
 
 
   get 'admin' => "admin/dashboard#home", as: :admin_root
