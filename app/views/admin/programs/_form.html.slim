@@ -25,7 +25,15 @@
         'program[channel]': {
           required: true,
           format: /^\w+\-(\d+\-){2}.+$/,
-          remote: '/admin/programs/check_channel'
+          remote: {
+            url: '/admin/programs/check_channel',
+            type: 'get',
+            data: {
+              id: function() {
+                return "#{@program.id}";
+              },
+            }
+          }
         },
       },
       messages: {

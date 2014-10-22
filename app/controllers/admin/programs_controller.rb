@@ -23,7 +23,7 @@ class Admin::ProgramsController < AdminController
   def check_channel
     respond_to do |format|
       format.json do
-        render json: !Program.where(channel: params[:program][:channel]).where.not(id: params[:id]).exists?
+        render json: !Program.where('upper(channel) = ?', params[:program][:channel].upcase).where.not(id: params[:id]).exists?
       end
     end
   end
