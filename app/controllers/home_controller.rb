@@ -14,5 +14,8 @@ class HomeController < ApplicationController
   def swmboxapp
   end
 
+  def bbs
+  end
+
 
 end
