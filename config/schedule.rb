@@ -28,8 +28,13 @@ end
 
 if @environment == 'production'
   every 1.day, at: '02:00 am' do
-    command "cd /root/ && perform --trigger protal_cloudchain_cn_files_backup"
-    command "cd /root/ && perform --trigger protal_cloudchain_cn_database_backup"
+    command "cd /root/ && backup perform --trigger protal_cloudchain_cn_files_backup"
+    command "cd /root/ && backup perform --trigger protal_cloudchain_cn_database_backup"
+  end
+elsif @environment == 'testing'
+  every 1.day, at: '02:00 am' do
+    command "cd /root/ && backup perform --trigger protal_co_files_backup"
+    command "cd /root/ && backup perform --trigger protal_co_database_backup"
   end
 end
 
