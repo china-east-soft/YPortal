@@ -77,7 +77,8 @@ class Program < ActiveRecord::Base
   end
 
   def channel_to_upper_and_generate_mod_freq_sid_and_location
-    channel.upcase!
+    #channel.upcase! not work,  not konw the reason now.
+    self.channel = self.channel.upcase
 
     mode, freq, sid, location = channel.split('-')
     self.mode = mode
