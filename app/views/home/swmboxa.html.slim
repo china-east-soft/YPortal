@@ -34,89 +34,94 @@ header.navbar#local-nav role="navigation"
     li = image_tag "a104c_situation_3.jpg"
     li = image_tag "a104c_situation_4.jpg"
 
-.container-fluid#production-specification
-  .panel.panle-default
-    .panel-body
-      table.table.table-bordered#top-level
-        tbody
-          tr
-            td 产品信息
-            td
-              table.table.table-bordered
-                tbody
-                  tr
-                    td 产品型号
-                    td 视网魔盒A104C
-                  tr
-                    td Flash
-                    td 8M
-                  tr
-                    td SDRAM
-                    td 64M
-                  tr
-                    td 调谐器
-                    td 支持CMMB格式
-          tr
-            td 外部接口
-            td
-              table.table.table-bordered
-                tbody
-                  tr
-                    td DC 5V
-                    td 电源输入, DC 5V 2A
-                  tr
-                    td RFIN
-                    td SAM母头
-                  tr
-                    td WAN口
-                    td 一个自适应10/100Mbps WAN口,宽带接入, 支持PPPOE/DHCP/静态IP接入
-                  tr
-                    td USB 3G
-                    td 支持WCDMA,TD-SCDMA,CDMA2000
-                  tr
-                    td LAN口
-                    td 1个自适应10/100Mbps LAN口
-                  tr
-                    td RST
-                    td RST键恢复出厂设置
-          tr
-            td 无线网络
-            td
-              table.table.table-bordered
-                tbody
-                  tr
-                    td 天线数量
-                    td 2个内置天线
-                  tr
-                    td 无线模式
-                    td IEEE 802.11b/g/n
-                  tr
-                    td 传输速率
-                    td 300Mbps
-                  tr
-                    td 无线频段
-                    td 2.4GHz：2.412~2.472GHz
-                  tr
-                    td 可用信道
-                    td 2.4GHz：1~13
-                  tr
-                    td 加密方式
-                    td WPA2-PSK加密
-          tr
-            td 外观尺寸
-            td
-              figure#A104C-spec
-                = image_tag "A104C_spec_param.jpg"
-          tr
-            td 包装内容
-            td
-              ul
-                li 视网魔盒 x 1
-                li 220V电源适配器 x 1
-                li 电视天线 x 1
-                li 用户手册（说明书） x 1
-                li 保修卡 x 1
-      span * 本页面所提到的产品规格仅供参考，详细规格以实际出货为准。
+
+.container#production-specification
+  .row
+    .col-xs-16.col-xs-offset-4
+      figure#A104C-spec
+        = image_tag "A104C_spec_param.jpg"
+      figcaption 177mm * 112mm * 37mm
+    .col-xs-24
+      .panel.panle-default
+        .panel-body
+          table.table.table-bordered#top-level
+            tbody
+              tr
+                td 产品信息
+                td
+                  table.table.table-bordered
+                    tbody
+                      tr
+                        td 产品型号
+                        td 视网魔盒A104C
+                      tr
+                        td Flash
+                        td 8M
+                      tr
+                        td SDRAM
+                        td 64M
+                      tr
+                        td 调谐器
+                        td 支持CMMB格式
+              tr
+                td 外部接口
+                td
+                  table.table.table-bordered
+                    tbody
+                      tr
+                        td DC 5V
+                        td 电源输入, DC 5V 2A
+                      tr
+                        td RFIN
+                        td SAM母头
+                      tr
+                        td WAN口
+                        td 一个自适应10/100Mbps WAN口,宽带接入, 支持PPPOE/DHCP/静态IP接入
+                      tr
+                        td USB 3G
+                        td 支持WCDMA,TD-SCDMA,CDMA2000
+                      tr
+                        td LAN口
+                        td 1个自适应10/100Mbps LAN口
+                      tr
+                        td RST
+                        td RST键恢复出厂设置
+              tr
+                td 无线网络
+                td
+                  table.table.table-bordered
+                    tbody
+                      tr
+                        td 天线数量
+                        td 2个内置天线
+                      tr
+                        td 无线模式
+                        td IEEE 802.11b/g/n
+                      tr
+                        td 传输速率
+                        td 300Mbps
+                      tr
+                        td 无线频段
+                        td 2.4GHz：2.412~2.472GHz
+                      tr
+                        td 可用信道
+                        td 2.4GHz：1~13
+                      tr
+                        td 加密方式
+                        td WPA2-PSK加密
+              tr
+                td 外观尺寸
+                td 177mm * 112mm * 37mm
+              tr
+                td 包装内容
+                td
+                  ul
+                    li 视网魔盒 x 1
+                    li 220V电源适配器 x 1
+                    li 电视天线 x 1
+                    li 用户手册（说明书） x 1
+                    li 保修卡 x 1
+          span * 本页面所提到的产品规格仅供参考，详细规格以实际出货为准。
 
 javascript:
   $(function(){
