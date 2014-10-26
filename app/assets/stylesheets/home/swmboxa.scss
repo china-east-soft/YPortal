@@ -49,7 +49,7 @@
 }
 
 #production-function {
-  figure {
+  figure.sperator {
     border-bottom: 2px solid #D2D8C9;
   }
 }
@@ -63,6 +63,9 @@
 }
 
 #production-specification{
+  figcaption {
+    margin-left: 30%;
+  }
   table#top-level > tbody > tr > td
   {
     &:first-child {
@@ -73,11 +76,16 @@
       padding: 0;
       table {
         margin:0;
+        td {
+          &:first-child {
+            width: 30%;
+          }
+          &:nth-child(2) {
+            width: 70%;
+          }
+        }
       }
     }
-  }
-
-  figure#A104C-spec {
   }
 }
 
