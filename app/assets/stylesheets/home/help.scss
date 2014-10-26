@@ -1,4 +1,46 @@
 //help and sercice
+#introduction-service-center {
+  background: image-url("bg_help.png") center center no-repeat;
+  background-size: cover;
+  min-height: 350px;
+}
+
+#local-nav {
+  background: #f3f5f0;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: none;
+  min-height: 52px;
+
+  overflow: visible;
+  margin-bottom: 0;
+  z-index: 11;
+  font-size: 14px;
+
+
+  &.lock {
+    position: fixed;
+  }
+
+  .container-fluid {
+    border-bottom: 1px solid #d6d6d6;
+    margin: 0;
+
+    ul.nav {
+      margin-right: 100px;
+      li {
+        a {
+          padding-top: 10px;
+          padding-bottom: 0;
+          display: block;
+        }
+      }
+    }
+  }
+}
+
 .help-service {
   .fuwu h2 {
     font-family: "微软雅黑";
@@ -125,4 +167,7 @@
   }
 }
 
+#service-policy {
+  display: none;
+}
 

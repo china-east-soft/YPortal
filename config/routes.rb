@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   get '/swmboxm' => "home#swmboxm"
   get '/swmboxapp' => "home#swmboxapp"
   get '/help'     => "home#help"
-  get 'service_policy' => "home#service_policy"
   get 'about' => "home#about"
   get 'contact_us' => "home#contact_us"
   get 'bbs' => "home#bbs"

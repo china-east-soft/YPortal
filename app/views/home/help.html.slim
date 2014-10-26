@@ -1,5 +1,15 @@
-.container.help-service
-  .row#help
+.introduction-header#introduction-service-center
+
+header.navbar#local-nav role="navigation"
+  .container-fluid
+    ul.nav.navbar-nav.navbar-right
+      li
+        = link_to "自助服务", '#help', class: "text-muted"
+      li
+        = link_to "售后政策", '#service-policy'
+
+.container.help-service#help
+  .row
     .cold-xs-12#contact
       .fuwu
         h2 服务与支持
@@ -64,20 +74,38 @@
               dd
                 p 『视网魔』 APP查找Wi-Fi并连接到终端后，可通过固件升级功能升级视网魔盒；如手机未安装APP，可通过手机/PC浏览器登录视网魔盒完成固件升级。升级前请确保视网魔盒已连接到互联网。
                 .close
-    .col-md-24
-      .fuwu
-        h2 售后政策
-        .panel.panel-default
-          .panel-body
-            p
-              = link_to "点击了解更多售后信息", service_policy_path
+= render "service_policy"
 javascript:
   $(function(){
-      $(".serverStep").find("dt").click(function(){
-        $(this).next("dd").slideToggle(200).siblings("dd").slideUp(200);
-      })
-  });
+    $(".serverStep").find("dt").click(function(){
+      $(this).next("dd").slideToggle(200).siblings("dd").slideUp(200);
+    });
 
   $(".close").click(function(){
-      $(this).parent().hide();
+    $(this).parent().hide();
+  });
+
+  $(window).scroll(function(){
+    var aTop = $('.introduction-header').height();
+    if($(this).scrollTop()>=aTop){
+      $("#local-nav").addClass("lock");
+    } else {
+      $("#local-nav").removeClass("lock");
+    };
+   });
+
+  $("#local-nav a").click(function() {
+    $("#local-nav a").removeClass("text-muted");
+    $(this).addClass("text-muted");
+    var show_id = $(this).attr("href");
+    ["#help", "#service-policy"].forEach(function(id) {
+      var local_nav_height = $("#local-nav").height();
+        if (id == show_id) {
+          $(id).css("margin-top", local_nav_height + "px");
+          $(id).show();
+        } else {
+          $(id).hide();
+        }
+    });
+  });
   });
