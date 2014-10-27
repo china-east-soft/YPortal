@@ -12,5 +12,6 @@ module API::V3
     mount API::V3::Comments
     mount API::V3::Users
     mount API::V3::Messages
+    mount API::V3::Apps
   end
 end
