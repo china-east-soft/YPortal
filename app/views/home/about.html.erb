@@ -16,7 +16,7 @@
             	<h2>联系我们</h2>
                 <div class="dianhua">
                 <p>联系电话：0571-85238786</p>
-                <p>邮       箱：<a href="mailto:service@cloudchain.cn">service@cloudchain.cn</a></p>
+                <p>服务邮箱：<a href="mailto:service@cloudchain.cn">service@cloudchain.cn</a></p>
                 </div>
             </div>
 
@@ -24,11 +24,16 @@
             	<h2>关注官方帐号</h2>
                 <div class="link">
                     <p class="sns_p">
-                        <a href="http://weibo.com/yunlianybox" target='_blank'><img src="/assets/home/sina.jpg" id="sina_img"/></a><br/>
-                        <span class="sns_span" id="sina_img_span"><img class="sns_img" src="/assets/home/weibo_erweima.png"/></span>
+                    <a href="http://weibo.com/yunlianybox" target='_blank'>
+                      <%= image_tag "home/sina.jpg", id: "sina_img" %>
+                    </a>
+                    <br/>
+                    <span class="sns_span" id="sina_img_span">
+                      <%= image_tag  "home/weibo_erweima.png", class: "sns_img" %>
+                    </span>
                     </p>
                     <p class="sns_p">
-                        <img src="/assets/home/weixin.jpg" id="weixin_img" /><br/>
+                        <%= image_tag "home/weixin.jpg", id: "weixin_img" %><br/>
                         <span class="sns_span" id="weixin_img_span"><img class="sns_img" src="/assets/home/weixin_erweima.jpg"/></span>
                     </p>
                     <div style="clear:both;"></div>
@@ -36,7 +41,7 @@
             </div>
 
             <div class="yunlink">
-            	<img src="/assets/home/yunlink.png" />
+            	<%= image_tag "home/yunlink.png" />
             </div>
 
         </div>

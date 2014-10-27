@@ -62,15 +62,14 @@
 }
 
 #production-specification{
-  figcaption {
-    margin-left: 30%;
-  }
+
   table#top-level > tbody > tr > td
   {
     &:first-child {
       text-align: center;
       vertical-align: middle;
     }
+
     &:nth-child(2) {
       padding: 0;
       table {
@@ -85,7 +84,17 @@
           }
         }
       }
+      &.center {
+        padding-left: 30%;
+      }
     }
+  }
+  img {
+    width: 30%;
+  }
+
+  table.table tbody tr td {
+    vertical-align: middle;
   }
 }
 

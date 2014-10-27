@@ -24,7 +24,7 @@ header.navbar#local-nav role="navigation"
     = image_tag "a_06.jpg"
   figure.sperator
     = image_tag "a_07.jpg"
-  figure
+  figure.sperator
     = image_tag "a_09.jpg"
   figure
     = image_tag "a_08.jpg"
@@ -39,11 +39,6 @@ header.navbar#local-nav role="navigation"
 
 .container#production-specification
   .row
-    .col-xs-16.col-xs-offset-4
-      figure#A104C-spec
-        = image_tag "A104C_spec_param.jpg"
-      figcaption 尺寸: 177mm * 112mm * 37mm
-      figcaption 重量: 230克  颜色: 白色
     .col-xs-24
       .panel.panle-default
         .panel-body
@@ -114,10 +109,13 @@ header.navbar#local-nav role="navigation"
                         td WPA2-PSK加密
               tr
                 td 外观尺寸
-                td 177mm * 112mm * 37mm
+                td.center
+                  figure#A104C-spec
+                    = image_tag "A104C_spec_param.jpg"
+                  figcaption 177mm * 112mm * 37mm
               tr
                 td 包装内容
-                td
+                td.center
                   ul
                     li 视网魔盒 x 1
                     li 220V电源适配器 x 1
