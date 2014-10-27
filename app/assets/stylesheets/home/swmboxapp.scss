@@ -5,11 +5,14 @@
   min-height: 585px;
 
   #downloads {
-    padding-top: 18%;
+    padding-top: 15%;
     #content {
       margin-left: 14%;
       figure {
         margin-bottom: 2%;
+        img {
+          width: 90%;
+        }
       }
     }
   }
