@@ -74,6 +74,7 @@
     &:nth-child(2) {
       padding: 0;
       table {
+        background-color: inherit;
         margin:0;
         td {
           &:first-child {
