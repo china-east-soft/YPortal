@@ -15,8 +15,8 @@
             <div class="lianxiwomen fLe">
             	<h2>联系我们</h2>
                 <div class="dianhua">
-                <p>联系电话：0571-85238786</p>
-                <p>服务邮箱：<a href="mailto:service@cloudchain.cn">service@cloudchain.cn</a></p>
+                <p>客户服务热线：0571-85238786</p>
+                <p>客户服务邮箱：<a href="mailto:service@cloudchain.cn">service@cloudchain.cn</a></p>
                 </div>
             </div>
 
@@ -24,24 +24,32 @@
             	<h2>关注官方帐号</h2>
                 <div class="link">
                     <p class="sns_p">
-                    <a href="http://weibo.com/yunlianybox" target='_blank'>
-                      <%= image_tag "home/sina.jpg", id: "sina_img" %>
-                    </a>
-                    <br/>
-                    <span class="sns_span" id="sina_img_span">
-                      <%= image_tag  "home/weibo_erweima.png", class: "sns_img" %>
-                    </span>
+                      <a href="http://weibo.com/yunlianybox" target='_blank'>
+                        <%= image_tag "home/sina.jpg", id: "sina_img" %>
+                      </a>
+                      <br/>
+                      <span class="sns_span" id="sina_img_span">
+                        <%= image_tag  "home/weibo_erweima.png", class: "sns_img" %>
+                      </span>
+                      </p>
+                    <p class="sns_p">
+                        <%= image_tag "home/weixin.jpg", id: "weixin_img" %><br/>
+                        <span class="sns_span" id="weixin_img_span">
+                          <%= image_tag "home/weixin_erweima.jpg", class: "sns_img" %>
+                        </span>
                     </p>
                     <p class="sns_p">
                         <%= image_tag "home/weixin.jpg", id: "weixin_img" %><br/>
-                        <span class="sns_span" id="weixin_img_span"><img class="sns_img" src="/assets/home/weixin_erweima.jpg"/></span>
+                        <span class="sns_span" id="weixin_img_span_1">
+                          <%= image_tag "home/weixin_erweima.jpg", class: "sns_img" %>
+                        </span>
                     </p>
                     <div style="clear:both;"></div>
                 </div>
             </div>
 
             <div class="yunlink">
-            	<%= image_tag "home/yunlink.png" />
+            	<%= image_tag "home/yunlink.png" %>
             </div>
 
         </div>
