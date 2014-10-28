@@ -60,6 +60,26 @@ header.navbar#local-nav role="navigation"
           .panel-body
             dl.serverStep
               dt
+                a href="javascript:void(0)" 用视网魔APP收看CMMB节目按流量收费吗？
+              dd
+                p 不是。CMMB使用广播信道，这和现有的移动通信的信道完全不同，因此不会收取流量费。
+
+              dt
+                a href="javascript:void(0)" 视网魔盒是否支持漫游，在外地能否收看节目？
+              dd
+                p 支持全国漫游，只要接收到CMMB信号就能看。视网魔APP会自动刷新频道列表。
+
+              dt
+                a href="javascript:void(0)" 目前视网魔盒能够收看哪些节目？
+              dd
+                p 目前播出的有七套电视节目，分别是CCTV1、CCTV5、CCTV新闻、睛彩电影、睛彩天下，省级卫视频道1套，市电视频道1套。省级电视台与市级电视台各地区会不同，以视网魔APP上显示的频道为准。
+
+              dt
+                a href="javascript:void(0)" 视网魔盒能支持多少用户同时观看CMMB电视节目？
+              dd
+                p 最大能支持10个用户（智能终端）同时观看不同的节目。
+
+              dt
                 a href="javascript:void(0)" 如何查找SWM-BOX WiFi？
               dd
                 p 安卓手机：打开『视网魔』APP，APP自动搜索SWM-BOX WiFi并连接；如附近有多个SWM-BOX WiFi，在列表中选择其中一个Wi-Fi即可。
@@ -80,6 +100,17 @@ header.navbar#local-nav role="navigation"
               dd
                 p 『视网魔』 APP查找Wi-Fi并连接到终端后，可通过固件升级功能升级视网魔盒；如手机未安装APP，可通过手机/PC浏览器登录视网魔盒完成固件升级。升级前请确保视网魔盒已连接到互联网。
                 //.close
+
+              dt
+                a href="javascript:void(0)" CMMB（移动多媒体广播电视）信号全国覆盖范围查询。
+              dd
+                p
+                  | 查询中广传播的官网:
+                  = link_to "http://www.cbc.cn/Server/City.aspx", "http://www.cbc.cn/Server/City.aspx", target: "_blank"
+                p
+                  | 查看全国覆盖城市列表：
+                  = image_tag "home/city_of_signals.png"
+
 = render "service_policy"
 javascript:
   $(function(){
