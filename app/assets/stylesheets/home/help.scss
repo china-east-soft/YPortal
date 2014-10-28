@@ -21,19 +21,28 @@
   .fuwuTxt {
     width: 960px;
     height: 70px;
-    margin-top: 38px;
+    margin-top: 20px;
     margin-left: 48px;
   }
 
   #contact ul {
     list-style: none outside none;
+
+    li {
+      img {
+        margin-bottom: 30px;
+      }
+      span {
+        display: block;
+      }
+    }
   }
 
   .fuwuTxt ul li {
     height: 70px;
     line-height: 20px;
     float: left;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
   }
 
   .fuwuTxt ul li h1 {
