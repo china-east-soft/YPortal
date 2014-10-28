@@ -8,24 +8,28 @@ module API::V3
         optional :version, type: String
       end
       post '/start' do
-        app = App.find_or_create_by(mac: params[:mac]) do
+        app = App.find_or_create_by(mac: params[:mac])
+        if app
           if params[:version].present?
             name, version = params[:version].split("-")
-            app_version = AppVersion.where(name: name, version: version, branch: 'personal')
+            app_version = AppVersion.where(name: name, version: version, branch: 'personal').first
             if app_version
               app.app_version = app_version
             end
           end
-        end
 
-        if app
-          connection = AppConnectioin.new
+          connection = AppConnection.new
           connection.app = app
           connection.save!
 
           present :result, true
         else
-          not_found!
+          error_code = 1
+          message = "app not found"
+          present :result, false
+          present :error_code, error_code
+          present :message, message
+          # not_found!
         end
       end
 

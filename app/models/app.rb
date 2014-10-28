@@ -3,5 +3,4 @@ class App < ActiveRecord::Base
 
   validates :mac, presence: true, uniqueness: true
 
-
 end
