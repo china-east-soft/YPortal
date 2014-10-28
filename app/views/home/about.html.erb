@@ -33,15 +33,15 @@
         </span>
         </p>
         <p class="sns_p">
-        <%= image_tag "home/weixin.jpg", id: "weixin_img" %><br/>
-        <span class="sns_span" id="weixin_img_span">
-          <%= image_tag "home/weixin_erweima.jpg", class: "sns_img" %>
+        <%= image_tag "home/weixin_dingyuehao.png", id: "weixin_dingyuehao" %><br/>
+        <span class="sns_span" id="weixin_dingyuehao_span">
+          <%= image_tag "home/weixin_dingyuehao_erweima.jpg", class: "sns_img" %>
         </span>
         </p>
         <p class="sns_p">
-        <%= image_tag "home/weixin.jpg", id: "weixin_img" %><br/>
-        <span class="sns_span" id="weixin_img_span_1">
-          <%= image_tag "home/weixin_erweima.jpg", class: "sns_img" %>
+        <%= image_tag "home/weixin_fuwuhao.png", id: "weixin_fuwuhao" %><br/>
+        <span class="sns_span" id="weixin_fuwuhao_span">
+          <%= image_tag "home/weixin_fuwuhao_erweima.jpg", class: "sns_img" %>
         </span>
         </p>
         <div style="clear:both;"></div>
@@ -56,24 +56,15 @@
 </div>
 
 <script type="text/javascript">
-  $("#sina_img").mouseover(
-      function(){
-      $("#sina_img_span").fadeIn(600);
-      }
+  ["#sina_img", "#weixin_dingyuehao", "#weixin_fuwuhao"].forEach(function(id){
+      $(id).mouseover(
+        function(){
+        $(id + "_span").fadeIn(600);
+        }
       );
-  $("#sina_img").mouseout(
-      function(){
-      $("#sina_img_span").fadeOut(600);
-      }
-      );
-  $("#weixin_img").mouseover(
-      function(){
-      $("#weixin_img_span").fadeIn(600);
-      }
-      );
-  $("#weixin_img").mouseout(
-      function(){
-      $("#weixin_img_span").fadeOut(600);
-      }
-      );
-    </script>
+    $(id).mouseout(
+        function(){
+        $(id + "_span").fadeOut(600);
+        });
+    });
+</script>
