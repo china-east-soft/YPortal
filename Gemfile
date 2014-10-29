@@ -113,6 +113,7 @@ group :development do
 
   gem 'byebug'
   gem 'pry-byebug'
+  gem 'did-you-mean'
 end
 
 

@@ -93,6 +93,8 @@ GEM
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    did-you-mean (0.1.1)
+      levenshtein (>= 0.2.0)
     diff-lcs (1.2.5)
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
@@ -154,6 +156,7 @@ GEM
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    levenshtein (0.2.2)
     libv8 (3.16.14.7)
     listen (2.7.11)
       celluloid (>= 0.15.2)
@@ -354,6 +357,7 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 4.0.0)
   devise (= 3.2.4)
+  did-you-mean
   execjs
   factory_girl_rails (~> 4.3.0)
   font-awesome-rails (= 3.2.1.3)
