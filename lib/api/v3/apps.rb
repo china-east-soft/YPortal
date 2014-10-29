@@ -29,7 +29,6 @@ module API::V3
           present :result, false
           present :error_code, error_code
           present :message, message
-          # not_found!
         end
       end
 
@@ -37,7 +36,7 @@ module API::V3
       params do
         requires :mac, type: String
         requires :channel, type: String
-        requires :started_at, type: String
+        # requires :started_at, type: String
         requires :seconds, type: Integer
         optional :user_id, type: Integer
       end
@@ -49,7 +48,11 @@ module API::V3
           watching.save
           present :result, true
         else
-          not_found!("program")
+          error_code = 1
+          message = "program not found"
+          present :result, false
+          present :error_code, error_code
+          present :message, message
         end
       end
     end
