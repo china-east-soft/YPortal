@@ -86,4 +86,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.default_url_options = { :host => 'portal.cloudchain.cn' }
+
+  config.action_controller.asset_host = "portal.cloudchain.cn"
 end
