@@ -88,4 +88,5 @@ Rails.application.configure do
   config.default_url_options = { :host => 'portal.cloudchain.co' }
 
   config.action_controller.asset_host = "portal.cloudchain.co"
+  config.action_controller.page_cache_directory = "#{Rails.root.to_s}/public"
 end

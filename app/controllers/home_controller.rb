@@ -1,6 +1,8 @@
 class HomeController < ApplicationController
   layout 'home'
 
+  caches_page :index, :swmboxa, :wmboxm, :swmboxapp, :help, :about
+
   def index
     render :swmboxa
   end
