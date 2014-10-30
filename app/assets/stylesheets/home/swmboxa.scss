@@ -1,15 +1,17 @@
 //a
 #introduction-a {
-  background: image-url("bg_A.jpg") center center no-repeat;
+  // background: image-url("bg_A.jpg") center center no-repeat;
   background-size: cover;
-  min-height: 600px;
-  a.btn {
-    background-color: #f15a29;
-    border-color: #f15a29;
-
-    margin-left: 18%;
-    margin-top: 30%;
+  img {
+    min-height: 600px;
   }
+  // a.btn {
+  //   background-color: #f15a29;
+  //   border-color: #f15a29;
+
+  //   margin-left: 18%;
+  //   margin-top: 30%;
+  // }
 }
 
 #local-nav {

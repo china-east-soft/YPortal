@@ -106,6 +106,8 @@ task :deploy => :environment do
     invoke :'rails:assets_precompile'
 
     to :launch do
+      queue! %[chmod g+rw, u+rw, o+rw "#{deploy_to}/public"]
+
       invoke :'whenever:update'
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
       invoke :'sidekiq:restart'
