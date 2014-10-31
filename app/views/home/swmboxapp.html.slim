@@ -3,11 +3,14 @@
     .row
       .col-xs-4#content
         figure
-          = image_tag "ios_download.png", id: "ios_download"
+          a href="http://cloudchain.cn/downloads?branch=personal&name=ymtv_ios"
+            = image_tag "ios_download.png", id: "ios_download"
         figure
-          = image_tag "android_download.png", id: "android_download"
+          a href="http://cloudchain.cn/downloads?branch=personal&name=ymtv_android"
+            = image_tag "android_download.png", id: "android_download"
         figure
           = image_tag "erweima.png"
+          figcaption.text-center  手机扫描下载
 #app-content
   figure.sperator
     = image_tag "APP_02.jpg"
@@ -15,5 +18,5 @@
     = image_tag "APP_03.jpg"
   figure.sperator
     = image_tag "APP_04.jpg"
-  figure
-    = image_tag "APP_05.jpg"
+  //figure
+  // = image_tag "APP_05.jpg"
