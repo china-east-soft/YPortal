@@ -90,7 +90,7 @@ task :setup => :environment do
   queue! %[mkdir "#{deploy_to}/shared/pids"]
   queue! %[chmod g+rx, u+rwx "#{deploy_to}/shared/pids"]
   queue! %[touch "#{deploy_to}/shared/pids/sidekiq.pid"]
-  queue! %[chmod g+rw, u+rw, o+rw "#{deploy_to}/shared/pids/sidekiq.pid"]
+  queue! %[chmod g+rw,u+rw,o+rw" #{deploy_to}/shared/pids/sidekiq.pid"]
 
 end
 
@@ -106,7 +106,7 @@ task :deploy => :environment do
     invoke :'rails:assets_precompile'
 
     to :launch do
-      queue! %[chmod g+rw, u+rw, o+rw "#{deploy_to}/public"]
+      queue! %[chmod g+rw,u+rw,o+rw "#{deploy_to}/current/public/"]
 
       invoke :'whenever:update'
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
