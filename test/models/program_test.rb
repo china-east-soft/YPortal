@@ -2,22 +2,22 @@ require 'test_helper'
 
 class ProgramTest < ActiveSupport::TestCase
   test "channel with invalid format" do
-    invalid_channel = "CMMB#12-34-杭州"
+    invalid_channel = "CMMB#12@34@杭州"
     p1 = Program.new(channel: invalid_channel, name: "cctv")
     p1.valid?
     assert_not_nil p1.errors[:channel]
   end
 
   test "channel with valid format" do
-    valid_channel = "CMMB-12-34-杭州"
-    p1 = Program.new(channel: valid_channel, name: "cctv")
+    valid_channel = "CMMB@12@杭州卫视@杭州"
+    p1 = Program.new(channel: valid_channel, name: "CCTV-1")
     p1.valid?
     assert p1.save
   end
 
 
   test "channel should be uniq" do
-    channel = "CMMB-12-34-杭州"
+    channel = "CMMB@12@34@杭州"
     p1 = Program.new(channel: channel, name: "cctv")
     assert p1.save
 
@@ -27,7 +27,7 @@ class ProgramTest < ActiveSupport::TestCase
   end
 
   test "should auto generate mode freq sid and location" do
-    channel = "CMMB-12-34-杭州"
+    channel = "CMMB@12@34@杭州"
     p1 = Program.new(channel: channel, name: "cctv")
     p1.valid?
     assert_not_nil p1.mode
@@ -61,7 +61,7 @@ class ProgramTest < ActiveSupport::TestCase
   end
 
   test "find_or_create_by_channel should create program if not exist" do
-    channel = "CMMB-22-44-杭州"
+    channel = "CMMB@22@44@杭州"
 
     assert_nil Program.find_by(channel: channel)
 
@@ -85,27 +85,27 @@ class ProgramTest < ActiveSupport::TestCase
   end
 
   test "find_or_create_by_channel create CMMB GLOBAL program" do
-    channel = "CMMB-32-2-杭州"
+    channel = "CMMB@32@CCTV-1@杭州"
     program = nil
 
     assert_difference "Program.count" do
       program = Program.find_or_create_by_channel(channel)
     end
-    assert_equal program.channel, "CMMB-00-2-*"
+    assert_equal program.channel, "CMMB@00@CCTV-1@*"
   end
 
   test "find_or_create_by_channel should find CMMB GLOBAL program" do
-    channel = "CMMB-00-2-*"
-    p = Program.create(channel: channel, name: Program::CMMB_SID_GLOBAL_PROGRAMS["2"])
+    channel = "CMMB@00@CCTV-1@*"
+    p = Program.create(channel: channel, name: "CCTV-1")
     assert_not_nil p
 
-    channel = "CMMB-32-2-杭州"
+    channel = "CMMB@32@CCTV-1@杭州"
     program = nil
 
     assert_no_difference "Program.count" do
       program = Program.find_or_create_by_channel(channel)
     end
-    assert_equal program.channel, "CMMB-00-2-*"
+    assert_equal program.channel, "CMMB@00@CCTV-1@*"
     assert_equal program, p
   end
 
@@ -120,7 +120,7 @@ class ProgramTest < ActiveSupport::TestCase
   end
 
   test "find_by_channel should not find program" do
-    channel = "CMMB-12-34-杭州"
+    channel = "CMMB@12@34@杭州"
     program = nil
 
     assert_no_difference "Program.count" do
