@@ -23,6 +23,8 @@ class Program < ActiveRecord::Base
         return key
       end
     end
+
+    return name
   end
 
   scope :global_programs, lambda { where(mode: "CMMB", channel_name: CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.keys) }
@@ -43,18 +45,19 @@ class Program < ActiveRecord::Base
     program = Program.find_by(channel: channel)
 
     if program.nil?
-      mode, freq, channel_name, location = channel.split('@')
-      if mode == 'CMMB' && CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.values.flatten.include?(channel_name)
-        name = Program.name_to_channel_name(channel_name)
-        program = Program.where(mode: 'CMMB', channel_name: name).first
+      mode, freq, name_from_channel, location = channel.split('@')
+      channel_name = Program.name_to_channel_name(name_from_channel)
+
+      if mode == 'CMMB' && CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.keys.include?(channel_name)
+        program = Program.where(mode: 'CMMB', channel_name: channel_name).first
         if program.nil?
           program = Program.create(
                                     channel: "CMMB@00@#{channel_name}@*",
-                                    name: name
+                                    name: channel_name
                                   )
         end
       else
-        program = Program.create(channel: channel, name: location)
+        program = Program.create(channel: channel, name: channel_name)
       end
     end
 

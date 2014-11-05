@@ -26,7 +26,7 @@ class ProgramTest < ActiveSupport::TestCase
     assert_not_nil p2.errors[:channel]
   end
 
-  test "should auto generate mode freq sid and location" do
+  test "should auto generate mode freq name and location" do
     channel = "CMMB@12@34@杭州"
     p1 = Program.new(channel: channel, name: "cctv")
     p1.valid?
@@ -61,7 +61,7 @@ class ProgramTest < ActiveSupport::TestCase
   end
 
   test "find_or_create_by_channel should create program if not exist" do
-    channel = "CMMB@22@44@杭州"
+    channel = "CMMB@22@杭州卫视@杭州"
 
     assert_nil Program.find_by(channel: channel)
 
@@ -218,4 +218,14 @@ class ProgramTest < ActiveSupport::TestCase
     assert_equal p.parent_comments_in_4_hour_for_app, [c1]
     assert_equal p.parent_comments_in_4_hour_for_app.first.children, [c3, c2]
   end
+
+  test "name_to_channel_name" do
+    name1 = "CCTV1"
+    name2 = "杭州卫视"
+
+    assert_equal "CCTV-1", Program.name_to_channel_name(name1)
+    assert_equal "杭州卫视", Program.name_to_channel_name(name2)
+
+  end
+
 end
