@@ -12,9 +12,9 @@ class Program < ActiveRecord::Base
 
   CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS = {
                                        "CCTV-1" => ["CCTV-1", "CCTV1", "CCTV综合", "CCTV-综合"],
-                                       "晴彩电影" => ["晴彩电影"],
+                                       "睛彩电影" => ["睛彩电影"],
                                        "CCTV-5"  => ["CCTV-5", "CCTV5", "CCTV体育", "CCTV-体育"],
-                                       "晴彩天下" => ["晴彩天下"],
+                                       "睛彩天下" => ["睛彩天下"],
                                        "CCTV-13" => ["CCTV-13", "CCTV13", "CCTV新闻", "CCTV-新闻"]
                                       }
   def self.name_to_channel_name(name)
