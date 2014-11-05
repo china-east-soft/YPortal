@@ -29,7 +29,7 @@ class Program < ActiveRecord::Base
 
   scope :global_programs, lambda { where(mode: "CMMB", channel_name: CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.keys) }
   # scope :local_programs, lambda { where("mode != 'CMMB' or (mode = 'CMMB' and name NOT IN (#{CMMB_GLOBAL_PROGRAMS.keys.join(",")}))") }
-  scope :local_programs, lambda {where("mode != 'CMMB' or ((mode = 'CMMB') and (channel_name NOT IN ('CCTV-1', 'CCTV-5', 'CCTV-13','晴彩电影','晴彩天下')))")}
+  scope :local_programs, lambda {where("mode != 'CMMB' or ((mode = 'CMMB') and (channel_name NOT IN ('CCTV-1', 'CCTV-5', 'CCTV-13','睛彩电影','睛彩天下')))")}
 
   # scope :local_programs, lambda { where("SELECT * FROM programs WHERE mode != 'CMMB' or (mode = 'CMMB' and sid NOT IN (601, 602, 603, 604, 605))") }
   validates :channel, presence: true, uniqueness: true, format: {with: CHANNEL_FORMAT,
