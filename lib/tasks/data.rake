@@ -33,8 +33,18 @@ namespace :data do
 
   desc "generate global television programs"
   task :generate_programs => :environment do
-    Program::CMMB_SID_GLOBAL_PROGRAMS.each do |sid, name|
-      p = Program.new(channel: "CMMB-00-#{sid}-*", name: name)
+    generate_global_programs
+  end
+
+  desc "delete leverage program and generate new global programs"
+  task :delete_and_generate_programs => :environment do
+    Program.delete_all
+    generate_global_programs
+  end
+
+  def generate_global_programs
+    Program::CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.each do |key, _|
+      p = Program.new(channel: "CMMB@00@#{key}@*", name: key)
       unless p.save
         puts p.errors.full_messages
       end
