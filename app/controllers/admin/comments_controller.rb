@@ -23,8 +23,7 @@ class Admin::CommentsController < AdminController
       @program = Program.find(params[:program_id])
       @comments = @program.comments.page(params[:page])
     elsif params[:channel].present?
-      @program = Program.find_by(channel: params[:channel])
-      @comments = @program.comments.page(params[:page])
+      @comments = Comment.includes(:program).where(channel: params[:channle]).page(params[:page])
     else
       @comments = Comment.includes(:program).all.page(params[:page])
     end
