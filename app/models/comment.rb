@@ -1,5 +1,7 @@
 class Comment < ActiveRecord::Base
 
+  before_save :update_channel, if: "program_id.present?"
+
   belongs_to :program, counter_cache: true
   belongs_to :user
 
@@ -63,4 +65,11 @@ class Comment < ActiveRecord::Base
   def text?
     content_type == "text"
   end
+
+  def update_channel
+    if program.present?
+      self.channel = program.channel
+    end
+  end
+
 end
