@@ -22,7 +22,7 @@ module API::V3
       end
       post :create do
         mac = params[:mac]
-        channel = params[:channel]
+        channel = params[:channel].force_encoding("UTF-8")
         parent_id = params[:parent_id]
         user_id = params[:user_id]
 
@@ -40,6 +40,7 @@ module API::V3
           comment.content_type = "audio"
           # link = request.scheme + '://' + request.host_with_port + c.audio.url.to_s
         else
+          body.force_encoding("UTF-8")
           comment = Comment.new(mac: mac, channel: channel, body: body, parent_id: parent_id, user_id: user_id)
         end
 
@@ -51,7 +52,7 @@ module API::V3
           present :result, true
         else
           present :result, false
-          present :message, comment.errors.full_messaegs.join(",")
+          present :message, comment.errors.full_messages.join(",")
         end
       end
 
@@ -65,7 +66,7 @@ module API::V3
         optional :limit , type: Integer
       end
       get :select do
-        channel = params[:channel]
+        channel = params[:channel].force_encoding("UTF-8")
         id = params[:id] || 0
         limit = params[:limit] || 20
 
