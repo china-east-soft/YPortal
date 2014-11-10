@@ -1,5 +1,6 @@
 class Admin::TelevisionsController < AdminController
   before_action :find_television, only: [:show, :update, :destroy]
+  before_action :setup
 
   def new
     @television = Television.new

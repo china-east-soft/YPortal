@@ -53,4 +53,7 @@ class AdminController < ActionController::Base
       !personal?
     end
 
+    def setup
+      @left_panel = "admin/programs/left_panel"
+    end
 end

@@ -1,5 +1,6 @@
 class Admin::CitiesController < AdminController
   before_action :find_city, only: [:show, :update, :destroy]
+  before_action :setup
 
   def new
     @city = City.new

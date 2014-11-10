@@ -67,8 +67,4 @@ class Admin::ProgramsController < AdminController
     @program = Program.find(params[:id])
   end
 
-  def setup
-    @left_panel = "admin/programs/left_panel"
-  end
-
 end
