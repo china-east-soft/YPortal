@@ -60,7 +60,7 @@ class Admin::ProgramsController < AdminController
 
   private
   def program_params
-    params.require(:program).permit(:name, :channel, :mode, :location, :feq, :sid)
+    params.require(:program).permit(:name, :channel, :mode, :location, :feq, :sid, :television_id)
   end
 
   def find_program

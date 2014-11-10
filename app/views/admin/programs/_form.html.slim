@@ -1,5 +1,9 @@
 = form_for [:admin, @program], html: {id: "program-form"} do |f|
   .form-group
+    = f.label :television_id, "选择电台", class: "control-lable col-md-4"
+    .col-md-8
+      = f.collection_select :television_id, Television.all, :id, :name, {include_blank: ""}, class: "form-control"
+  .form-group
     = f.label :name, "节目名称", class: "control-lable col-md-4"
     .col-md-8
       = f.text_field :name, class: "form-control"
