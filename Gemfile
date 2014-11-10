@@ -91,8 +91,8 @@ end
 
 
 # Slim template
-gem 'slim', '~> 2.0.2'
-# gem "slim-rails"
+# gem 'slim', '~> 2.0.2'
+gem "slim-rails"
 
 gem 'sidekiq'
 gem 'mina-sidekiq'

@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   devise_for :accounts, :controllers => {:registrations => "account/registrations",
    :sessions => "account/sessions" }
 
@@ -103,15 +102,13 @@ Rails.application.routes.draw do
     resources :feed_backs
     resources :comments, only: [:create, :index, :destroy]
     resources :api_visit_logs, only: :index
-
-    get 'comments/index'
-
     resources :programs do
       collection do
         get :check_channel
       end
     end
 
+    resources :televisions, except: :edit
     resources :users, except: [:new, :create, :edit]
   end
 
