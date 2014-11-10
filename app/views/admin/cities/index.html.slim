@@ -1,0 +1,24 @@
+.main
+  .container
+    .row
+      .col-md-10
+        .panel
+          .panel-heading
+            h3.panel-title  城市列表
+            .pull-right
+              = link_to "添加城市", new_admin_city_path, class: 'btn btn-lg btn-primary'
+          .panel-body
+            table.table.table-hovered.table-stripped.table-advance
+              thead
+                tr
+                  th 城市名
+                  th 编码
+                  th
+              tbody
+                - @cities.each do |city|
+                  tr
+                    td = city.name
+                    td = city.code
+                    td
+                      = link_to "编辑", [:admin, city]
+

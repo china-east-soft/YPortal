@@ -29,6 +29,13 @@ class Admin::TelevisionsController < AdminController
     end
   end
 
+  def destroy
+    @television.destroy
+
+    flash[:success] = "删除成功"
+    redirect_to admin_televisions_url
+  end
+
   private
   def find_television
     @television = Television.find params[:id]

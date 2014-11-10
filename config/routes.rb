@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   devise_for :accounts, :controllers => {:registrations => "account/registrations",
    :sessions => "account/sessions" }
 
@@ -110,6 +111,7 @@ Rails.application.routes.draw do
 
     resources :televisions, except: :edit
     resources :users, except: [:new, :create, :edit]
+    resources :cities, except: [:edit]
   end
 
   namespace :agent do

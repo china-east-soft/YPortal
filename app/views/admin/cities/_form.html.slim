@@ -1,0 +1,16 @@
+= form_for [:admin, @city]  do |f|
+  = render "shared/flash_messages"
+  .form-group
+    = f.label :name, "城市名", class: "control-label"
+    = f.text_field :name, class: "form-control"
+  .form-group
+    = f.label :code, "编码", class: "control-label"
+    = f.text_field :code, class: "form-control"
+    span.text-hint 如杭州的是 0571
+  .clearfix
+    - if @city.new_record?
+      = f.submit "添加城市", class: "btn btn-lg btn-primary"
+    - else
+      = f.submit "修改", class: "btn btn-lg btn-primary"
+      .pull-right
+        = link_to  "删除城市", [:admin, @city], method: "delete", data: {confirm: "取定删除?"}, class: "btn btn-lg btn-danger"
