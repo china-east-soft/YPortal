@@ -29,7 +29,6 @@ class Admin::ProgramsController < AdminController
   end
 
   def show
-
   end
 
   def edit
@@ -60,7 +59,8 @@ class Admin::ProgramsController < AdminController
 
   private
   def program_params
-    params.require(:program).permit(:name, :channel, :mode, :location, :feq, :sid, :television_id)
+    params.require(:program).permit(:name, :channel, :mode,
+                                    :location, :feq, :sid, :television_id, :city_id)
   end
 
   def find_program

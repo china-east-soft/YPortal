@@ -2,7 +2,7 @@ class Program < ActiveRecord::Base
   has_many :comments, dependent: :destroy
 
   belongs_to :television
-  # belongs_to :city
+  belongs_to :city
 
   before_validation :channel_to_upper_and_generate_mod_freq_name_and_location
   after_save :update_comments_channel

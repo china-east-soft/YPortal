@@ -1,10 +1,16 @@
 .panel
   .panel-body
     p
-      strong 节目名称
+      strong 所属电台
+      = @program.television.try(:name)
+    p
+      strong 所属城市
+      = @program.city.try(:name)
+    p
+      strong 节目名称:
       = @program.name
     p
-      strong 节目标志
+      strong 节目标志:
       = @program.channel
 
 = link_to "编辑", edit_admin_program_path(@program)

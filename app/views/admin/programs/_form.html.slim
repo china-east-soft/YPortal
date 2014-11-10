@@ -3,10 +3,16 @@
     = f.label :television_id, "选择电台", class: "control-lable col-md-4"
     .col-md-8
       = f.collection_select :television_id, Television.all, :id, :name, {include_blank: ""}, class: "form-control"
+
+  .form-group
+    = f.label :city_id, "选择城市", class: "control-lable col-md-4"
+    .col-md-8
+      = f.collection_select :city_id, City.all, :id, :name, {include_blank: ""}, class: "form-control"
   .form-group
     = f.label :name, "节目名称", class: "control-lable col-md-4"
     .col-md-8
       = f.text_field :name, class: "form-control"
+
   .form-group
     = f.label :channel, "节目唯一标识", class: "control-label  col-md-4"
     .col-md-8
@@ -28,7 +34,6 @@
         },
         'program[channel]': {
           required: true,
-          format: /^\w+\-(\d+\-){2}.+$/,
           remote: {
             url: '/admin/programs/check_channel',
             type: 'get',
@@ -47,7 +52,6 @@
 
         'program[channel]': {
           required: '#{@program.errors.generate_message :channel, :blank}',
-          format: '#{@program.errors.generate_message :channel, :format}',
           remote: '#{@program.errors.generate_message :channel, :taken}'
         },
       },
