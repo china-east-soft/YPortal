@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% if flash[:error].present? %>
+  <p class="text-danger"> <%= flash[:error] %> </p>
+<% end %>
 
 <p>
   <strong>Start at:</strong>

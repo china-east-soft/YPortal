@@ -21,4 +21,14 @@ class BottomAd < ActiveRecord::Base
       start_at && end_at and end_at < start_at
   end
 
+  def self.date_must_be_exclusive(item)
+    BottomAd.where.not(id: item.id).each do |b|
+      unless (item.end_at < b.start_at || item.start_at > b.end_at)
+        return false
+      end
+    end
+
+    true
+  end
+
 end

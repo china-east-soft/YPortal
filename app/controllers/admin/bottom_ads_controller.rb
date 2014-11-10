@@ -28,28 +28,37 @@ class Admin::BottomAdsController < AdminController
   def create
     @bottom_ad = BottomAd.new(bottom_ad_params)
 
-    respond_to do |format|
-      if @bottom_ad.save
-        format.html { redirect_to [:admin, @bottom_ad], notice: 'bottom_ad was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @bottom_ad }
+    if @bottom_ad.save
+      if BottomAd.date_must_be_exclusive(@bottom_ad)
+        message = 'bottom_ad was successfully created.'
+        gflash :success => message
       else
-        format.html { render action: 'new' }
-        format.json { render json: @bottom_ad.errors, status: :unprocessable_entity }
+        message = '广告的起至时间和其它广告有冲突， 请仔细检查！'
+        gflash :error => message
+        flash[:error] = message
       end
+      redirect_to [:admin, @bottom_ad]
+    else
+      render action: 'new'
     end
   end
 
   # PATCH/PUT /bottom_ads/1
   # PATCH/PUT /bottom_ads/1.json
   def update
-    respond_to do |format|
-      if @bottom_ad.update(bottom_ad_params)
-        format.html { redirect_to [:admin, @bottom_ad], notice: 'bottom_ad was successfully updated.' }
-        format.json { head :no_content }
+    if @bottom_ad.update(bottom_ad_params)
+      if BottomAd.date_must_be_exclusive(@bottom_ad)
+        message = 'bottom_ad was successfully created.'
+        gflash :success => message
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @bottom_ad.errors, status: :unprocessable_entity }
+        message = '广告的起至时间和其它广告有冲突， 请仔细检查！'
+        gflash :error => message
+        flash[:error] = message
       end
+
+      redirect_to [:admin, @bottom_ad]
+    else
+      render action: 'edit'
     end
   end
 

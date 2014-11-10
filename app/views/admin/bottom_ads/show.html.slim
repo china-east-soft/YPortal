@@ -1,4 +1,5 @@
-p#notice = notice
+- if flash[:error].present?
+  p.text-danger = flash[:error]
 p
   strong Start at:
   = @bottom_ad.start_at

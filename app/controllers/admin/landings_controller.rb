@@ -29,28 +29,38 @@ class Admin::LandingsController < AdminController
   def create
     @landing = Landing.new(landing_params)
 
-    respond_to do |format|
-      if @landing.save
-        format.html { redirect_to [:admin, @landing], notice: 'landing was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @landing }
+    if @landing.save
+      if Landing.date_must_be_exclusive(@landing)
+        message = 'landing was successfully created.'
+        gflash :success => message
       else
-        format.html { render action: 'new' }
-        format.json { render json: @landing.errors, status: :unprocessable_entity }
+        message = '广告的起至时间和其它广告有冲突， 请仔细检查！'
+        gflash :error => message
+        flash[:error] = message
       end
+
+      redirect_to [:admin, @landing]
+    else
+      render action: 'new'
     end
   end
 
   # PATCH/PUT /landings/1
   # PATCH/PUT /landings/1.json
   def update
-    respond_to do |format|
-      if @landing.update(landing_params)
-        format.html { redirect_to [:admin, @landing], notice: 'landing was successfully updated.' }
-        format.json { head :no_content }
+    if @landing.update(landing_params)
+      if Landing.date_must_be_exclusive(@landing)
+        message = 'landing was successfully created.'
+        gflash :success => message
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @landing.errors, status: :unprocessable_entity }
+        message = '广告的起至时间和其它广告有冲突， 请仔细检查！'
+        gflash :error => message
+        flash[:error] = message
       end
+
+      redirect_to [:admin, @landing]
+    else
+      render action: 'edit'
     end
   end
 
