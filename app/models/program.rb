@@ -4,15 +4,15 @@ class Program < ActiveRecord::Base
   belongs_to :television
   belongs_to :city
 
-  before_validation :channel_to_upper_and_generate_mod_freq_name_and_location
-  after_save :update_comments_channel
+  before_validation :channel_to_upper_and_generate_mod_freq_name_and_location, on: :create, if: "self.channel.present?"
+
+  # after_save :update_comments_channel
 
 
   delegate :logo, to: :television
 
   # change channel format to : CMMB@123@CCTV综合@杭州(mod-freq-name-location)
   CHANNEL_FORMAT = /\A\w+@(\d+)@(.*)@(.*)\Z/u
-
   CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS = {
                                        "CCTV-1" => ["CCTV-1", "CCTV1", "CCTV综合", "CCTV-综合"],
                                        "睛彩电影" => ["睛彩电影"],
@@ -31,13 +31,12 @@ class Program < ActiveRecord::Base
   end
 
   scope :global_programs, lambda { where(mode: "CMMB", channel_name: CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.keys) }
-  # scope :local_programs, lambda { where("mode != 'CMMB' or (mode = 'CMMB' and name NOT IN (#{CMMB_GLOBAL_PROGRAMS.keys.join(",")}))") }
+
   scope :local_programs, lambda {where("mode != 'CMMB' or ((mode = 'CMMB') and (channel_name NOT IN ('CCTV-1', 'CCTV-5', 'CCTV-13','睛彩电影','睛彩天下')))")}
 
-  # scope :local_programs, lambda { where("SELECT * FROM programs WHERE mode != 'CMMB' or (mode = 'CMMB' and sid NOT IN (601, 602, 603, 604, 605))") }
-  validates :channel, presence: true, uniqueness: true, format: {with: CHANNEL_FORMAT,
-                                                                  message: "格式错误！"}
-  validates_presence_of :name, :mode, :freq, :channel_name, :location, allow_blank: false
+  # validates :channel, presence: true, uniqueness: true, format: {with: CHANNEL_FORMAT,                                                                  message: "格式错误！"}
+
+  validates_presence_of :name, :mode, :freq, allow_blank: false
 
   #step1: 首先根据channel查找节目， 若存在则返回节目
   #step2: 根据mode和名字查找CMMB的固定节目, 不存在则新建CMMB的固定节目

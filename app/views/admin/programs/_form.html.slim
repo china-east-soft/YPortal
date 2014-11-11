@@ -1,22 +1,27 @@
 = form_for [:admin, @program], html: {id: "program-form"} do |f|
   .form-group
-    = f.label :television_id, "选择电台", class: "control-lable col-md-4"
-    .col-md-8
-      = f.collection_select :television_id, Television.all, :id, :name, {include_blank: ""}, class: "form-control"
+    = f.label :television_id, "选择电台", class: "control-lable"
+    = f.collection_select :television_id, Television.all, :id, :name, {include_blank: ""}, class: "form-control"
 
   .form-group
-    = f.label :city_id, "选择城市", class: "control-lable col-md-4"
-    .col-md-8
-      = f.collection_select :city_id, City.all, :id, :name, {include_blank: ""}, class: "form-control"
-  .form-group
-    = f.label :name, "节目名称", class: "control-lable col-md-4"
-    .col-md-8
-      = f.text_field :name, class: "form-control"
+    = f.label :city_id, "选择城市", class: "control-lable"
+    = f.collection_select :city_id, City.all, :id, :name, {include_blank: ""}, class: "form-control"
 
   .form-group
-    = f.label :channel, "节目唯一标识", class: "control-label  col-md-4"
-    .col-md-8
-      = f.text_field :channel, class: "form-control", placeholder: "CMMB@12@杭州卫视@0571"
+    = f.label :name, "节目名称", class: "control-lable"
+    = f.text_field :name, class: "form-control"
+
+  .form-group
+    = f.label :mode, "*模式", class: "control-label"
+    = f.text_field :mode, class: "form-control", placeholder: "CMMB"
+
+  .form-group
+    = f.label :freq, "频率", class: "control-label"
+    = f.text_field :freq, class: "form-control"
+
+  .form-group
+    = f.label :sid, "SID", class: "control-label"
+    = f.text_field :sid, class: "form-control"
 
   .form-group
     .col-md-4.col-md-offset-2
@@ -31,32 +36,3 @@
       var tv_name = $("#program_television_id option:selected").text();
       $("#program_name").val(tv_name);
     });
-    $("#program-form").validate({
-      rules: {
-        'program[name]': {
-          required: true,
-        },
-        'program[channel]': {
-          required: true,
-          remote: {
-            url: '/admin/programs/check_channel',
-            type: 'get',
-            data: {
-              id: function() {
-                return "#{@program.id}";
-              },
-            }
-          }
-        },
-      },
-      messages: {
-        'program[name]': {
-          required: '#{@program.errors.generate_message :name, :blank}'
-        },
-
-        'program[channel]': {
-          required: '#{@program.errors.generate_message :channel, :blank}',
-          remote: '#{@program.errors.generate_message :channel, :taken}'
-        },
-      },
-    })
