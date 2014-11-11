@@ -1,8 +1,8 @@
 <nav id="sidebar"  class="nav-collapse ">
   <%= tabs_tag :namespace => :sub_nav, :builder => MenuTabBuilder, :open_tabs => { :id => "nav-accordion", :class => "sidebar-menu" } do |tab| %>
     <%= tab.users '用户', admin_users_path %>
-    <%= tab.users '城市', admin_cities_path %>
-    <%= tab.users '电台', admin_televisions_path %>
+    <%= tab.cities '城市', admin_cities_path %>
+    <%= tab.televisions '电台', admin_televisions_path %>
     <%= tab.programs '节目', admin_programs_path %>
     <%= tab.comments '评论', admin_comments_path %>
   <% end %>

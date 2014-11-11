@@ -2,6 +2,9 @@ class Admin::CitiesController < AdminController
   before_action :find_city, only: [:show, :update, :destroy]
   before_action :setup
 
+  set_tab :apis
+  set_tab :cities, :sub_nav
+
   def new
     @city = City.new
   end

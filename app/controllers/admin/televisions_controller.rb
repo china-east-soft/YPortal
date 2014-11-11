@@ -2,6 +2,9 @@ class Admin::TelevisionsController < AdminController
   before_action :find_television, only: [:show, :update, :destroy]
   before_action :setup
 
+  set_tab :apis
+  set_tab :televisions, :sub_nav
+
   def new
     @television = Television.new
   end
