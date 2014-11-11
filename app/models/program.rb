@@ -7,9 +7,6 @@ class Program < ActiveRecord::Base
   before_validation :channel_to_upper_and_generate_mod_freq_name_and_location
   after_save :update_comments_channel
 
-  #channel 四个字段唯一确定一个节目, 形式如： CMMB-12-28-杭州(mod-feq-sid-location)
-  #CHANNEL_FORMAT = /\A\w+\-(\d+\-){2}(\p{Word}|\*)+\Z/u
-
   # change channel format to : CMMB@123@CCTV综合@杭州(mod-freq-name-location)
   CHANNEL_FORMAT = /\A\w+@(\d+)@(.*)@(.*)\Z/u
 

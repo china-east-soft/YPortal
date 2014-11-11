@@ -27,6 +27,10 @@
 
 = content_for :script do
   javascript:
+    $("#program_television_id").change(function() {
+      var tv_name = $("#program_television_id option:selected").text();
+      $("#program_name").val(tv_name);
+    });
     $("#program-form").validate({
       rules: {
         'program[name]': {
