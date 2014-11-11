@@ -4,7 +4,7 @@ class Program < ActiveRecord::Base
   belongs_to :television
   belongs_to :city
 
-  before_validation :channel_to_upper_and_generate_mod_freq_name_and_location, on: :create, if: "self.channel.present?"
+  before_validation :channel_to_upper_and_generate_mod_freq_name_and_location, if: "self.channel.present?"
 
   # after_save :update_comments_channel
 
@@ -47,9 +47,8 @@ class Program < ActiveRecord::Base
     program = Program.find_by(channel: channel)
 
     if program.nil?
-      mode, freq, name_from_channel, location = channel.split('@')
+      mode, _freq, name_from_channel, _location_code = channel.split('@')
       channel_name = Program.name_to_channel_name(name_from_channel)
-
       if mode == 'CMMB' && CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.keys.include?(channel_name)
         program = Program.where(mode: 'CMMB', channel_name: channel_name).first
         if program.nil?

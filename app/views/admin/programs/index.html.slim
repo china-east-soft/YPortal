@@ -12,7 +12,9 @@
           thead
             tr
               th 节目名称
-              th 节目标志
+              th 模式
+              th 频率
+              th SID
               th 评论数
               th
           tbody
@@ -20,7 +22,9 @@
               - @global_programs.each do |program|
                 tr
                   td = program.name
-                  td = program.channel
+                  td = program.mode
+                  td = program.freq
+                  td = program.sid
                   td = link_to program.comments_count, admin_comments_path(program_id: program.id)
                   td
                     span.btn.btn-success.btn-xs
@@ -37,7 +41,9 @@
             - @programs.each do |program|
               tr
                 td = program.name
-                td = program.channel
+                td = program.mode
+                td = program.freq
+                td = program.sid
                 td = link_to program.comments_count, admin_comments_path(program_id: program.id)
                 td
                   span.btn.btn-success.btn-xs
