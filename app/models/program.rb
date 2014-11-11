@@ -7,6 +7,9 @@ class Program < ActiveRecord::Base
   before_validation :channel_to_upper_and_generate_mod_freq_name_and_location
   after_save :update_comments_channel
 
+
+  delegate :logo, to: :television
+
   # change channel format to : CMMB@123@CCTV综合@杭州(mod-freq-name-location)
   CHANNEL_FORMAT = /\A\w+@(\d+)@(.*)@(.*)\Z/u
 

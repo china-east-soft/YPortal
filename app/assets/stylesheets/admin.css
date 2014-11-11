@@ -52,3 +52,7 @@ li.sub-menu a span {
   margin-left: -3px;
 }
 
+.clearfix {
+  clear: both;
+}
+

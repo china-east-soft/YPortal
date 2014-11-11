@@ -1,5 +1,13 @@
 = form_for [:admin, @television] do |f|
   .form-group
+    = f.label :logo, "台标", class: "control-label col-md-4"
+    .col-md-8.television-logo-uploader
+      - unless @television.new_record? && @television.logo.url
+        .image
+          = image_tag @television.logo.url
+        .uploader
+          = f.file_field :logo
+  .form-group.clearfix
     = f.label :name, "电台名称", class: "control-label"
     = f.text_field :name, class: "form-control"
   .clearfix

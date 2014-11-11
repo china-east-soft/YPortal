@@ -11,10 +11,14 @@
             table.table.table-striped.table-advance.table-hover
               thead
                 tr
+                  th
                   th 名称
                   th
               tbody
                 - @televisions.each do |television|
                   tr
+                    td
+                      .image
+                        = image_tag  television.logo.url
                     td = television.name
                     td = link_to "编辑", [:admin, television]

@@ -1,3 +1,25 @@
-// Place all the styles related to the Televisions controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.television-logo-uploader {
+  .image {
+    width: 96px;
+    height: 96px;
+    float: left;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .uploader {
+    margin-left: 100px;
+  }
+}
+
+table {
+  .image {
+    width: 45px;
+    height: 45px;
+    img {
+      width: 100%;
+    }
+  }
+}

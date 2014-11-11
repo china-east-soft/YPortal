@@ -46,6 +46,6 @@ class Admin::TelevisionsController < AdminController
   end
 
   def television_params
-    params.require(:television).permit(:name)
+    params.require(:television).permit(:name, :logo)
   end
 end
