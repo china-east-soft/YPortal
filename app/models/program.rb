@@ -39,47 +39,57 @@ class Program < ActiveRecord::Base
 
   validates_presence_of :name, :mode, :freq, allow_blank: false
 
-  #step1: 首先根据channel查找节目， 若存在则返回节目
-  #step2: 根据mode和名字查找CMMB的固定节目, 不存在则新建CMMB的固定节目
-  #setp3: 创建新节目
-  def self.find_or_create_by_channel(channel)
-    channel.upcase!
 
-    program = Program.find_by(channel: channel)
+  class << self
+    #step1: 首先根据channel查找节目， 若存在则返回节目
+    #step2: 根据mode和名字查找CMMB的固定节目, 不存在则新建CMMB的固定节目
+    #setp3: 创建新节目
+    def find_or_create_by_channel(channel)
+      channel.upcase!
 
-    if program.nil?
-      mode, _freq, name_from_channel, _location_code = channel.split('@')
-      channel_name = Program.name_to_channel_name(name_from_channel)
-      if mode == 'CMMB' && CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.keys.include?(channel_name)
-        program = Program.where(mode: 'CMMB', channel_name: channel_name).first
-        if program.nil?
-          program = Program.create(
-                                    channel: "CMMB@00@#{channel_name}@*",
-                                    name: channel_name
-                                  )
+      program = Program.find_by(channel: channel)
+
+      if program.nil?
+        mode, _freq, name_from_channel, _location_code = channel.split('@')
+        channel_name = Program.name_to_channel_name(name_from_channel)
+
+        if mode == 'CMMB'
+          if CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.keys.include?(channel_name)
+            program = Program.where(mode: 'CMMB', channel_name: channel_name).first
+            if program.nil?
+              program = Program.create(
+                channel: "CMMB@00@#{channel_name}@*",
+                name: channel_name
+              )
+            end
+          else
+            program = Program.create(channel: channel, name: channel_name)
+          end
+        else #mode != CMMB
+          city = City.find_by code: city_code
+          program = city.programs.where(mode: mode, name: name_from_channel, freq: freq)
         end
-      else
-        program = Program.create(channel: channel, name: channel_name)
       end
+
+      program
     end
 
-    program
-  end
+    def find_by_channel(channel)
+      channel.upcase!
 
-  def self.find_by_channel(channel)
-    channel.upcase!
-
-    program = Program.find_by(channel: channel)
-    if program.nil?
-      mode, freq, channel_name, location = channel.split('@')
-      if mode == 'CMMB' && CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.values.flatten.include?(channel_name)
-        name = Program.name_to_channel_name(channel_name)
-        program = Program.where(mode: 'CMMB', channel_name: name).first
+      program = Program.find_by(channel: channel)
+      if program.nil?
+        mode, freq, channel_name, location = channel.split('@')
+        if mode == 'CMMB' && CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.values.flatten.include?(channel_name)
+          name = Program.name_to_channel_name(channel_name)
+          program = Program.where(mode: 'CMMB', channel_name: name).first
+        end
       end
-    end
 
-    program
+      program
+    end
   end
+
 
   def parent_comments_in_4_hour_for_app(id: 0, limit: 20)
     #id == 0 present request for the newest record

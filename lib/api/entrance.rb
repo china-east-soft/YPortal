@@ -49,11 +49,11 @@ module API
       @start = Time.now.to_f
 
       #for debug paramter from app, for if parammeter is invalid, server can not see
-      log_api_visit
+      log_api_visit unless Rails.env.development?
     end
 
     after do
-      log_api_visit
+      log_api_visit unless Rails.env.development?
     end
 
 

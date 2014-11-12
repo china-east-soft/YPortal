@@ -72,7 +72,12 @@ module API::V3
 
         program = Program.find_or_create_by_channel(channel)
         if program
-          comments = program.parent_comments_in_4_hour_for_app(id: id, limit: limit)
+          television = program.television
+          if television
+            comments = television.parent_comments_in_4_hour_for_app(id: id, limit: limit)
+          else
+            comments = program.parent_comments_in_4_hour_for_app(id: id, limit: limit)
+          end
 
           present :result, true
           comments_and_children = comments.map do |c|
