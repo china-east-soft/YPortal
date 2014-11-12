@@ -13,5 +13,6 @@ module API::V3
     mount API::V3::Users
     mount API::V3::Messages
     mount API::V3::Apps
+    mount API::V3::Programs
   end
 end

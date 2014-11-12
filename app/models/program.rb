@@ -108,7 +108,7 @@ class Program < ActiveRecord::Base
   end
 
   def update_city_epg_crated_at
-    city.try(:touch).(:epg_created_at)
+    city.try(:touch, :epg_created_at)
   end
 
 end
