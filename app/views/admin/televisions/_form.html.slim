@@ -1,15 +1,21 @@
 = form_for [:admin, @television] do |f|
   .form-group
-    = f.label :logo, "台标", class: "control-label col-md-4"
-    .col-md-8.television-logo-uploader
-      - unless @television.new_record? && @television.logo.url
+    - unless @television.new_record? && @television.logo.url
+      = f.label :logo, "台标", class: "control-label col-md-4"
+      .col-md-8.television-logo-uploader
         .image
           = image_tag @television.logo.url
         .uploader
           = f.file_field :logo
-  .form-group.clearfix
+    - else
+      = f.label :logo, "台标", class: "control-label"
+      = f.file_field :logo
+  .form-group
     = f.label :name, "电台名称", class: "control-label"
     = f.text_field :name, class: "form-control"
+  .form-group
+    = f.label :branch, "卫视台/地方台", class: "control-label"
+    = f.select :branch, [["卫视台", :global], ["地方台", :local]], {}, {class: "form-control"}
   .clearfix
     - if @television.new_record?
       = f.submit "创建电台", class: "btn btn-lg btn-primary"

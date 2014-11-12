@@ -6,6 +6,8 @@ class Television < ActiveRecord::Base
   validates :name, uniqueness: {case_sensitive: false}
   has_many :programs
 
+  enum branch: [:global, :local]
+
   #attachment
   has_attached_file :logo
   validates_attachment_content_type :logo, :content_type => /\Aimage/

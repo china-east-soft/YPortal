@@ -6,10 +6,11 @@ class Program < ActiveRecord::Base
 
   before_validation :channel_to_upper_and_generate_mod_freq_name_and_location, if: "self.channel.present?"
 
+  after_save :update_city_epg_crated_at, if: "city_id.present?"
+
   # after_save :update_comments_channel
 
-
-  delegate :logo, to: :television
+  delegate :logo, :global?, :local?, :branch, to: :television
 
   # change channel format to : CMMB@123@CCTV综合@杭州(mod-freq-name-location)
   CHANNEL_FORMAT = /\A\w+@(\d+)@(.*)@(.*)\Z/u
@@ -104,6 +105,10 @@ class Program < ActiveRecord::Base
     self.freq = freq
     self.channel_name = channel_name
     self.location = location
+  end
+
+  def update_city_epg_crated_at
+    city.try(:touch).(:epg_created_at)
   end
 
 end

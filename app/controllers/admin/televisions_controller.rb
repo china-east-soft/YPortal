@@ -12,6 +12,12 @@ class Admin::TelevisionsController < AdminController
   def create
     @television = Television.new television_params
     if @television.save
+      if params.require(:television).permit![:branch] == "地方台"
+        @television.local!
+      else
+        @television.global!
+      end
+
       redirect_to admin_television_url(@television), success: "添加成功"
     else
       render :new
@@ -27,6 +33,12 @@ class Admin::TelevisionsController < AdminController
 
   def update
     if @television.update(television_params)
+      if params[:television][:branch] == "地方台"
+        @television.local!
+      else
+        @television.global!
+      end
+
       redirect_to admin_television_url(@television), success: " 修改成功"
     else
       render :show
