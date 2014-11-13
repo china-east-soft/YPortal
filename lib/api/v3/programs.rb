@@ -37,6 +37,10 @@ module API::V3
             {branch: "卫视台", programs: global_programs.map {|p| {name: p.name, sid: p.sid, freq: p.freq, logo: p.logo.url, guides: []}}},
             {branch: "地方台", programs: local_programs.map {|p| {name: p.name, sid: p.sid, freq: p.freq, logo: p.logo.url, guides: []}}}
           ]
+        else
+          present :result, false
+          present :error_ocde, 1
+          present :message, "未找到所属城市"
         end
       end
 
