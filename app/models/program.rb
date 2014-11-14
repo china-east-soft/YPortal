@@ -10,7 +10,7 @@ class Program < ActiveRecord::Base
 
   # after_save :update_comments_channel
 
-  delegate :logo, :global?, :local?, :branch, to: :television
+  delegate :logo, :branch, to: :television
 
   # change channel format to : CMMB@123@CCTV综合@杭州(mod-freq-name-location)
   CHANNEL_FORMAT = /\A\w+@(\d+)@(.*)@(.*)\Z/u
@@ -33,7 +33,7 @@ class Program < ActiveRecord::Base
 
   scope :global_programs, lambda { where(mode: "CMMB", channel_name: CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.keys) }
 
-  scope :local_programs, lambda {where("mode != 'CMMB' or ((mode = 'CMMB') and (channel_name NOT IN ('CCTV-1', 'CCTV-5', 'CCTV-13','睛彩电影','睛彩天下')))")}
+  scope :local_programs, lambda {where("((mode = 'CMMB') and (channel_name NOT IN ('CCTV-1', 'CCTV-5', 'CCTV-13','睛彩电影','睛彩天下')))")}
 
   # validates :channel, presence: true, uniqueness: true, format: {with: CHANNEL_FORMAT,                                                                  message: "格式错误！"}
 
