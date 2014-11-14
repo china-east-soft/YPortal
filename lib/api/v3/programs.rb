@@ -37,7 +37,7 @@ module API::V3
           present :epg, epg
         else
           present :result, false
-          present :error_ocde, 1
+          present :error_code, 1
           present :message, "未找到所属城市"
         end
       end
