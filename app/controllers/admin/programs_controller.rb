@@ -43,12 +43,17 @@ class Admin::ProgramsController < AdminController
   end
 
   def index
-    # binding.pry
-    if params[:page].nil? || params[:page].to_i == 1
-      @global_programs = Program.global_programs
+    if params[:city_id].present?
+      @city = City.find(params[:city_id])
+      if @city
+        @programs = @city.programs.page(params[:page])
+      end
+    else
+      if params[:page].nil? || params[:page].to_i == 1
+        @global_programs = Program.global_programs
+      end
+      @programs = Program.local_programs.page(params[:page])
     end
-    @programs = Program.local_programs.page(params[:page])
-    # @programs = Program.page(params[:page])
   end
 
   def destroy

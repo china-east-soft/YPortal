@@ -2,7 +2,10 @@
   .col-md-12
     .panel
       .panel-heading
-        h3 节目列表
+        - if params[:city_id].present?
+          h3 = @city.try(:name)
+        - else
+          h3 节目列表
       .panel-body
         .clearfix
           .btn-group

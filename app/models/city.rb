@@ -1,6 +1,6 @@
 class City < ActiveRecord::Base
+  has_many :programs, counter_cache: true
 
-  has_many :programs
   has_many :comments, through: :programs
 
   validates :name, presence: true, uniqueness: true

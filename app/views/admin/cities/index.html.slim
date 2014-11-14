@@ -13,12 +13,15 @@
                 tr
                   th 城市名
                   th 编码
+                  th 节目
                   th
               tbody
                 - @cities.each do |city|
                   tr
                     td = city.name
                     td = city.code
+                    td
+                      = link_to city.programs_count, admin_programs_path(city_id: city.id)
                     td
                       = link_to "编辑", [:admin, city]
 
