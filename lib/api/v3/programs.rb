@@ -26,14 +26,12 @@ module API::V3
       get :programs do
         city = City.find_by(code: params[:city_code])
         if city
-          branchs = Television.pluck(:branch).uniq
-          # programs = city.programs.includes(:television)
-
           present :result, :true
           present :epg_create_time, city.epg_created_at.to_i
 
+          branchs = Television.pluck(:branch).uniq
           epg = branchs.map do |b|
-            {branch: b, programs: city.programs_by_branch(b).map {|p| {name: p.name, sid: p.sid, freq: p.freq, logo: p.logo.url, guides: []}}}
+            {branch: b, programs: city.programs_by_branch(b).map {|p| {name: p.name || "", sid: p.sid || "", freq: p.freq || "", logo: p.logo.url, guides: []}}}
           end
 
           present :epg, epg
