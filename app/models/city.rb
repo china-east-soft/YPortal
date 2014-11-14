@@ -6,14 +6,8 @@ class City < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :code, presence: true, uniqueness: true, format: {with: /\A\d+\z/}
 
-
-  def local_programs
-    programs.includes(:television).where(televisions: {branch: 1})
+  def programs_by_branch(branch)
+    programs.includes(:television).where(televisions: {branch: branch})
   end
-
-  def global_programs
-    programs.includes(:television).where(televisions: {branch: 0})
-  end
-
 
 end

@@ -26,17 +26,20 @@ module API::V3
       get :programs do
         city = City.find_by(code: params[:city_code])
         if city
-          programs = city.programs
+          branchs = Television.pluck(:branch)
+          # programs = city.programs.includes(:television)
+
           present :result, :true
           present :epg_create_time, city.epg_created_at.to_i
 
-          local_programs = city.local_programs
-          global_programs = city.global_programs
+          epg = branchs.map do |b|
+            {branch: b, programs: city.programs_by_branch(b).map {|p| {name: p.name, sid: p.sid, freq: p.freq, logo: p.logo.url, guides: []}}}
+          end
 
-          present :epg, [
-            {branch: "卫视台", programs: global_programs.map {|p| {name: p.name, sid: p.sid, freq: p.freq, logo: p.logo.url, guides: []}}},
-            {branch: "地方台", programs: local_programs.map {|p| {name: p.name, sid: p.sid, freq: p.freq, logo: p.logo.url, guides: []}}}
-          ]
+          present :epg, epg
+          #   {branch: "卫视台", programs: global_programs.map {|p| {name: p.name, sid: p.sid, freq: p.freq, logo: p.logo.url, guides: []}}},
+          #   {branch: "地方台", programs: local_programs.map {|p| {name: p.name, sid: p.sid, freq: p.freq, logo: p.logo.url, guides: []}}}
+          # ]
         else
           present :result, false
           present :error_ocde, 1

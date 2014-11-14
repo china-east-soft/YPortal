@@ -3,11 +3,10 @@ class Television < ActiveRecord::Base
     record.name.upcase!
   end
 
-  validates :name, uniqueness: {case_sensitive: false}
+  validates :name, presence: true, uniqueness: {case_sensitive: false}
+
   has_many :programs
   has_many :comments, through: :programs
-
-  enum branch: [:global, :local]
 
   #attachment
   has_attached_file :logo
