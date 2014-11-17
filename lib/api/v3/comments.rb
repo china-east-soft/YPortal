@@ -71,7 +71,7 @@ module API::V3
         limit = params[:limit] || 20
 
         program = Program.find_or_create_by_channel(channel)
-        if program
+        if program.present?
           television = program.television
           if television
             comments = television.parent_comments_in_4_hour_for_app(id: id, limit: limit)

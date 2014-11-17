@@ -50,7 +50,7 @@ class Program < ActiveRecord::Base
       program = Program.find_by(channel: channel)
 
       if program.nil?
-        mode, _freq, name_from_channel, _location_code = channel.split('@')
+        mode, freq, name_from_channel, city_code = channel.split('@')
         channel_name = Program.name_to_channel_name(name_from_channel)
 
         if mode == 'CMMB'
@@ -67,7 +67,7 @@ class Program < ActiveRecord::Base
           end
         else #mode != CMMB
           city = City.find_by code: city_code
-          program = city.programs.where(mode: mode, name: name_from_channel, freq: freq)
+          program = city.programs.where(mode: mode, name: name_from_channel, freq: freq).first
         end
       end
 
