@@ -1,6 +1,5 @@
 require 'digest/md5'
 require 'rest_client'
-require 'byebug'
 
 module Huanxin
   DOMAIN = 'https://a1.easemob.com'
@@ -8,28 +7,7 @@ module Huanxin
   APP = 'shiwangmo'
   CLIENT_ID  = 'YXA6gjPF0HqeEeSx0ZG3qEDc4g'
   CLIENT_SECRET = 'YXA6OKU7bQqpnr-Ymd0vu-CUboqpuL4'
-  ACCESS_TOKEN = "YWMt0qPhfIAQEeSyInXOpcwg1QAAAUtm7fm-YfCFvymN67ti44-BIZoOPHLnN6A"
 
-
-  attr_accessor :access_token, :token_expires_at
-  def get_admin_token
-    begin
-      response = RestClient.post("#{DOMAIN}/#{ORG}/#{APP}/token",
-                                 grant_type: "client_credentials",
-                                 client_id: CLIENT_ID,
-                                 client_secret: CLIENT_SECRET,
-                                 content_type: :json,
-                                 accept: :json
-                                )
-      puts response.body
-      @access_token = response.body["access_token"]
-      @token_expires_at = Time.now + response.body["expires_in"].to_i.seconds
-      puts access_token
-      puts token_expires_at
-    rescue => e
-      puts e.response
-    end
-  end
 
   #curl -X POST -i "https://a1.easemob.com/easemob-demo/chatdemo/users" -d '{"username":"jliu","password":"123456"}'
   #RestClient.post 'http://example.com/resource', :param1 => 'one', :nested => { :param2 => 'two' }
@@ -63,7 +41,7 @@ module Huanxin
     username = Digest::MD5.hexdigest(user.id.to_s)
     begin
       response = RestClient.delete("#{DOMAIN}/#{ORG}/#{APP}/users/#{username}",
-                                   "Authorization" => "Bearer #{ACCESS_TOKEN}",
+                                   "Authorization" => "Bearer #{access_token}",
                                    :accept => :json
                                   )
       if response.code == 200
@@ -89,10 +67,46 @@ module Huanxin
 
     begin
       url = "#{DOMAIN}/#{ORG}/#{APP}/users/#{username}"
-      puts url
-      response = RestClient.get(url, "Authorization" => "Bearer #{ACCESS_TOKEN}", content_type: :json, accept: :json)
+      response = RestClient.get(url, "Authorization" => "Bearer #{access_token}", content_type: :json, accept: :json)
       res = JSON.parse(response.body)
       p res["entities"]
+    rescue => e
+      puts e.response
+    end
+  end
+
+  private
+  def access_token
+    if @access_token && @expired_at > Time.now
+      @access_token
+    else
+      set_or_update_admin_token
+      @access_token
+    end
+  end
+
+  def set_or_update_admin_token
+    begin
+      huanxin = $redis.hgetall("huanxin")
+      if huanxin && huanxin["access_token"] && Time.parse(huanxin["expired_at"]) > Time.now
+        @access_token = huanxin["access_token"]
+        @expired_at = Time.parse(huanxin["expired_at"])
+      else
+        response = RestClient.post("#{DOMAIN}/#{ORG}/#{APP}/token",
+                                    {
+                                      grant_type: "client_credentials",
+                                      client_id: CLIENT_ID,
+                                      client_secret: CLIENT_SECRET
+                                    }.to_json,
+                                    content_type: :json,
+                                    accept: :json
+                                   )
+        body = JSON.parse(response.body)
+        p body
+        @access_token = body["access_token"]
+        @expired_at = Time.now + body["expires_in"].to_i.seconds
+        $redis.hmset("huanxin", "access_token", @access_token, "expired_at", @expired_at)
+      end
     rescue => e
       puts e.response
     end
