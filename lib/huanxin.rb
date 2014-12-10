@@ -8,6 +8,7 @@ module Huanxin
   CLIENT_ID  = 'YXA6gjPF0HqeEeSx0ZG3qEDc4g'
   CLIENT_SECRET = 'YXA6OKU7bQqpnr-Ymd0vu-CUboqpuL4'
 
+  RESTFUL_API = %W[register_user unregister_user get_user_info]
 
   #curl -X POST -i "https://a1.easemob.com/easemob-demo/chatdemo/users" -d '{"username":"jliu","password":"123456"}'
   #RestClient.post 'http://example.com/resource', :param1 => 'one', :nested => { :param2 => 'two' }

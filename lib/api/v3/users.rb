@@ -37,6 +37,7 @@ module API::V3
                           password_confirmation: params[:password_confirmation])
           if user.save
             error_code = 0
+            HuanxinWorker.perform_async(user.id, :register_user)
           else
             error_code = 3
             message = user.errors.full_messages.join(",")
