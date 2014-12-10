@@ -226,6 +226,71 @@ module API::V3
         end
       end
 
+      desc "follow user"
+      params do
+        requires :user_id, type: String
+        requires :friend_id, type: String
+      end
+      post :follow do
+        error_code = 0
+
+        user = User.find params[:user_id]
+        friend = User.find params[:friend_id]
+        if user.following? friend
+          error_code = 1
+          message = "already follow user"
+        else
+          user.follow friend
+        end
+
+        if error_code == 0
+          present :result, true
+        else
+          present :result, false
+          present :message, message
+        end
+      end
+
+      desc "unfollow user"
+      params do
+        requires :user_id, type: String
+        requires :friend_id, type: String
+      end
+      post :unfollow do
+        error_code = 0
+
+        user = User.find params[:user_id]
+        friend = User.find params[:friend_id]
+        if user.following? friend
+          user.unfollow friend
+        else
+          error_code = 1
+          message = "not follow user"
+        end
+
+        if error_code == 0
+          present :result, true
+        else
+          present :result, false
+          present :message, message
+        end
+      end
+
+      desc "get followed users"
+      params do
+        requires :user_id, type: String
+        requires :page, type: Integer
+        optional :per_page, type: Integer
+      end
+      get :following do
+        @user = User.find params[:user_id]
+        per_page = params[:per_page].present? ? params[:per_page] : 20
+
+        @following = @user.following.page(params[:page]).per(per_page)
+
+        present :result, true
+        present :following, @following.map {|user| {id: user.id, nickname: user.name} }
+      end
     end
   end
 end

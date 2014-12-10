@@ -7,6 +7,10 @@ class Admin::UsersController < AdminController
 
   def index
     @users = User.all.page(params[:page])
+    respond_to do |format|
+      format.html
+      format.json { render json: @users}
+    end
   end
 
   def show
