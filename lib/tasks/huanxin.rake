@@ -13,7 +13,7 @@ namespace :huanxin do
   end
 
   desc 'unregist user in database for huanxin'
-  task :regist_users_to_huanxin => :environment do
+  task :unregist_users_to_huanxin => :environment do
     #find_each for batch query
     User.find_each do |user|
       if user.register_huanxin?

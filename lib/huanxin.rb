@@ -8,7 +8,7 @@ module Huanxin
   APP = 'shiwangmo'
   CLIENT_ID  = 'YXA6gjPF0HqeEeSx0ZG3qEDc4g'
   CLIENT_SECRET = 'YXA6OKU7bQqpnr-Ymd0vu-CUboqpuL4'
-  # ACCESS_TOKEN = "YWMt0qPhfIAQEeSyInXOpcwg1QAAAUtm7fm-YfCFvymN67ti44-BIZoOPHLnN6A"
+  ACCESS_TOKEN = "YWMt0qPhfIAQEeSyInXOpcwg1QAAAUtm7fm-YfCFvymN67ti44-BIZoOPHLnN6A"
 
 
   attr_accessor :access_token, :token_expires_at
