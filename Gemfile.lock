@@ -179,6 +179,7 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    netrc (0.7.7)
     newrelic_rpm (3.9.8.273)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
@@ -252,6 +253,8 @@ GEM
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
     ref (1.0.5)
+    rest_client (1.8.2)
+      netrc (~> 0.7.7)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
       rspec-expectations (~> 3.1.0)
@@ -390,6 +393,7 @@ DEPENDENCIES
   rails (= 4.1.6)
   rails-i18n!
   redis
+  rest_client
   rspec
   rspec-rails
   ruby-hmac

@@ -21,6 +21,8 @@ gem 'turbolinks'
 gem 'bootstrap-sass', '~> 3.1.0'
 gem 'jbuilder', '~> 1.2'
 
+gem 'rest_client'
+
 group :doc do
   gem 'sdoc', require: false
 end
