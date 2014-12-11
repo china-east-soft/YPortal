@@ -52,6 +52,10 @@ class User < ActiveRecord::Base
       unfollow other_user
     end
 
+    if other_user.following? self
+      other_user.unfollow self
+    end
+
     active_blacklists.create(blocked_id: other_user.id)
   end
 

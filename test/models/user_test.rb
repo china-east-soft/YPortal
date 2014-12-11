@@ -93,4 +93,17 @@ class UserTest < ActiveSupport::TestCase
     assert_not u1.following? u2
   end
 
+  test "block user should let remove self from other user's following list" do
+    u1 = create(:user)
+    u2 = create(:user)
+
+    u2.follow u1
+    assert u2.following? u1
+
+    assert_not u1.blocked? u2
+    u1.block u2
+    assert u1.blocked? u2
+    assert_not u2.following? u1
+  end
+
 end

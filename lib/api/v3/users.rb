@@ -160,9 +160,7 @@ module API::V3
 
       params do
         requires :user_id, type: String
-
         requires :old_password, type: String
-
         requires :password, type: String
         requires :password_confirmation, type: String
       end
