@@ -365,6 +365,22 @@ module API::V3
         end
       end
 
+      desc "get black list"
+      params do
+        requires :user_id, type: String
+        requires :page, type: Integer
+        optional :per_page, type: Integer
+      end
+      get :blacklist do
+        user = User.find params[:user_id]
+        per_page = params[:per_page].present? ? params[:per_page] : 20
+
+        blocked_users = user.blocked_users.page(params[:page]).per(per_page)
+
+        present :result, true
+        present :blacklist, blocked_users.map {|u| {id: u.id, nickname: u.name, avatar: ur.avatar} }
+      end
+
     end
   end
 end
