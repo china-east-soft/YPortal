@@ -239,6 +239,12 @@ module API::V3
         if user.following? friend
           error_code = 1
           message = "already follow user"
+        elsif friend.blocked? user
+          error_code = 2
+          message = "user #{user.id} has been blocked by user #{friend.id}"
+        elsif user.blocked? friend
+          error_code = 3
+          message = "user #{user.id} has blocked user #{friend.id}"
         else
           user.follow friend
         end
@@ -289,24 +295,76 @@ module API::V3
         following = user.following.page(params[:page]).per(per_page)
 
         present :result, true
-        present :following, following.map {|user| {id: user.id, nickname: user.name, avatar: user.avatar} }
+        present :following, following.map {|u| {id: u.id, nickname: u.name, avatar: ur.avatar} }
       end
-    end
 
-    desc "et followers"
-    params do
-      requires :user_id, type: String
-      requires :page, type: Integer
-      optional :per_page, type: Integer
-    end
-    get :followers do
-      user = User.find params[:user_id]
-      per_page = params[:per_page] || 20
+      desc "get followers"
+      params do
+        requires :user_id, type: String
+        requires :page, type: Integer
+        optional :per_page, type: Integer
+      end
+      get :followers do
+        user = User.find params[:user_id]
+        per_page = params[:per_page] || 20
 
-      followers = user.followers.page(params[:page]).per(per_page)
-      persent :result, true
-      present :followers, followers.map {|user| { id: user.id, nickname: user.name, avatar: user.avatar } }
-    end
+        followers = user.followers.page(params[:page]).per(per_page)
+        persent :result, true
+        present :followers, followers.map {|u| { id: u.id, nickname: u.name, avatar: u.avatar } }
+      end
 
+      desc "block user"
+      params do
+        requires :user_id, type: String
+        requires :blocked_id, type: String
+      end
+      post :block do
+        error_code = 0
+
+        user = User.find params[:user_id]
+        blocked_user = User.find params[:blocked_id]
+
+        if user.blocked? blocked_user
+          error_code = 1
+          message = "already block user"
+        else
+          user.block blocked_user
+        end
+
+        if error_code == 0
+          present :result, true
+        else
+          present :result, false
+          present :message, message
+        end
+      end
+
+      desc "unblock user"
+      params do
+        requires :user_id, type: String
+        requires :blocked_id, type: String
+      end
+      post :unblock do
+        error_code = 0
+
+        user = User.find params[:user_id]
+        blocked_user = User.find params[:blocked_id]
+
+        if user.blocked? blocked_user
+          user.unblock blocked_user
+        else
+          error_code = 1
+          message = "not blocked user"
+        end
+
+        if error_code == 0
+          present :result, true
+        else
+          present :result, false
+          present :message, message
+        end
+      end
+
+    end
   end
 end
