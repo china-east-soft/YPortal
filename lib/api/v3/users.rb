@@ -295,7 +295,7 @@ module API::V3
         following = user.following.page(params[:page]).per(per_page)
 
         present :result, true
-        present :following, following.map {|u| {id: u.id, nickname: u.name, avatar: ur.avatar} }
+        present :following, following.map {|u| {id: u.id, nickname: u.name, avatar: u.avatar} }
       end
 
       desc "get followers"
@@ -378,7 +378,7 @@ module API::V3
         blocked_users = user.blocked_users.page(params[:page]).per(per_page)
 
         present :result, true
-        present :blacklist, blocked_users.map {|u| {id: u.id, nickname: u.name, avatar: ur.avatar} }
+        present :blacklist, blocked_users.map {|u| {id: u.id, nickname: u.name, avatar: u.avatar} }
       end
 
     end
