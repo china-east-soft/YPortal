@@ -190,6 +190,27 @@ module Huanxin
         puts e.response
       end
     end
+
+    #curl -X GET -H "Authorization: Bearer YWMtwIRGSE9gEeSbpNnVBsIhiwAAAUon2XDyEBoBUk6Vg2xm8DZdVjxbhwm7XWY" -i  "https://a1.easemob.com/easemob-demo/chatdemoui/users/v3y0kf9arx/offline_msg_count"
+    def get_unread_message_count(user)
+      username = Digest::MD5.hexdigest(user.id.to_s)
+      begin
+        response = RestClient.get("#{DOMAIN}/#{ORG}/#{APP}/users/#{username}/offline_msg_count",
+                                  "Authorization" => "Bearer #{access_token}",
+                                  :content_type => :json,
+                                  :accept => :json
+                                  )
+        if response.code == 200
+          p response
+
+          body = JSON.parse(response.body)
+          p body
+        end
+      rescue => e
+        puts e.response
+      end
+    end
+
   end
 
   module ChatHistroy
@@ -219,6 +240,7 @@ module Huanxin
 
   include UserSystem
   include SendMessage
+  include ChatHistroy
 
   private
   def access_token
