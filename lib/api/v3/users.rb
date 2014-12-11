@@ -283,14 +283,30 @@ module API::V3
         optional :per_page, type: Integer
       end
       get :following do
-        @user = User.find params[:user_id]
+        user = User.find params[:user_id]
         per_page = params[:per_page].present? ? params[:per_page] : 20
 
-        @following = @user.following.page(params[:page]).per(per_page)
+        following = user.following.page(params[:page]).per(per_page)
 
         present :result, true
-        present :following, @following.map {|user| {id: user.id, nickname: user.name} }
+        present :following, following.map {|user| {id: user.id, nickname: user.name, avatar: user.avatar} }
       end
     end
+
+    desc "et followers"
+    params do
+      requires :user_id, type: String
+      requires :page, type: Integer
+      optional :per_page, type: Integer
+    end
+    get :followers do
+      user = User.find params[:user_id]
+      per_page = params[:per_page] || 20
+
+      followers = user.followers.page(params[:page]).per(per_page)
+      persent :result, true
+      present :followers, followers.map {|user| { id: user.id, nickname: user.name, avatar: user.avatar } }
+    end
+
   end
 end
