@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   validates :name, presence: true
 
   def follow(other_user)
-    if blocked? other_user
+    if self == other_user || blocked?(other_user)
       false
     else
       active_relationships.create(followed_id: other_user.id)
@@ -44,7 +44,11 @@ class User < ActiveRecord::Base
 
 
   def block(other_user)
-    if following? other_user
+    if self == other_user
+      return false
+    end
+
+    if following?(other_user)
       unfollow other_user
     end
 
