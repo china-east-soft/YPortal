@@ -387,7 +387,6 @@ module API::V3
         requires :current_user_id, type: String
         requires :other_user_id, type: String
       end
-      #todo add user's topic to result and gender
       get :other_user_info  do
         current_user = User.find params[:current_user_id]
         other_user = User.find params[:other_user_id]
@@ -401,6 +400,7 @@ module API::V3
 
         {
           nickname: other_user.name,
+          gender: other_user.gender,
           avatar: other_user.avatar,
           relationship: {follow: follow, be_followed: be_followed, block: block, be_blocked: be_blocked},
           comment_count: comment_count,
