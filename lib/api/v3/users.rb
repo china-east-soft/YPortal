@@ -379,6 +379,30 @@ module API::V3
         present :blacklist, blocked_users.map {|u| {id: u.id, nickname: u.name, avatar: u.avatar} }
       end
 
+
+      desc "get other user info"
+      params do
+        requires :current_user_id, type: String
+        requires :other_user_id, type: String
+      end
+      get :other_user_info  do
+        current_user = User.find params[:current_user_id]
+        other_user = User.find params[:other_user_id]
+
+        follow = current_user.following? other_user
+        be_followed = other_user.following? current_user
+        block =  current_user.blocked? other_user
+        be_blocked = other_user.blocked? current_user
+
+        comments = other_user.comments.order(created_at: :desc).first 20
+        {
+          nickname: other_user.name,
+          avatar: other_user.avatar,
+          relationship: {follow: follow, be_followed: be_followed, block: block, be_blocked: be_blocked},
+          comments: comments
+        }
+      end
+
     end
   end
 end
