@@ -283,7 +283,7 @@ module API::V3
       desc "get followed users"
       params do
         requires :user_id, type: String
-        requires :page, type: Integer
+        optional :page, type: Integer
         optional :per_page, type: Integer
       end
       get :following do
@@ -299,7 +299,7 @@ module API::V3
       desc "get followers"
       params do
         requires :user_id, type: String
-        requires :page, type: Integer
+        optional :page, type: Integer
         optional :per_page, type: Integer
       end
       get :followers do
@@ -366,7 +366,7 @@ module API::V3
       desc "get black list"
       params do
         requires :user_id, type: String
-        requires :page, type: Integer
+        optional :page, type: Integer
         optional :per_page, type: Integer
       end
       get :blacklist do

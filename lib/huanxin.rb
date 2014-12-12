@@ -10,6 +10,29 @@ module Huanxin
 
   RESTFUL_API = %W[register_user unregister_user get_user_info]
 
+    #http://cloudchain.co:8080/api/acs_push/push
+  #uid=<uid>&note=<note>
+  #uid为0，为群发；note为发送具体内容。内容可以是文本、图片、链接(Max=255个字符)。
+  def send_note(note)
+    begin
+      url = "http://cloudchain.co:8080/api/acs_push/push"
+      username = "admin"
+      password = "jbgsn00"
+      puts "#{username}:#{password}"
+      resource = RestClient::Resource.new(url, username, password)
+      response = resource.post({uid: 0, note: note}.to_json,
+                               content_type: :json,
+                               accept_type: :json
+                              )
+      if response.code == 200
+        p response
+      end
+    rescue => e
+      puts e.response
+    end
+  end
+
+
   #对应环信的用户体系集成
   module UserSystem
     #curl -X POST -i "https://a1.easemob.com/easemob-demo/chatdemo/users" -d '{"username":"jliu","password":"123456"}'
