@@ -385,6 +385,7 @@ module API::V3
         requires :current_user_id, type: String
         requires :other_user_id, type: String
       end
+      #todo add user's topic to result
       get :other_user_info  do
         current_user = User.find params[:current_user_id]
         other_user = User.find params[:other_user_id]
@@ -394,12 +395,15 @@ module API::V3
         block =  current_user.blocked? other_user
         be_blocked = other_user.blocked? current_user
 
-        comments = other_user.comments.order(created_at: :desc).first 20
+        comment_count = other_user.comments.count
+
         {
           nickname: other_user.name,
           avatar: other_user.avatar,
           relationship: {follow: follow, be_followed: be_followed, block: block, be_blocked: be_blocked},
-          comments: comments
+          comment_count: comment_count,
+          topic_count: 0,
+          level: 0
         }
       end
 
