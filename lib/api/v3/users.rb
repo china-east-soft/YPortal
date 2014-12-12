@@ -396,13 +396,35 @@ module API::V3
         block =  current_user.blocked? other_user
         be_blocked = other_user.blocked? current_user
 
+        #0 stand for no relation
+        relationship = 0
+
+        if follow || be_followed
+          if follow && !be_followed
+            relationship = 1
+          elsif be_followed && !follow
+            relationship = 2
+          elsif follow && be_followed
+            relationship = 3
+          end
+        elsif block || be_blocked
+          if block && !be_blocked
+            relationship = 4
+          elsif be_blocked && !block
+            relationship = 5
+          elsif block && be_blocked
+            relationship = 6
+          end
+        end
+
+
         comment_count = other_user.comments.count
 
         {
           nickname: other_user.name,
           gender: other_user.gender,
           avatar: other_user.avatar,
-          relationship: {follow: follow, be_followed: be_followed, block: block, be_blocked: be_blocked},
+          relationship: relationship,
           comment_count: comment_count,
           topic_count: 0,
           level: 0
