@@ -385,50 +385,64 @@ module API::V3
       desc "get other user info"
       params do
         requires :current_user_id, type: String
-        requires :other_user_id, type: String
+        optional :other_user_id, type: String
       end
-      get :other_user_info  do
+      get :user_info  do
         current_user = User.find params[:current_user_id]
-        other_user = User.find params[:other_user_id]
 
-        follow = current_user.following? other_user
-        be_followed = other_user.following? current_user
-        block =  current_user.blocked? other_user
-        be_blocked = other_user.blocked? current_user
+        if params[:other_user_id].present?
+          other_user = User.find params[:other_user_id]
 
-        #0 stand for no relation
-        relationship = 0
+          follow = current_user.following? other_user
+          be_followed = other_user.following? current_user
+          block =  current_user.blocked? other_user
+          be_blocked = other_user.blocked? current_user
 
-        if follow || be_followed
-          if follow && !be_followed
-            relationship = 1
-          elsif be_followed && !follow
-            relationship = 2
-          elsif follow && be_followed
-            relationship = 3
+          #0 stand for no relation
+          relationship = 0
+
+          if follow || be_followed
+            if follow && !be_followed
+              relationship = 1
+            elsif be_followed && !follow
+              relationship = 2
+            elsif follow && be_followed
+              relationship = 3
+            end
+          elsif block || be_blocked
+            if block && !be_blocked
+              relationship = 4
+            elsif be_blocked && !block
+              relationship = 5
+            elsif block && be_blocked
+              relationship = 6
+            end
           end
-        elsif block || be_blocked
-          if block && !be_blocked
-            relationship = 4
-          elsif be_blocked && !block
-            relationship = 5
-          elsif block && be_blocked
-            relationship = 6
-          end
+
+
+          comment_count = other_user.comments.count
+
+          {
+            nickname: other_user.name,
+            gender: other_user.gender,
+            avatar: other_user.avatar,
+            relationship: relationship,
+            comment_count: comment_count,
+            topic_count: 0,
+            level: 0
+          }
+        else
+          comment_count = current_user.comments.count
+
+          {
+            nickname: current_user.name,
+            gender: current_user.gender,
+            avatar: current_user.avatar,
+            comment_count: comment_count,
+            topic_count: 0,
+            level: 0
+          }
         end
-
-
-        comment_count = other_user.comments.count
-
-        {
-          nickname: other_user.name,
-          gender: other_user.gender,
-          avatar: other_user.avatar,
-          relationship: relationship,
-          comment_count: comment_count,
-          topic_count: 0,
-          level: 0
-        }
       end
 
       desc "get user comments by page"
