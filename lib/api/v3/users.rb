@@ -409,6 +409,41 @@ module API::V3
         }
       end
 
+      desc "get user comments by page"
+      params do
+        requires :user_id, type: String
+        optional :page, type: Integer
+        optional :per_page, type: Integer
+      end
+      get :comments do
+        user = User.find params[:user_id]
+        per_page = params[:per_page].present? ? params[:per_page] : 20
+
+        comments = user.comments.order(created_at: :desc).page(params[:page])
+                       .per(per_page).map do |c|
+          {
+            id: c.id, type: c.content_type, body: body,
+            duration: c.duration,
+            created_at: c.created_at.to_i
+          }
+        end
+        present :nickname, user.name
+        present :avatar, user.avatar
+        present :comments, comments
+      end
+
+      desc "get user info by huanxinname"
+      params do
+        requires :username, type: String
+      end
+      get :get_user_info_by_huanxin_username do
+        user = User.find_by!(username_huanxin: params[:username])
+
+        present :id, user.id
+        present :nickname, user.name
+        present :avatar, user.avatar
+      end
+
     end
   end
 end

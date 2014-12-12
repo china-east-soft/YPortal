@@ -54,38 +54,39 @@ class UserTest < ActiveSupport::TestCase
     assert_not u1.blocked? u2
   end
 
-  test "can't follow block user" do
+  test "follow a block user will also unblock him" do
     u1 = create(:user)
     u2 = create(:user)
 
     u1.block u2
     assert u1.blocked? u2
-
     assert_not u1.following? u2
-    u1.follow u2
-    assert_not u1.following? u2
-  end
-
-  test "can follow block user after unblock" do
-    u1 = create(:user)
-    u2 = create(:user)
-
-    u1.block u2
-    assert u1.blocked? u2
-    u1.unblock u2
-    assert_not u1.blocked? u2
-
-    assert_not u1.following? u2
-    u1.follow u2
-    assert u1.following? u2
-  end
-
-  test "block user should first unfoloow user" do
-    u1 = create(:user)
-    u2 = create(:user)
 
     u1.follow u2
     assert u1.following? u2
+    assert_not u1.blocked? u2
+  end
+
+
+  test "can not follow a user if be blocked" do
+    u1 = create(:user)
+    u2 = create(:user)
+
+    u2.block u1
+    assert u2.blocked? u1
+    assert_not u1.following? u2
+
+    u1.follow u2
+    assert u2.blocked? u1
+    assert_not u1.following? u2
+  end
+
+  test "block a user will unfoloow him" do
+    u1 = create(:user)
+    u2 = create(:user)
+
+    u1.follow u2
+    assert u1.following? u2
 
     assert_not u1.blocked? u2
     u1.block u2
@@ -93,7 +94,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not u1.following? u2
   end
 
-  test "block user should let remove self from other user's following list" do
+  test "block user will remove the user self from other user's following list" do
     u1 = create(:user)
     u2 = create(:user)
 

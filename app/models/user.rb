@@ -28,9 +28,13 @@ class User < ActiveRecord::Base
   validates :gender, inclusion: {in: %w(male female)}, presence: true
 
   def follow(other_user)
-    if self == other_user || blocked?(other_user)
+    if (self == other_user) || other_user.blocked?(self)
       false
     else
+      if blocked?(other_user)
+        active_blacklists.find_by(blocked_id: other_user.id).destroy
+      end
+
       active_relationships.create(followed_id: other_user.id)
     end
   end
