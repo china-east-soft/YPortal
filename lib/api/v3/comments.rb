@@ -61,6 +61,7 @@ module API::V3
       params do
         optional :mac, type: String
         requires :channel, type: String#, regexp: Program::CHANNEL_FORMAT
+        requires :current_user_id, type: String
 
         optional :id, type: Integer
         optional :limit , type: Integer
@@ -69,6 +70,8 @@ module API::V3
         channel = params[:channel].force_encoding("UTF-8")
         id = params[:id] || 0
         limit = params[:limit] || 20
+
+        current_user = User.find params[:current_user_id]
 
         program = Program.find_or_create_by_channel(channel)
         if program.present?
@@ -104,10 +107,39 @@ module API::V3
             user_id = c.user_id
             user_name = c.user.try(:name)
             user_avatar = c.user.try(:avatar)
+
+            other_user = c.user
+
+            follow = current_user.following? other_user
+            be_followed = other_user.following? current_user
+            block =  current_user.blocked? other_user
+            be_blocked = other_user.blocked? current_user
+
+            #0 stand for no relation
+            relationship = 0
+
+            if follow || be_followed
+              if follow && !be_followed
+                relationship = 1
+              elsif be_followed && !follow
+                relationship = 2
+              elsif follow && be_followed
+                relationship = 3
+              end
+            elsif block || be_blocked
+              if block && !be_blocked
+                relationship = 4
+              elsif be_blocked && !block
+                relationship = 5
+              elsif block && be_blocked
+                relationship = 6
+              end
+            end
             {
               id: c.id, type: c.content_type, body: body,
               duration: c.duration,
               user_id: user_id, user_name: user_name, user_avatar: user_avatar,
+              relationship: relationship,
               created_at: c.created_at.to_i, children: children
             }
           end
