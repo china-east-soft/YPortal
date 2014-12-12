@@ -7,7 +7,7 @@ module API::V3
         requires :name, type: String
         requires :mobile_number, type: String, regexp: /\A\d{11}\z/
         requires :verify_code, type: String, regexp: /\A\d+\z/
-        requires :gender, type: String, values: %W(male female), default: "male"
+        optional :gender, type: String, values: %W(male female), default: "male"
         requires :password, type: String
         requires :password_confirmation, type: String
       end
@@ -226,6 +226,37 @@ module API::V3
         end
       end
 
+      params do
+        requires :user_id, type: String
+        optional :name, type: String
+        optional :gender, type: String, values: %W(male female)
+      end
+      post :change_name_or_gender do
+        user = User.find(params[:user_id])
+        error_code = 0
+        if user
+          user.name = params[:name] if params[:name].present?
+          user.gender = params[:gender] if params[:gender].present?
+          if user.save
+            Rails.logger.debug "debug1"
+            present :result, true
+            present :name, user.name
+            present :gender, user.gender
+          else
+            error_code = 2
+            message = user.errors.full_messages.join(",")
+          end
+        else
+          error_code = 1
+          message = "user not exit"
+        end
+
+        if error_code != 0
+          present :result, false
+          present :message, message
+        end
+      end
+
       desc "follow user"
       params do
         requires :user_id, type: String
@@ -423,6 +454,7 @@ module API::V3
           comment_count = other_user.comments.count
 
           {
+            result: true,
             nickname: other_user.name,
             gender: other_user.gender,
             avatar: other_user.avatar,
@@ -435,6 +467,7 @@ module API::V3
           comment_count = current_user.comments.count
 
           {
+            result: true,
             nickname: current_user.name,
             gender: current_user.gender,
             avatar: current_user.avatar,
@@ -463,6 +496,8 @@ module API::V3
             created_at: c.created_at.to_i
           }
         end
+
+        present :result, true
         present :nickname, user.name
         present :avatar, user.avatar
         present :comments, comments
@@ -475,6 +510,7 @@ module API::V3
       get :get_user_info_by_huanxin_username do
         user = User.find_by!(username_huanxin: params[:username])
 
+        present :result, true
         present :id, user.id
         present :nickname, user.name
         present :avatar, user.avatar
