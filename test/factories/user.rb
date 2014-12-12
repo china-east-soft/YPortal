@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory(:user) do
     name "kkk"
+    gender "male"
     sequence(:mobile_number, 0) {|n|
       if n <= 9
         "1234567890#{n}"

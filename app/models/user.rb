@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
 
   validates :mobile_number, uniqueness: true, presence: true, format: {with: /\A\d{11}\z/}
   validates :name, presence: true
+  validates :gender, inclusion: {in: %w(male female)}, presence: true
 
   def follow(other_user)
     if self == other_user || blocked?(other_user)

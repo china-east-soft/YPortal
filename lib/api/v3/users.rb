@@ -7,6 +7,7 @@ module API::V3
         requires :name, type: String
         requires :mobile_number, type: String, regexp: /\A\d{11}\z/
         requires :verify_code, type: String, regexp: /\A\d+\z/
+        requires :gender, type: String, values: %W(male female), default: "male"
         requires :password, type: String
         requires :password_confirmation, type: String
       end
@@ -33,6 +34,7 @@ module API::V3
         else
           user = User.new(name: params[:name],
                           mobile_number: mobile_number,
+                          gender: params[:gender],
                           password: params[:password],
                           password_confirmation: params[:password_confirmation])
           if user.save
@@ -385,7 +387,7 @@ module API::V3
         requires :current_user_id, type: String
         requires :other_user_id, type: String
       end
-      #todo add user's topic to result
+      #todo add user's topic to result and gender
       get :other_user_info  do
         current_user = User.find params[:current_user_id]
         other_user = User.find params[:other_user_id]
