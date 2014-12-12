@@ -360,6 +360,7 @@ module API::V3
           message = "already block user"
         else
           user.block blocked_user
+          HuanxinFriendWorker.perform_async(user.id, :block_user, blocked_user.id)
         end
 
         if error_code == 0
@@ -383,6 +384,7 @@ module API::V3
 
         if user.blocked? blocked_user
           user.unblock blocked_user
+          HuanxinFriendWorker.perform_async(user.id, :unblock_user, blocked_user.id)
         else
           error_code = 1
           message = "not blocked user"

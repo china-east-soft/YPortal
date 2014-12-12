@@ -8,7 +8,8 @@ module Huanxin
   CLIENT_ID  = 'YXA6gjPF0HqeEeSx0ZG3qEDc4g'
   CLIENT_SECRET = 'YXA6OKU7bQqpnr-Ymd0vu-CUboqpuL4'
 
-  RESTFUL_API = %W[register_user unregister_user get_user_info]
+  USER_RESTFUL_API = %W[register_user unregister_user get_user_info]
+  FRIEND_RESTFUL_API = %W[block_user, unblock_user]
 
     #http://cloudchain.co:8080/api/acs_push/push
   #uid=<uid>&note=<note>
