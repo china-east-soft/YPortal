@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: git://github.com/svenfuchs/rails-i18n.git
-  revision: ccfb6d9151fbe180ff70a4eb3420d6abfac3d905
+  revision: d01f64822695cc0674ec1d8998f466af4d25548a
   branch: master
   specs:
     rails-i18n (4.0.3)
@@ -73,7 +73,7 @@ GEM
     chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cocaine (0.5.4)
+    cocaine (0.5.5)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     coercible (1.0.0)
@@ -128,7 +128,7 @@ GEM
       rack-mount
       virtus (>= 1.0.0)
     gritter (1.1.0)
-    guard (2.10.1)
+    guard (2.10.2)
       formatador (>= 0.2.4)
       listen (~> 2.7)
       lumberjack (~> 1.0)
@@ -175,11 +175,11 @@ GEM
     mina-sidekiq (0.3.0)
       mina
     mini_magick (4.0.1)
-    minitest (5.4.3)
+    minitest (5.5.0)
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    netrc (0.7.7)
+    netrc (0.7.9)
     newrelic_rpm (3.9.8.273)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
@@ -200,7 +200,7 @@ GEM
       omniauth-oauth2 (~> 1.0)
     open4 (1.3.4)
     orm_adapter (0.5.0)
-    paperclip (4.2.0)
+    paperclip (4.2.1)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
@@ -249,7 +249,7 @@ GEM
       ffi (>= 0.5.0)
     rdoc (4.2.0)
       json (~> 1.4)
-    redis (3.1.0)
+    redis (3.2.0)
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
     ref (1.0.5)
@@ -331,11 +331,11 @@ GEM
     timers (4.0.1)
       hitimes
     truncate_html (0.9.3)
-    turbolinks (2.5.2)
+    turbolinks (2.5.3)
       coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (2.5.3)
+    uglifier (2.6.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     ui_datepicker-rails3 (1.2.0)
