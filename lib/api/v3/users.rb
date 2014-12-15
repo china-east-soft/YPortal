@@ -326,7 +326,7 @@ module API::V3
         following = user.following.page(params[:page]).per(per_page)
 
         present :result, true
-        present :following, following.map {|u| {id: u.id, nickname: u.name, avatar: u.avatar} }
+        present :following, following.map {|u| {id: u.id, nickname: u.name, avatar: u.avatar, gender: u.gender, level: u.level} }
       end
 
       desc "get followers"
@@ -340,8 +340,8 @@ module API::V3
         per_page = params[:per_page] || 20
 
         followers = user.followers.page(params[:page]).per(per_page)
-        persent :result, true
-        present :followers, followers.map {|u| { id: u.id, nickname: u.name, avatar: u.avatar } }
+        present :result, true
+        present :followers, followers.map {|u| { id: u.id, nickname: u.name, avatar: u.avatar, gender: u.gender, level: u.level } }
       end
 
       desc "block user"
@@ -411,11 +411,11 @@ module API::V3
         blocked_users = user.blocked_users.page(params[:page]).per(per_page)
 
         present :result, true
-        present :blacklist, blocked_users.map {|u| {id: u.id, nickname: u.name, avatar: u.avatar} }
+        present :blacklist, blocked_users.map {|u| {id: u.id, nickname: u.name, avatar: u.avatar, gender: u.gender, level: u.level} }
       end
 
 
-      desc "get other user info"
+      desc "get user info, self of other user"
       params do
         requires :current_user_id, type: String
         optional :other_user_id, type: String
@@ -463,7 +463,7 @@ module API::V3
             relationship: relationship,
             comment_count: comment_count,
             topic_count: 0,
-            level: 0
+            level: other_user.level
           }
         else
           comment_count = current_user.comments.count
@@ -475,7 +475,7 @@ module API::V3
             avatar: current_user.avatar,
             comment_count: comment_count,
             topic_count: 0,
-            level: 0
+            level: current_user.level
           }
         end
       end
