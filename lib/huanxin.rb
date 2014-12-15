@@ -11,7 +11,8 @@ module Huanxin
   USER_RESTFUL_API = %W[register_user unregister_user get_user_info]
   FRIEND_RESTFUL_API = %W[block_user unblock_user]
 
-    #http://cloudchain.co:8080/api/acs_push/push
+  # test for auction, can delete
+  #http://cloudchain.co:8080/api/acs_push/push
   #uid=<uid>&note=<note>
   #uid为0，为群发；note为发送具体内容。内容可以是文本、图片、链接(Max=255个字符)。
   def send_note(note)
