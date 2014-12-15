@@ -24,7 +24,7 @@ class Admin::CitiesController < AdminController
   end
 
   def index
-    @cities = City.all
+    @cities = City.order(name: :asc)
   end
 
   def update
@@ -39,7 +39,7 @@ class Admin::CitiesController < AdminController
 
   def destroy
     @city.destroy
-    redirect_to admin_citys_url
+    redirect_to admin_cities_url
   end
 
   private

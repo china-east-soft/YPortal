@@ -1,5 +1,6 @@
 = form_for [:admin, @city]  do |f|
   = render "shared/flash_messages"
+  = render "shared/form_error_messages", form: f
   .form-group
     = f.label :name, "城市名", class: "control-label"
     = f.text_field :name, class: "form-control"

@@ -24,4 +24,6 @@
                       = link_to city.programs_count, admin_programs_path(city_id: city.id)
                     td
                       = link_to "编辑", [:admin, city]
+                      | |
+                      = link_to "删除", [:admin, city], method: :delete, data: {confirm: "确定删除?"}
 
