@@ -16,7 +16,7 @@
             = f.text_field :mobile_number, class: "form-control", disabled: true
           .form-group
             = f.label :created_at, "创建时间", class: "control-label"
-            = f.text_field :created_at, class: "form-control", disabled: true
+            = f.text_field :created_at, value: @user.created_at.to_s(:db), class: "form-control", disabled: true
           .clearfix
             = f.submit "保存修改", class: 'btn btn-md btn-success'
             .pull-right

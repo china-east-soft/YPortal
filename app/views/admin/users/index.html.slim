@@ -11,10 +11,14 @@
                 = user.id
                 = '. '
                 b = user.name
+                - unless user.register_huanxin?
+                  = '. '
+                  b = fa_icon("warning")
+                  span 未注册环信帐号， 请联系开发人员
               .text-muted
                 = user.mobile_number || user.email
                 = '. '
-                = user.created_at
+                = user.created_at.to_s(:db)
       .panel-footer.clearfix
         .pull-right
           = paginate @users
