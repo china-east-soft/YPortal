@@ -2,7 +2,7 @@ class Program < ActiveRecord::Base
   has_many :comments, dependent: :destroy
 
   belongs_to :television
-  belongs_to :city
+  belongs_to :city, counter_cache: true
 
   before_validation :channel_to_upper_and_generate_mod_freq_name_and_location, if: "self.channel.present?"
 
@@ -79,7 +79,7 @@ class Program < ActiveRecord::Base
 
       program = Program.find_by(channel: channel)
       if program.nil?
-        mode, freq, channel_name, location = channel.split('@')
+        mode, _freq, channel_name, _location = channel.split('@')
         if mode == 'CMMB' && CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.values.flatten.include?(channel_name)
           name = Program.name_to_channel_name(channel_name)
           program = Program.where(mode: 'CMMB', channel_name: name).first
