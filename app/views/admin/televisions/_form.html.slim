@@ -1,4 +1,6 @@
 = form_for [:admin, @television] do |f|
+  = render "shared/flash_messages"
+  = render "shared/form_error_messages", form: f
   .form-group
     - unless @television.new_record? && @television.logo.url
       = f.label :logo, "台标", class: "control-label col-md-4"
@@ -14,8 +16,8 @@
     = f.label :name, "*电台名称", class: "control-label"
     = f.text_field :name, class: "form-control"
   .form-group
-    = f.label :branch, "类别（卫视台,地方台或其他)", class: "control-label"
-    = f.text_field :branch, class: "form-control"
+    = f.label :branch, "类别（央视台,卫视台,地方台或其他)", class: "control-label"
+    = f.select :branch, ["央视台", "卫视台", "地方台", "其他"], {},  class: "form-control"
   .clearfix
     - if @television.new_record?
       = f.submit "创建电台", class: "btn btn-lg btn-primary"

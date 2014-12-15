@@ -5,6 +5,7 @@ class AdminController < ActionController::Base
 
   before_filter :authenticate_admin!
   helper_method :date_parts, :app_names, :app_display_name, :terminal_collections, :personal?, :public?
+  add_flash_types :error, :success
 
   layout 'admin'
 
