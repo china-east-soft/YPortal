@@ -260,44 +260,46 @@ module API::V3
       desc "follow user"
       params do
         requires :user_id, type: String
-        requires :friend_id, type: String
+        requires :receiver_id, type: String
       end
       post :follow do
         error_code = 0
 
         user = User.find params[:user_id]
-        friend = User.find params[:friend_id]
+        friend = User.find params[:receiver_id]
         if user.following? friend
-          error_code = 1
-          message = "already follow user"
+          error_code = 0
         elsif friend.blocked? user
-          error_code = 2
+          error_code = 1
           message = "user #{user.id} has been blocked by user #{friend.id}"
-        elsif user.blocked? friend
-          error_code = 3
-          message = "user #{user.id} has blocked user #{friend.id}"
         else
           user.follow friend
         end
 
         if error_code == 0
           present :result, true
+          present :user_id, user.id
+          present :receiver_id, friend.id
+          present :relation, user.relationship_with(friend)
         else
           present :result, false
           present :message, message
+          present :user_id, user.id
+          present :receiver_id, friend.id
+          present :relation, user.relationship_with(friend)
         end
       end
 
       desc "unfollow user"
       params do
         requires :user_id, type: String
-        requires :friend_id, type: String
+        requires :receiver_id, type: String
       end
       post :unfollow do
         error_code = 0
 
         user = User.find params[:user_id]
-        friend = User.find params[:friend_id]
+        friend = User.find params[:receiver_id]
         if user.following? friend
           user.unfollow friend
         else
@@ -307,9 +309,15 @@ module API::V3
 
         if error_code == 0
           present :result, true
+          present :user_id, user.id
+          present :receiver_id, friend.id
+          present :relation, user.relationship_with(friend)
         else
           present :result, false
           present :message, message
+          present :user_id, user.id
+          present :receiver_id, friend.id
+          present :relation, user.relationship_with(friend)
         end
       end
 
@@ -347,16 +355,16 @@ module API::V3
       desc "block user"
       params do
         requires :user_id, type: String
-        requires :blocked_id, type: String
+        requires :receiver_id, type: String
       end
       post :block do
         error_code = 0
 
         user = User.find params[:user_id]
-        blocked_user = User.find params[:blocked_id]
+        blocked_user = User.find params[:receiver_id]
 
         if user.blocked? blocked_user
-          error_code = 1
+          error_code = 0
           message = "already block user"
         else
           user.block blocked_user
@@ -365,6 +373,9 @@ module API::V3
 
         if error_code == 0
           present :result, true
+          present :user_id, user.id
+          present :receiver_id, blocked_user.id
+          present :relation, user.relationship_with(blocked_user)
         else
           present :result, false
           present :message, message
@@ -374,13 +385,13 @@ module API::V3
       desc "unblock user"
       params do
         requires :user_id, type: String
-        requires :blocked_id, type: String
+        requires :receiver_id, type: String
       end
       post :unblock do
         error_code = 0
 
         user = User.find params[:user_id]
-        blocked_user = User.find params[:blocked_id]
+        blocked_user = User.find params[:receiver_id]
 
         if user.blocked? blocked_user
           user.unblock blocked_user
@@ -392,9 +403,15 @@ module API::V3
 
         if error_code == 0
           present :result, true
+          present :user_id, user.id
+          present :receiver_id, blocked_user.id
+          present :relation, user.relationship_with(blocked_user)
         else
           present :result, false
           present :message, message
+          present :user_id, user.id
+          present :receiver_id, blocked_user.id
+          present :relation, user.relationship_with(blocked_user)
         end
       end
 
@@ -524,13 +541,14 @@ module API::V3
       end
       get :relationships do
         current_user = User.find params[:user_id]
+
         following = current_user.following
         blocked_users = current_user.blocked_users
+        all_relations = following + blocked_users
 
         {
           result: true,
-          following: following.map {|user| {id: user.id, avatar: user.avatar, nickname: user.name}},
-          blacklist: blocked_users.map {|user| {id: user.id, avatar: user.avatar, nickname: user.name } }
+          relationships: all_relations.map {|user| {id: user.id, avatar: user.avatar, nickname: user.name, relationship: current_user.relationship_with(user) }},
         }
       end
 

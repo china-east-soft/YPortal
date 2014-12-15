@@ -107,4 +107,40 @@ class UserTest < ActiveSupport::TestCase
     assert_not u2.following? u1
   end
 
+  test "relationship: follow" do
+    u1 = create(:user)
+    u2 = create(:user)
+
+    assert_equal u1.relationship_with(u2), 0
+
+    u1.follow u2
+    assert_equal u1.relationship_with(u2), 1
+    u1.unfollow u2
+
+    assert_equal u1.relationship_with(u2), 0
+    u2.follow u1
+    assert_equal u1.relationship_with(u2), 2
+
+    u1.follow u2
+    assert_equal u1.relationship_with(u2), 3
+  end
+
+  test "relationship: block" do
+    u1 = create(:user)
+    u2 = create(:user)
+
+    assert_equal u1.relationship_with(u2), 0
+
+    u1.block u2
+    assert_equal u1.relationship_with(u2), 4
+    u1.unblock u2
+
+    assert_equal u1.relationship_with(u2), 0
+    u2.block u1
+    assert_equal u1.relationship_with(u2), 5
+
+    u1.block u2
+    assert_equal u1.relationship_with(u2), 6
+  end
+
 end

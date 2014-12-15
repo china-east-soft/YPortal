@@ -72,4 +72,44 @@ class User < ActiveRecord::Base
     blocked_users.include? other_user
   end
 
+
+  #return integer
+  #0: no relation
+  #1: follow other user  and not be followed
+  #2: not follow other user and be followed by other user
+  #3: follow and be followed
+  #4: block other user and not be blocked
+  #5: not block other but be blocked by other user
+  #6: block other and be blocked by other
+  def relationship_with(other_user)
+
+    follow = following? other_user
+    be_followed = other_user.following? self
+    block =  blocked? other_user
+    be_blocked = other_user.blocked? self
+
+    #0 stand for no relation
+    relationship = 0
+
+    if follow || be_followed
+      if follow && !be_followed
+        relationship = 1
+      elsif be_followed && !follow
+        relationship = 2
+      elsif follow && be_followed
+        relationship = 3
+      end
+    elsif block || be_blocked
+      if block && !be_blocked
+        relationship = 4
+      elsif be_blocked && !block
+        relationship = 5
+      elsif block && be_blocked
+        relationship = 6
+      end
+    end
+
+    relationship
+  end
+
 end
