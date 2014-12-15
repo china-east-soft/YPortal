@@ -518,6 +518,23 @@ module API::V3
         present :avatar, user.avatar
       end
 
+      desc "get user relationships: following and blacklist"
+      params do
+        requires :user_id, type: String
+      end
+      get :user_relationships do
+        current_user = User.find params[:user_id]
+        following = current_user.following
+        blocked_users = current_user.blocked_users
+
+        {
+          result: true,
+          following: following.map {|user| {id: user.id, avatar: user.avatar, nickname: user.name}},
+          blacklist: blocked_users.map {|user| {id: user.id, avatar: user.avatar, nickname: user.name } }
+        }
+      end
+
     end
+
   end
 end
