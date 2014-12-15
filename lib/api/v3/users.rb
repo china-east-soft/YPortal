@@ -522,7 +522,7 @@ module API::V3
       params do
         requires :user_id, type: String
       end
-      get :user_relationships do
+      get :relationships do
         current_user = User.find params[:user_id]
         following = current_user.following
         blocked_users = current_user.blocked_users
