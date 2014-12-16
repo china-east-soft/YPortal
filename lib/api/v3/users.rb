@@ -509,6 +509,11 @@ module API::V3
 
         comments = user.comments.order(created_at: :desc).page(params[:page])
                        .per(per_page).map do |c|
+          if c.audio?
+            body = request.scheme + '://' + request.host_with_port + c.audio.url.to_s
+          else
+            body = c.body
+          end
           {
             id: c.id, type: c.content_type, body: body,
             duration: c.duration,
