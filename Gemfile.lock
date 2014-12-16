@@ -104,6 +104,9 @@ GEM
     equalizer (0.0.9)
     erubis (2.7.0)
     eventmachine (1.0.3)
+    exception_notification (4.0.1)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
     execjs (2.2.2)
     factory_girl (4.3.0)
       activesupport (>= 3.0.0)
@@ -362,6 +365,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise (= 3.2.4)
   did_you_mean (~> 0.8.0)
+  exception_notification
   execjs
   factory_girl_rails (~> 4.3.0)
   font-awesome-rails (= 3.2.1.3)

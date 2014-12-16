@@ -41,4 +41,11 @@ Rails.application.configure do
 
   config.action_mailer.raise_delivery_errors = true
 
+  # config.middleware.use ExceptionNotification::Rack,
+  #   :email => {
+  #   :email_prefix => "[Whatever]",
+  #   :sender_address => %{"notifier" <notifier@example.com>},
+  #   :exception_recipients => %w{ kailaichao@cloudchain.cn }
+  # }
+
 end

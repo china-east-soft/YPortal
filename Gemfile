@@ -108,3 +108,5 @@ gem 'whenever', :require => false
 gem 'kaminari'
 
 gem 'newrelic_rpm'
+
+gem 'exception_notification'
