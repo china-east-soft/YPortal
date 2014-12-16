@@ -2,7 +2,7 @@
   .col-lg-9
     section.panel
       header.panel-heading
-        | 反馈列表
+        | 评论列表
         = form_tag("/admin/comments", method: "get") do
           = text_field_tag(:channel, nil, placeholder: "节目标识")
           = submit_tag("查询")

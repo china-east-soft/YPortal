@@ -18,6 +18,8 @@
               th 模式
               th 频率
               th SID
+              th 城市
+              th 电台
               th 评论数
               th
           tbody
@@ -28,6 +30,8 @@
                   td = program.mode
                   td = program.freq
                   td = program.sid
+                  td = program.city.try(:name)
+                  td = program.television.try(:name)
                   td = link_to program.comments_count, admin_comments_path(program_id: program.id)
                   td
                     span.btn.btn-success.btn-xs
@@ -47,7 +51,9 @@
                 td = program.mode
                 td = program.freq
                 td = program.sid
-                td = link_to program.comments_count, admin_comments_path(program_id: program.id)
+                td = program.city.try(:name)
+                td = program.television.try(:name)
+                td = link_to program.comments_count, admin_comments_path(program_id: program.id) 
                 td
                   span.btn.btn-success.btn-xs
                     = link_to fa_icon("check"), [:admin, program]

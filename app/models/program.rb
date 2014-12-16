@@ -31,9 +31,9 @@ class Program < ActiveRecord::Base
     return name
   end
 
-  scope :global_programs, lambda { where(mode: "CMMB", channel_name: CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.keys) }
+  scope :global_programs, lambda { includes(:city, :television).where(mode: "CMMB", channel_name: CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.keys) }
 
-  scope :local_programs, lambda {where("((mode = 'CMMB') and (channel_name NOT IN ('CCTV-1', 'CCTV-5', 'CCTV-13','睛彩电影','睛彩天下')))")}
+  scope :local_programs, lambda { includes(:city, :television).where("((mode = 'CMMB') and (channel_name NOT IN ('CCTV-1', 'CCTV-5', 'CCTV-13','睛彩电影','睛彩天下')))")}
 
   # validates :channel, presence: true, uniqueness: true, format: {with: CHANNEL_FORMAT,                                                                  message: "格式错误！"}
 
