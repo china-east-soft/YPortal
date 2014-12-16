@@ -524,6 +524,8 @@ module API::V3
         present :result, true
         present :nickname, user.name
         present :avatar, user.avatar
+        present :gender, user.gender
+        present :level, user.level
         present :comments, comments
       end
 
