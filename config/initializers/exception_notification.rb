@@ -1,3 +1,5 @@
+#this file is for exception in background job, not use background job send exception emai
+
 require 'exception_notification/rails'
 
 require 'exception_notification/sidekiq'
@@ -11,9 +13,9 @@ ExceptionNotification.configure do |config|
 
   # Adds a condition to decide when an exception must be ignored or not.
   # The ignore_if method can be invoked multiple times to add extra conditions.
-  config.ignore_if do |exception, options|
-    Rails.env.development?
-  end
+  # config.ignore_if do |exception, options|
+  #   Rails.env.development?
+  # end
 
   # Notifiers =================================================================
 
