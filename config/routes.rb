@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+
   devise_for :accounts, :controllers => {:registrations => "account/registrations",
    :sessions => "account/sessions" }
 
@@ -170,6 +171,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :exception_logs, except: [:new, :create, :edit]
 
   mount API::Entrance => '/api'
 

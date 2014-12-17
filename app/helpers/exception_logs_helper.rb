@@ -1,0 +1,2 @@
+module ExceptionLogsHelper
+end

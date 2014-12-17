@@ -1,8 +1,8 @@
 #this file is for exception in background job, not use background job send exception emai
 
 require 'exception_notification/rails'
-
 require 'exception_notification/sidekiq'
+require "exception_notifier/database_notifier"
 
 
 
@@ -19,12 +19,16 @@ ExceptionNotification.configure do |config|
 
   # Notifiers =================================================================
 
+  config.ignored_exceptions += %w{ActionView::TemplateError}
+
   # Email notifier sends notifications by email.
-  config.add_notifier :email, {
-    :email_prefix         => "[ERROR] ",
-    :sender_address       => %{"Notifier" <notifier@example.com>},
-    :exception_recipients => %w{kailaichao@cloudchain.cn}
-  }
+  # config.add_notifier :email, {
+  #   :email_prefix         => "[ERROR] ",
+  #   :sender_address       => %{"Notifier" <notifier@example.com>},
+  #   :exception_recipients => %w{kailaichao@cloudchain.cn}
+  # }
+
+  config.add_notifier :database, {}
 
   # Campfire notifier sends notifications to your Campfire room. Requires 'tinder' gem.
   # config.add_notifier :campfire, {
