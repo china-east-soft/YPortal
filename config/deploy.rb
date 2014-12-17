@@ -121,3 +121,19 @@ task :deploy => :environment do
     end
   end
 end
+
+desc "Restarts the passenger server."
+task :restart do
+  invoke :'passenger:restart'
+end
+
+namespace :passenger do
+  task :restart do
+    queue %{
+      echo "-----> Restarting passenger"
+      cd "#{deploy_to}/#{current_path}"
+      echo "------> enter #{deploy_to}/#{current_path}"
+    }
+    queue %{ #{echo_cmd %[touch tmp/restart.txt]} }
+  end
+end
