@@ -113,6 +113,7 @@ Rails.application.routes.draw do
     resources :televisions, except: :edit
     resources :users, except: [:new, :create, :edit]
     resources :cities, except: [:edit]
+    resources :exception_logs, except: [:new, :create, :edit]
   end
 
   namespace :agent do
@@ -172,7 +173,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :exception_logs, except: [:new, :create, :edit]
 
   mount API::Entrance => '/api'
 

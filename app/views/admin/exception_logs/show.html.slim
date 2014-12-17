@@ -1,0 +1,12 @@
+.main
+  .container
+    .row
+      .col-md-10.col-md-offset-1
+        .panel
+          .panel-body
+            h3 = @log.title
+            p
+              span 发生时间:
+              = @log.created_at.to_s(:db)
+            p = @log.body
+

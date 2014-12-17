@@ -6,7 +6,6 @@ class Admin::UsersController < AdminController
   set_tab :users, :sub_nav
 
   def index
-    User.test_fsdf
     @users = User.all.page(params[:page])
     respond_to do |format|
       format.html

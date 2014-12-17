@@ -1,0 +1,19 @@
+.main
+  .container
+    .row
+      .col-md-12
+        .panel
+          .panel-body
+            table.table.table-striped.table-advance.table-hover.vertical-align-middle.table-bordered
+              thead
+                tr
+                  th 时间
+                  th 标题
+                  th
+              tbody
+                - @exceptions.each do |r|
+                  tr
+                    td = r.created_at.strftime('%H:%M:%S %Y-%m-%d')
+                    td = r.title
+                    td
+                      = link_to '查看', [:admin, r]
