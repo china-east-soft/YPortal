@@ -1,4 +1,8 @@
 class Admin::ApiVisitLogsController < AdminController
+  before_action :setup
+
+  set_tab :development
+  set_tab :api_visit_logs, :sub_nav
 
   def index
     params[:api_visit_log] ||= {}
@@ -12,6 +16,11 @@ class Admin::ApiVisitLogsController < AdminController
     @api_visit_logs = @api_visit_logs.before_date(params[:api_visit_log][:end_date]) unless params[:api_visit_log][:end_date].blank?
     @api_visit_logs = @api_visit_logs.after_date(params[:api_visit_log][:start_date]) unless params[:api_visit_log][:start_date].blank?
     @api_visit_logs = @api_visit_logs.order('created_at desc').page params[:page]
+  end
+
+  private
+  def setup
+    @left_panel = "admin/exception_logs/left_panel"
   end
 
 end
