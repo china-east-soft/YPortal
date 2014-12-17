@@ -16,7 +16,7 @@ module ExceptionNotifier
         messages << exception.backtrace[0,100]
       end
 
-      if Rails.env.production?
+      if Rails.env.production? || Rails.env.testing?
         ExceptionLog.create(title: @title, body: messages.join("\n"))
       else
         puts "\n======================"
