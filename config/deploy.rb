@@ -110,7 +110,9 @@ task :deploy => :environment do
 
       invoke :'whenever:update'
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
-      invoke :'sidekiq:restart'
+      # invoke :'sidekiq:restart'
+      # god will reboot sidekiq, use restart will start two sidekiq process, don't known why
+      invoke :'sidekiq:stop'
       queue! "#{rake} data:default_portal_styles"
       # queue! "#{rake} data:set_default_terminal_version"
       queue! "#{rake} data:terminals_without_version_set_to_latest"
