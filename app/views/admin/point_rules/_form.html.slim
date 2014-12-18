@@ -5,7 +5,7 @@
     = f.label :name, "*规则名称", class: "control-label"
     = f.text_field :name, class: "form-control"
   .form-group
-    = f.label :credit, "积分值(可为负值)", class: "control-label"
+    = f.label :credit, "积分值(非负值)", class: "control-label"
     = f.number_field :credit, class: "form-control"
   .form-group
     = f.label :desc, "规则说明", class: "control-label"

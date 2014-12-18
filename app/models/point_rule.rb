@@ -1,6 +1,7 @@
 class PointRule < ActiveRecord::Base
   validates_presence_of :name, :credit
   validates_uniqueness_of :name
+  validates :credit, :numericality => { :greater_than_or_equal_to => 0 }
 
   PREDEFINED_RUELS = [{name: "每日登录", desc: "每天签到奖励积分", credit: 5},
                       {name: "节目评论", desc: "看电视发表评论奖励积分", credit: 1},

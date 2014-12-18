@@ -1,5 +1,5 @@
 class Comment < ActiveRecord::Base
-
+  after_create :update_user_points, if: "user_id.present?"
   before_save :update_channel, if: "program_id.present?"
 
   belongs_to :program, counter_cache: true
@@ -56,6 +56,8 @@ class Comment < ActiveRecord::Base
    )
    select parent_id from search_ancestor_tree order by path
    SQL
+
+   ancestors_sql
   end
 
   def audio?
@@ -69,6 +71,13 @@ class Comment < ActiveRecord::Base
   def update_channel
     if program.present?
       self.channel = program.channel
+    end
+  end
+
+  def update_user_points
+    rule = PointRule.find_by(name: "节目评论")
+    if rule
+      PointDetail.create(user_id: self.user_id, point_rule_id: rule.id)
     end
   end
 
