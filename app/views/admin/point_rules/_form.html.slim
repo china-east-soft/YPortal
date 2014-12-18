@@ -1,0 +1,16 @@
+= form_for [:admin, @point_rule] do |f|
+  = render "shared/flash_messages"
+  = render "shared/form_error_messages", form: f
+  .form-group
+    = f.label :name, "*规则名称", class: "control-label"
+    = f.text_field :name, class: "form-control"
+  .form-group
+    = f.label :credit, "积分值(可为负值)", class: "control-label"
+    = f.number_field :credit, class: "form-control"
+  .form-group
+    = f.label :desc, "规则说明", class: "control-label"
+    = f.text_area :desc, class: "form-control"
+  - if @point_rule.new_record?
+    = f.submit "新增规则", class: "btn btn-primary"
+  - else
+    = f.submit "修改规则", class: "btn btn-primary"

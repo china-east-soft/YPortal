@@ -6,4 +6,5 @@ class PointRule < ActiveRecord::Base
                       {name: "节目评论", desc: "看电视发表评论奖励积分", credit: 1},
                       {name: "发帖", desc: "社区发布帖子", credit: 10}
                      ]
+  PREDEFINED_RULE_NAMES = PREDEFINED_RUELS.map {|h| h[:name] }
 end
