@@ -114,6 +114,7 @@ Rails.application.routes.draw do
     resources :users, except: [:new, :create, :edit]
     resources :cities, except: [:edit]
     resources :exception_logs, except: [:new, :create, :edit]
+    resources :point_rules
   end
 
   namespace :agent do
