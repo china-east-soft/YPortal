@@ -399,9 +399,6 @@ module API::V3
 
         if user.blocked? blocked_user
           user.unblock blocked_user
-        else
-          error_code = 1
-          message = "not blocked user"
         end
 
         if error_code == 0
