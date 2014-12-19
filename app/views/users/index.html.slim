@@ -1,0 +1,21 @@
+.main
+  .container
+    .row
+      .col-xs-6.col-xs-offset-4
+        .panel
+          .panel-head
+          .panel-body
+            .list-group
+              .list-group-item
+                h3.panel-title 活跃用户
+              - @users.each_with_index do |user, index|
+                a.list-group-item href="#{user.id}"
+                  .list-group-item-heading
+                    .user-avatar
+                      = image_tag "avatar1_small.jpg", class: "img-rounded", alt: "avatar"
+                    b = user.name
+                    = "  "
+                    b = user.gender_tr
+                    = "  "
+                    b = "V#{user.level}"
+                    b.pull-right = index+1

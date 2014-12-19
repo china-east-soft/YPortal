@@ -28,6 +28,16 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :gender, inclusion: {in: %w(male female)}, presence: true
 
+  def gender_tr
+    case gender
+    when "male"
+      "男"
+    when "female"
+      "女"
+    end
+  end
+
+
   def follow(other_user)
     if (self == other_user) || other_user.blocked?(self)
       false

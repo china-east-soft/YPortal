@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
 
 
+  get 'users' => "users#index"
+
   devise_for :accounts, :controllers => {:registrations => "account/registrations",
    :sessions => "account/sessions" }
 
