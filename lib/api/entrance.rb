@@ -53,7 +53,8 @@ module API
     end
 
     after do
-      log_api_visit unless Rails.env.development?
+      # this will slow app
+      # log_api_visit unless Rails.env.development?
     end
 
 
