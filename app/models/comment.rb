@@ -75,10 +75,7 @@ class Comment < ActiveRecord::Base
   end
 
   def update_user_points
-    rule = PointRule.find_by(name: "节目评论")
-    if rule
-      PointDetail.create(user_id: self.user_id, point_rule_id: rule.id)
-    end
+    PointDetail.create_by_user_id_and_rule_name(user_id: self.user_id, rule_name: "节目评论")
   end
 
 end

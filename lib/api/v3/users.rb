@@ -40,6 +40,9 @@ module API::V3
           if user.save
             error_code = 0
             HuanxinUserWorker.perform_async(user.id, :register_user)
+
+            #check in
+            UserCheckIn.create_if_not_check_in_today_with(user: user)
           else
             error_code = 3
             message = user.errors.full_messages.join(",")
@@ -70,6 +73,9 @@ module API::V3
         error_code = 0
         if user
           if user.authenticate(params[:password])
+            #check in
+            UserCheckIn.create_if_not_check_in_today_with(user: user)
+
             present :result, true
             present :user_id, user.id
             present :name, user.name

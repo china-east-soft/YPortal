@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 
   has_many :comments
   has_many :point_details
+  has_many :user_check_ins
 
   #active stand for a  follow b actived
   has_many :active_relationships, class_name: "Relationship",

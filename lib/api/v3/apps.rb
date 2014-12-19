@@ -6,6 +6,7 @@ module API::V3
       params do
         requires :mac, type: String
         optional :version, type: String
+        optional :user_id, type: String
       end
       post '/boot' do
         app = App.find_or_create_by(mac: params[:mac])
@@ -22,6 +23,12 @@ module API::V3
           con = app.app_connections.order(created_at: :desc).first
           unless con && (con.created_at >= Time.zone.now.beginning_of_day && con.created_at <= Time.zone.now.end_of_day)
             app.app_connections << AppConnection.new
+          end
+
+          #check in
+          if params[:user_id].present?
+            user = User.find params[:user_id]
+            UserCheckIn.create_if_not_check_in_today_with(user: user)
           end
 
           present :result, true
