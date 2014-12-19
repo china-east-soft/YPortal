@@ -287,6 +287,7 @@ module API::V3
           present :relation, user.relationship_with(friend)
         else
           present :result, false
+          present :error_code, error_code
           present :message, message
           present :user_id, user.id
           present :receiver_id, friend.id

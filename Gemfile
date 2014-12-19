@@ -67,6 +67,8 @@ gem 'mini_magick'
 # gem "bson_ext"
 
 gem 'redis'
+gem 'redis-store'
+gem 'redis-rails'
 
 gem 'thread_safe', '0.2.0'
 gem 'devise', '3.2.4'

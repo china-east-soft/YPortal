@@ -46,7 +46,12 @@ class Program < ActiveRecord::Base
     #setp3: 创建新节目
     def find_or_create_by_channel(channel)
       channel.upcase!
+      Rails.cache.fetch("program:channel:#{channel}") do
+        find_or_create_by_channel_to_cache(channel)
+      end
+    end
 
+    def find_or_create_by_channel_to_cache(channel)
       program = Program.find_by(channel: channel)
 
       if program.nil?
