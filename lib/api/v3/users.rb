@@ -39,8 +39,6 @@ module API::V3
                           password_confirmation: params[:password_confirmation])
           if user.save
             error_code = 0
-            HuanxinUserWorker.perform_async(user.id, :register_user)
-
             #check in
             UserCheckIn.create_if_not_check_in_today_with(user: user)
           else
@@ -374,7 +372,6 @@ module API::V3
           message = "already block user"
         else
           user.block blocked_user
-          HuanxinFriendWorker.perform_async(user.id, :block_user, blocked_user.id)
         end
 
         if error_code == 0
@@ -401,7 +398,6 @@ module API::V3
 
         if user.blocked? blocked_user
           user.unblock blocked_user
-          HuanxinFriendWorker.perform_async(user.id, :unblock_user, blocked_user.id)
         else
           error_code = 1
           message = "not blocked user"

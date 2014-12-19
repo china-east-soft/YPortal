@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  after_create :register_to_huanxin
 
   has_many :comments
   has_many :point_details
@@ -44,7 +45,8 @@ class User < ActiveRecord::Base
       false
     else
       if blocked?(other_user)
-        active_blacklists.find_by(blocked_id: other_user.id).destroy
+        # active_blacklists.find_by(blocked_id: other_user.id).destroy
+        unblock other_user
       end
 
       active_relationships.create(followed_id: other_user.id)
@@ -74,10 +76,13 @@ class User < ActiveRecord::Base
     end
 
     active_blacklists.create(blocked_id: other_user.id)
+
+    HuanxinFriendWorker.perform_async(self.id, :block_user, other_user.id)
   end
 
   def unblock(other_user)
     active_blacklists.find_by(blocked_id: other_user.id).destroy
+    HuanxinFriendWorker.perform_async(self.id, :unblock_user, other_user.id)
   end
 
   def blocked?(other_user)
@@ -122,6 +127,11 @@ class User < ActiveRecord::Base
     end
 
     relationship
+  end
+
+  private
+  def register_to_huanxin
+    HuanxinUserWorker.perform_async(self.id, :register_user)
   end
 
 end
