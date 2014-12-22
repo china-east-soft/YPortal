@@ -574,6 +574,7 @@ module API::V3
         present :result, true
         present :users, @users.map {|user| {id: user.id,
                                             avatar: user.avatar,
+                                            gender: user.gender,
                                             nickname: user.name,
                                             level: user.level
                                       #relationship: current_user.relationship_with(user)
@@ -593,6 +594,7 @@ module API::V3
         present :result, true
         present :users, @users.map {|user| {id: user.id,
                                             avatar: user.avatar,
+                                            gender: user.gender,
                                             nickname: user.name,
                                             level: user.level
                                       #relationship: current_user.relationship_with(user)
