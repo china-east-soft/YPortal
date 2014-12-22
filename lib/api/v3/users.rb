@@ -307,9 +307,9 @@ module API::V3
         friend = User.find params[:receiver_id]
         if user.following? friend
           user.unfollow friend
-        else
-          error_code = 1
-          message = "not follow user"
+        # else
+        #   error_code = 1
+        #   message = "not follow user"
         end
 
         if error_code == 0
@@ -319,6 +319,7 @@ module API::V3
           present :relation, user.relationship_with(friend)
         else
           present :result, false
+          present :error_code, error_code
           present :message, message
           present :user_id, user.id
           present :receiver_id, friend.id
@@ -382,6 +383,7 @@ module API::V3
           present :relation, user.relationship_with(blocked_user)
         else
           present :result, false
+          present :error_code, error_code
           present :message, message
         end
       end
@@ -408,6 +410,7 @@ module API::V3
           present :relation, user.relationship_with(blocked_user)
         else
           present :result, false
+          present :error_code, error_code
           present :message, message
           present :user_id, user.id
           present :receiver_id, blocked_user.id
