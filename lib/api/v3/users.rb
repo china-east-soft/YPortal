@@ -564,7 +564,7 @@ module API::V3
         optional :page, type: Integer
         optional :per_page, type: Integer
       end
-      get :users_by_level do
+      get :users_order_by_level do
         per_page = params[:per_page].present? ? params[:per_page] : 10
 
         @users = User.order(experience: :desc).page(params[:page]).per(per_page)
