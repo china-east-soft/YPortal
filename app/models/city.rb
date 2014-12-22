@@ -1,10 +1,10 @@
 class City < ActiveRecord::Base
-  has_many :programs, counter_cache: true
+  has_many :programs, counter_cache: true, dependent: :nullify
 
   has_many :comments, through: :programs
 
-  validates :name, presence: true, uniqueness: true
-  validates :code, presence: true, uniqueness: true, format: {with: /\A\d+\z/}
+  validates :name, presence: true, uniqueness: {message: "(%{value})已经添加过了"}
+  validates :code, presence: true, uniqueness: {casesensitive: true, message: "城市号码(%{value})已经被使用了" }, format: {with: /\A\d+\z/}
 
   def programs_by_branch(branch)
     programs.includes(:television).where(televisions: {branch: branch})

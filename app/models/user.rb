@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
                                   foreign_key: "blocker_id", dependent: :destroy
   has_many :blocked_users, through: :active_blacklists, source: "blocked"
 
+  default_scope { order(id: :asc) }
+
   has_secure_password
 
   validates :mobile_number, uniqueness: true, presence: true, format: {with: /\A\d{11}\z/}
