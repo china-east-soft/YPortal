@@ -24,7 +24,7 @@ class Admin::CitiesController < AdminController
   end
 
   def index
-    @cities = City.order(name: :asc)
+    @cities = City.order(name: :asc).page(params[:page])
   end
 
   def update
