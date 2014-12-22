@@ -559,7 +559,28 @@ module API::V3
         }
       end
 
+      desc "get users by point order"
+      params do
+        optional :page, type: Integer
+        optional :per_page, type: Integer
+      end
+      get :users_by_level do
+        per_page = params[:per_page].present? ? params[:per_page] : 10
+
+        @users = User.order(experience: :desc).page(params[:page]).per(per_page)
+        puts "debug0"
+        present :result, true
+        puts "debug1"
+        present :users, @users.map {|user| {id: user.id,
+                                            avatar: user.avatar,
+                                            nickname: user.name,
+                                            level: user.level
+                                      #relationship: current_user.relationship_with(user)
+                                    }}
+      end
+
     end
+
 
   end
 end

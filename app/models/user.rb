@@ -40,6 +40,42 @@ class User < ActiveRecord::Base
   end
 
 
+  #Lv1 0-49
+  #Lv2 50-199
+  #Lv3 200-499
+  #Lv4 500-999
+  #Lv5 1000-2999
+  #Lv6 3000-9999
+  #Lv7 10000-29999
+  #Lv8 30000-59999
+  #Lv9 60000-999999
+  #Lv10(Max) >100000
+  def level
+    case experience
+    when 0..49
+      1
+    when 50..199
+      2
+    when 200..499
+      3
+    when 500..999
+      4
+    when 1000..2999
+      5
+    when 3000..9999
+      6
+    when 10000..29999
+      7
+    when 30000..59999
+      8
+    when 60000..99999
+      9
+    when 100000...Float::INFINITY
+      10
+    end
+  end
+
+
   def follow(other_user)
     if (self == other_user) || other_user.blocked?(self)
       false
