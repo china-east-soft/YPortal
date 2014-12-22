@@ -568,9 +568,7 @@ module API::V3
         per_page = params[:per_page].present? ? params[:per_page] : 10
 
         @users = User.order(experience: :desc).page(params[:page]).per(per_page)
-        puts "debug0"
         present :result, true
-        puts "debug1"
         present :users, @users.map {|user| {id: user.id,
                                             avatar: user.avatar,
                                             nickname: user.name,
@@ -579,6 +577,24 @@ module API::V3
                                     }}
       end
 
+      desc "search user by name"
+      params do
+        requires :name, type: String
+      end
+      get :search do
+        if params[:name].present?
+          @users = User.where('name like ?', "#{params[:name]}%")
+        else
+          @users = []
+        end
+        present :result, true
+        present :users, @users.map {|user| {id: user.id,
+                                            avatar: user.avatar,
+                                            nickname: user.name,
+                                            level: user.level
+                                      #relationship: current_user.relationship_with(user)
+                                    }}
+      end
     end
 
 
