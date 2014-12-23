@@ -65,10 +65,10 @@
                 td
                   - if @city
                     .sort
-                      .sort-up
-                        = link_to "up", sort_up_admin_program_path(program), method: :post
-                      .sort-down
-                        = link_to 'down', sort_down_admin_program_path(program), method: :post
+                      a href="#{sort_up_admin_program_path(program)}" data-method="post" data-hint="up"
+                        span.sort-up
+                      a href="#{sort_down_admin_program_path(program)}" data-method="post" data-hint="down"
+                        span.sort-down
                 td
                   span.btn.btn-success.btn-xs
                     = link_to fa_icon("check"), [:admin, program]
