@@ -8,7 +8,7 @@ class Program < ActiveRecord::Base
 
   before_validation :channel_to_upper_and_generate_mod_freq_name_and_location, if: "self.channel.present?"
 
-  default_scope { order(mode: :asc) }
+  # default_scope { order(mode: :asc) }
 
   after_save :update_city_epg_crated_at, if: "city_id.present?"
 
