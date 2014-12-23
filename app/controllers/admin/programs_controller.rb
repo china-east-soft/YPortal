@@ -54,6 +54,7 @@ class Admin::ProgramsController < AdminController
       end
       @programs = Program.local_programs.page(params[:page])
     end
+
   end
 
   def destroy

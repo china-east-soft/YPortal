@@ -1,4 +1,5 @@
 class Program < ActiveRecord::Base
+  self.table_name  = 'programs'
   has_many :comments, dependent: :destroy
 
   belongs_to :television

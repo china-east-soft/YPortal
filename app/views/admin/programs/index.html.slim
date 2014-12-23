@@ -1,16 +1,22 @@
 .row
-  .col-md-12
+  .col-md-10
     .panel
       .panel-heading
         - if params[:city_id].present?
-          h3 = @city.try(:name)
+          h3 = "#{@city.try(:name)} 节目列表"
         - else
-          h3 节目列表
+          h3 CMMB节目列表
       .panel-body
         .clearfix
-          .btn-group
+          .col-md-4
+            .row
+              span.col-md-4 选择城市
+              .form-group.col-md-8
+                = form_tag "/admin/programs", method: "get", id: "search" do
+                  = select_tag :city_id, options_for_select(City.all.map{|c| [c.name, c.id]}, @city.try(:id)), {include_blank: true, class: "form-control"}
+          .btn-group.pull-right
             span.btn.btn-primary
-              = link_to fa_icon("plus"), new_admin_program_path
+              = link_to "添加节目", new_admin_program_path
         table.table.table-stripped.table-bordered.table-hover
           thead
             tr
@@ -40,11 +46,11 @@
                       = link_to fa_icon("pencil"), edit_admin_program_path(program)
                     span.btn.btn-danger.btn-xs
                       = link_to fa_icon("trash-o"), admin_program_path(program), method: :delete, data: {confirm: "Are you sure"}
-            tr
-              td
-              td
-              td
-              td
+              tr
+                td
+                td
+                td
+                td
             - @programs.each do |program|
               tr
                 td = program.name
@@ -53,7 +59,7 @@
                 td = program.sid
                 td = program.city.try(:name)
                 td = program.television.try(:name)
-                td = link_to program.comments_count, admin_comments_path(program_id: program.id) 
+                td = link_to program.comments_count, admin_comments_path(program_id: program.id)
                 td
                   span.btn.btn-success.btn-xs
                     = link_to fa_icon("check"), [:admin, program]
@@ -68,4 +74,8 @@
 
           .col-md-6
             .dataTables_paginate.paging_bootstrap.pagination = paginate @programs
-
+= content_for :script do
+  javascript:
+    $("#city_id").change(function() {
+      $("#search").submit()
+    });
