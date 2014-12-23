@@ -50,6 +50,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    acts_as_list (0.3.0)
+      activerecord (>= 3.0)
     arel (5.0.1.20140414130214)
     atomic (1.1.16)
     axiom-types (0.0.5)
@@ -375,6 +377,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack-page_caching
+  acts_as_list
   bootstrap-sass (~> 3.1.0)
   byebug
   carrierwave

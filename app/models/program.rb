@@ -4,6 +4,7 @@ class Program < ActiveRecord::Base
 
   belongs_to :television
   belongs_to :city, counter_cache: true
+  acts_as_list scope: :city
 
   before_validation :channel_to_upper_and_generate_mod_freq_name_and_location, if: "self.channel.present?"
 

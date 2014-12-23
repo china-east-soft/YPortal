@@ -1,5 +1,5 @@
 class City < ActiveRecord::Base
-  has_many :programs, counter_cache: true, dependent: :nullify
+  has_many :programs, -> { order("position ASC") }, counter_cache: true, dependent: :nullify
 
   has_many :comments, through: :programs
 
