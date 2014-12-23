@@ -27,6 +27,7 @@
               th 城市
               th 电台
               th 评论数
+              th 排序
               th
           tbody
             - if @global_programs.present?
@@ -39,6 +40,7 @@
                   td = program.city.try(:name)
                   td = program.television.try(:name)
                   td = link_to program.comments_count, admin_comments_path(program_id: program.id)
+                  td
                   td
                     span.btn.btn-success.btn-xs
                       = link_to fa_icon("check"), [:admin, program]
@@ -61,17 +63,23 @@
                 td = program.television.try(:name)
                 td = link_to program.comments_count, admin_comments_path(program_id: program.id)
                 td
+                  - if @city
+                    .sort
+                      .sort-up
+                        = link_to "up", sort_up_admin_program_path(program), method: :post
+                      .sort-down
+                        = link_to 'down', sort_down_admin_program_path(program), method: :post
+                td
                   span.btn.btn-success.btn-xs
                     = link_to fa_icon("check"), [:admin, program]
                   span.btn.btn-primary.btn-xs
                     = link_to fa_icon("pencil"), edit_admin_program_path(program)
                   span.btn.btn-danger.btn-xs
                     = link_to fa_icon("trash-o"), admin_program_path(program), method: :delete, data: {confirm: "Are you sure"}
-
         .row
           .col-md-6
+            span.text-info 排序功能和APP上显示的节目顺序有关
             /.dataTables_info 共有#{@programs.count}条记录
-
           .col-md-6
             .dataTables_paginate.paging_bootstrap.pagination = paginate @programs
 = content_for :script do

@@ -1,6 +1,6 @@
 class Admin::ProgramsController < AdminController
   before_action :setup
-  before_action :find_program, only: [:show, :edit, :update, :destroy]
+  before_action :find_program, only: [:show, :edit, :update, :destroy, :sort_up, :sort_down]
 
   set_tab :apis
   set_tab :programs, :sub_nav
@@ -55,6 +55,16 @@ class Admin::ProgramsController < AdminController
       @programs = Program.local_programs.page(params[:page])
     end
 
+  end
+
+  def sort_up
+    @program.move_higher
+    redirect_to admin_programs_url(city_id: @program.city_id)
+  end
+
+  def sort_down
+    @program.move_lower
+    redirect_to admin_programs_url(city_id: @program.city_id)
   end
 
   def destroy

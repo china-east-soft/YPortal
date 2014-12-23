@@ -109,6 +109,11 @@ Rails.application.routes.draw do
     resources :programs do
       collection do
         get :check_channel
+
+      end
+      member do
+        post :sort_up
+        post :sort_down
       end
     end
 
