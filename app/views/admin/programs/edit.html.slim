@@ -1,5 +1,7 @@
-.panel
-  .panel-heading
-    h3 编辑节目
-  .panel-body
-    = render "form"
+.col-md-8
+  .panel
+    .panel-heading
+      h3 编辑节目
+    .panel-body
+      = render "form"
+  = link_to "返回", admin_programs_path(city_id: @program.city_id)

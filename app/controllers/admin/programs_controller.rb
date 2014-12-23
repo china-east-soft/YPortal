@@ -6,14 +6,14 @@ class Admin::ProgramsController < AdminController
   set_tab :programs, :sub_nav
 
   def new
-    @program = Program.new
+    @program = Program.new(city_id: params[:city_id])
   end
 
   def create
     @program = Program.new program_params
     if @program.save
       gflash success: "创建成功！"
-      redirect_to admin_programs_url
+      redirect_to admin_programs_url(city_id: @program.city_id)
     else
       gflash error: "创建失败, 请检查您的输入！"
       render :new
@@ -59,8 +59,7 @@ class Admin::ProgramsController < AdminController
 
   def destroy
     @program.destroy
-    gflash success: "删除成功"
-    redirect_to admin_programs_url
+    redirect_to admin_programs_url(city_id: @program.city_id)
   end
 
   private

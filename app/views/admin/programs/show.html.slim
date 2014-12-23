@@ -1,18 +1,19 @@
-.panel
-  .panel-body
-    p
-      strong 所属电台
-      = @program.television.try(:name)
-    p
-      strong 所属城市
-      = @program.city.try(:name)
-    p
-      strong 节目名称:
-      = @program.name
-    p
-      strong 节目标志:
-      = @program.channel
+.col-md-8
+  .panel
+    .panel-body
+      p
+        strong 所属电台
+        = @program.television.try(:name)
+      p
+        strong 所属城市
+        = @program.city.try(:name)
+      p
+        strong 节目名称:
+        = @program.name
+      p
+        strong 节目标志:
+        = @program.channel
 
-= link_to "编辑", edit_admin_program_path(@program)
-| |
-= link_to "返回", admin_program_path
+  = link_to "编辑", edit_admin_program_path(@program)
+  | |
+  = link_to "返回", admin_programs_path(city_id: @program.city_id)

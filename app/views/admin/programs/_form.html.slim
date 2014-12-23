@@ -24,11 +24,10 @@
     = f.text_field :sid, class: "form-control"
 
   .form-group
-    .col-md-4.col-md-offset-2
-      - if @program.new_record?
-        = f.submit "创建节目", class: "btn btn-primary"
-      - else
-        = f.submit "修改节目", class: "btn btn-primary"
+    - if @program.new_record?
+      = f.submit "创建节目", class: "btn btn-primary"
+    - else
+      = f.submit "修改节目", class: "btn btn-primary"
 
 = content_for :script do
   javascript:

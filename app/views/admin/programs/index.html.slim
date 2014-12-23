@@ -16,7 +16,7 @@
                   = select_tag :city_id, options_for_select(City.all.map{|c| [c.name, c.id]}, @city.try(:id)), {include_blank: true, class: "form-control"}
           .btn-group.pull-right
             span.btn.btn-primary
-              = link_to "添加节目", new_admin_program_path
+              = link_to "添加节目", new_admin_program_path(city_id: @city.try(:id))
         table.table.table-stripped.table-bordered.table-hover
           thead
             tr
