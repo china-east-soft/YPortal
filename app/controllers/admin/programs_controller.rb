@@ -36,7 +36,11 @@ class Admin::ProgramsController < AdminController
 
   def update
     if @program.update_attributes program_params
-      redirect_to [:admin, @program], notice: 'program was successfully updated.'
+      position = params[:program][:position]
+      if position.present? && (position.to_i > 0) && (position.to_i != @program.position)
+        @program.insert_at(position.to_i)
+      end
+      redirect_to admin_programs_url(city_id: @program.city_id), notice: 'program was successfully updated.'
     else
       render :edit
     end

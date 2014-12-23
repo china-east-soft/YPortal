@@ -22,6 +22,11 @@
   .form-group
     = f.label :sid, "SID", class: "control-label"
     = f.text_field :sid, class: "form-control"
+  - unless @program.new_record?
+    .form-group
+      = f.label :position, "顺序", class: "control-label"
+      span.text-info 升序排列，1在最前面，2在1后面，依次类推
+      = f.text_field :position, class: "form-control"
 
   .form-group
     - if @program.new_record?
