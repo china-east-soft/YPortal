@@ -1,5 +1,4 @@
 class Admin::ProgramsController < AdminController
-  before_action :setup
   before_action :find_program, only: [:show, :edit, :update, :destroy, :sort_up, :sort_down]
 
   set_tab :apis
@@ -77,6 +76,9 @@ class Admin::ProgramsController < AdminController
   end
 
   private
+  def setup
+    @left_panel = "admin/programs/left_panel"
+  end
   def program_params
     params.require(:program).permit(:name, :mode, :freq, :sid, :television_id, :city_id)
   end

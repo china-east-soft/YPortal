@@ -42,6 +42,10 @@ class Admin::CitiesController < AdminController
   end
 
   private
+  def setup
+    @left_panel = "admin/programs/left_panel"
+  end
+
   def find_city
     @city = City.find params[:id]
   end

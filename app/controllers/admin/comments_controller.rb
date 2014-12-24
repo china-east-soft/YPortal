@@ -33,4 +33,9 @@ class Admin::CommentsController < AdminController
     @comment = Comment.find params[:id]
     @comment.destroy
   end
+
+  private
+  def setup
+    @left_panel = "admin/programs/left_panel"
+  end
 end

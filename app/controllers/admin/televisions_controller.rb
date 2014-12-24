@@ -40,6 +40,10 @@ class Admin::TelevisionsController < AdminController
   end
 
   private
+  def setup
+    @left_panel = "admin/programs/left_panel"
+  end
+
   def find_television
     @television = Television.find params[:id]
   end
