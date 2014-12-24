@@ -49,7 +49,7 @@ class Admin::ProgramsController < AdminController
     if params[:city_id].present?
       @city = City.find(params[:city_id])
       if @city
-        @programs = @city.programs.page(params[:page]).per 2
+        @programs = @city.programs.page(params[:page])
       end
     else
       if params[:page].nil? || params[:page].to_i == 1

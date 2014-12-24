@@ -51,6 +51,13 @@ namespace :data do
     end
   end
 
+  desc "reset city programs count"
+  task :reset_city_programs_count => :environment do
+    City.pluck(:id).each do |id|
+      City.reset_counters(id, :programs)
+    end
+  end
+
 
   #comment by kailaichao
   #connect to external database instead not copy
