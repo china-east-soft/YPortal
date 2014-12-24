@@ -19,6 +19,12 @@
                 = user.mobile_number || user.email
                 = '. '
                 = user.created_at.to_s(:db)
+                = '. '
+                = "Lv#{user.level}"
+                = '. '
+                = user.experience
+                = '. '
+                = user.points
       .panel-footer.clearfix
         .pull-right
           = paginate @users

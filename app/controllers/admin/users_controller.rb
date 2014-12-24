@@ -6,7 +6,7 @@ class Admin::UsersController < AdminController
   set_tab :users, :sub_nav
 
   def index
-    @users = User.all.page(params[:page])
+    @users = User.order(experience: :desc).page(params[:page])
     respond_to do |format|
       format.html
       format.json { render json: @users}
