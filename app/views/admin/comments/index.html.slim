@@ -2,9 +2,9 @@
   .col-lg-9
     section.panel
       header.panel-heading
-        | 评论列表
-        = form_tag("/admin/comments", method: "get") do
-          = text_field_tag(:channel, nil, placeholder: "节目标识")
+        h3.panel-title = "#{@program.try(:name)} 评论列表"
+        //= form_tag("/admin/comments", method: "get") do
+          = text_field_tag(:channel, nil, placeholder: "节目标识 MMB@00@CCTV-1@*")
           = submit_tag("查询")
       .panel-body#comments
         .list-group.list-group-feed-back
