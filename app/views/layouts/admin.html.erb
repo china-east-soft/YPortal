@@ -50,9 +50,11 @@
               <!-- top menu -->
               <div class="pull-left" id="global_menu">
                 <%= tabs_tag builder: MenuTabBuilder, :open_tabs => { :class => "nav navbar-nav global_menu" } do |tab| %>
-                  <%= tab.business '业务', admin_root_path %>
-                  <%= tab.apis 'APP相关', admin_programs_path%>
-                  <%= tab.development '开发人员相关', admin_exception_logs_path %>
+                  <%= tab.business 'Portal业务', admin_root_path %>
+                  <%= tab.messages '短信', admin_auth_message_path %>
+                  <%= tab.ads '广告', admin_landings_path %>
+                  <%= tab.apis 'APP', admin_programs_path%>
+                  <%= tab.development '开发人员', admin_exception_logs_path %>
                 <% end %>
               </div>
 
@@ -71,18 +73,14 @@
                 <%= tab.dashboard   fa_icon("dashboard")+content_tag(:span, '主页'), admin_root_path %>
                 <%= tab.agents      '代理商', admin_agents_path %>
                 <%= tab.merchants   '商家', admin_merchants_path %>
-                <%= tab.terminals   '终端', admin_terminals_path %>
-                <%= tab.landings   '启动广告', admin_landings_path %>
-                <%= tab.bottom_ads '底部栏广告', admin_bottom_ads_path %>
+                <%= tab.terminals   '终端管理', admin_terminals_path %>
                 <%= tab.categories   '类别', admin_categories_path %>
-                <%= tab.auth_message '验证消息', admin_auth_message_path%>
 
                 <%= tab.group '<i class="fa fa-lg fa-fw fa-gears"></i>
                     <span class="menu-item-parent">
                      分组管理
                     </span>'.html_safe, group_by_agent_admin_agents_path%>
 
-                <%= tab.statistics '<i class="fa fa-lg fa-fw fa-pencil"></i> <span class="menu-item-parent"> 统计</span>'.html_safe, admin_message_warnings_path %>
 
                 <%= tab.feed_backs '反馈信息', admin_feed_backs_path%>
 

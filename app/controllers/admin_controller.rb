@@ -7,6 +7,7 @@ class AdminController < ActionController::Base
   helper_method :date_parts, :app_names, :app_display_name, :terminal_collections, :personal?, :public?
   add_flash_types :error, :success
 
+  before_action :setup
   layout 'admin'
 
   def require_admin
@@ -54,7 +55,7 @@ class AdminController < ActionController::Base
       !personal?
     end
 
+    # overide this method if use other left panel
     def setup
-      @left_panel = "admin/programs/left_panel"
     end
 end

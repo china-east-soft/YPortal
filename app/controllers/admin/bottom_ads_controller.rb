@@ -1,6 +1,6 @@
 class Admin::BottomAdsController < AdminController
   before_action :set_bottom_ad, only: [:show, :edit, :update, :destroy]
-  set_tab :business
+  set_tab :ads
   set_tab :bottom_ads, :sub_nav
 
   # GET /bottom_ads
@@ -73,6 +73,9 @@ class Admin::BottomAdsController < AdminController
   end
 
   private
+    def setup
+      @left_panel = "admin/landings/left_panel"
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_bottom_ad
       @bottom_ad = BottomAd.find(params[:id])

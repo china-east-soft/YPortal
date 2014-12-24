@@ -1,0 +1,4 @@
+nav#sidebar.nav-collapse
+  = tabs_tag :namespace => :sub_nav, :builder => MenuTabBuilder, :open_tabs => { :id => "nav-accordion", :class => "sidebar-menu" } do |tab|
+    = tab.auth_message '验证消息', admin_auth_message_path
+    = tab.statistics '<i class="fa fa-lg fa-fw fa-pencil"></i> <span class="menu-item-parent"> 统计</span>'.html_safe, admin_message_warnings_path

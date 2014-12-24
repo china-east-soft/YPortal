@@ -1,7 +1,7 @@
 class Admin::LandingsController < AdminController
   before_action :set_landing, only: [:show, :edit, :update, :destroy]
 
-  set_tab :business
+  set_tab :ads
   set_tab :landings, :sub_nav
 
   # GET /landings
@@ -75,6 +75,10 @@ class Admin::LandingsController < AdminController
   end
 
   private
+    def setup
+      @left_panel = "admin/landings/left_panel"
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_landing
       @landing = Landing.find(params[:id])

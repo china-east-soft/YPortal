@@ -1,5 +1,7 @@
 # encoding: UTF-8
 class Admin::AuthMessagesController < AdminController
+  set_tab :messages
+  set_tab :auth_message, :sub_nav
 
   def show
     begin
@@ -45,6 +47,11 @@ class Admin::AuthMessagesController < AdminController
     else
       @error = "验证消息不能为空"
     end
+  end
+
+  private
+  def setup
+    @left_panel = "admin/auth_messages/left_panel"
   end
 
 end

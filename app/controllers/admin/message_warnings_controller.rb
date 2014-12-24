@@ -1,5 +1,7 @@
 class Admin::MessageWarningsController < AdminController
-  set_tab :statistics
+  # set_tab :statistics
+  set_tab :messages
+  set_tab :statistics, :sub_nav
 
   def index
     if params[:message_warning].nil? || params[:message_warning].empty?
@@ -65,4 +67,10 @@ class Admin::MessageWarningsController < AdminController
       end
     end
   end
+
+  private
+  def setup
+    @left_panel = "admin/auth_messages/left_panel"
+  end
+
 end
