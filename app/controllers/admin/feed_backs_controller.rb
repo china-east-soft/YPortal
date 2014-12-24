@@ -3,7 +3,8 @@ class Admin::FeedBacksController < AdminController
 
   before_action  :find_feed_back, only: [:show, :edit, :destroy, :update]
 
-  set_tab :feed_backs, except: :new
+  set_tab :apis
+  set_tab :feed_backs, :sub_nav, except: :new
 
   def new
     @feed_back = FeedBack.new(phone_type: params[:phone_type], client_version: params[:client_version], client_mac: params[:client_mac], terminal_version_name: params[:terminal_version_name], terminal_version: params[:terminal_version], terminal_mac: params[:terminal_mac])
@@ -56,6 +57,9 @@ class Admin::FeedBacksController < AdminController
   end
 
   private
+  def setup
+    @left_panel = "admin/programs/left_panel"
+  end
   def feed_back_prams
     params.require(:feed_back).permit(:content, :contact, :phone_type, :client_version, :client_mac, :terminal_version_name, :terminal_version, :terminal_mac)
   end
