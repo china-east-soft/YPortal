@@ -49,7 +49,7 @@ class Admin::ProgramsController < AdminController
     if params[:city_id].present?
       @city = City.find(params[:city_id])
       if @city
-        @programs = @city.programs.page(params[:page])
+        @programs = @city.programs.page(params[:page]).per 2
       end
     else
       if params[:page].nil? || params[:page].to_i == 1
@@ -62,12 +62,12 @@ class Admin::ProgramsController < AdminController
 
   def sort_up
     @program.move_higher
-    redirect_to admin_programs_url(city_id: @program.city_id)
+    redirect_to admin_programs_url(city_id: @program.city_id, page: params[:page])
   end
 
   def sort_down
     @program.move_lower
-    redirect_to admin_programs_url(city_id: @program.city_id)
+    redirect_to admin_programs_url(city_id: @program.city_id, page: params[:page])
   end
 
   def destroy

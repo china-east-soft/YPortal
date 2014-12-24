@@ -65,9 +65,9 @@
                 td
                   - if @city
                     .sort
-                      a href="#{sort_up_admin_program_path(program)}" data-method="post" data-hint="up"
+                      a href="#{sort_up_admin_program_path(id: program.id, page: params[:page])}" data-method="post" data-hint="up"
                         span.sort-up
-                      a href="#{sort_down_admin_program_path(program)}" data-method="post" data-hint="down"
+                      a href="#{sort_down_admin_program_path(id: program.id, page: params[:page])}" data-method="post" data-hint="down"
                         span.sort-down
                 td
                   span.btn.btn-success.btn-xs
