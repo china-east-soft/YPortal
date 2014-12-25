@@ -9,6 +9,7 @@
               = link_to "添加电台", new_admin_television_path, class: "btn btn-lg btn-primary"
           .panel-body
             = render "shared/flash_messages"
+            span.text-warning 电台名字请不要随意改动，需要根据名字获取节目的预告
             table.table.table-striped.table-advance.table-hover
               thead
                 tr
