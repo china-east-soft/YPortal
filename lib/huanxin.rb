@@ -4,9 +4,16 @@ require 'rest_client'
 module Huanxin
   DOMAIN = 'https://a1.easemob.com'
   ORG = 'hzcloudchain'
-  APP = 'shiwangmo'
-  CLIENT_ID  = 'YXA6gjPF0HqeEeSx0ZG3qEDc4g'
-  CLIENT_SECRET = 'YXA6OKU7bQqpnr-Ymd0vu-CUboqpuL4'
+
+  if Rails.env.testing?
+    APP = 'shiwangmo'
+    CLIENT_ID  = 'YXA6gjPF0HqeEeSx0ZG3qEDc4g'
+    CLIENT_SECRET = 'YXA6OKU7bQqpnr-Ymd0vu-CUboqpuL4'
+  elsif Rails.env.production?
+    APP = 'shiwangmo4cn'
+    CLIENT_ID  = 'YXA6G5t9EIv5EeSZOZvSZI_8RA'
+    CLIENT_SECRET = 'YXA6u5xKWgHxadqrwyezTgJLWOIEyKA'
+  end
 
   USER_RESTFUL_API = %W[register_user unregister_user get_user_info]
   FRIEND_RESTFUL_API = %W[block_user unblock_user]
