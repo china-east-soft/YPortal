@@ -12,6 +12,7 @@ class Program < ActiveRecord::Base
 
   after_save :update_city_epg_crated_at, if: "city_id.present?"
   after_destroy :update_comments_channel, if: "city_id.present?"
+  after_commit :flush_cache
 
   # after_save :update_comments_channel
 
@@ -129,6 +130,10 @@ class Program < ActiveRecord::Base
 
   def update_city_epg_crated_at
     city.try(:touch, :epg_created_at)
+  end
+
+  def flush_cache
+    Rails.cache.delete_matched("program:channel:*")
   end
 
 end
