@@ -192,6 +192,9 @@ GEM
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     netrc (0.7.9)
+    newrelic-grape (2.0.0)
+      grape
+      newrelic_rpm
     newrelic_rpm (3.9.8.273)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
@@ -412,6 +415,7 @@ DEPENDENCIES
   mina-sidekiq
   mini_magick
   minitest
+  newrelic-grape
   newrelic_rpm
   omniauth
   omniauth-weibo-oauth2
