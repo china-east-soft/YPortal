@@ -14,6 +14,7 @@ class Admin::UsersController < AdminController
   end
 
   def show
+    fresh_when(etag: [@user])
   end
 
   def update

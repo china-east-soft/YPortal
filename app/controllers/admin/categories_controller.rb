@@ -1,6 +1,11 @@
 class Admin::CategoriesController < AdminController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
+  after_action :expire_index_page_cache, only: [:create, :update, :destroy]
+
   set_tab :categories
+
+  #加缓存的目的是为了学习，并不是这儿有性能问题
+  caches_page :index
 
   # GET /categories
   # GET /categories.json
@@ -43,8 +48,8 @@ class Admin::CategoriesController < AdminController
   def update
     respond_to do |format|
       if @category.update(category_params)
-        format.html { 
-          gflash :notice => 'Category was successfully updated.' 
+        format.html {
+          gflash :notice => 'Category was successfully updated.'
           redirect_to [:admin, @category]
         }
         format.json { head :no_content }
@@ -69,6 +74,10 @@ class Admin::CategoriesController < AdminController
     # Use callbacks to share common setup or constraints between actions.
     def set_category
       @category = Category.find(params[:id])
+    end
+
+    def expire_index_page_cache
+      expire_page action: 'index'
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
