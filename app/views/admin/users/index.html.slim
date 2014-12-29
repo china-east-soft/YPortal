@@ -18,7 +18,7 @@
               .text-muted
                 = user.mobile_number || user.email
                 = '. '
-                = user.created_at.to_s(:db)
+                = user.created_at.to_s(:date)
                 = '. '
                 = "Lv#{user.level}"
                 = '. '
