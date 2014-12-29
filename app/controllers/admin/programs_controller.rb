@@ -12,7 +12,13 @@ class Admin::ProgramsController < AdminController
     @program = Program.new program_params
     if @program.save
       gflash success: "创建成功！"
-      redirect_to admin_programs_url(city_id: @program.city_id)
+
+      if city = @program.city
+        programs = city.programs.page
+        @last_page = programs.num_pages
+      end
+
+      redirect_to admin_programs_url(city_id: @program.city_id, page: @last_page)
     else
       gflash error: "创建失败, 请检查您的输入！"
       render :new
