@@ -11,6 +11,8 @@ class Program < ActiveRecord::Base
   # default_scope { order(mode: :asc) }
 
   after_save :update_city_epg_crated_at, if: "city_id.present?"
+  after_destroy :update_city_epg_crated_at, if: "city_id.present?"
+
   after_destroy :update_comments_channel, if: "city_id.present?"
   after_commit :flush_cache
 

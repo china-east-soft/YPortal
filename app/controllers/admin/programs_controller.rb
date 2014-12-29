@@ -62,11 +62,13 @@ class Admin::ProgramsController < AdminController
 
   def sort_up
     @program.move_higher
+    @program.city.touch(:epg_created_at)
     redirect_to admin_programs_url(city_id: @program.city_id, page: params[:page])
   end
 
   def sort_down
     @program.move_lower
+    @program.city.touch(:epg_created_at)
     redirect_to admin_programs_url(city_id: @program.city_id, page: params[:page])
   end
 
