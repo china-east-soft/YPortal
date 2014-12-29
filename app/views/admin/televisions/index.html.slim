@@ -13,10 +13,8 @@
             table.table.table-striped.table-advance.table-hover
               thead
                 tr
-                  th
-                  th 名称
+                  th 台标
                   th 电台
-                  th 城市
                   th
               tbody
                 - @televisions.each do |television|
@@ -24,8 +22,6 @@
                     td
                       .image
                         = image_tag  television.logo.url
-                    td = television.name
-                    td = television.name
                     td = television.name
                     td
                       = link_to "编辑", [:admin, television]
