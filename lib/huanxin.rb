@@ -1,6 +1,7 @@
 require 'digest/md5'
 require 'rest_client'
 
+#todo  没有处理环信返回失败的情况， 不明确什么情况下会返回失败，以及什么操作导致
 module Huanxin
   DOMAIN = 'https://a1.easemob.com'
   ORG = 'hzcloudchain'

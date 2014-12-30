@@ -28,7 +28,10 @@ module API::V3
         end
 
         mobile_number = params[:mobile_number]
+
+        Rails.logger.debug "debug -1"
         auth_message = AuthMessage.where(mobile: mobile_number).first
+        Rails.logger.debug "debug -2"
 
         if !auth_message || auth_message.verify_code != params[:verify_code]
           message = "verify code does not match"
@@ -37,14 +40,17 @@ module API::V3
           message = "verify code is out of time"
           error_code = 2
         else
-          user = unused_reged_users.first
+          user = User.unused_reged_users.first
 
           if user
+            Rails.logger.debug "debug0"
             user.name = params[:name]
             user.mobile_number = mobile_number
             user.gender = params[:gender]
             user.password = params[:password]
             user.password_confirmation = params[:password_confirmation]
+
+            Rails.logger.debug "debug1"
           else
             user = User.new(name: params[:name],
                             mobile_number: mobile_number,
@@ -52,7 +58,10 @@ module API::V3
                             password: params[:password],
                             password_confirmation: params[:password_confirmation])
           end
+
+          Rails.logger.debug "debug2"
           if user.save
+            Rails.logger.debug "debug3"
             error_code = 0
             #check in
             UserCheckIn.create_if_not_check_in_today_with(user: user)
