@@ -4,7 +4,7 @@ class Program < ActiveRecord::Base
 
   belongs_to :television
   belongs_to :city, counter_cache: true
-  acts_as_list scope: :city
+  acts_as_list scope: [:city, :branch]
 
   before_validation :channel_to_upper_and_generate_mod_freq_name_and_location, if: "self.channel.present?"
 
@@ -13,12 +13,14 @@ class Program < ActiveRecord::Base
   after_save :update_city_epg_crated_at, if: "city_id.present?"
   after_destroy :update_city_epg_crated_at, if: "city_id.present?"
 
+  before_create :set_branch_to_television_branch, if: "television_id.present?"
+
   after_destroy :update_comments_channel, if: "city_id.present?"
   after_commit :flush_cache
 
   # after_save :update_comments_channel
 
-  delegate :logo, :branch, to: :television
+  delegate :logo, to: :television
 
   # change channel format to : CMMB@123@CCTV综合@杭州(mod-freq-name-location)
   CHANNEL_FORMAT = /\A\w+@(\d+)@(.*)@(.*)\Z/u
@@ -136,6 +138,10 @@ class Program < ActiveRecord::Base
 
   def flush_cache
     Rails.cache.delete_matched("program:channel:*")
+  end
+
+  def set_branch_to_television_branch
+    self.branch = television.branch
   end
 
 end

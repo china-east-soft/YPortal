@@ -58,6 +58,18 @@ namespace :data do
     end
   end
 
+  #为了手动排序，program新增了branch字段，继承自television字段
+  #更新遗留数据
+  desc "reset program branch to televisioni branch"
+  task :reset_program_branch => :environment do
+    City.all.each do |city|
+      city.programs.includes(:television).each do |p|
+        p.branch = p.television.branch
+        p.save
+      end
+    end
+  end
+
   #copy from ymtv project
   desc 'keep table not too big'
   task :limit, [:model, :reserve_amount] => :environment do |task, args|

@@ -11,5 +11,4 @@ class City < ActiveRecord::Base
   def programs_by_branch(branch)
     programs.includes(:television).where(televisions: {branch: branch})
   end
-
 end

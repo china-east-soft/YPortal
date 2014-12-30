@@ -18,6 +18,14 @@
             span.btn.btn-primary
               = link_to "添加节目", new_admin_program_path(city_id: @city.try(:id))
         span.text-info 没有选择城市时显示CMMB节目
+        - if @city.present?
+          ul.nav.nav-tabs role="tablist"
+            li class="#{'active' if params[:branch]== '央视台'}"
+              =  link_to "央视台", admin_programs_path(city_id: @city.id, branch: "央视台")
+            li class="#{'active' if params[:branch]== '卫视台'}"
+              =  link_to "卫视台", admin_programs_path(city_id: @city.id, branch: "卫视台")
+            li class="#{'active' if params[:branch]== '地方台'}"
+              =  link_to "地方台", admin_programs_path(city_id: @city.id, branch: "地方台")
         table.table.table-stripped.table-bordered.table-hover
           thead
             tr

@@ -53,9 +53,11 @@ class Admin::ProgramsController < AdminController
 
   def index
     if params[:city_id].present?
+      params[:branch] ||= "央视台"
+
       @city = City.find(params[:city_id])
       if @city
-        @programs = @city.programs.page(params[:page])
+        @programs = @city.programs_by_branch(params[:branch]).page(params[:page])
       end
     else
       if params[:page].nil? || params[:page].to_i == 1
@@ -69,13 +71,13 @@ class Admin::ProgramsController < AdminController
   def sort_up
     @program.move_higher
     @program.city.touch(:epg_created_at)
-    redirect_to admin_programs_url(city_id: @program.city_id, page: params[:page])
+    redirect_to admin_programs_url(city_id: @program.city_id, page: params[:page], branch: @program.branch)
   end
 
   def sort_down
     @program.move_lower
     @program.city.touch(:epg_created_at)
-    redirect_to admin_programs_url(city_id: @program.city_id, page: params[:page])
+    redirect_to admin_programs_url(city_id: @program.city_id, page: params[:page], branch: @program.branch)
   end
 
   def destroy
