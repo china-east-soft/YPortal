@@ -118,7 +118,11 @@ Rails.application.routes.draw do
     end
 
     resources :televisions, except: :edit
-    resources :users, except: [:new, :create, :edit]
+    resources :users, except: [:new, :create, :edit] do
+      collection do
+        get :unused_users
+      end
+    end
     resources :cities, except: [:edit]
     resources :exception_logs, except: [:new, :create, :edit]
     resources :point_rules

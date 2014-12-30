@@ -2,5 +2,6 @@
   <%= tabs_tag :namespace => :sub_nav, :builder => MenuTabBuilder, :open_tabs => { :id => "nav-accordion", :class => "sidebar-menu" } do |tab| %>
     <%= tab.exception_logs '异常日志', admin_exception_logs_path %>
     <%= tab.api_visit_logs 'api访问日志', admin_api_visit_logs_path %>
+    <%= tab.unused_users '预注册用户', unused_users_admin_users_path %>
   <% end %>
 </nav>

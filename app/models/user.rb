@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
   default_scope { where.not(mobile_number: nil) }
 
   scope :unused_users, -> { unscoped.where(mobile_number: nil) }
+  scope :unused_users_and_not_reg, -> { unused_users.where(register_huanxin: false) }
 
   has_secure_password
 

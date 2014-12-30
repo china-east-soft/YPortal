@@ -1,9 +1,12 @@
 class Admin::UsersController < AdminController
   before_action :setup
-  before_action :find_user, except: :index
+  before_action :find_user, except: [:index, :unused_users]
 
   set_tab :apis
   set_tab :users, :sub_nav
+
+  set_tab :development, only: %w(unused_users)
+  set_tab :unused_users, :sub_nav, only: %w(unused_users)
 
   def index
     @users = User.order(experience: :desc).page(params[:page])
@@ -11,6 +14,9 @@ class Admin::UsersController < AdminController
       format.html
       format.json { render json: @users}
     end
+  end
+
+  def unused_users
   end
 
   def show
