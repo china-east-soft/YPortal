@@ -13,6 +13,10 @@ module Huanxin
     APP = 'shiwangmo4cn'
     CLIENT_ID  = 'YXA6G5t9EIv5EeSZOZvSZI_8RA'
     CLIENT_SECRET = 'YXA6u5xKWgHxadqrwyezTgJLWOIEyKA'
+  elsif Rails.env.development?
+    APP = 'hzcloudchainshiwangmo'
+    CLIENT_ID  = 'YXA61nqZMH6AEeS6J3cUi1XKIg'
+    CLIENT_SECRET = 'YXA6qSoE5mXrPiUqVp7k-PPJsrs8Pos'
   end
 
   USER_RESTFUL_API = %W[register_user unregister_user get_user_info]
@@ -46,6 +50,7 @@ module Huanxin
   module UserSystem
     #curl -X POST -i "https://a1.easemob.com/easemob-demo/chatdemo/users" -d '{"username":"jliu","password":"123456"}'
     #RestClient.post 'http://example.com/resource', :param1 => 'one', :nested => { :param2 => 'two' }
+    # user的信息必须是完整的
     def register_user(user)
       username = Digest::MD5.hexdigest(user.id.to_s)
       password = Digest::MD5.hexdigest(user.id.to_s.reverse)
@@ -70,6 +75,32 @@ module Huanxin
         puts e.response
       end
     end
+
+    #相环信发起注册， 用户的信息是空的
+    def pre_register_user(user)
+      username = Digest::MD5.hexdigest(user.id.to_s)
+      password = Digest::MD5.hexdigest(user.id.to_s.reverse)
+      begin
+        response = RestClient.post("#{DOMAIN}/#{ORG}/#{APP}/users",
+                                  { username: username,
+                                    password: password,
+                                  }.to_json,
+                                  :content_type => :json,
+                                  :accept => :json
+                                  )
+        if response.code == 200
+          body = JSON.parse(response.body)
+          if body["entities"].first["activated"] == true
+            user.username_huanxin = username
+            user.register_huanxin = true
+            user.save(validate: false)
+          end
+        end
+      rescue => e
+        puts e.response
+      end
+    end
+
 
     #curl -X DELETE -H "Authorization: Bearer YWMtSozP9jHNEeSQegV9EK5eAQAAAUlmBR2bTGr-GP2xNh8GhUCdKViBFgtox3M" -i  "https://a1.easemob.com/easemob-demo/chatdemoui/users/ywuxvxuir6"
     def unregister_user(user)

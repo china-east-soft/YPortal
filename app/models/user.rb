@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
   #use User.unscoped.all  query all users
   default_scope { where.not(mobile_number: nil) }
 
+  scope :unused_users, -> { unscoped.where(mobile_number: nil) }
 
   has_secure_password
 
