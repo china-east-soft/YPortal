@@ -28,5 +28,9 @@ every 7.days, :at => '03:00 am' do
   rake "log:clear"
 end
 
+every 1.day, :at => '0:10 am' do
+  rake "data:limit[api_visit_log, 5000]"
+end
+
 
 # Learn more: http://github.com/javan/whenever

@@ -58,6 +58,42 @@ namespace :data do
     end
   end
 
+  #copy from ymtv project
+  desc 'keep table not too big'
+  task :limit, [:model, :reserve_amount] => :environment do |task, args|
+
+    reserve_amount = args.reserve_amount.to_i
+    model = args.model.camelize.constantize
+
+
+    if reserve_amount <= 0
+      puts "You are trying to remove all datas(#{model.count}) from #{args.model}, are you sure?(yes|no)"
+      if ['yes', 'y'].include? $stdin.gets.chomp.downcase
+        puts "deleting all datas from #{args.model}......"
+        model.delete_all
+        puts "Done!"
+      else
+        puts "Quit"
+      end
+    else
+      count = model.count
+      if count <= reserve_amount
+        puts "No need to trash: #{count} <= #{reserve_amount}"
+      else
+        to_delete = count - reserve_amount
+        puts "You are trying to remove some datas(#{to_delete}) from #{args.model}, are you sure?(yes|no)"
+        if ['yes', 'y'].include? $stdin.gets.chomp.downcase
+          puts "deleting......"
+          model.delete(model.order('id').limit(to_delete).map(&:id))
+          puts "Done!"
+        else
+          puts "Quit"
+        end
+      end
+    end
+  end
+
+
 
   #comment by kailaichao
   #connect to external database instead not copy
