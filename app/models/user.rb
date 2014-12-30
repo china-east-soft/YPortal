@@ -25,6 +25,15 @@ class User < ActiveRecord::Base
   has_many :blocked_users, through: :active_blacklists, source: "blocked"
 
 
+  # 使用了环信的聊天服务，所以用户体系需要和环信融合(使用用户的id的md5作为环信的username，详情见oa上项目wiki)
+  # 向环信发起注册我们的用户体系的时候因为网络或者环信的原因是有可能注册失败的，所以采用了预先向环信
+  # 注册的方案。就是我们预先生成一批信息为空的user，使用这些user的id向环信注册。
+  # 然后APP发起注册的时候再从这些user中选一个出来填上用户信息返回给app。
+  #User.all will return all users which mobile_number is not nil, other query method will be impressed, too
+  #use User.unscoped.all  query all users
+  default_scope { where.not(mobile_number: nil) }
+
+
   has_secure_password
 
   validates :mobile_number, uniqueness: true, presence: true, format: {with: /\A\d{11}\z/}

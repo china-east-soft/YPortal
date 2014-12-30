@@ -2,6 +2,10 @@
 module API::V3
   class Users < Grape::API
     resource :users do
+      # 使用了环信的聊天服务，所以用户体系需要和环信融合(使用用户的id的md5作为环信的username，详情见oa上项目wiki)
+      # 向环信发起注册我们的用户体系的时候因为网络或者环信的原因是有可能注册失败的，所以采用了预先向环信
+      # 注册的方案。就是我们预先生成一批信息为空的user，使用这些user的id向环信注册。
+      # 然后APP发起注册的时候再从这些user中选一个出来填上用户信息返回给app。
       desc "create user"
       params do
         requires :name, type: String
