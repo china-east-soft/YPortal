@@ -2,6 +2,11 @@ require 'huanxin'
 include Huanxin
 
 namespace :huanxin do
+  desc '预先生成十个无信息的用户, 供开发测试用， skip validate'
+  task :generate_10_users_without_info => :environment do
+    generate_unused_users(10)
+  end
+
   desc '预先生成一千个无信息的用户， skip validate'
   task :generate_1k_users_without_info => :environment do
     generate_unused_users(1000)
@@ -31,7 +36,7 @@ namespace :huanxin do
   end
 
   desc '删除无信息的用户，skip validate'
-  task :generate_users_without_info => [:unregist_unused_users, :environment] do
+  task :delete_users_without_info => [:unregist_unused_users, :environment] do
     User.unused_users.find_each do |user|
       user.destroy unless user.register_huanxin?
     end

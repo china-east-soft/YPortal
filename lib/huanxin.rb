@@ -115,7 +115,9 @@ module Huanxin
           if body["action"] == "delete"
             user.username_huanxin = nil
             user.register_huanxin = false
-            user.save!
+
+            #skip validate for pre reg users
+            user.save(validate: false)
           end
         end
       rescue => e
