@@ -6,6 +6,7 @@ module API::V3
       # 向环信发起注册我们的用户体系的时候因为网络或者环信的原因是有可能注册失败的，所以采用了预先向环信
       # 注册的方案。就是我们预先生成一批信息为空的user，使用这些user的id向环信注册。
       # 然后APP发起注册的时候再从这些user中选一个出来填上用户信息返回给app。
+      # 如果预先注册的用户没有了，则会调用User.new 然后后台job向环新注册
       desc "create user"
       params do
         requires :name, type: String
@@ -36,11 +37,21 @@ module API::V3
           message = "verify code is out of time"
           error_code = 2
         else
-          user = User.new(name: params[:name],
-                          mobile_number: mobile_number,
-                          gender: params[:gender],
-                          password: params[:password],
-                          password_confirmation: params[:password_confirmation])
+          user = unused_reged_users.first
+
+          if user
+            user.name = params[:name]
+            user.mobile_number = mobile_number
+            user.gender = params[:gender]
+            user.password = params[:password]
+            user.password_confirmation = params[:password_confirmation]
+          else
+            user = User.new(name: params[:name],
+                            mobile_number: mobile_number,
+                            gender: params[:gender],
+                            password: params[:password],
+                            password_confirmation: params[:password_confirmation])
+          end
           if user.save
             error_code = 0
             #check in

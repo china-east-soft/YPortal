@@ -3,8 +3,8 @@ include Huanxin
 
 namespace :huanxin do
   desc '预先生成十个无信息的用户, 供开发测试用， skip validate'
-  task :generate_10_users_without_info => :environment do
-    generate_unused_users(10)
+  task :generate_3_users_without_info => :environment do
+    generate_unused_users(3)
   end
 
   desc '预先生成一千个无信息的用户， skip validate'
@@ -28,10 +28,8 @@ namespace :huanxin do
   desc '向环信注销无信息的用户'
   task :unregist_unused_users => :environment do
     #find_each for batch query
-    User.unused_users.find_each do |user|
-      if user.register_huanxin?
-        unregister_user user
-      end
+    User.unused_reged_users.find_each do |user|
+      unregister_user user
     end
   end
 

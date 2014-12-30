@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  after_create :register_to_huanxin
+  after_create :register_to_huanxin, if: "mobile_number.present?"
 
   has_many :comments
   has_many :point_details
@@ -35,6 +35,7 @@ class User < ActiveRecord::Base
 
   scope :unused_users, -> { unscoped.where(mobile_number: nil) }
   scope :unused_users_and_not_reg, -> { unused_users.where(register_huanxin: false) }
+  scope :unused_reged_users, -> { unused_users.where(register_huanxin: true) }
 
   has_secure_password
 
