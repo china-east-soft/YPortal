@@ -14,11 +14,11 @@ class Admin::ProgramsController < AdminController
       gflash success: "创建成功！"
 
       if city = @program.city
-        programs = city.programs.page
+        programs = city.programs_by_branch(@program.branch).page
         @last_page = programs.num_pages
       end
 
-      redirect_to admin_programs_url(city_id: @program.city_id, page: @last_page)
+      redirect_to admin_programs_url(city_id: @program.city_id, page: @last_page, branch: @program.branch)
     else
       gflash error: "创建失败, 请检查您的输入！"
       render :new
@@ -45,7 +45,13 @@ class Admin::ProgramsController < AdminController
       if position.present? && (position.to_i > 0) && (position.to_i != @program.position)
         @program.insert_at(position.to_i)
       end
-      redirect_to admin_programs_url(city_id: @program.city_id), notice: 'program was successfully updated.'
+
+      if city = @program.city
+        programs = city.programs_by_branch(@program.branch).page
+        @last_page = programs.num_pages
+      end
+
+      redirect_to admin_programs_url(city_id: @program.city_id, page: @last_page, branch: @program.branch), notice: 'program was successfully updated.'
     else
       render :edit
     end

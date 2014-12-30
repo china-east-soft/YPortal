@@ -9,6 +9,6 @@ class City < ActiveRecord::Base
   validates :code, presence: true, uniqueness: {casesensitive: true, message: "城市号码(%{value})已经被使用了" }, format: {with: /\A\d+\z/}
 
   def programs_by_branch(branch)
-    programs.includes(:television).where(televisions: {branch: branch})
+    programs.includes(:television).where(branch: branch)
   end
 end
