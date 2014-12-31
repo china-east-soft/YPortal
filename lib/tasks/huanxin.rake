@@ -20,7 +20,7 @@ namespace :huanxin do
   desc '向环信注册信息为空的用户'
   task :pre_regist_users => :environment do
     #find_each for batch query
-    User.unused_users.find_each do |user|
+    User.unused_users_and_not_reg.find_each do |user|
       pre_register_user user
     end
   end

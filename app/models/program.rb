@@ -48,6 +48,7 @@ class Program < ActiveRecord::Base
   # validates :channel, presence: true, uniqueness: true, format: {with: CHANNEL_FORMAT,                                                                  message: "格式错误！"}
 
   validates_presence_of :name, :mode, :freq, allow_blank: false
+  validates_presence_of :television_id, if: "city.present?"
 
 
   class << self
