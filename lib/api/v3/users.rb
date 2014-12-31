@@ -46,6 +46,7 @@ module API::V3
             user.gender = params[:gender]
             user.password = params[:password]
             user.password_confirmation = params[:password_confirmation]
+            user.created_at = Time.zone.now
 
           else
             user = User.new(name: params[:name],

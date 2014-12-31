@@ -6,4 +6,4 @@ MACS = {}
 # Initialize the Rails application.
 Rails.application.initialize!
 
-Time::DATE_FORMATS[:date] = "%Y %m %H:%M"
+Time::DATE_FORMATS[:date] = "%Y-%m-%d %H:%M"
