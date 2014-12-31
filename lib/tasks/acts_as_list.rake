@@ -4,7 +4,7 @@ namespace :list do
 
     City.all.each do |city|
       branches.each do |branch|
-        city.programs_by_branch(branch).order("mode").each_with_index do |p, index|
+        city.programs_by_branch(branch).each_with_index do |p, index|
           p.update_column(:position, index + 1)
         end
       end
