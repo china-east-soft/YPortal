@@ -3,9 +3,11 @@ class Television < ActiveRecord::Base
     record.name.upcase!
   end
 
+  after_update :update_programs_branch
+
   validates :name, presence: true, uniqueness: {case_sensitive: false}
 
-  has_many :programs
+  has_many :programs, dependent: :destroy
   has_many :comments, through: :programs
 
   #attachment
@@ -19,5 +21,16 @@ class Television < ActiveRecord::Base
       comments += p.parent_comments_in_4_hour_for_app(id: id, limit: limit)
     end
     comments
+  end
+
+  private
+  def update_programs_branch
+    puts branch
+    if branch_changed?
+      puts "changed"
+      programs.update_all(branch: branch)
+    else
+      puts "not change"
+    end
   end
 end
