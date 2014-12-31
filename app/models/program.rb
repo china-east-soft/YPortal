@@ -14,6 +14,7 @@ class Program < ActiveRecord::Base
   after_destroy :update_city_epg_crated_at, if: "city_id.present?"
 
   before_create :set_branch_to_television_branch, if: "television_id.present?"
+  before_create :set_position_to_last, if: "city.present?"
 
   after_destroy :update_comments_channel, if: "city_id.present?"
   after_commit :flush_cache
@@ -143,6 +144,10 @@ class Program < ActiveRecord::Base
 
   def set_branch_to_television_branch
     self.branch = television.branch
+  end
+
+  def set_position_to_last
+    self.position = city.programs_by_branch(self.branch).maximum("position") + 1
   end
 
 end
