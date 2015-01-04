@@ -88,7 +88,7 @@ class Admin::ProgramsController < AdminController
 
   def destroy
     @program.destroy
-    redirect_to admin_programs_url(city_id: @program.city_id)
+    redirect_to admin_programs_url(city_id: @program.city_id, branch: @program.branch)
   end
 
   private

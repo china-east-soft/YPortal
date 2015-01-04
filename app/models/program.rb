@@ -147,7 +147,7 @@ class Program < ActiveRecord::Base
   end
 
   def set_position_to_last
-    self.position = city.programs_by_branch(self.branch).maximum("position") + 1
+    self.position = (city.programs_by_branch(self.branch).maximum("position") || 0) + 1
   end
 
 end
