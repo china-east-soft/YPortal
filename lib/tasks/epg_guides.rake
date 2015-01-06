@@ -72,6 +72,8 @@ namespace :epg do
         "CCTV-11" => "http://www.tvmao.com/program/CCTV-CCTV11-w1.html",
         "CCTV-12" => "http://www.tvmao.com/program/CCTV-CCTV12-w1.html",
         "CCTV-13" => "http://www.tvmao.com/program/CCTV-CCTV13-w1.html",
+        "CCTV-14" => "http://www.tvmao.com/program/CCTV-CCTV15-w1.html",
+        "CCTV-15" => "http://www.tvmao.com/program/CCTV-CCTV16-w1.html",
       }
 
       cctv_url.each do |name, url|
