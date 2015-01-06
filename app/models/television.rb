@@ -23,6 +23,14 @@ class Television < ActiveRecord::Base
     comments
   end
 
+  def guides
+    @guides ||= if File.exist?("#{Rails.root.to_s}/public/guides/#{id}.json")
+                  File.open("#{Rails.root.to_s}/public/guides/#{id}.json", 'r') do |f|
+                    JSON.parse(f.read)
+                  end
+                end
+  end
+
   private
   def update_programs_branch
     puts branch

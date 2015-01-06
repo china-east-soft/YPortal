@@ -19,7 +19,7 @@ class Admin::TelevisionsController < AdminController
   end
 
   def index
-    @televisions = Television.all
+    @televisions = Television.page(params[:page])
   end
 
   def show

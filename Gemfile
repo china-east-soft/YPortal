@@ -116,3 +116,6 @@ gem 'kaminari'
 gem 'newrelic_rpm'
 gem 'newrelic-grape'
 gem 'exception_notification'
+
+gem 'nokogiri'
+

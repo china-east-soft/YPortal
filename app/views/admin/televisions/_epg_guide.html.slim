@@ -1,0 +1,34 @@
+- monday = Time.now.beginning_of_week
+- sunday = Time.now.end_of_week
+a.hint href="#guide-#{television.id}" data-toggle="modal" data-target="#guide-#{television.id}" data-hint="#"  节目预告
+div class="modal fade" id="guide-#{television.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+  div class="modal-dialog"
+    div class="modal-content"
+      div class="modal-header"
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 class="modal-title"
+          span = monday.strftime("%m-%d")
+          span 到
+          span = sunday.strftime("%m-%d")
+      .model-body
+        ul.nav.nav-tabs role="tablist"
+          - %W{周一 周二 周三 周四 周五 周六 周日}.each_with_index do |day, index|
+            li role="presentation" class="#{'acitve' if (Time.now.days_to_week_start) == index }"
+              a href="#day-#{index+1}" aria-controls="day-#{index+1}" role="tab" data-toggle="tab"
+                = day
+        .tab-content
+          - 1.upto(7) do |i|
+            .tab-pane id="day-#{i}" role="tabpanel" class="#{'active' if (Time.now.days_to_week_start + 1) == i}"
+              table.table
+                thead
+                  tr
+                    th 时间
+                    th 节目
+                tbody
+                  - television.guides[i.to_s].each do |guide|
+                    tr
+                      td
+                        = guide["start"]
+                      td
+                        = guide["name"]

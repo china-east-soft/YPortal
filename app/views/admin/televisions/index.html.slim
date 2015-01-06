@@ -15,15 +15,25 @@
                 tr
                   th 台标
                   th 电台
+                  th 一周节目预告
                   th
               tbody
                 - @televisions.each do |television|
                   tr
                     td
                       .image
-                        = image_tag  television.logo.url
+                        = image_tag television.logo.url
                     td = television.name
+                    td
+                      - if television.guides
+                        = render partial: "epg_guide", locals: {television: television}
+                      - else
+                        span.label.label-danger 无节目预告
                     td
                       = link_to "编辑", [:admin, television]
                       | |
                       = link_to "删除", [:admin, television], method: :delete, data: {confirm: "确定删除?"}
+  .panel-footer
+    .row
+      .col-md-6
+        .dataTables_paginate.paging_bootstrap.pagination = paginate @televisions
