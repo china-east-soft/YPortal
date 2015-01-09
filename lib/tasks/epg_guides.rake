@@ -2,10 +2,29 @@
 
 namespace :epg do
   namespace :guide do
+
     task :crawl_epg_guides => :environment do
       # crawl_epg_guides_from_tvsou
       crawl_epg_guides_from_tvmao
     end
+
+    task :generate_city_epg_guides_files => :environment do
+      City.all.each do |city|
+        dir = "#{Rails.root.to_s}/public/cities"
+        unless File.exists? dir
+          mkdir_p dir
+        end
+
+        File.open("#{Rails.root.to_s}/public/cities/#{city.id}.json", "w") do |f|
+          guides = city.programs.includes(:television).map {|p| {program_id: p.id, program_name: p.name || "", guides: p.guides}}
+          f.write(guides.to_json)
+        end
+      end
+    end
+
+    task :generate => [:environment, :crawl_epg_guides_from_tvsou, :generate_city_epg_guides_files] do
+    end
+
 
     def crawl_epg_guides_from_tvsou
       #抓取的时候去要后面加上星期几， 如/W4.htm 代表星期四的节目地址

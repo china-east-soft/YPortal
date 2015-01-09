@@ -32,5 +32,9 @@ every 1.day, :at => '0:10 am' do
   rake "data:limit[api_visit_log, 5000]"
 end
 
+every :monday, :at => "5 am" do
+  rake "epg:guide:generate"
+end
+
 
 # Learn more: http://github.com/javan/whenever

@@ -25,6 +25,9 @@ class User < ActiveRecord::Base
   has_many :blocked_users, through: :active_blacklists, source: "blocked"
 
 
+  belongs_to :program
+
+
   # 使用了环信的聊天服务，所以用户体系需要和环信融合(使用用户的id的md5作为环信的username，详情见oa上项目wiki)
   # 向环信发起注册我们的用户体系的时候因为网络或者环信的原因是有可能注册失败的，所以采用了预先向环信
   # 注册的方案。就是我们预先生成一批信息为空的user，使用这些user的id向环信注册。
@@ -42,6 +45,11 @@ class User < ActiveRecord::Base
   validates :mobile_number, uniqueness: true, presence: true, format: {with: /\A\d{11}\z/}
   validates :name, presence: true
   validates :gender, inclusion: {in: %w(male female)}, presence: true
+  validates :status, inclusion: {in: %w(online offline)}, if: "status.present?"
+
+  def online?
+    status == "online"
+  end
 
   def gender_tr
     case gender
@@ -87,6 +95,12 @@ class User < ActiveRecord::Base
       10
     end
   end
+
+
+  #geocoded_by :address
+  #after_save :geocode
+  #geocode函数向地图服务可以根据address 请求lat和long信息，默认是google map， 本应用不用这个功能，latitude和longitude是APP传过来的
+  reverse_geocoded_by :latitude, :longitude  #tell model use geocode
 
 
   def follow(other_user)

@@ -2,6 +2,8 @@ class Program < ActiveRecord::Base
   self.table_name  = 'programs'
   has_many :comments, dependent: :destroy
 
+  has_many :users
+
   belongs_to :television
   belongs_to :city, counter_cache: true
   acts_as_list scope: [:city, :branch]
@@ -21,7 +23,7 @@ class Program < ActiveRecord::Base
 
   # after_save :update_comments_channel
 
-  delegate :logo, to: :television
+  delegate :logo, :guides, to: :television
 
   # change channel format to : CMMB@123@CCTV综合@杭州(mod-freq-name-location)
   CHANNEL_FORMAT = /\A\w+@(\d+)@(.*)@(.*)\Z/u
@@ -96,10 +98,13 @@ class Program < ActiveRecord::Base
 
       program = Program.find_by(channel: channel)
       if program.nil?
-        mode, _freq, channel_name, _location = channel.split('@')
+        mode, _freq, channel_name, location = channel.split('@')
         if mode == 'CMMB' && CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.values.flatten.include?(channel_name)
           name = Program.name_to_channel_name(channel_name)
           program = Program.where(mode: 'CMMB', channel_name: name).first
+        else #mode != CMMB
+          city = City.find_by code: location
+          program = city.programs.where(mode: mode, name: name_from_channel, freq: freq).first
         end
       end
 
