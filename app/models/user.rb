@@ -24,6 +24,9 @@ class User < ActiveRecord::Base
                                   foreign_key: "blocker_id", dependent: :destroy
   has_many :blocked_users, through: :active_blacklists, source: "blocked"
 
+  has_many :passive_blacklists, class_name: "Blacklist", foreign_key: "blocked_id", dependent: :destroy
+  has_many :blockers, through: :passive_blacklists, source: :blocker
+
 
   belongs_to :program
 

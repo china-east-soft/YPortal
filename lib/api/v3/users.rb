@@ -643,11 +643,13 @@ module API::V3
         requires :name, type: String
       end
       get :search do
+
         if params[:name].present?
           @users = User.where('name like ?', "#{params[:name]}%")
         else
           @users = []
         end
+
         present :result, true
         present :users, @users.map {|user| {id: user.id,
                                             avatar: user.avatar,
@@ -657,96 +659,102 @@ module API::V3
                                       #relationship: current_user.relationship_with(user)
                                     }}
       end
-    end
 
 
-    desc "user on off line"
-    params do
-      requires :current_user_id, type: String
-      requires :status, type: String, values: %W(online offline)
-    end
-    post :on_off_status do
-      user = User.find params[:current_user_id]
-      user.status = params[:status]
-      user.save!
-
-      present :result, true
-    end
-
-    desc "user location change"
-    params do
-      requires :current_user_id, type: String
-      requires :longitude, type: Float
-      requires :latitude, type: Float
-    end
-    post :location do
-      user = User.find params[:current_user_id]
-      user.longtitude = params[:longtitude]
-      user.latitude = params[:latitude]
-      user.save!
-
-      present :result, true
-    end
-
-    desc "program that user is watching"
-    params do
-      requires :current_user_id, type: String
-      optional :program_id, type: String
-      optional :channel, type: String
-    end
-    post :watching do
-      program_id = params[:program_id]
-      channel = params[:channel]
-
-      error_code = 0
-
-      if (!program_id && !channel)
-        error_code = 1
-        message = "参数错误,program_id和channel必须有一个"
-      else
-        unless program_id
-          program = Programs.find_by_channel(channel)
-          program_id = program.try(:id)
-        end
-
-        if program_id
-          user = User.find params[:current_user_id]
-          user.program_id = program_id
-          user.save
-        end
+      desc "user on off line"
+      params do
+        requires :current_user_id, type: String
+        requires :status, type: String, values: %W(online offline)
       end
+      post :on_off_status do
+        user = User.find params[:current_user_id]
+        user.status = params[:status]
+        user.save!
 
-      if error_code == 0
         present :result, true
-      else
-        present :result, false
-        present :error_code, error_code
-        present :message, message
+      end
+
+      desc "user location change"
+      params do
+        requires :current_user_id, type: String
+        requires :longitude, type: Float
+        requires :latitude, type: Float
+      end
+      post :location do
+        user = User.find params[:current_user_id]
+        user.longtitude = params[:longtitude]
+        user.latitude = params[:latitude]
+        user.save!
+
+        present :result, true
+      end
+
+      desc "program that user is watching"
+      params do
+        requires :current_user_id, type: String
+        optional :program_id, type: String
+        optional :channel, type: String
+      end
+      post :watching do
+        program_id = params[:program_id]
+        channel = params[:channel]
+
+        error_code = 0
+
+        if (!program_id && !channel)
+          error_code = 1
+          message = "参数错误,program_id和channel必须有一个"
+        else
+          unless program_id
+            program = Programs.find_by_channel(channel)
+            program_id = program.try(:id)
+          end
+
+          if program_id
+            user = User.find params[:current_user_id]
+            user.program_id = program_id
+            user.save
+          end
+        end
+
+        if error_code == 0
+          present :result, true
+        else
+          present :result, false
+          present :error_code, error_code
+          present :message, message
+        end
+      end
+
+      desc "surround users"
+      params do
+        requires :current_user_id, type: String
+        requires :latitude, type: Float
+        requires :longitude, type: Float
+        optional :distance, type: Integer, default: 1000
+      end
+      get :nearby_users do
+        distance = params[:distance]/1000.0
+        users = User.includes(:program).near([params[:latitude], params[:longitude]], distance, units: :km)
+
+        current_user = User.includes(:program).find params[:current_user_id]
+        blocked_users = current_user.blocked_users.includes(:program)
+        be_blocked_users = current_user.blockers.includes(:program)
+
+        users = users - [current_user] - blocked_users = be_blocked_users
+
+        present :result, true
+        present :users, users.map {|user| {id: user.id,
+                                           avatar: user.avatar,
+                                           gender: user.gender,
+                                           nickname: user.name,
+                                           level: user.level,
+                                           longitude: user.longitude,
+                                           latitude: user.latitude,
+                                           program: {id: user.program.id, name: user.program.name}
+        #relationship: current_user.relationship_with(user)
+        }}
       end
     end
-
-    desc "surround users"
-    params do
-      requires :latitude, type: Float
-      requires :longtitude, type: Float
-      optional :distance, type: Integer, default: 1000
-    end
-    get :nearby_users do
-      distance = params[:distance]/1000.0
-      users = User.includes(:program).near([params[:latitude], params[:longtitude]], distance, units: :km)
-
-      present :result, true
-      present :users, users.map {|user| {id: user.id,
-                                         avatar: user.avatar,
-                                         gender: user.gender,
-                                         nickname: user.name,
-                                         level: user.level,
-                                         longitude: user.longitude,
-                                         latitude: user.latitude,
-                                         program: {id: user.program.id, name: user.program.name}
-      #relationship: current_user.relationship_with(user)
-      }}
-    end
-
   end
 end
