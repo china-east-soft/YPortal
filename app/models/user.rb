@@ -27,6 +27,12 @@ class User < ActiveRecord::Base
 
   belongs_to :program
 
+  def guide_now
+    if program
+      program.guide_now
+    end
+  end
+
 
   # 使用了环信的聊天服务，所以用户体系需要和环信融合(使用用户的id的md5作为环信的username，详情见oa上项目wiki)
   # 向环信发起注册我们的用户体系的时候因为网络或者环信的原因是有可能注册失败的，所以采用了预先向环信

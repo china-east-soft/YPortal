@@ -23,7 +23,7 @@ class Program < ActiveRecord::Base
 
   # after_save :update_comments_channel
 
-  delegate :logo, :guides, to: :television
+  delegate :logo, to: :television
 
   # change channel format to : CMMB@123@CCTV综合@杭州(mod-freq-name-location)
   CHANNEL_FORMAT = /\A\w+@(\d+)@(.*)@(.*)\Z/u
@@ -119,6 +119,24 @@ class Program < ActiveRecord::Base
       comments.includes(:user, :children).where(parent_id: nil).where("created_at >= ?", Time.now - 4.hour).order(id: :desc).limit(limit)
     else
       comments.includes(:user, :children).where(parent_id: nil).where("created_at >= ?", Time.now - 4.hour).order(id: :desc).where("id < :id", {id: id}).limit(limit)
+    end
+  end
+
+
+  def guides
+    @guides ||=  if television_id
+                   if File.exist?("#{Rails.root.to_s}/public/guides/#{television_id}.json")
+                     File.open("#{Rails.root.to_s}/public/guides/#{television_id}.json", 'r') do |f|
+                       JSON.parse(f.read)
+                     end
+                   end
+                 end
+  end
+
+  def guide_now
+    if guides
+      day_of_week = Time.now.days_to_week_start + 1
+      guides[day_of_week.to_s]
     end
   end
 

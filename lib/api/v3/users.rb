@@ -358,7 +358,16 @@ module API::V3
         following = user.following.page(params[:page]).per(per_page)
 
         present :result, true
-        present :following, following.map {|u| {id: u.id, nickname: u.name, avatar: u.avatar, gender: u.gender, level: u.level} }
+        present :following, following.map {|u|
+          status = u.status
+          program_id = u.program.try(:id)
+          program_name = u.program.try(:name)
+          program_guide_now = u.guide_now
+
+          {id: u.id, nickname: u.name, avatar: u.avatar, gender: u.gender, level: u.level,
+           status: status, program_id: program_id, program_name: program_name, program_guide_now: program_guide_now
+          }
+        }
       end
 
       desc "get followers"
@@ -373,7 +382,26 @@ module API::V3
 
         followers = user.followers.page(params[:page]).per(per_page)
         present :result, true
-        present :followers, followers.map {|u| { id: u.id, nickname: u.name, avatar: u.avatar, gender: u.gender, level: u.level } }
+        present :followers, followers.map {|u|
+
+          status = u.status
+          program_id = u.program.try(:id)
+          program_name = u.program.try(:name)
+          program_guide_now = u.guide_now
+
+          {
+            id: u.id,
+            nickname: u.name,
+            avatar: u.avatar,
+            gender: u.gender,
+            level: u.level,
+
+            status: status,
+            program_id: program_id,
+            program_name: program_name,
+            program_guide_now: program_guide_now
+          }
+        }
       end
 
       desc "block user"
@@ -462,7 +490,7 @@ module API::V3
         current_user = User.find params[:current_user_id]
 
         if params[:other_user_id].present?
-          other_user = User.find params[:other_user_id]
+          other_user = User.includes(:program).find params[:other_user_id]
 
           follow = current_user.following? other_user
           be_followed = other_user.following? current_user
@@ -493,6 +521,11 @@ module API::V3
 
           comment_count = other_user.comments.count
 
+          status = other_user.status
+          program_id = other_user.program.try(:id)
+          program_name = other_user.program.try(:name)
+          program_guide_now = other_user.guide_now
+
           {
             result: true,
             nickname: other_user.name,
@@ -501,8 +534,14 @@ module API::V3
             relationship: relationship,
             comment_count: comment_count,
             topic_count: 0,
-            level: other_user.level
+            level: other_user.level,
+
+            status: status,
+            program_id: program_id,
+            program_name: program_name,
+            program_guide_now: program_guide_now
           }
+
         else
           comment_count = current_user.comments.count
 
