@@ -743,7 +743,7 @@ module API::V3
         blocked_users = current_user.blocked_users.includes(:program)
         be_blocked_users = current_user.blockers.includes(:program)
 
-        users = users - [current_user] - blocked_users = be_blocked_users
+        users = users - [current_user] - blocked_users - be_blocked_users
 
         present :result, true
         present :users, users.map {|user| {id: user.id,
