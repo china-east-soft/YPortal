@@ -82,17 +82,17 @@ class User < ActiveRecord::Base
   #Lv10(Max) >100000
   def level
     case experience
-    when 0..49
+    when 0..1049
       1
-    when 50..199
+    when 1050..1199
       2
-    when 200..499
+    when 1200..1499
       3
-    when 500..999
+    when 1500..1999
       4
-    when 1000..2999
+    when 2000..3999
       5
-    when 3000..9999
+    when 4000..9999
       6
     when 10000..29999
       7

@@ -60,6 +60,8 @@ module API::V3
             error_code = 0
             #check in
             UserCheckIn.create_if_not_check_in_today_with(user: user)
+
+            PointDetail.create_by_user_id_and_rule_name(user_id: user.id, rule_name: "用户注册")
           else
             error_code = 3
             message = user.errors.full_messages.join(",")

@@ -56,14 +56,14 @@ module API::V3
         if channel
           program = Program.find_or_create_by_channel(channel)
           if program
-            watching = Watching.new(started_at: params[:started_at], seconds: params[:seconds], program_id: program.id)
+            watching = Watching.new(started_at: params[:started_at], seconds: params[:seconds], program_id: program.id, user_id: params[:user_id])
             watching.save!
           else
             error_code = 1
             message = "program not found"
           end
         elsif params[:program_name].present?
-          watching = Watching.new(started_at: params[:started_at], seconds: params[:seconds], program_name: params[:program_name])
+          watching = Watching.new(started_at: params[:started_at], seconds: params[:seconds], program_name: params[:program_name], user_id: params[:uesr_id])
           watching.save!
         else
           error_code = 2
