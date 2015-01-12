@@ -22,7 +22,7 @@ namespace :epg do
       end
     end
 
-    task :generate => [:environment, :crawl_epg_guides_from_tvsou, :generate_city_epg_guides_files] do
+    task :generate => [:environment, :crawl_epg_guides, :generate_city_epg_guides_files] do
     end
 
 
