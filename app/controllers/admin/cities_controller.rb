@@ -39,11 +39,13 @@ class Admin::CitiesController < AdminController
 
   def disable_branch
     @city.toggle(:enable_branch)
+    @city.touch(:epg_created_at)
     @city.save
   end
 
   def enable_branch
     @city.toggle(:enable_branch)
+    @city.touch(:epg_created_at)
     @city.save
   end
 
