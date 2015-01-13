@@ -28,6 +28,7 @@ module API::V3
         if city
           present :result, :true
           present :epg_create_time, city.epg_created_at.to_i
+          present :enable_branch, city.enable_branch?
 
           branchs = Television.pluck(:branch).uniq
           epg = branchs.map do |b|
