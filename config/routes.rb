@@ -126,6 +126,7 @@ Rails.application.routes.draw do
     resources :cities, except: [:edit]
     resources :exception_logs, except: [:new, :create, :edit]
     resources :point_rules
+    resources :television_branches
   end
 
   namespace :agent do
