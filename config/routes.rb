@@ -114,6 +114,7 @@ Rails.application.routes.draw do
       member do
         post :sort_up
         post :sort_down
+
       end
     end
 
@@ -123,7 +124,12 @@ Rails.application.routes.draw do
         get :unused_users
       end
     end
-    resources :cities, except: [:edit]
+    resources :cities, except: [:edit] do
+      member do
+        post :enable_branch
+        post :disable_branch
+      end
+    end
     resources :exception_logs, except: [:new, :create, :edit]
     resources :point_rules
   end

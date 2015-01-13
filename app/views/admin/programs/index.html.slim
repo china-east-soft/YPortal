@@ -1,11 +1,6 @@
 .row
   .col-md-10
     .panel
-      .panel-heading
-        - if params[:city_id].present?
-          h3 = "#{@city.try(:name)} 节目列表"
-        - else
-          h3 CMMB节目列表
       .panel-body
         .clearfix
           .col-md-4
@@ -17,7 +12,18 @@
           .btn-group.pull-right
             span.btn.btn-primary
               = link_to "添加节目", new_admin_program_path(city_id: @city.try(:id))
-        span.text-info 没有选择城市时显示CMMB节目
+        - if @city.present?
+          span.text-info 节目总数（包括央视、卫视和其他): #{@city.programs.count}
+          div.alert.alert-info
+            p
+              span 央视台/卫视台 等是节目的分类信息，分类也会在APP端显示。节目总数很少的时候可以取消节目分类，取消之后APP也就不显示分类了，取消之后可以恢复
+              span#operate-branch
+                - if @city.enable_branch?
+                  = link_to "取消分类", disable_branch_admin_city_path(@city), method: "post", class: "btn btn-sm btn-primary", remote: true
+                - else
+                  = link_to "恢复分类", enable_branch_admin_city_path(@city), method: "post", class: "btn btn-sm btn-primary", remote: true
+        - else
+          span.text-info 没有选择城市时显示CMMB节目
         - if @city.present?
           ul.nav.nav-tabs role="tablist"
             li class="#{'active' if params[:branch]== '央视台'}"
@@ -96,7 +102,7 @@
         .row
           .col-md-12
             span.text-info 排序功能和APP上显示的节目顺序有关。
-            span.text-info 本页面只支持顺序增1减1, 节目编辑页面可以修改顺序的值,实现多布的移动
+            span.text-info 本页面只支持顺序增1减1, 节目编辑页面可以修改顺序的值,实现多步的移动
             /.dataTables_info 共有#{@programs.count}条记录
           .col-md-6
             .dataTables_paginate.paging_bootstrap.pagination = paginate @programs

@@ -1,5 +1,5 @@
 class Admin::CitiesController < AdminController
-  before_action :find_city, only: [:show, :update, :destroy]
+  before_action :find_city, only: [:show, :update, :destroy, :enable_branch, :disable_branch]
 
   set_tab :apis
   set_tab :cities, :sub_nav
@@ -26,6 +26,7 @@ class Admin::CitiesController < AdminController
     @cities = City.order(name: :asc).page(params[:page])
   end
 
+
   def update
     if @city.update city_params
       flash[:success] = "修改成功"
@@ -34,6 +35,16 @@ class Admin::CitiesController < AdminController
       flash.now[:error] = "保存失败"
       render :show
     end
+  end
+
+  def disable_branch
+    @city.toggle(:enable_branch)
+    @city.save
+  end
+
+  def enable_branch
+    @city.toggle(:enable_branch)
+    @city.save
   end
 
   def destroy
