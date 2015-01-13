@@ -12,6 +12,7 @@ module API::V3
         if city
           present :result, :true
           present :epg_create_time, city.epg_created_at.to_i
+          present :epg_guide_create_time, city.epg_guide_created_at.to_i
         else
           present :result, false
           present :error_code, 1
