@@ -38,7 +38,7 @@ set :repository, 'git@github.com:china-east-soft/YPortal.git'
 set :branch, branch
 set :ssh_options, '-A'
 
-set :shared_paths, ['log', '.private_key', 'tmp/restart.txt', 'public/system', 'public/uploads', 'public/robots.txt', 'config/database.yml', 'config/nginx.conf', 'config/config.yml', 'config/auth_message.yml', 'pids/sidekiq.pid']
+set :shared_paths, ['log', '.private_key', 'tmp/restart.txt', 'public/system', 'public/uploads', 'public/robots.txt', 'public/guides', 'public/cities', 'config/database.yml', 'config/nginx.conf', 'config/config.yml', 'config/auth_message.yml', 'pids/sidekiq.pid']
 
 set :user, 'root'
 set :term_mode, :nil
@@ -70,6 +70,12 @@ task :setup => :environment do
 
   queue! %[mkdir "#{deploy_to}/shared/public/uploads"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/public/uploads"]
+
+  queue! %[mkdir "#{deploy_to}/shared/public/guides"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/public/guides"]
+
+  queue! %[mkdir "#{deploy_to}/shared/public/cities"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/public/cities"]
 
   queue! %[touch "#{deploy_to}/shared/public/robots.txt"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/public/robots.txt"]
