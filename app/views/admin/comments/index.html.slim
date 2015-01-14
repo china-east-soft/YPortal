@@ -7,12 +7,38 @@
           = text_field_tag(:channel, nil, placeholder: "节目标识 MMB@00@CCTV-1@*")
           = submit_tag("查询")
       .panel-body#comments
-        .list-group.list-group-feed-back
-          - if @comments.any?
-            = render @comments
-          - else
-            .list-grounp-item.text-center.text-muted.empty-message
-              | 暂时没有评论
+      .panel-footer
+        table.table.table-striped.table-advance.table-hover.table-bordered
+          thead
+            tr
+              th 用户名
+              th 节目名
+              th 评论时间
+              th MAC
+              th 内容
+              th
+          tbody
+            - @comments.each do |comment|
+              tr
+                td = comment.user.try(:name)
+                td
+                  - if @program
+                    = @program.name
+                  - else
+                    = comment.program.try(:name)
+                td = comment.created_at.to_s(:date)
+                td = comment.mac
+                td.td-show-more
+                  - if comment.audio?
+                    = link_to "音频", comment.audio.url, class: "btn btn-xs btn-info", target: "_blank"
+                  - else
+                    - if comment.body.length > 15
+                      = comment.body[0..10]
+                      button type="button" class="btn btn-xs btn-default" data-toggle="popover" title="Popover title" data-placement="top" data-content="#{comment.body}" 更多
+                    - else
+                      = comment.body
+                td = link_to "删除", [:admin, comment], method: :delete, data: {confirm: "确定删除?"}
+      .panel-footer
         .row
           .col-lg-6
             .dataTables_info

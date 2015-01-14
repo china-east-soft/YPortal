@@ -22,3 +22,8 @@
 //= require jquery.validate.js
 //= require highcharts.js
 //= require_tree ./plugins
+
+
+$(document).on("ready page:change", function() {
+  $('[data-toggle="popover"]').popover();
+});

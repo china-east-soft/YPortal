@@ -21,11 +21,11 @@ class Admin::CommentsController < AdminController
   def index
     if params[:program_id].present?
       @program = Program.find(params[:program_id])
-      @comments = @program.comments.page(params[:page])
+      @comments = @program.comments.includes(:user).page(params[:page])
     elsif params[:channel].present?
-      @comments = Comment.includes(:program).where(channel: params[:channle]).page(params[:page])
+      @comments = Comment.includes(:program, :user).where(channel: params[:channle]).page(params[:page])
     else
-      @comments = Comment.includes(:program).all.page(params[:page])
+      @comments = Comment.includes(:program, :user).all.page(params[:page])
     end
   end
 
