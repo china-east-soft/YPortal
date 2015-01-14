@@ -9,7 +9,12 @@ class Admin::UsersController < AdminController
   set_tab :unused_users, :sub_nav, only: %w(unused_users)
 
   def index
-    @users = User.order(experience: :desc).page(params[:page])
+    if params[:mobile_number].present?
+      @users = User.where('mobile_number like ?', "#{params[:mobile_number]}%").page
+    else
+      @users = User.order(experience: :desc).page(params[:page])
+    end
+
     respond_to do |format|
       format.html
       format.json { render json: @users}

@@ -1,30 +1,39 @@
 .row
-  .col-md-12
+  .col-md-10
     .panel
       .panel-heading
         h2.panel-title 用户
       .panel-body
-        .list-group
-          - @users.each do |user|
-            a.list-group-item href=admin_user_path(user)
-              .list-group-item-heading
-                = user.id
-                = '. '
-                b = user.name
-                - unless user.register_huanxin?
-                  = '. '
-                  b = fa_icon("warning")
-                  span 未注册环信帐号， 请联系开发人员
-              .text-muted
-                = user.mobile_number || user.email
-                = '. '
-                = user.created_at.to_s(:date)
-                = '. '
-                = "Lv#{user.level}"
-                = '. '
-                = user.experience
-                = '. '
-                = user.points
-      .panel-footer.clearfix
-        .pull-right
-          = paginate @users
+        = form_tag("/admin/users", method: "get") do
+          = text_field_tag(:mobile_number, nil, placeholder: "手机号")
+          = submit_tag("查询")
+        table.table.table-striped.table-advance.table-hover.table-bordered
+          thead
+            tr
+              th 手机号
+              th 昵称
+              th 经验值
+              th 等级
+              th 注册时间
+              th
+              th
+          tbody
+            - @users.each do |user|
+              tr class="#{'danger' unless user.register_huanxin?}"
+                td = user.mobile_number
+                td = user.name
+                td = user.experience
+                td = user.level
+                td = user.created_at.to_s(:date)
+                td
+                  - unless user.register_huanxin?
+                    b = fa_icon("warning")
+                    span 未注册环信帐号， 请联系开发人员
+                td
+                  = link_to "编辑", [:admin, user]
+                  | |
+                  = link_to "删除", [:admin, user], method: :delete, data: {confirm: "确定删除?"}
+      .panel-footer
+        .row
+          .col-md-6
+            .dataTables_paginate.paging_bootstrap.pagination = paginate @users
