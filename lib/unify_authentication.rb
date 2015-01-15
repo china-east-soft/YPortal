@@ -16,6 +16,8 @@ module UnifyAuthenTication
         response = RestClient.post("#{DOMAIN}/api/user/register", name: name, pass: pass, mail: mail)
         if response.code == 200
           p response.body
+          #uid?
+          true
         end
       rescue => e
         puts e.response

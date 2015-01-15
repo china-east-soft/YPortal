@@ -1,6 +1,8 @@
 # coding:utf-8
 module API::V3
   class Users < Grape::API
+    include UnifyAuthenTication
+
     resource :users do
       # 使用了环信的聊天服务，所以用户体系需要和环信融合(使用用户的id的md5作为环信的username，详情见oa上项目wiki)
       # 向环信发起注册我们的用户体系的时候因为网络或者环信的原因是有可能注册失败的，所以采用了预先向环信
@@ -54,6 +56,19 @@ module API::V3
                             gender: params[:gender],
                             password: params[:password],
                             password_confirmation: params[:password_confirmation])
+          end
+
+          #统一鉴权 email?
+          if Rails.env.production?
+            unless register_user(mobile_number: mobile_number, password: params[:password], email: nil)
+              error_code = 4
+              message = "统一鉴权失败"
+
+              present :result, false
+              present :error_code, error_code
+              present :message, message
+              return
+            end
           end
 
           if user.save
