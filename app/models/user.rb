@@ -52,9 +52,15 @@ class User < ActiveRecord::Base
   has_secure_password
 
   validates :mobile_number, uniqueness: true, presence: true, format: {with: /\A\d{11}\z/}
-  validates :name, presence: true
-  validates :gender, inclusion: {in: %w(male female)}, presence: true
+
+  #validates :name, presence: true
+  #validates :gender, inclusion: {in: %w(male female)}, presence: true
+
   validates :status, inclusion: {in: %w(online offline)}, if: "status.present?"
+
+  has_attached_file :gravatar
+  # validates_attachment_content_type :gravatar, :content_type => /.*/
+  validates :avatar_type, inclusion: {in: %w{system custom}, message: "%{value} is not a valid type"}, presence: true
 
   def online?
     status == "online"

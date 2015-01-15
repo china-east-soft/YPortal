@@ -9,12 +9,13 @@ module API::V3
       # 如果预先注册的用户没有了，则会调用User.new 然后后台job向环新注册
       desc "create user"
       params do
-        requires :name, type: String
         requires :mobile_number, type: String, regexp: /\A\d{11}\z/
         requires :verify_code, type: String, regexp: /\A\d+\z/
-        optional :gender, type: String, values: %W(male female), default: "male"
         requires :password, type: String
         requires :password_confirmation, type: String
+
+        optional :name, type: String
+        optional :gender, type: String, values: %W(male female)
       end
       post :signup do
         user = User.find_by(mobile_number: params[:mobile_number])
@@ -76,6 +77,32 @@ module API::V3
           present :error_code, error_code
           present :message, message
         end
+      end
+
+      params do
+        requires :user_id, type: String
+        requires :name, type: String
+        requires :gender, type: String, values: %W(male female)
+        requires :avatar
+        requires :avatar_type, values: %W(system custom), default: "system"
+      end
+      post :pofile do
+        user = User.find params[:user_id]
+        user.name = params[:name]
+        user.gender = params[:gender]
+
+        avatar = params[:avatar]
+        if params[:avatar_type] == "system"
+          user.gravatar = ActionDispatch::Http::UploadedFile.new(avatar)
+        else
+          avatar.force_encoding("UTF-8")
+          user.avatar = avatar
+        end
+        user.avatar_type = params[:avatar_type]
+
+        user.save
+
+        present :result, true
       end
 
       params do
