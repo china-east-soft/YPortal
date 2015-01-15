@@ -62,6 +62,14 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :gravatar, :content_type => /.*/
   validates :avatar_type, inclusion: {in: %W{system custom}, message: "%{value} is not a valid type"}, if: "avatar_type.present?"
 
+  def custom_avatar?
+    avatar_type == "custom"
+  end
+
+  def system_avatar?
+    avatar_type == "system"
+  end
+
   def online?
     status == "online"
   end

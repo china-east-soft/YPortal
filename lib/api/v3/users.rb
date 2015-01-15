@@ -130,7 +130,14 @@ module API::V3
             present :user_id, user.id
             present :name, user.name
             present :mobile_number, user.mobile_number
-            present :avatar, user.avatar
+
+            if user.custom_avatar?
+              avatar = request.scheme + '://' + request.host_with_port + user.gravatar.url.to_s
+            else
+              avatar = user.avatar
+            end
+            present :avatar_type, user.avatar_type
+            present :avatar, avatar
           else
             error_code = 2
             message = "incorrect password"
@@ -197,7 +204,15 @@ module API::V3
               present :user_id, user.id
               present :name, user.name
               present :mobile_number, user.mobile_number
-              present :avatar, user.avatar
+
+              if user.custom_avatar?
+                avatar = request.scheme + '://' + request.host_with_port + user.gravatar.url.to_s
+              else
+                avatar = user.avatar
+              end
+
+              present :avatar_type, user.avatar_type
+              present :avatar, avatar
             else
               error_code = 3
               message = user.errors.full_messages.join(",")
@@ -397,8 +412,13 @@ module API::V3
           program_name = u.program.try(:name)
           program_guide_now = u.guide_now
 
-          {id: u.id, nickname: u.name, avatar: u.avatar, gender: u.gender, level: u.level,
-           status: status, program_id: program_id, program_name: program_name, program_guide_now: program_guide_now
+          if u.custom_avatar?
+            avatar = request.scheme + '://' + request.host_with_port + u.gravatar.url.to_s
+          else
+            avatar = u.avatar
+          end
+
+          {id: u.id, nickname: u.name, avatar: avatar, avatar_type: u.avatar_type, gender: u.gender, level: u.level, status: status, program_id: program_id, program_name: program_name, program_guide_now: program_guide_now
           }
         }
       end
@@ -421,11 +441,17 @@ module API::V3
           program_id = u.program.try(:id)
           program_name = u.program.try(:name)
           program_guide_now = u.guide_now
+          if u.custom_avatar?
+            avatar = request.scheme + '://' + request.host_with_port + u.gravatar.url.to_s
+          else
+            avatar = u.avatar
+          end
 
           {
             id: u.id,
             nickname: u.name,
-            avatar: u.avatar,
+            avatar_type: u.avatar_type,
+            avatar: avatar,
             gender: u.gender,
             level: u.level,
 
@@ -510,7 +536,15 @@ module API::V3
         blocked_users = user.blocked_users.page(params[:page]).per(per_page)
 
         present :result, true
-        present :blacklist, blocked_users.map {|u| {id: u.id, nickname: u.name, avatar: u.avatar, gender: u.gender, level: u.level} }
+
+        present :blacklist, blocked_users.map {|u|
+          if u.custom_avatar?
+            avatar = request.scheme + '://' + request.host_with_port + u.gravatar.url.to_s
+          else
+            avatar = u.avatar
+          end
+          {id: u.id, nickname: u.name, avatar: avatar, avatar_type: u.avatar_type, gender: u.gender, level: u.level}
+        }
       end
 
 
@@ -559,11 +593,19 @@ module API::V3
           program_name = other_user.program.try(:name)
           program_guide_now = other_user.guide_now
 
+          if other_user.custom_avatar?
+            avatar = request.scheme + '://' + request.host_with_port + other_user.gravatar.url.to_s
+          else
+            avatar = other_user.avatar
+          end
+
+
           {
             result: true,
             nickname: other_user.name,
             gender: other_user.gender,
-            avatar: other_user.avatar,
+            avatar_type: other_user.avatar_type,
+            avatar: avatar,
             relationship: relationship,
             comment_count: comment_count,
             topic_count: 0,
@@ -578,11 +620,18 @@ module API::V3
         else
           comment_count = current_user.comments.count
 
+          if current_user.custom_avatar?
+            avatar = request.scheme + '://' + request.host_with_port + current_user.gravatar.url.to_s
+          else
+            avatar = current_user.avatar
+          end
+
           {
             result: true,
             nickname: current_user.name,
             gender: current_user.gender,
-            avatar: current_user.avatar,
+            avatar_type: current_user.avatar_type,
+            avatar: avatar,
             comment_count: comment_count,
             topic_count: 0,
             level: current_user.level
@@ -614,9 +663,16 @@ module API::V3
           }
         end
 
+        if user.custom_avatar?
+          avatar = request.scheme + '://' + request.host_with_port + user.gravatar.url.to_s
+        else
+          avatar = user.avatar
+        end
+
         present :result, true
         present :nickname, user.name
-        present :avatar, user.avatar
+        present :avatar_type, user.avatar_type
+        present :avatar, avatar
         present :gender, user.gender
         present :level, user.level
         present :comments, comments
@@ -632,7 +688,15 @@ module API::V3
         present :result, true
         present :id, user.id
         present :nickname, user.name
-        present :avatar, user.avatar
+        if user.custom_avatar?
+          avatar = request.scheme + '://' + request.host_with_port + user.gravatar.url.to_s
+        else
+          avatar = user.avatar
+        end
+
+        present :avatar_type, user.avatar_type
+        present :avatar, avatar
+
       end
 
       desc "get user relationships: following and blacklist"
@@ -646,9 +710,19 @@ module API::V3
         blocked_users = current_user.blocked_users
         all_relations = following + blocked_users
 
+
+
         {
           result: true,
-          relationships: all_relations.map {|user| {id: user.id, avatar: user.avatar, nickname: user.name, relationship: current_user.relationship_with(user) }},
+          relationships: all_relations.map {|user|
+            if user.custom_avatar?
+              avatar = request.scheme + '://' + request.host_with_port + user.gravatar.url.to_s
+            else
+              avatar = user.avatar
+            end
+
+            {id: user.id, avatar_type: user.avatar_type, avatar: avatar, nickname: user.name, relationship: current_user.relationship_with(user) }
+          },
         }
       end
 
@@ -662,13 +736,23 @@ module API::V3
 
         @users = User.order(experience: :desc).page(params[:page]).per(per_page)
         present :result, true
-        present :users, @users.map {|user| {id: user.id,
-                                            avatar: user.avatar,
-                                            gender: user.gender,
-                                            nickname: user.name,
-                                            level: user.level
-                                      #relationship: current_user.relationship_with(user)
-                                    }}
+
+        present :users, @users.map {|user|
+          if user.custom_avatar?
+            avatar = request.scheme + '://' + request.host_with_port + user.gravatar.url.to_s
+          else
+            avatar = user.avatar
+          end
+
+          {id: user.id,
+           avatar_type: user.avatar_type,
+           avatar: avatar,
+           gender: user.gender,
+           nickname: user.name,
+           level: user.level
+          #relationship: current_user.relationship_with(user)
+          }
+        }
       end
 
       desc "search user by name"
@@ -684,13 +768,23 @@ module API::V3
         end
 
         present :result, true
-        present :users, @users.map {|user| {id: user.id,
-                                            avatar: user.avatar,
-                                            gender: user.gender,
-                                            nickname: user.name,
-                                            level: user.level
-                                      #relationship: current_user.relationship_with(user)
-                                    }}
+        present :users, @users.map {|user|
+          if user.custom_avatar?
+            avatar = request.scheme + '://' + request.host_with_port + user.gravatar.url.to_s
+          else
+            avatar = user.avatar
+          end
+
+          {
+           id: user.id,
+           avatar_type: user.avatar_type,
+           avatar: avatar,
+           gender: user.gender,
+           nickname: user.name,
+           level: user.level
+          #relationship: current_user.relationship_with(user)
+          }
+        }
       end
 
 
@@ -777,16 +871,26 @@ module API::V3
         users = users - [current_user] - blocked_users - be_blocked_users
 
         present :result, true
-        present :users, users.map {|user| {id: user.id,
-                                           avatar: user.avatar,
-                                           gender: user.gender,
-                                           nickname: user.name,
-                                           level: user.level,
-                                           longitude: user.longitude,
-                                           latitude: user.latitude,
-                                           program: {id: user.program.id, name: user.program.name}
-        #relationship: current_user.relationship_with(user)
-        }}
+        present :users, users.map {|user|
+
+          if user.custom_avatar?
+            avatar = request.scheme + '://' + request.host_with_port + user.gravatar.url.to_s
+          else
+            avatar = user.avatar
+          end
+          {
+           id: user.id,
+           avatar_type: user.avatar_type,
+           avatar: avatar,
+           gender: user.gender,
+           nickname: user.name,
+           level: user.level,
+           longitude: user.longitude,
+           latitude: user.latitude,
+           program: {id: user.program.id, name: user.program.name}
+          #relationship: current_user.relationship_with(user)
+          }
+        }
       end
     end
   end
