@@ -84,19 +84,23 @@ module API::V3
         requires :name, type: String
         requires :gender, type: String, values: %W(male female)
         requires :avatar
-        requires :avatar_type, values: %W(system custom), default: "system"
+        optional :avatar_type, values: %W(system custom), default: "system"
       end
-      post :pofile do
+      post :profile do
         user = User.find params[:user_id]
         user.name = params[:name]
         user.gender = params[:gender]
 
         avatar = params[:avatar]
+
+        Rails.logger.debug avatar
+        Rails.logger.debug params[:avatar_type]
+
         if params[:avatar_type] == "system"
-          user.gravatar = ActionDispatch::Http::UploadedFile.new(avatar)
-        else
           avatar.force_encoding("UTF-8")
           user.avatar = avatar
+        else
+          user.gravatar = ActionDispatch::Http::UploadedFile.new(avatar)
         end
         user.avatar_type = params[:avatar_type]
 

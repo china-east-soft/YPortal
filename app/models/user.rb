@@ -59,8 +59,8 @@ class User < ActiveRecord::Base
   validates :status, inclusion: {in: %w(online offline)}, if: "status.present?"
 
   has_attached_file :gravatar
-  # validates_attachment_content_type :gravatar, :content_type => /.*/
-  validates :avatar_type, inclusion: {in: %w{system custom}, message: "%{value} is not a valid type"}, if: "avatar_type.present?"
+  validates_attachment_content_type :gravatar, :content_type => /.*/
+  validates :avatar_type, inclusion: {in: %W{system custom}, message: "%{value} is not a valid type"}, if: "avatar_type.present?"
 
   def online?
     status == "online"
