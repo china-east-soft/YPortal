@@ -1,0 +1,13 @@
+= form_for [:admin, @branch] do |f|
+  = render "shared/flash_messages"
+  = render "shared/form_error_messages", form: f
+  .form-group
+    = f.label :name, "*类别名称", class: "control-label"
+    = f.text_field :name, class: "form-control"
+  .form-group
+    = f.label :desc, "类别说明", class: "control-label"
+    = f.text_area :desc, class: "form-control"
+  - if @branch.new_record?
+    = f.submit "新增类别", class: "btn btn-primary"
+  - else
+    = f.submit "修改类别", class: "btn btn-primary"

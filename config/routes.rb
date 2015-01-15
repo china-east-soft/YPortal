@@ -132,6 +132,7 @@ Rails.application.routes.draw do
     end
     resources :exception_logs, except: [:new, :create, :edit]
     resources :point_rules
+    resources :television_branches
   end
 
   namespace :agent do
