@@ -6,11 +6,17 @@
       .panel-body
         = form_for [:admin, @user], html: {multipart: true, calss: 'user-form'} do |f|
           .form-group
-            = f.label :avatar, "头像",  class: "control-label"
-            = f.text_field :avatar, class: "form-control", disabled: true
+            = f.label :avatar, "头像:",  class: "control-label"
+            - if @user.custom_avatar?
+              = image_tag @user.gravatar.url
+            - else
+              = f.text_field :avatar, class: "form-control", disabled: true
           .form-group
             = f.label :name, "昵称", class: "control-label"
-            = f.text_field :name, class: "form-control"
+            = f.text_field :name, class: "form-control", disabled: true
+          .form-group
+            = f.label :gender, "性别", class: "control-label"
+            = f.text_field :gender, class: "form-control", disabled: true
           .form-group
             = f.label :mobile_number, "手机", class: 'control-label'
             = f.text_field :mobile_number, class: "form-control", disabled: true
