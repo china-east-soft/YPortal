@@ -17,7 +17,7 @@ environments = {
   },
   'testing' => {
     domain: 'portal.cloudchain.co',
-    branch: 'master'
+    branch: 'develop'
   }
 }
 
@@ -40,7 +40,9 @@ set :branch, branch
 #todo change commit this when deply
 #testing should deploy the newest, production not.
 #set this because the api for app will change and not compatible
-set :commit, '6484d53b'
+if rails_env == 'production'
+  set :commit, '6484d53b'
+end
 
 set :ssh_options, '-A'
 
