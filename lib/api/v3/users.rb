@@ -618,7 +618,10 @@ module API::V3
             status: status,
             program_id: program_id,
             program_name: program_name,
-            program_guide_now: program_guide_now
+            program_guide_now: program_guide_now,
+
+            longitude: other_user.longitude,
+            latitude: other_user.latitude,
           }
 
         else
