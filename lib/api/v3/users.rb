@@ -422,7 +422,9 @@ module API::V3
             avatar = u.avatar
           end
 
-          {id: u.id, nickname: u.name, avatar: avatar, avatar_type: u.avatar_type, gender: u.gender, level: u.level, status: status, program_id: program_id, program_name: program_name, program_guide_now: program_guide_now
+          {
+            id: u.id, nickname: u.name, avatar: avatar, avatar_type: u.avatar_type, gender: u.gender, level: u.level, status: status,
+            program: {id: program_id, name: program_name, guide_now: program_guide_now},
           }
         }
       end
@@ -460,9 +462,8 @@ module API::V3
             level: u.level,
 
             status: status,
-            program_id: program_id,
-            program_name: program_name,
-            program_guide_now: program_guide_now
+
+            program: {id: program_id, name: program_name, guide_now: program_guide_now},
           }
         }
       end
@@ -616,12 +617,9 @@ module API::V3
             level: other_user.level,
 
             status: status,
-            program_id: program_id,
-            program_name: program_name,
-            program_guide_now: program_guide_now,
 
-            longitude: other_user.longitude,
-            latitude: other_user.latitude,
+            program: {id: program_id, name: program_name, guide_now: program_guide_now,},
+            location: {longitude: other_user.longitude, latitude: other_user.latitude,},
           }
 
         else
@@ -892,9 +890,8 @@ module API::V3
            gender: user.gender,
            nickname: user.name,
            level: user.level,
-           longitude: user.longitude,
-           latitude: user.latitude,
-           program: {id: user.program.id, name: user.program.name}
+           location: {longitude: user.longitude, latitude: user.latitude,},
+           program: {id: user.program.id, name: user.program.name, guide_now: user.guide_now}
           #relationship: current_user.relationship_with(user)
           }
         }
