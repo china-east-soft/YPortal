@@ -112,6 +112,7 @@ module API::V3
 
         present :result, true
         present :name, user.name
+        present :gender, user.gender
         present :mobile_number, user.mobile_number
 
         if user.custom_avatar?
@@ -143,6 +144,7 @@ module API::V3
             present :result, true
             present :user_id, user.id
             present :name, user.name
+            present :gender, user.gender
             present :mobile_number, user.mobile_number
 
             if user.custom_avatar?
@@ -433,7 +435,8 @@ module API::V3
           end
 
           {
-            id: u.id, nickname: u.name, avatar: avatar, avatar_type: u.avatar_type, gender: u.gender, level: u.level, status: status,
+            id: u.id, nickname: u.name, avatar: avatar, avatar_type: u.avatar_type,
+            gender: u.gender, level: u.level, status: status,
             program: {id: program_id, name: program_name, guide_now: program_guide_now},
           }
         }
@@ -703,6 +706,7 @@ module API::V3
         present :result, true
         present :id, user.id
         present :nickname, user.name
+        present :gender, user.gender
         if user.custom_avatar?
           avatar = request.scheme + '://' + request.host_with_port + user.gravatar.url.to_s
         else
@@ -736,7 +740,7 @@ module API::V3
               avatar = user.avatar
             end
 
-            {id: user.id, avatar_type: user.avatar_type, avatar: avatar, nickname: user.name, relationship: current_user.relationship_with(user) }
+            {id: user.id, avatar_type: user.avatar_type, avatar: avatar, gender: user.gender, nickname: user.name, relationship: current_user.relationship_with(user) }
           },
         }
       end
