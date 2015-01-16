@@ -111,6 +111,16 @@ module API::V3
         user.save
 
         present :result, true
+        present :name, user.name
+        present :mobile_number, user.mobile_number
+
+        if user.custom_avatar?
+          avatar = request.scheme + '://' + request.host_with_port + user.gravatar.url.to_s
+        else
+          avatar = user.avatar
+        end
+        present :avatar_type, user.avatar_type
+        present :avatar, avatar
       end
 
       params do
