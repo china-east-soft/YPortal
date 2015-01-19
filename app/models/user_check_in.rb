@@ -8,7 +8,7 @@ class UserCheckIn < ActiveRecord::Base
     unless first_check_in &&
         first_check_in.created_at >= Time.zone.now.beginning_of_day &&
         first_check_in.created_at <= Time.zone.now.end_of_day
-      user.user_check_ins << UserCheckIn.new
+      user.user_check_ins << UserCheckIn.create
     end
   end
 
