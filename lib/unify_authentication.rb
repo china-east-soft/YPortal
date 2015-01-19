@@ -63,7 +63,7 @@ module UnifyAuthentication
 
     def session_exist?(cookie: cookie, token: token)
       begin
-        response = RestClient.get("#{DOMAIN}/api/acs_push", Cookie: cookie, "X-CSRF-TOKEN" => token)
+        response = RestClient.post("#{DOMAIN}/api/acs_push", Cookie: cookie, "X-CSRF-TOKEN" => token)
         if response.code == 200
         end
         p response.body
