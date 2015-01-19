@@ -171,7 +171,8 @@ namespace :epg do
           guide
         end.compact
       rescue Exception => e
-        p e
+        puts e
+        nil
       end
     end
 
