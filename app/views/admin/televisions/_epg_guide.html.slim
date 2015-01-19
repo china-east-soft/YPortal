@@ -26,7 +26,7 @@ div class="modal fade" id="guide-#{television.id}" tabindex="-1" role="dialog" a
                     th 时间
                     th 节目
                 tbody
-                  - television.guides[i.to_s].each do |guide|
+                  - television.guides[i.to_s].try(:each) do |guide|
                     tr
                       td
                         = guide["start"]
