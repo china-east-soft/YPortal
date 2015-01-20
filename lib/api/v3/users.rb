@@ -828,7 +828,7 @@ module API::V3
       end
       post :location do
         user = User.find params[:current_user_id]
-        user.longtitude = params[:longtitude]
+        user.longitude = params[:longitude]
         user.latitude = params[:latitude]
         user.save!
 
