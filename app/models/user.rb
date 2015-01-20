@@ -74,6 +74,14 @@ class User < ActiveRecord::Base
     status == "online"
   end
 
+  def name
+    if name = read_attribute(:name)
+      name
+    else
+      "用户#{id}"
+    end
+  end
+
   def gender_tr
     case gender
     when "male"
