@@ -142,10 +142,12 @@ class Program < ActiveRecord::Base
       day_of_week = Time.now.days_to_week_start + 1
       guides_today = guides[day_of_week.to_s]
       current = Time.now
-      guides_today.select do |h|
-        t = Time.parse(h["start"])
-        t <= current
-      end.last
+      if guides_today
+        guides_today.select do |h|
+          t = Time.parse(h["start"])
+          t <= current
+        end.last
+      end
     end
   end
 

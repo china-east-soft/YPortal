@@ -902,6 +902,10 @@ module API::V3
           else
             avatar = user.avatar
           end
+          program = if user.program
+                      {id: user.program.id, name: user.program.name, guide_now: user.guide_now}
+                    end
+
           {
            id: user.id,
            avatar_type: user.avatar_type,
@@ -910,7 +914,7 @@ module API::V3
            nickname: user.name,
            level: user.level,
            location: {longitude: user.longitude, latitude: user.latitude,},
-           program: {id: user.program.id, name: user.program.name, guide_now: user.guide_now}
+           program: program,
           #relationship: current_user.relationship_with(user)
           }
         }
