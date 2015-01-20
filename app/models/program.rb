@@ -99,12 +99,16 @@ class Program < ActiveRecord::Base
       program = Program.find_by(channel: channel)
       if program.nil?
         mode, freq, name_from_channel, city_code = channel.split('@')
-        if mode == 'CMMB' && CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.values.flatten.include?(channel_name)
-          name = Program.name_to_channel_name(channel_name)
+        puts mode, freq, name_from_channel, city_code
+        name = Program.name_to_channel_name(name_from_channel)
+
+        if mode == 'CMMB' && CMMB_CHANNEL_NAME_GLOBAL_PROGRAMS.values.flatten.include?(name)
           program = Program.where(mode: 'CMMB', channel_name: name).first
         else #mode != CMMB
-          city = City.find_by code: city_code
-          program = city.programs.where(mode: mode, name: name_from_channel, freq: freq).first
+          city = City.where(code: city_code).first
+          program = if city
+                      city.programs.where(mode: mode, name: name_from_channel, freq: freq).first
+                    end
         end
       end
 

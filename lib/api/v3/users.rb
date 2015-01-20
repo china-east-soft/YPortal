@@ -852,8 +852,13 @@ module API::V3
           message = "参数错误,program_id和channel必须有一个"
         else
           unless program_id
-            program = Programs.find_by_channel(channel)
-            program_id = program.try(:id)
+            program = Program.find_by_channel(channel)
+            if program
+              program_id = program.try(:id)
+            else
+              error_code = 2
+              message = "找不到节目"
+            end
           end
 
           if program_id
