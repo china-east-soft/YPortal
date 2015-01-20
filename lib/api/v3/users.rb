@@ -63,6 +63,9 @@ module API::V3
             UserCheckIn.create_if_not_check_in_today_with(user: user)
 
             PointDetail.create_by_user_id_and_rule_name(user_id: user.id, rule_name: "用户注册")
+
+            #unitify authentication
+            register_user(mobile_number: mobile_number, password: params[:password])
           else
             error_code = 3
             message = user.errors.full_messages.join(",")
@@ -140,6 +143,18 @@ module API::V3
           if user.authenticate(params[:password])
             #check in
             UserCheckIn.create_if_not_check_in_today_with(user: user)
+
+            #authenticate
+            h = login(username: user.mobile_number, password: params[:password])
+            unless h
+              register_user(mobile_number: user.mobile_number, password: params[:password])
+              h = login(username: user.mobile_number, password: params[:password])
+            end
+
+            if h
+              header 'X-CSRF-TOKEN', h[:token]
+              cookie[h[:session_name]] = h[:sessid]
+            end
 
             present :result, true
             present :user_id, user.id
