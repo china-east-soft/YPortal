@@ -88,8 +88,13 @@ module API::V3
       end
       post :profile do
         user = User.find params[:user_id]
+
+        params.each do |k, v|
+          Rails.logger.debug(v) if v.is_a?(String)
+        end
+
         if params[:name]
-          user.name = params[:name]
+          user.name = params[:name].force_encoding("UTF-8")
         end
 
         if params[:gender]
@@ -108,20 +113,29 @@ module API::V3
           user.avatar_type = params[:avatar_type]
         end
 
-        user.save
+        Rails.logger.debug("debug0")
+        user.save!
+        Rails.logger.debug("debug1")
 
         present :result, true
+        Rails.logger.debug("debug2")
         present :name, user.name
+        Rails.logger.debug("debug3")
         present :gender, user.gender
+        Rails.logger.debug("debug4")
         present :mobile_number, user.mobile_number
+        Rails.logger.debug("debug5")
 
         if user.custom_avatar?
           avatar = request.scheme + '://' + request.host_with_port + user.gravatar.url.to_s
         else
           avatar = user.avatar
         end
+        Rails.logger.debug("debug6")
         present :avatar_type, user.avatar_type
+        Rails.logger.debug("debug7")
         present :avatar, avatar
+        Rails.logger.debug("debug8")
       end
 
       params do
