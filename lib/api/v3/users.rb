@@ -145,15 +145,30 @@ module API::V3
             UserCheckIn.create_if_not_check_in_today_with(user: user)
 
             #authenticate
-            h = login(username: user.mobile_number, password: params[:password])
-            unless h
-              register_user(mobile_number: user.mobile_number, password: params[:password])
+            result = $redis.hgetall("user:#{user.id}")
+            if result.present?
+              Rails.logger.debug "user:#{user.id} info is in redis"
+              h = {}
+              h[:cookie] = JSON.parse(result["cookie"])
+              h[:token] = result["token"]
+            else
+              Rails.logger.debug "user:#{user.id} info not in redis, get from ca server"
               h = login(username: user.mobile_number, password: params[:password])
+              unless h
+                register_user(mobile_number: user.mobile_number, password: params[:password])
+                h = login(username: user.mobile_number, password: params[:password])
+              end
+              if h
+                $redis.hmset("user:#{user.id}", "token", h[:token], "cookie", h[:cookie].to_json)
+                $redis.expire("user:#{user.id}", 10 * 60 * 60 * 24 * 7)
+              end
             end
 
             if h
               header 'X-CSRF-TOKEN', h[:token]
-              cookies[h[:session_name]] = h[:sessid]
+              session_name = h[:cookie].keys.first
+              sessid = h[:cookie][session_name]
+              cookies[session_name] = sessid
             end
 
             present :result, true

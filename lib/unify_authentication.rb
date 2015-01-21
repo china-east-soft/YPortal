@@ -36,12 +36,14 @@ module UnifyAuthentication
         response = RestClient.post("#{DOMAIN}/api/user/login", username: username, password: password)
         if response.code == 200
           doc = Nokogiri::XML(response.body)
-          {
+          result = {
             sessid: doc.at_css("sessid").text,
             session_name: doc.at_css("session_name").text,
             cookie: {doc.at_css("session_name").text => response.cookies[doc.at_css("session_name").text]},
             token: doc.at_css("token").text,
           }
+
+          result
         else
           false
         end
@@ -74,7 +76,12 @@ module UnifyAuthentication
         response = RestClient.post("#{DOMAIN}/api/acs_push/session", {sid: session_id}, cookies: admin_cookie, "X-CSRF-TOKEN" => admin_token)
         if response.code == 200
           p response.body
-          true
+          doc = Nokogiri::XML(response.body)
+          if doc.at_css("message").text == "OK"
+            true
+          else
+            false
+          end
         else
           false
         end
