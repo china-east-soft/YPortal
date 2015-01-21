@@ -335,7 +335,6 @@ module Huanxin
                                     accept: :json
                                    )
         body = JSON.parse(response.body)
-        p body
         @access_token = body["access_token"]
         @expired_at = Time.now + body["expires_in"].to_i.seconds
         $redis.hmset("huanxin", "access_token", @access_token, "expired_at", @expired_at)

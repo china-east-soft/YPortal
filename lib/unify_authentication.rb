@@ -58,6 +58,7 @@ module UnifyAuthentication
         response = RestClient.post("#{DOMAIN}/api/acs_push", {token: device_token, type: "ios"}, {cookies: cookie, "X-CSRF-TOKEN" => token})
         if response.code == 200
           p response.body
+          true
         else
           false
         end
@@ -68,11 +69,14 @@ module UnifyAuthentication
       end
     end
 
-    def session_exist?(cookie: cookie, token: token)
+    def session_exist?(session_id)
       begin
-        response = RestClient.post("#{DOMAIN}/api/acs_push", cookies: cookie, "X-CSRF-TOKEN" => token)
+        response = RestClient.post("#{DOMAIN}/api/acs_push/session", {sid: session_id}, cookies: admin_cookie, "X-CSRF-TOKEN" => admin_token)
         if response.code == 200
           p response.body
+          true
+        else
+          false
         end
       rescue => e
         #todo record error and retry
@@ -81,10 +85,41 @@ module UnifyAuthentication
       end
     end
 
-    def admin_session_and_token
-      # result = login(username: ADMIN_PASSWORD, password: ADMIN_PASSWORD)
-      # token = result[:token]
-      # cookie = result[:cookie]
+
+    private
+    def admin_cookie
+      begin
+        admin_info = $redis.hgetall("authentication")
+        unless admin_info
+          update_admin_session_and_token
+          admin_info = $redis.hgetall("authentication")
+        end
+
+        JSON.parse(admin_info["cookie"])
+      rescue => e
+        Rails.logger.debug e
+      end
+    end
+
+    def admin_token
+      begin
+        admin_info = $redis.hgetall("authentication")
+        unless admin_info
+          update_admin_session_and_token
+          admin_info = $redis.hgetall("authentication")
+        end
+
+        admin_info["token"]
+      rescue => e
+        Rails.logger.debug e
+      end
+    end
+
+    def update_admin_session_and_token
+      result = login(username: ADMIN_USERNAME, password: ADMIN_PASSWORD)
+      admin_token = result[:token]
+      admin_cookie = result[:cookie].to_json
+      $redis.hmset("authentication", "token", admin_token, "cookie", admin_cookie)
     end
   end
 
