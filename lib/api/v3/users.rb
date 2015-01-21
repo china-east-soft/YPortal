@@ -153,7 +153,7 @@ module API::V3
 
             if h
               header 'X-CSRF-TOKEN', h[:token]
-              cookie[h[:session_name]] = h[:sessid]
+              cookies[h[:session_name]] = h[:sessid]
             end
 
             present :result, true

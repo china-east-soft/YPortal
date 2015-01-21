@@ -82,9 +82,9 @@ module UnifyAuthentication
     end
 
     def admin_session_and_token
-      result = login(username: ADMIN_PASSWORD, password: ADMIN_PASSWORD)
-      token = result[:token]
-      cookie = result[:cookie]
+      # result = login(username: ADMIN_PASSWORD, password: ADMIN_PASSWORD)
+      # token = result[:token]
+      # cookie = result[:cookie]
     end
   end
 

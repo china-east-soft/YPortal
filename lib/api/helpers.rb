@@ -5,6 +5,7 @@ module API
   module Helpers
     # ToDo: Is there any way to load all the helpers once?
     include API::Helpers::OAuth
+    include UnifyAuthentication
 
     # def current_user
     #   @current_user ||= User.find_by_authentication_token(params[:private_token] || env["HTTP_PRIVATE_TOKEN"])
