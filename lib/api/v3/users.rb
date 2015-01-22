@@ -900,7 +900,7 @@ module API::V3
       end
       get :nearby_users do
         distance = params[:distance]/1000.0
-        users = User.includes(:program).near([params[:latitude], params[:longitude]], distance, units: :km)
+        users = User.includes(:program).where(status: "online").near([params[:latitude], params[:longitude]], distance, units: :km)
 
         current_user = User.includes(:program).find params[:current_user_id]
         blocked_users = current_user.blocked_users.includes(:program)
