@@ -53,7 +53,7 @@ module API
       api_version = env['api.version']
       request = env['PATH_INFO'].sub("/#{api_version}/", '').sub('.json', '')
 
-      authenticate! unless request =~ /signin|signup|profile|reset_password_with_verify_code/
+      authenticate! unless request =~ /verify_code|signin|signup|profile|reset_password_with_verify_code/
 
         #debug purpose for filter landing api
         return if request =~ /landing/
