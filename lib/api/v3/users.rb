@@ -182,7 +182,11 @@ module API::V3
               header 'X-CSRF-TOKEN', h[:token]
               session_name = h[:cookie].keys.first
               sessid = h[:cookie][session_name]
-              cookies[session_name] = sessid
+              cookies[session_name] = {
+                                       value: sessid,
+                                       expires: Time.now + 7.day,
+                                       path: '/'
+                                      }
             end
 
             present :result, true

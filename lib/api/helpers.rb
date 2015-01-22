@@ -28,7 +28,7 @@ module API
       if token.present?
         Rails.logger.debug "token: #{token}"
         Rails.logger.debug "session: #{session}"
-        if session
+        if session.present?
           keys = $redis.keys("user:*")
           keys.one? do |user|
             Rails.logger.debug "#{user}"
@@ -39,7 +39,7 @@ module API
               Rails.logger.debug "ok"
             else
               Rails.logger.debug "not find"
-              render_api_error!('401 Unauthorized, please re login got new session', 401)
+              render_api_error!('401 Unauthorized, please re login got new session', 402)
             end
           end
         else
