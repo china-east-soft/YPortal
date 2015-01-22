@@ -30,23 +30,21 @@ module API
         Rails.logger.debug "session: #{session}"
         if session.present?
           keys = $redis.keys("user:*")
-          keys.one? do |user|
-            Rails.logger.debug "#{user}"
-            h = $redis.hgetall(user)
-            cookie = JSON.parse(h["cookie"])
-            Rails.logger.debug "cookie in redis: #{cookie}"
-            if session == cookie
-              Rails.logger.debug "ok"
-            else
-              Rails.logger.debug "not find"
-              render_api_error!('401 Unauthorized, please re login got new session', 402)
+          find = keys.one? do |user|
+              h = $redis.hgetall(user)
+              cookie = JSON.parse(h["cookie"])
+              session == cookie
             end
+          unless find
+            Rails.logger.debug "session not find in redis"
+            render_api_error!('401 Unauthorized, please re login got new session', 402)
           end
         else
           #Rails.logger.debug "cookie not exist"
           render_api_error!('401 Unauthorized, session not find in request', 401)
         end
       else
+        # render_api_error!('401 Unauthorized, please re login got new session', 402)
         Rails.logger.debug "token not exist"
       end
     end
