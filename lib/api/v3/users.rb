@@ -73,7 +73,7 @@ module API::V3
             end
 
             if h
-              header 'X-CSRF-TOKEN', h[:token]
+              header 'X-Csrf-Token', h[:token]
               session_name = h[:cookie].keys.first
               sessid = h[:cookie][session_name]
               cookies[session_name] = {
@@ -180,7 +180,7 @@ module API::V3
             end
 
             if h
-              header 'X-CSRF-TOKEN', h[:token]
+              header 'X-Csrf-Token', h[:token]
               session_name = h[:cookie].keys.first
               sessid = h[:cookie][session_name]
               cookies[session_name] = {
