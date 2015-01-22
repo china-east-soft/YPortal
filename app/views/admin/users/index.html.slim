@@ -14,6 +14,7 @@
               th 昵称
               th 经验值
               th 等级
+              th 在线状态
               th 注册时间
               th
               th
@@ -24,6 +25,7 @@
                 td = user.name
                 td = user.experience
                 td = user.level
+                td = "在线" if user.online?
                 td = user.created_at.to_s(:date)
                 td
                   - unless user.register_huanxin?
