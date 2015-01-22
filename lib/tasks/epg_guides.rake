@@ -142,7 +142,7 @@ namespace :epg do
     def get_day_guide_from_tvmao(name:, url:, time_of_guide: Time.now)
       begin
         puts "get_guide: #{name}, #{url}"
-        page = Nokogiri::HTML(open(url))
+        page = Nokogiri::HTML(open(url, "Referer" => "http://www.tvmao.com/"))
 
         page.css("#pgrow li").map do |item|
           if item["id"]
