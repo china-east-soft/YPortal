@@ -5,6 +5,7 @@ module API
   module Helpers
     # ToDo: Is there any way to load all the helpers once?
     include API::Helpers::OAuth
+    include UnifyAuthentication
 
     # def current_user
     #   @current_user ||= User.find_by_authentication_token(params[:private_token] || env["HTTP_PRIVATE_TOKEN"])
@@ -14,9 +15,41 @@ module API
       object.page(params[:page]).per(params[:per_page].to_i)
     end
 
-    # def authenticate!
-    #   unauthorized! unless current_user
-    # end
+    def authenticate!
+      Rails.logger.debug headers
+
+      session = {}
+      cookies.each do |k, v|
+        session[k] = v
+        break
+      end
+
+      token = headers["X-Csrf-Token"]
+      if token.present?
+        Rails.logger.debug "token: #{token}"
+        Rails.logger.debug "session: #{session}"
+        if session
+          keys = $redis.keys("user:*")
+          keys.one? do |user|
+            Rails.logger.debug "#{user}"
+            h = $redis.hgetall(user)
+            cookie = JSON.parse(h["cookie"])
+            Rails.logger.debug "cookie in redis: #{cookie}"
+            if session == cookie
+              Rails.logger.debug "ok"
+            else
+              Rails.logger.debug "not find"
+              render_api_error!('401 Unauthorized, please re login got new session', 401)
+            end
+          end
+        else
+          #Rails.logger.debug "cookie not exist"
+          render_api_error!('401 Unauthorized, session not find in request', 401)
+        end
+      else
+        Rails.logger.debug "token not exist"
+      end
+    end
 
     # def authenticated_as_admin!
     #   forbidden! unless current_user.is_admin?

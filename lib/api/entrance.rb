@@ -49,6 +49,15 @@ module API
     before do
       @start = Time.now.to_f
 
+      Rails.logger.debug "beofre auth"
+      api_version = env['api.version']
+      request = env['PATH_INFO'].sub("/#{api_version}/", '').sub('.json', '')
+
+      authenticate! unless request =~ /signin|signup/
+
+        #debug purpose for filter landing api
+        return if request =~ /landing/
+
       #for debug paramter from app, because if parammeter is invalid, server can not see
       # log_api_visit unless Rails.env.development?
     end
