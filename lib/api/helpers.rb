@@ -15,9 +15,17 @@ module API
       object.page(params[:page]).per(params[:per_page].to_i)
     end
 
-    # def authenticate!
-    #   unauthorized! unless current_user
-    # end
+    def authenticate!
+      token = headers["X-CSRF-TOKEN"]
+      if token.present?
+        session = cookies.first
+        if session
+          keys = $redis.keys("user:*")
+          keys.find do |session|
+          end
+        end
+      end
+    end
 
     # def authenticated_as_admin!
     #   forbidden! unless current_user.is_admin?
