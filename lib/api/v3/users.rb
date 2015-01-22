@@ -66,6 +66,22 @@ module API::V3
 
             #unitify authentication
             register_user(mobile_number: mobile_number, password: params[:password])
+            h = login(username: user.mobile_number, password: params[:password])
+            if h
+              $redis.hmset("user:#{user.id}", "token", h[:token], "cookie", h[:cookie].to_json)
+              $redis.expire("user:#{user.id}", 10 * 60 * 60 * 24 * 7)
+            end
+
+            if h
+              header 'X-CSRF-TOKEN', h[:token]
+              session_name = h[:cookie].keys.first
+              sessid = h[:cookie][session_name]
+              cookies[session_name] = {
+                                       value: sessid,
+                                       expires: Time.now + 7.day,
+                                       path: '/'
+                                      }
+            end
           else
             error_code = 3
             message = user.errors.full_messages.join(",")
