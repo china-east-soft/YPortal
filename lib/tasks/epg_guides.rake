@@ -17,8 +17,9 @@ namespace :epg do
 
         File.open("#{Rails.root.to_s}/public/cities/#{city.id}.json", "w") do |f|
           guides = city.programs.includes(:television).map {|p| {program_id: p.id, program_name: p.name || "", guides: p.guides}}
-          f.write(guides.to_json)
-          city.touch(:epg_guide_created_at)
+          t = Time.now
+          f.write({epg_guide_create_time: t.to_i, guides: guides}.to_json)
+          city.update_column(:epg_guide_created_at, t)
         end
       end
     end
