@@ -37,13 +37,6 @@ end
 set :repository, 'git@github.com:china-east-soft/YPortal.git'
 set :branch, branch
 
-#todo change commit this when deply
-#testing should deploy the newest, production not.
-#set this because the api for app will change and not compatible
-if rails_env == 'production'
-  set :commit, '6484d53b'
-end
-
 set :ssh_options, '-A'
 
 set :shared_paths, ['log', '.private_key', 'tmp/restart.txt', 'public/system', 'public/uploads', 'public/robots.txt', 'public/guides', 'public/cities', 'config/database.yml', 'config/nginx.conf', 'config/config.yml', 'config/auth_message.yml', 'pids/sidekiq.pid']
