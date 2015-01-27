@@ -104,7 +104,11 @@ Rails.application.routes.draw do
     resources :terminal_versions
     resources :app_versions
     resources :feed_backs
-    resources :comments, only: [:create, :index, :destroy]
+    resources :comments, only: [:create, :index, :destroy] do
+      collection do
+        delete :destroy_multiple
+      end
+    end
     resources :api_visit_logs, only: :index
     resources :programs do
       collection do

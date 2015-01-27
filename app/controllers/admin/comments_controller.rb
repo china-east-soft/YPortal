@@ -34,6 +34,11 @@ class Admin::CommentsController < AdminController
     @comment.destroy
   end
 
+  def destroy_multiple
+    Comment.destroy(params[:comment])
+    redirect_to admin_comments_url
+  end
+
   private
   def setup
     @left_panel = "admin/programs/left_panel"
