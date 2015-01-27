@@ -7,7 +7,6 @@
           = text_field_tag(:channel, nil, placeholder: "节目标识 MMB@00@CCTV-1@*")
           = submit_tag("查询")
       .panel-body#comments
-      .panel-footer
         = form_tag destroy_multiple_admin_comments_path, method: :delete
           table.table.table-striped.table-advance.table-hover.table-bordered
             thead
