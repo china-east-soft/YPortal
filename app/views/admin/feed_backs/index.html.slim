@@ -3,12 +3,33 @@
     section.panel
       header.panel-heading 反馈列表
       .panel-body#feed_backs
-        .list-group.list-group-feed-back
-          - if @feed_backs.any?
-            = render @feed_backs
-          - else
-            .list-grounp-item.text-center.text-muted.empty-message
-              | 还没有反馈
+        table.table.table-striped.table-advance.table-hover.table-bordered
+          thead
+            tr
+              th 联系方式
+              th 手机型号
+              th APP版本
+              th 终端
+              th 反馈内容
+              th
+          tbody
+            - @feed_backs.each do |feed_back|
+              tr id="feed_back-#{feed_back.id}"
+                td = feed_back.contact
+                td = feed_back.phone_type
+                td = feed_back.client_version
+                td = "#{feed_back.terminal_version_name} - #{feed_back.terminal_version}"
+                td.td-show-more
+                  - if feed_back.content.length > 25
+                    = feed_back.content[0..25]
+                    button type="button" class="btn btn-xs btn-default" data-toggle="popover" title="Popover title" data-placement="top" data-content="#{feed_back.content}" 更多
+                  - else
+                    = feed_back.content
+                td
+                  = link_to "查看", [:admin, feed_back]
+                  ||
+                  = link_to "删除", [:admin, feed_back], method: :delete, remote: true, data: {confirm: "确定删除?"}
+      .panel-footer
         .row
           .col-lg-6
             .dataTables_info 共有#{@feed_backs.total_count}条记录
