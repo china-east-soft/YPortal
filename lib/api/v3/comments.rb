@@ -92,11 +92,17 @@ module API::V3
               end
               user_id = child.user_id
               user_name = child.user.try(:name)
-              user_avatar = child.user.try(:avatar)
+
+              if child.custom_avatar?
+                avatar = request.scheme + '://' + request.host_with_port + user.gravatar.url.to_s
+              else
+                avatar = child.avatar
+              end
+
               {
                id: child.id, type: child.content_type, body: body,
                duration: child.duration, user_id: user_id, user_name: user_name,
-               user_avatar: user_avatar, created_at: child.created_at
+               avatar_type: child.avatar_type, user_avatar: avatar, created_at: child.created_at
               }
             }
             if c.audio?
