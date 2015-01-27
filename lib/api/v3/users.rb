@@ -203,6 +203,7 @@ module API::V3
             end
             present :avatar_type, user.avatar_type
             present :avatar, avatar
+            present :level, u.level
           else
             error_code = 2
             message = "incorrect password"
