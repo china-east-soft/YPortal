@@ -56,7 +56,7 @@ module API
       authenticate! unless request =~ /verify_code|signin|signup|profile|reset_password_with_verify_code/
 
         #debug purpose for filter landing api
-        return if request =~ /landing/
+        # return if request =~ /landing/
 
       #for debug paramter from app, because if parammeter is invalid, server can not see
       # log_api_visit unless Rails.env.development?
