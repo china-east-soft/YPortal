@@ -115,7 +115,15 @@ module API::V3
             end
             user_id = c.user_id
             user_name = c.user.try(:name)
-            user_avatar = c.user.try(:avatar)
+
+            user = c.user
+            avatar = if user
+                       if user.custom_avatar?
+                         request.scheme + '://' + request.host_with_port + user.gravatar.url.to_s
+                       else
+                         user.avatar
+                       end
+                     end
 
             # other_user = c.user
 
@@ -148,7 +156,7 @@ module API::V3
             {
               id: c.id, type: c.content_type, body: body,
               duration: c.duration,
-              user_id: user_id, user_name: user_name, user_avatar: user_avatar,
+              user_id: user_id, user_name: user_name, avatar_type: user.try(:avatar_type), user_avatar: avatar,
               #relationship: relationship,
               created_at: c.created_at.to_i, children: children
             }
