@@ -37,7 +37,7 @@ module API
             end
           unless find
             Rails.logger.debug "session not find in redis"
-            render_api_error!('401 Unauthorized, please re login got new session', 402)
+            render_api_error!('401 Unauthorized, please re login got new session', 401)
           else
             Rails.logger.debug "session is find in redis, ok."
           end
